@@ -440,6 +440,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/vim,osx,node,react,windows,sublimetext,reactnative
-
-api/env/development.js
-api/env/production.js
