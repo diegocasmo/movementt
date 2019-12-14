@@ -45,6 +45,10 @@ const auth = createSlice({
       state.isSigningUp = false
       state.hasSigningUpError = true
     },
+    signUpReset(state) {
+      state.isSigningUp = false
+      state.hasSigningUpError = false
+    },
 
     // Signing in
     signInInit(state) {
@@ -59,18 +63,29 @@ const auth = createSlice({
       state.isSigningIn = false
       state.hasSigningInError = true
     },
+    signInReset(state) {
+      state.isSigningIn = false
+      state.hasSigningInError = false
+    },
   },
 })
 
 export const {
+  // Load authentication
   authStateChangedSignIn,
   authStateChangedSignOut,
+
+  // Sign Up
   signUpInit,
   signUpSuccess,
   signUpFailure,
+  signUpReset,
+
+  // Sign In
   signInInit,
   signInSuccess,
   signInFailure,
+  signInReset,
 } = auth.actions
 
 export default auth.reducer
@@ -86,19 +101,31 @@ export const handleAuthStateChanged = user => dispatch => {
 export const signUp = (email, password) => async dispatch => {
   try {
     dispatch(signUpInit())
-    const user = await createUserWithEmailAndPassword(email, password)
-    dispatch(signUpSuccess(user))
+    await createUserWithEmailAndPassword(email, password)
+    // Note there's no need to set the uid in state as the `handleAuthStateChanged`
+    // action will do that automatically
+    dispatch(signUpSuccess())
   } catch (err) {
     dispatch(signUpFailure())
   }
 }
 
+export const signUpClear = () => dispatch => {
+  dispatch(signUpReset())
+}
+
 export const signIn = (email, password) => async dispatch => {
   try {
     dispatch(signInInit())
-    const user = await signInWithEmailAndPassword(email, password)
+    await signInWithEmailAndPassword(email, password)
+    // Note there's no need to set the uid in state as the `handleAuthStateChanged`
+    // action will do that automatically
     dispatch(signInSuccess())
   } catch (err) {
     dispatch(signInFailure())
   }
+}
+
+export const signInClear = () => dispatch => {
+  dispatch(signInReset())
 }

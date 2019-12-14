@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, Text } from 'native-base'
-import { signUp } from '../../../state/reducers/auth'
+import { signUp, signUpClear } from '../../../state/reducers/auth'
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm'
 
 const SignUpScreen = ({ navigation }) => {
@@ -12,6 +12,12 @@ const SignUpScreen = ({ navigation }) => {
     isSigningUp: auth.isSigningUp,
     hasSigningUpError: auth.hasSigningUpError,
   }))
+
+  useEffect(() => {
+    return () => {
+      dispatch(signUpClear())
+    }
+  }, [dispatch])
 
   const handleClickOnSignIn = () => {
     navigation.navigate('SignIn')
