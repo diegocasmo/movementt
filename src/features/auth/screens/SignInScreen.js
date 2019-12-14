@@ -3,21 +3,14 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, Text } from 'native-base'
-import { signIn, signInClear } from '../../../state/reducers/auth'
+import { signIn } from '../../../state/reducers/auth'
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm'
 
 const SignInScreen = ({ navigation }) => {
   const dispatch = useDispatch()
-  const { isSigningIn, hasSigningInError } = useSelector(({ auth }) => ({
+  const { isSigningIn } = useSelector(({ auth }) => ({
     isSigningIn: auth.isSigningIn,
-    hasSigningInError: auth.hasSigningInError,
   }))
-
-  useEffect(() => {
-    return () => {
-      dispatch(signInClear())
-    }
-  }, [dispatch])
 
   const handleClickOnSignUp = () => {
     navigation.navigate('SignUp')
@@ -31,14 +24,6 @@ const SignInScreen = ({ navigation }) => {
           dispatch(signIn(email, password))
         }}
         isSubmitting={isSigningIn}
-        submitError={
-          hasSigningInError ? (
-            <Text style={styles.submitError} onPress={handleClickOnSignUp}>
-              Unable to sign in. Verify your email and password or create an
-              account.
-            </Text>
-          ) : null
-        }
       />
     </Container>
   )

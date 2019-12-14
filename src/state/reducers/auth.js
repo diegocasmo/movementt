@@ -50,10 +50,6 @@ const auth = createSlice({
       state.isSigningUp = false
       state.hasSigningUpError = true
     },
-    signUpReset(state) {
-      state.isSigningUp = false
-      state.hasSigningUpError = false
-    },
 
     // Signing in
     signInInit(state) {
@@ -67,10 +63,6 @@ const auth = createSlice({
     signInFailure(state) {
       state.isSigningIn = false
       state.hasSigningInError = true
-    },
-    signInReset(state) {
-      state.isSigningIn = false
-      state.hasSigningInError = false
     },
 
     // Signing out
@@ -89,73 +81,42 @@ const auth = createSlice({
   },
 })
 
-export const {
-  // Load authentication
-  authStateChangedSignIn,
-  authStateChangedSignOut,
-
-  // Sign Up
-  signUpInit,
-  signUpSuccess,
-  signUpFailure,
-  signUpReset,
-
-  // Sign In
-  signInInit,
-  signInSuccess,
-  signInFailure,
-  signInReset,
-
-  // Sign Out
-  signOutInit,
-  signOutSuccess,
-  signOutFailure,
-} = auth.actions
-
 export default auth.reducer
 
 export const handleAuthStateChanged = user => dispatch => {
   if (user) {
-    dispatch(authStateChangedSignIn(user.uid))
+    dispatch(auth.actions.authStateChangedSignIn(user.uid))
   } else {
-    dispatch(authStateChangedSignOut())
+    dispatch(auth.actions.authStateChangedSignOut())
   }
 }
 
 export const signUp = (email, password) => async dispatch => {
   try {
-    dispatch(signUpInit())
+    dispatch(auth.actions.signUpInit())
     await createUserWithEmailAndPassword(email, password)
-    dispatch(signUpSuccess())
+    dispatch(auth.actions.signUpSuccess())
   } catch (err) {
     dispatch(signUpFailure())
   }
 }
 
-export const signUpClear = () => dispatch => {
-  dispatch(signUpReset())
-}
-
 export const signIn = (email, password) => async dispatch => {
   try {
-    dispatch(signInInit())
+    dispatch(auth.actions.signInInit())
     await signInWithEmailAndPassword(email, password)
-    dispatch(signInSuccess())
+    dispatch(auth.actions.signInSuccess())
   } catch (err) {
-    dispatch(signInFailure())
+    dispatch(auth.actions.signInFailure())
   }
-}
-
-export const signInClear = () => dispatch => {
-  dispatch(signInReset())
 }
 
 export const signOut = () => async dispatch => {
   try {
-    dispatch(signOutInit())
+    dispatch(auth.actions.signOutInit())
     await signUserOut()
-    dispatch(signOutSuccess())
+    dispatch(auth.actions.signOutSuccess())
   } catch (err) {
-    dispatch(signOutFailure())
+    dispatch(auth.actions.signOutFailure())
   }
 }

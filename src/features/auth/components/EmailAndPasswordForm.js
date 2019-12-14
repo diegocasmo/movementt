@@ -16,12 +16,7 @@ const validationSchema = Yup.object({
     .min(6),
 })
 
-const EmailAndPasswordForm = ({
-  buttonText,
-  isSubmitting,
-  onSubmit,
-  submitError,
-}) => {
+const EmailAndPasswordForm = ({ buttonText, isSubmitting, onSubmit }) => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -90,8 +85,6 @@ const EmailAndPasswordForm = ({
                 <Text style={styles.buttonText}>{buttonText}</Text>
               )}
             </Button>
-
-            {submitError}
           </Form>
         )
       }}
@@ -103,7 +96,6 @@ EmailAndPasswordForm.navigationOptions = {
   buttonText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
-  submitError: PropTypes.node,
 }
 
 export default EmailAndPasswordForm
