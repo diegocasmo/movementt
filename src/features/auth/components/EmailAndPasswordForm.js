@@ -15,7 +15,12 @@ const validationSchema = Yup.object({
     .min(6),
 })
 
-const EmailAndPasswordForm = ({ buttonText, isSubmitting, onSubmit }) => {
+const EmailAndPasswordForm = ({
+  style,
+  buttonText,
+  isSubmitting,
+  onSubmit,
+}) => {
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -31,7 +36,7 @@ const EmailAndPasswordForm = ({ buttonText, isSubmitting, onSubmit }) => {
         errors,
       }) => {
         return (
-          <Form style={styles.form}>
+          <Form style={style}>
             <ImageLogo style={styles.image} />
             <Item
               success={touched.email && !errors.email ? true : false}
@@ -91,7 +96,8 @@ const EmailAndPasswordForm = ({ buttonText, isSubmitting, onSubmit }) => {
   )
 }
 
-EmailAndPasswordForm.navigationOptions = {
+EmailAndPasswordForm.propTypes = {
+  style: PropTypes.object,
   buttonText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
@@ -100,13 +106,6 @@ EmailAndPasswordForm.navigationOptions = {
 export default EmailAndPasswordForm
 
 const styles = StyleSheet.create({
-  form: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
   image: {
     marginBottom: 25,
   },

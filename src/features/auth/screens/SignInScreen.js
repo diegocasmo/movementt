@@ -36,10 +36,15 @@ const SignInScreen = ({ navigation }) => {
   return (
     <Container style={styles.container}>
       <EmailAndPasswordForm
+        style={styles.form}
         buttonText="Sign In"
         onSubmit={handleSubmit}
         isSubmitting={isSigningIn}
       />
+      <Text style={styles.captionText} onPress={handleClickOnSignUp}>
+        First time here?{' '}
+        <Text style={styles.signUpText}>Create an account</Text>
+      </Text>
     </Container>
   )
 }
@@ -60,8 +65,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  submitError: {
-    textAlign: 'center',
-    marginTop: 30,
+  form: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: '100%',
+    alignItems: 'center',
+  },
+  captionText: {
+    marginTop: 40,
+  },
+  signUpText: {
+    textDecorationLine: 'underline',
   },
 })
