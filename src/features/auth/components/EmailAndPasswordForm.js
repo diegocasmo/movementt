@@ -8,7 +8,6 @@ import ImageLogo from '../../../components/ImageLogo'
 
 const validationSchema = Yup.object({
   email: Yup.string()
-    .trim()
     .email()
     .required(),
   password: Yup.string()

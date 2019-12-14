@@ -3,14 +3,17 @@ import App from './App'
 import { initializeApi } from './api/config'
 import { Provider } from 'react-redux'
 import store from './state'
+import { Root as NativeBaseRoot } from 'native-base'
 
 initializeApi()
 
 const Root = () => {
   return (
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <NativeBaseRoot>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </NativeBaseRoot>
   )
 }
 

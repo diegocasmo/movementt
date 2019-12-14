@@ -12,15 +12,15 @@ const initialState = {
 
   // Signing up
   isSigningUp: false,
-  hasSigningUpError: false,
+  signingUpError: null,
 
   // Signing in
   isSigningIn: false,
-  hasSigningInError: false,
+  signingInError: null,
 
   // Signing out
   isSigningOut: false,
-  hasSigningOutError: false,
+  signingOutError: null,
 }
 
 const auth = createSlice({
@@ -40,43 +40,51 @@ const auth = createSlice({
     // Signing up
     signUpInit(state) {
       state.isSigningUp = true
-      state.hasSigningUpError = false
+      state.signingUpError = initialState.signingUpError
     },
-    signUpSuccess(state, payload) {
+    signUpSuccess(state) {
       state.isSigningUp = false
-      state.hasSigningUpError = false
+      state.signingUpError = initialState.signingUpError
     },
-    signUpFailure(state) {
+    signUpFailure(state, { payload }) {
       state.isSigningUp = false
-      state.hasSigningUpError = true
+      state.signingUpError = payload
+    },
+    signUpReset(state) {
+      state.isSigningUp = initialState.isSigningUp
+      state.signingUpError = initialState.signingUpError
     },
 
     // Signing in
     signInInit(state) {
       state.isSigningIn = true
-      state.hasSigningInError = false
+      state.signingInError = initialState.signingInError
     },
-    signInSuccess(state, payload) {
+    signInSuccess(state) {
       state.isSigningIn = false
-      state.hasSigningInError = false
+      state.signingInError = initialState.signingInError
     },
-    signInFailure(state) {
+    signInFailure(state, { payload }) {
       state.isSigningIn = false
-      state.hasSigningInError = true
+      state.signingInError = payload
+    },
+    signInReset(state) {
+      state.isSigningIn = initialState.isSigningIn
+      state.signingInError = initialState.signingInError
     },
 
     // Signing out
     signOutInit(state) {
       state.isSigningOut = true
-      state.hasSigningOutError = false
+      state.signingOutError = initialState.signingOutError
     },
-    signOutSuccess(state, payload) {
+    signOutSuccess(state) {
       state.isSigningOut = false
-      state.hasSigningOutError = false
+      state.signingOutError = initialState.signingOutError
     },
-    signOutFailure(state) {
+    signOutFailure(state, { payload }) {
       state.isSigningOut = false
-      state.hasSigningOutError = true
+      state.signingOutError = payload
     },
   },
 })
@@ -97,8 +105,12 @@ export const signUp = (email, password) => async dispatch => {
     await createUserWithEmailAndPassword(email, password)
     dispatch(auth.actions.signUpSuccess())
   } catch (err) {
-    dispatch(signUpFailure())
+    dispatch(auth.actions.signUpFailure(err.message))
   }
+}
+
+export const signUpReset = () => dispatch => {
+  dispatch(auth.actions.signUpReset())
 }
 
 export const signIn = (email, password) => async dispatch => {
@@ -107,8 +119,12 @@ export const signIn = (email, password) => async dispatch => {
     await signInWithEmailAndPassword(email, password)
     dispatch(auth.actions.signInSuccess())
   } catch (err) {
-    dispatch(auth.actions.signInFailure())
+    dispatch(auth.actions.signInFailure(err.message))
   }
+}
+
+export const signInReset = () => dispatch => {
+  dispatch(auth.actions.signInReset())
 }
 
 export const signOut = () => async dispatch => {
@@ -117,6 +133,6 @@ export const signOut = () => async dispatch => {
     await signUserOut()
     dispatch(auth.actions.signOutSuccess())
   } catch (err) {
-    dispatch(auth.actions.signOutFailure())
+    dispatch(auth.actions.signOutFailure(err.message))
   }
 }
