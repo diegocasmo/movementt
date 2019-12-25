@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import { Container, Toast, Text } from 'native-base'
+import { Container, Content, Toast, Text } from 'native-base'
 import { signUp, signUpReset } from '../../../state/reducers/auth'
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm'
 
@@ -34,16 +34,19 @@ const SignUpScreen = ({ navigation }) => {
   }
 
   return (
-    <Container style={styles.container}>
-      <EmailAndPasswordForm
-        style={styles.form}
-        buttonText="Create Account"
-        onSubmit={handleSubmit}
-        isSubmitting={isSigningUp}
-      />
-      <Text style={styles.captionText} onPress={handlePressOnSignIn}>
-        Not the first time here? <Text style={styles.signInText}>Sign in</Text>
-      </Text>
+    <Container>
+      <Content padder>
+        <EmailAndPasswordForm
+          style={styles.form}
+          buttonText="Create Account"
+          onSubmit={handleSubmit}
+          isSubmitting={isSigningUp}
+        />
+        <Text style={styles.captionText} onPress={handlePressOnSignIn}>
+          Not the first time here?{' '}
+          <Text style={styles.signInText}>Sign in</Text>
+        </Text>
+      </Content>
     </Container>
   )
 }
@@ -59,19 +62,13 @@ SignUpScreen.propTypes = {
 export default SignUpScreen
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   form: {
-    paddingLeft: 20,
-    paddingRight: 20,
     width: '100%',
     alignItems: 'center',
   },
   captionText: {
     marginTop: 40,
+    textAlign: 'center',
   },
   signInText: {
     textDecorationLine: 'underline',
