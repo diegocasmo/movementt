@@ -12,6 +12,4 @@ if (__DEV__ && module.hot) {
   })
 }
 
-export type AppDispatch = typeof store.dispatch
-
 export default store
