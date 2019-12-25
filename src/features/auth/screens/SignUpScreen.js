@@ -25,7 +25,7 @@ const SignUpScreen = ({ navigation }) => {
     }
   }, [dispatch])
 
-  const handleClickOnSignIn = () => {
+  const handlePressOnSignIn = () => {
     navigation.navigate('SignIn')
   }
 
@@ -41,7 +41,7 @@ const SignUpScreen = ({ navigation }) => {
         onSubmit={handleSubmit}
         isSubmitting={isSigningUp}
       />
-      <Text style={styles.captionText} onPress={handleClickOnSignIn}>
+      <Text style={styles.captionText} onPress={handlePressOnSignIn}>
         Not the first time here? <Text style={styles.signInText}>Sign in</Text>
       </Text>
     </Container>

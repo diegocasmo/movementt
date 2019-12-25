@@ -5,21 +5,21 @@ import { Container, Button, Text } from 'native-base'
 import ImageLogo from '../../../components/ImageLogo'
 
 const GuestWelcomeScreen = ({ navigation }) => {
-  const handleClickOnSignIn = () => {
+  const handlePressOnSignIn = () => {
     navigation.navigate('SignIn')
   }
 
-  const handleClickOnSignUp = () => {
+  const handlePressOnSignUp = () => {
     navigation.navigate('SignUp')
   }
 
   return (
     <Container style={styles.container}>
       <ImageLogo style={styles.image} />
-      <Button primary block style={styles.button} onPress={handleClickOnSignIn}>
+      <Button primary block style={styles.button} onPress={handlePressOnSignIn}>
         <Text style={styles.buttonText}>Sign In</Text>
       </Button>
-      <Button light block style={styles.button} onPress={handleClickOnSignUp}>
+      <Button light block style={styles.button} onPress={handlePressOnSignUp}>
         <Text style={styles.buttonText}>Create Account</Text>
       </Button>
     </Container>

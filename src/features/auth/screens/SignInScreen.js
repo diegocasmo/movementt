@@ -25,7 +25,7 @@ const SignInScreen = ({ navigation }) => {
     }
   }, [dispatch])
 
-  const handleClickOnSignUp = () => {
+  const handlePressOnSignUp = () => {
     navigation.navigate('SignUp')
   }
 
@@ -41,7 +41,7 @@ const SignInScreen = ({ navigation }) => {
         onSubmit={handleSubmit}
         isSubmitting={isSigningIn}
       />
-      <Text style={styles.captionText} onPress={handleClickOnSignUp}>
+      <Text style={styles.captionText} onPress={handlePressOnSignUp}>
         First time here?{' '}
         <Text style={styles.signUpText}>Create an account</Text>
       </Text>

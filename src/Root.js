@@ -4,6 +4,7 @@ import { initializeApi } from './api/config'
 import { Provider } from 'react-redux'
 import store from './state'
 import { Root as NativeBaseRoot } from 'native-base'
+import 'react-native-gesture-handler'
 
 initializeApi()
 

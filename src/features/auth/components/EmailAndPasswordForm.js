@@ -42,7 +42,7 @@ const EmailAndPasswordForm = ({
               success={touched.email && !errors.email ? true : false}
               error={touched.email && errors.email ? true : false}
             >
-              <Icon active name="mail-open" />
+              <Icon active name="md-mail-open" />
               <Input
                 autoFocus
                 autoCorrect={false}
@@ -54,9 +54,9 @@ const EmailAndPasswordForm = ({
               />
               {touched.email &&
                 (errors.email ? (
-                  <Icon name="close-circle" />
+                  <Icon name="md-close-circle" />
                 ) : (
-                  <Icon name="checkmark-circle" />
+                  <Icon name="md-checkmark-circle" />
                 ))}
             </Item>
 
@@ -64,7 +64,7 @@ const EmailAndPasswordForm = ({
               success={touched.password && !errors.password ? true : false}
               error={touched.password && errors.password ? true : false}
             >
-              <Icon active name="key" />
+              <Icon active name="md-key" />
               <Input
                 secureTextEntry
                 autoCorrect={false}
@@ -76,9 +76,9 @@ const EmailAndPasswordForm = ({
               />
               {touched.password &&
                 (errors.password ? (
-                  <Icon name="close-circle" />
+                  <Icon name="md-close-circle" />
                 ) : (
-                  <Icon name="checkmark-circle" />
+                  <Icon name="md-checkmark-circle" />
                 ))}
             </Item>
 

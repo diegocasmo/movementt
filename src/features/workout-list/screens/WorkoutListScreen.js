@@ -1,20 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Container, Header, Body, Title, Content } from 'native-base'
 
 const WorkoutListScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>WorkoutListScreen</Text>
-    </View>
+    <Container>
+      <Header>
+        <Body>
+          <Title>Workouts</Title>
+        </Body>
+      </Header>
+      <Content />
+    </Container>
   )
 }
 
 export default WorkoutListScreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
