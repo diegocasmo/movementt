@@ -2,25 +2,29 @@ import { createSlice } from '@reduxjs/toolkit'
 import { createUserWithEmailAndPassword } from '../../api/auth/sign-up'
 import { signInWithEmailAndPassword } from '../../api/auth/sign-in'
 import { signOut as signUserOut } from '../../api/auth/sign-out'
+import { sendEmailVerification } from '../../api/user/send-email-verification'
+import { currentUser } from '../../api/user/current-user'
 
 const initialState = {
-  uid: null,
+  user: null,
 
   // Load authentication
   isLoadingAuth: true,
-  hasLoadingAuthError: false,
+
+  // Reload current user
+  isReloadingCurrentUser: false,
 
   // Signing up
   isSigningUp: false,
-  signingUpError: null,
 
   // Signing in
   isSigningIn: false,
-  signingInError: null,
+
+  // Verification
+  isSendingVerification: false,
 
   // Signing out
   isSigningOut: false,
-  signingOutError: null,
 }
 
 const auth = createSlice({
@@ -29,62 +33,73 @@ const auth = createSlice({
   reducers: {
     // Load authentication
     authStateChangedSignIn(state, { payload }) {
-      state.uid = payload
+      state.user = payload
       state.isLoadingAuth = false
     },
     authStateChangedSignOut(state) {
       state.isLoadingAuth = false
-      state.uid = null
+      state.user = null
+    },
+
+    // Reload current user
+    reloadCurrentUserInit(state) {
+      state.isReloadingCurrentUser = true
+    },
+    reloadCurrentUserSuccess(state) {
+      state.isReloadingCurrentUser = false
+    },
+    reloadCurrentUserFailure(state) {
+      state.isReloadingCurrentUser = false
     },
 
     // Signing up
     signUpInit(state) {
       state.isSigningUp = true
-      state.signingUpError = initialState.signingUpError
     },
     signUpSuccess(state) {
       state.isSigningUp = false
-      state.signingUpError = initialState.signingUpError
     },
-    signUpFailure(state, { payload }) {
+    signUpFailure(state) {
       state.isSigningUp = false
-      state.signingUpError = payload
     },
     signUpReset(state) {
       state.isSigningUp = initialState.isSigningUp
-      state.signingUpError = initialState.signingUpError
     },
 
     // Signing in
     signInInit(state) {
       state.isSigningIn = true
-      state.signingInError = initialState.signingInError
     },
     signInSuccess(state) {
       state.isSigningIn = false
-      state.signingInError = initialState.signingInError
     },
-    signInFailure(state, { payload }) {
+    signInFailure(state) {
       state.isSigningIn = false
-      state.signingInError = payload
     },
     signInReset(state) {
       state.isSigningIn = initialState.isSigningIn
-      state.signingInError = initialState.signingInError
+    },
+
+    // Verification
+    sendVerificationInit(state) {
+      state.isSendingVerification = true
+    },
+    sendVerificationSuccess(state) {
+      state.isSendingVerification = false
+    },
+    sendVerificationFailure(state) {
+      state.isSendingVerification = false
     },
 
     // Signing out
     signOutInit(state) {
       state.isSigningOut = true
-      state.signingOutError = initialState.signingOutError
     },
     signOutSuccess(state) {
       state.isSigningOut = false
-      state.signingOutError = initialState.signingOutError
     },
-    signOutFailure(state, { payload }) {
+    signOutFailure(state) {
       state.isSigningOut = false
-      state.signingOutError = payload
     },
   },
 })
@@ -92,10 +107,24 @@ const auth = createSlice({
 export default auth.reducer
 
 export const handleAuthStateChanged = user => dispatch => {
-  if (user) {
-    dispatch(auth.actions.authStateChangedSignIn(user.uid))
-  } else {
-    dispatch(auth.actions.authStateChangedSignOut())
+  if (!user) return dispatch(auth.actions.authStateChangedSignOut())
+
+  const { uid, emailVerified } = user
+  dispatch(auth.actions.authStateChangedSignIn({ uid, emailVerified }))
+}
+
+export const reloadCurrentUser = () => async dispatch => {
+  try {
+    dispatch(auth.actions.reloadCurrentUserInit())
+    await currentUser().reload()
+    const user = currentUser()
+    // Update auth state when current user is reloaded
+    dispatch(handleAuthStateChanged(user))
+    dispatch(auth.actions.reloadCurrentUserSuccess())
+    return user
+  } catch (err) {
+    dispatch(auth.actions.reloadCurrentUserFailure(err.message))
+    throw err
   }
 }
 
@@ -103,9 +132,12 @@ export const signUp = (email, password) => async dispatch => {
   try {
     dispatch(auth.actions.signUpInit())
     await createUserWithEmailAndPassword(email, password)
+    // Automatically send verification email
+    sendEmailVerification(currentUser())
     dispatch(auth.actions.signUpSuccess())
   } catch (err) {
     dispatch(auth.actions.signUpFailure(err.message))
+    throw err
   }
 }
 
@@ -120,11 +152,23 @@ export const signIn = (email, password) => async dispatch => {
     dispatch(auth.actions.signInSuccess())
   } catch (err) {
     dispatch(auth.actions.signInFailure(err.message))
+    throw err
   }
 }
 
 export const signInReset = () => dispatch => {
   dispatch(auth.actions.signInReset())
+}
+
+export const sendVerification = user => async dispatch => {
+  try {
+    dispatch(auth.actions.sendVerificationInit())
+    await sendEmailVerification(user)
+    dispatch(auth.actions.sendVerificationSuccess())
+  } catch (err) {
+    dispatch(auth.actions.sendVerificationFailure(err.message))
+    throw err
+  }
 }
 
 export const signOut = () => async dispatch => {
@@ -134,5 +178,6 @@ export const signOut = () => async dispatch => {
     dispatch(auth.actions.signOutSuccess())
   } catch (err) {
     dispatch(auth.actions.signOutFailure(err.message))
+    throw err
   }
 }

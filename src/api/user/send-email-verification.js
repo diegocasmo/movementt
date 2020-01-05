@@ -1,5 +1,3 @@
-import { currentUser } from './current-user'
-
-export const sendEmailVerification = async (user = currentUser()) => {
+export const sendEmailVerification = async user => {
   return user.sendEmailVerification()
 }

@@ -7,7 +7,7 @@ import WorkoutListScreen from '../features/workout-list/screens/WorkoutListScree
 import SettingsScreen from '../features/settings/screens/SettingsScreen'
 import FooterTabs from '../components/FooterTabs'
 
-const AuthenticatedAppNavigator = createBottomTabNavigator(
+const VerifiedAppNavigator = createBottomTabNavigator(
   {
     WorkoutList: WorkoutListScreen,
     Settings: SettingsScreen,
@@ -17,4 +17,4 @@ const AuthenticatedAppNavigator = createBottomTabNavigator(
   }
 )
 
-export default createAppContainer(AuthenticatedAppNavigator)
+export default createAppContainer(VerifiedAppNavigator)

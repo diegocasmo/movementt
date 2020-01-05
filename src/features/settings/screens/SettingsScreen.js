@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   Container,
@@ -15,22 +15,21 @@ import {
   Spinner,
 } from 'native-base'
 import { signOut } from '../../../state/reducers/auth'
+import { showSuccess, showError } from '../../../utils/toast'
 
 const SettingsScreen = () => {
   const dispatch = useDispatch()
-  const { isSigningOut, signingOutError } = useSelector(({ auth }) => ({
+  const { isSigningOut } = useSelector(({ auth }) => ({
     isSigningOut: auth.isSigningOut,
-    signingOutError: auth.signingOutError,
   }))
 
-  useEffect(() => {
-    if (signingOutError) {
-      Toast.show({ text: signingOutError, type: 'danger', duration: 5000 })
+  const handlePressOnSignOut = async () => {
+    try {
+      await dispatch(signOut())
+      showSuccess('You have been successfully signed out')
+    } catch (err) {
+      showError(err.message)
     }
-  }, [signingOutError])
-
-  const handlePressOnSignOut = () => {
-    dispatch(signOut())
   }
 
   return (

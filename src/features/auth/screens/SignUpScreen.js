@@ -2,22 +2,16 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import { Container, Content, Toast, Text } from 'native-base'
+import { Container, Content, Text } from 'native-base'
 import { signUp, signUpReset } from '../../../state/reducers/auth'
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm'
+import { showError } from '../../../utils/toast'
 
 const SignUpScreen = ({ navigation }) => {
   const dispatch = useDispatch()
-  const { isSigningUp, signingUpError } = useSelector(({ auth }) => ({
+  const { isSigningUp } = useSelector(({ auth }) => ({
     isSigningUp: auth.isSigningUp,
-    signingUpError: auth.signingUpError,
   }))
-
-  useEffect(() => {
-    if (signingUpError) {
-      Toast.show({ text: signingUpError, type: 'danger', duration: 5000 })
-    }
-  }, [signingUpError])
 
   useEffect(() => {
     return () => {
@@ -29,8 +23,12 @@ const SignUpScreen = ({ navigation }) => {
     navigation.navigate('SignIn')
   }
 
-  const handleSubmit = ({ email, password }) => {
-    dispatch(signUp(email, password))
+  const handleSubmit = async ({ email, password }) => {
+    try {
+      await dispatch(signUp(email, password))
+    } catch (err) {
+      showError(err.message)
+    }
   }
 
   return (

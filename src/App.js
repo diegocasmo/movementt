@@ -7,14 +7,15 @@ import { Ionicons } from '@expo/vector-icons'
 import { onAuthStateChanged } from './api/auth/on-auth-state-changed'
 import { handleAuthStateChanged } from './state/reducers/auth'
 
-import AuthenticatedAppNavigator from './navigation/AuthenticatedAppNavigator'
+import UnverifiedAppNavigator from './navigation/UnverifiedAppNavigator'
+import VerifiedAppNavigator from './navigation/VerifiedAppNavigator'
 import GuestAppNavigator from './navigation/GuestAppNavigator'
 
 const App = props => {
   const dispatch = useDispatch()
-  const { isLoadingAuth, uid } = useSelector(({ auth }) => ({
+  const { isLoadingAuth, user } = useSelector(({ auth }) => ({
     isLoadingAuth: auth.isLoadingAuth,
-    uid: auth.uid,
+    user: auth.user,
   }))
   const [isLoadingFonts, setIsLoadingFonts] = useState(true)
 
@@ -48,7 +49,14 @@ const App = props => {
     return <AppLoading />
   }
 
-  return uid ? <AuthenticatedAppNavigator /> : <GuestAppNavigator />
+  // User is logged in and their email has been verified
+  if (user && user.emailVerified) return <VerifiedAppNavigator />
+
+  // User is logged in, but their email hasn't been verified
+  if (user) return <UnverifiedAppNavigator />
+
+  // User is not logged in
+  return <GuestAppNavigator />
 }
 
 export default App
