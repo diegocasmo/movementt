@@ -39,6 +39,7 @@ const SignUpScreen = ({ navigation }) => {
           buttonText="Create Account"
           onSubmit={handleSubmit}
           isSubmitting={isSigningUp}
+          withPasswordConfirmation={true}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignIn}>
           Not the first time here?{' '}

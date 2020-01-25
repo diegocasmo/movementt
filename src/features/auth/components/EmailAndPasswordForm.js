@@ -6,25 +6,37 @@ import * as Yup from 'yup'
 import { Formik } from 'formik'
 import ImageLogo from '../../../components/ImageLogo'
 
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email()
-    .required(),
-  password: Yup.string()
-    .required()
-    .min(6),
-})
+const buildValidationSchema = withPasswordConfirmation =>
+  Yup.object({
+    email: Yup.string()
+      .email()
+      .required(),
+    password: Yup.string()
+      .required()
+      .min(6),
+    // Optionally require password confirmation
+    ...(withPasswordConfirmation && {
+      passwordConfirmation: Yup.string()
+        .oneOf([Yup.ref('password'), null])
+        .required(),
+    }),
+  })
 
 const EmailAndPasswordForm = ({
   style,
   buttonText,
   isSubmitting,
   onSubmit,
+  withPasswordConfirmation,
 }) => {
   return (
     <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={validationSchema}
+      initialValues={{
+        email: '',
+        password: '',
+        ...(withPasswordConfirmation && { passwordConfirmation: '' }),
+      }}
+      validationSchema={buildValidationSchema(withPasswordConfirmation)}
       onSubmit={onSubmit}
     >
       {({
@@ -84,6 +96,39 @@ const EmailAndPasswordForm = ({
                 ))}
             </Item>
 
+            {withPasswordConfirmation && (
+              <Item
+                success={
+                  touched.passwordConfirmation && !errors.passwordConfirmation
+                    ? true
+                    : false
+                }
+                error={
+                  touched.passwordConfirmation && errors.passwordConfirmation
+                    ? true
+                    : false
+                }
+              >
+                <Icon active name="md-key" />
+                <Input
+                  secureTextEntry
+                  autoCorrect={false}
+                  autoCapitalize="none"
+                  placeholder="Password confirmation"
+                  autoCompleteType="password"
+                  onChangeText={handleChange('passwordConfirmation')}
+                  onBlur={handleBlur('passwordConfirmation')}
+                  value={values.passwordConfirmation}
+                />
+                {touched.passwordConfirmation &&
+                  (errors.passwordConfirmation ? (
+                    <Icon name="md-close-circle" />
+                  ) : (
+                    <Icon name="md-checkmark-circle" />
+                  ))}
+              </Item>
+            )}
+
             <Button block primary style={styles.button} onPress={handleSubmit}>
               {isSubmitting ? (
                 <Spinner color="white" />
@@ -98,11 +143,16 @@ const EmailAndPasswordForm = ({
   )
 }
 
+EmailAndPasswordForm.defaultProps = {
+  withPasswordConfirmation: false,
+}
+
 EmailAndPasswordForm.propTypes = {
   style: PropTypes.object,
   buttonText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
+  withPasswordConfirmation: PropTypes.bool,
 }
 
 export default EmailAndPasswordForm

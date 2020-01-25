@@ -75,8 +75,8 @@ const VerifyEmailScreen = ({ navigation }) => {
 }
 
 VerifyEmailScreen.navigationOptions = {
-  header: null,
-  gesturesEnabled: false,
+  headerShown: false,
+  gestureEnabled: false,
 }
 
 VerifyEmailScreen.propTypes = {
