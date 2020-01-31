@@ -1,5 +1,4 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
 import {
   Container,
   Header,
@@ -14,20 +13,19 @@ import {
   Right,
   Spinner,
 } from 'native-base'
-import { signOut } from '../../../state/reducers/auth'
+import { signOut } from '../../../api/auth/sign-out'
 import { showSuccess, showError } from '../../../utils/toast'
 
 const SettingsScreen = () => {
-  const dispatch = useDispatch()
-  const { isSigningOut } = useSelector(({ auth }) => ({
-    isSigningOut: auth.isSigningOut,
-  }))
+  const [isSigningOut, setSigningOut] = useState(false)
 
   const handlePressOnSignOut = async () => {
+    setSigningOut(true)
     try {
-      await dispatch(signOut())
+      await signOut()
       showSuccess('You have been successfully signed out')
     } catch (err) {
+      setSigningOut(false)
       showError(err.message)
     }
   }

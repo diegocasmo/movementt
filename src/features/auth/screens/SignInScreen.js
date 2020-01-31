@@ -1,32 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
-import { signIn, signInReset } from '../../../state/reducers/auth'
 import EmailAndPasswordForm from '../components/EmailAndPasswordForm'
 import { showError } from '../../../utils/toast'
+import { signInWithEmailAndPassword } from '../../../api/auth/sign-in'
 
 const SignInScreen = ({ navigation }) => {
-  const dispatch = useDispatch()
-  const { isSigningIn } = useSelector(({ auth }) => ({
-    isSigningIn: auth.isSigningIn,
-  }))
-
-  useEffect(() => {
-    return () => {
-      dispatch(signInReset())
-    }
-  }, [dispatch])
+  const [isSigningIn, setIsSigningIn] = useState(false)
 
   const handlePressOnSignUp = () => {
     navigation.navigate('SignUp')
   }
 
   const handleSubmit = async ({ email, password }) => {
+    setIsSigningIn(true)
     try {
-      await dispatch(signIn(email, password))
+      await signInWithEmailAndPassword(email, password)
     } catch (err) {
+      setIsSigningIn(false)
       showError(err.message)
     }
   }

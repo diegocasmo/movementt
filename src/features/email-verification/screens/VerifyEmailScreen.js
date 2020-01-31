@@ -1,24 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet, Image } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
-import {
-  sendVerification,
-  reloadCurrentUser,
-} from '../../../state/reducers/auth'
+import { reloadCurrentUser } from '../../../state/reducers/auth'
 import { currentUser } from '../../../api/user/current-user'
+import { sendEmailVerification } from '../../../api/user/send-email-verification'
+import { signOut } from '../../../api/auth/sign-out'
 import { showSuccess, showWarning, showError } from '../../../utils/toast'
 import ImageLogo from '../../../components/ImageLogo'
 
 const VerifyEmailScreen = ({ navigation }) => {
   const dispatch = useDispatch()
-  const { isSendingVerification, isReloadingCurrentUser } = useSelector(
-    ({ auth }) => ({
-      isSendingVerification: auth.isSendingVerification,
-      isReloadingCurrentUser: auth.isReloadingCurrentUser,
-    })
-  )
+  const [isSigningOut, setSigningOut] = useState(false)
+  const [isSendingVerification, setIsSendingVerification] = useState(false)
+  const { isReloadingCurrentUser } = useSelector(({ auth }) => ({
+    isReloadingCurrentUser: auth.isReloadingCurrentUser,
+  }))
 
   const handlePressOnDone = async () => {
     try {
@@ -35,10 +33,23 @@ const VerifyEmailScreen = ({ navigation }) => {
   }
 
   const handlePressOnResendEmail = async () => {
+    setIsSendingVerification(true)
     try {
-      await dispatch(sendVerification(currentUser()))
+      await sendEmailVerification(currentUser())
       showSuccess('Verification email sent successfully')
     } catch (err) {
+      showError(err.message)
+    } finally {
+      setIsSendingVerification(false)
+    }
+  }
+
+  const handlePressOnCancel = async () => {
+    setSigningOut(true)
+    try {
+      await signOut()
+    } catch (err) {
+      setSigningOut(false)
       showError(err.message)
     }
   }
@@ -51,7 +62,7 @@ const VerifyEmailScreen = ({ navigation }) => {
         We sent you an email with instructions on how to verify your email
         address. Click on the link in the email to get started with Workouter.
       </Text>
-      <Button primary block style={styles.button} onPress={handlePressOnDone}>
+      <Button success block style={styles.button} onPress={handlePressOnDone}>
         {isReloadingCurrentUser ? (
           <Spinner color="white" />
         ) : (
@@ -59,7 +70,7 @@ const VerifyEmailScreen = ({ navigation }) => {
         )}
       </Button>
       <Button
-        light
+        primary
         block
         style={styles.button}
         onPress={handlePressOnResendEmail}
@@ -68,6 +79,13 @@ const VerifyEmailScreen = ({ navigation }) => {
           <Spinner color="black" />
         ) : (
           <Text style={styles.buttonText}>Resend Email</Text>
+        )}
+      </Button>
+      <Button light block style={styles.button} onPress={handlePressOnCancel}>
+        {isSigningOut ? (
+          <Spinner color="black" />
+        ) : (
+          <Text style={styles.buttonText}>Cancel</Text>
         )}
       </Button>
     </Container>
