@@ -11,7 +11,7 @@ import UnverifiedAppNavigator from './navigation/UnverifiedAppNavigator'
 import VerifiedAppNavigator from './navigation/VerifiedAppNavigator'
 import GuestAppNavigator from './navigation/GuestAppNavigator'
 
-const App = props => {
+const App = () => {
   const dispatch = useDispatch()
   const { isLoadingAuth, user } = useSelector(({ auth }) => ({
     isLoadingAuth: auth.isLoadingAuth,

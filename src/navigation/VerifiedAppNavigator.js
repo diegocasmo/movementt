@@ -1,7 +1,6 @@
 import React from 'react'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { Icon } from 'native-base'
 
 import WorkoutListScreen from '../features/workout-list/screens/WorkoutListScreen'
 import SettingsScreen from '../features/settings/screens/SettingsScreen'

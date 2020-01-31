@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
 import { reloadCurrentUser } from '../../../state/reducers/auth'
 import { currentUser } from '../../../api/user/current-user'
@@ -10,7 +9,7 @@ import { signOut } from '../../../api/auth/sign-out'
 import { showSuccess, showWarning, showError } from '../../../utils/toast'
 import ImageLogo from '../../../components/ImageLogo'
 
-const VerifyEmailScreen = ({ navigation }) => {
+const VerifyEmailScreen = () => {
   const dispatch = useDispatch()
   const [isSigningOut, setSigningOut] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
@@ -95,10 +94,6 @@ const VerifyEmailScreen = ({ navigation }) => {
 VerifyEmailScreen.navigationOptions = {
   headerShown: false,
   gestureEnabled: false,
-}
-
-VerifyEmailScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
 }
 
 export default VerifyEmailScreen

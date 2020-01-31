@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Image } from 'react-native'
-import { Container } from 'native-base'
 
 const ImageLogo = ({ style }) => {
   return (
