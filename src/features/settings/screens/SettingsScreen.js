@@ -14,7 +14,7 @@ import {
   Spinner,
 } from 'native-base'
 import { signOut } from '../../../api/auth/sign-out'
-import { showSuccess, showError } from '../../../utils/toast'
+import { showError } from '../../../utils/toast'
 
 const SettingsScreen = () => {
   const [isSigningOut, setSigningOut] = useState(false)
@@ -23,7 +23,6 @@ const SettingsScreen = () => {
     setSigningOut(true)
     try {
       await signOut()
-      showSuccess('You have been successfully signed out')
     } catch (err) {
       setSigningOut(false)
       showError(err.message)

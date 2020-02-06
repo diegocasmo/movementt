@@ -21,11 +21,7 @@ const VerifyEmailScreen = () => {
     try {
       const user = await dispatch(reloadCurrentUser())
 
-      if (user.emailVerified) {
-        showSuccess('Email address successfully verified')
-      } else {
-        showWarning('Please, verify your email address')
-      }
+      if (!user.emailVerified) showWarning('Please, verify your email address')
     } catch (err) {
       showError(err.message)
     }

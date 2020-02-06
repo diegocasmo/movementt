@@ -23,6 +23,10 @@ const SignInScreen = ({ navigation }) => {
     }
   }
 
+  const handlePressOnForgotPassword = () => {
+    navigation.navigate('ForgotPassword')
+  }
+
   return (
     <Container>
       <Content padder>
@@ -35,6 +39,12 @@ const SignInScreen = ({ navigation }) => {
         <Text style={styles.captionText} onPress={handlePressOnSignUp}>
           First time here?{' '}
           <Text style={styles.signUpText}>Create an account</Text>
+        </Text>
+        <Text
+          style={styles.forgotPasswordText}
+          onPress={handlePressOnForgotPassword}
+        >
+          Forgot password
         </Text>
       </Content>
     </Container>
@@ -61,6 +71,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   signUpText: {
+    textDecorationLine: 'underline',
+  },
+  forgotPasswordText: {
+    marginTop: 40,
+    textAlign: 'center',
     textDecorationLine: 'underline',
   },
 })
