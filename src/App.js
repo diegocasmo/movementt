@@ -4,7 +4,7 @@ import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
 
-import { onAuthStateChanged } from './api/auth/on-auth-state-changed'
+import { onAuthStateChanged } from './api/on-auth-state-changed'
 import { handleAuthStateChanged } from './state/reducers/auth'
 
 import UnverifiedAppNavigator from './navigation/UnverifiedAppNavigator'

@@ -13,7 +13,7 @@ import {
   Spinner,
 } from 'native-base'
 import { Formik } from 'formik'
-import { sendPasswordResetEmail } from '../../../api/auth/password-reset'
+import { sendPasswordResetEmail } from '../../../api/password-reset'
 import { showError, showSuccess } from '../../../utils/toast'
 import * as Yup from 'yup'
 

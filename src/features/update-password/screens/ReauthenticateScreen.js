@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import EmailAndPasswordForm from '../../../components/EmailAndPasswordForm'
-import { currentUser } from '../../../api/user/current-user'
-import { reauthenticate } from '../../../api/user/reauthenticate'
+import { currentUser } from '../../../api/current-user'
+import { reauthenticate } from '../../../api/reauthenticate'
 import { showError } from '../../../utils/toast'
 
 const ReauthenticateScreen = ({ navigation }) => {
