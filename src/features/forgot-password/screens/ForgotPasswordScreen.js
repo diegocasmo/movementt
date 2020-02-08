@@ -26,11 +26,14 @@ const validationSchema = Yup.object({
 const ForgotPasswordScreen = ({ navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const onSubmit = async ({ email }) => {
+  const onSubmit = async (values, { resetForm }) => {
     setIsSubmitting(true)
     try {
+      const { email } = values
       await sendPasswordResetEmail(email)
+      resetForm()
       showSuccess('Password reset email successfully sent')
+      navigation.navigate('SignIn')
     } catch (err) {
       showError(err.message)
     } finally {
