@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import {
   Container,
   Header,
@@ -16,7 +17,7 @@ import {
 import { signOut } from '../../../api/auth/sign-out'
 import { showError } from '../../../utils/toast'
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
   const [isSigningOut, setSigningOut] = useState(false)
 
   const handlePressOnSignOut = async () => {
@@ -29,6 +30,10 @@ const SettingsScreen = () => {
     }
   }
 
+  const handlePressOnUpdatePassword = () => {
+    navigation.navigate('Reauthenticate')
+  }
+
   return (
     <Container>
       <Header>
@@ -37,6 +42,16 @@ const SettingsScreen = () => {
         </Body>
       </Header>
       <Content>
+        <ListItem icon onPress={handlePressOnUpdatePassword}>
+          <Left>
+            <Button>
+              <Icon name="md-lock" />
+            </Button>
+          </Left>
+          <Body>
+            <Text>Update password</Text>
+          </Body>
+        </ListItem>
         <ListItem icon onPress={handlePressOnSignOut}>
           <Left>
             <Button>
@@ -44,7 +59,7 @@ const SettingsScreen = () => {
             </Button>
           </Left>
           <Body>
-            <Text>Sign out </Text>
+            <Text>Sign out</Text>
           </Body>
           {isSigningOut && (
             <Right>
@@ -55,6 +70,16 @@ const SettingsScreen = () => {
       </Content>
     </Container>
   )
+}
+
+SettingsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+}
+
+SettingsScreen.navigationOptions = {
+  title: 'Settings',
+  headerShown: false,
+  gestureEnabled: false,
 }
 
 export default SettingsScreen

@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Form, Item, Input, Button, Text, Icon, Spinner } from 'native-base'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import ImageLogo from '../../../components/ImageLogo'
+import ImageLogo from './ImageLogo'
 
 const buildValidationSchema = withPasswordConfirmation =>
   Yup.object({
@@ -114,7 +114,7 @@ const EmailAndPasswordForm = ({
                   secureTextEntry
                   autoCorrect={false}
                   autoCapitalize="none"
-                  placeholder="Password confirmation"
+                  placeholder="Password Confirmation"
                   autoCompleteType="password"
                   onChangeText={handleChange('passwordConfirmation')}
                   onBlur={handleBlur('passwordConfirmation')}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
   Container,
+  Content,
   Text,
   Form,
   Item,
@@ -11,7 +12,6 @@ import {
   Icon,
   Spinner,
 } from 'native-base'
-import ImageLogo from '../../../components/ImageLogo'
 import { Formik } from 'formik'
 import { sendPasswordResetEmail } from '../../../api/auth/password-reset'
 import { showError, showSuccess } from '../../../utils/toast'
@@ -43,75 +43,76 @@ const ForgotPasswordScreen = ({ navigation }) => {
   }
 
   return (
-    <Container style={styles.container}>
-      <ImageLogo style={styles.image} />
-      <Text style={styles.instructionsText}>
-        Please enter your email address. You will receive a link to create a new
-        password via email.
-      </Text>
-      <Formik
-        initialValues={{ email: '' }}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          touched,
-          errors,
-        }) => {
-          return (
-            <Form style={styles.form}>
-              <Item
-                success={touched.email && !errors.email ? true : false}
-                error={touched.email && errors.email ? true : false}
-              >
-                <Icon active name="md-mail-open" />
-                <Input
-                  autoFocus
-                  autoCorrect={false}
-                  autoCapitalize="none"
-                  placeholder="Email"
-                  autoCompleteType="email"
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                />
-                {touched.email &&
-                  (errors.email ? (
-                    <Icon name="md-close-circle" />
+    <Container>
+      <Content padder>
+        <Text style={styles.instructionsText}>
+          Please enter your email address. You will receive a link to create a
+          new password via email.
+        </Text>
+        <Formik
+          initialValues={{ email: '' }}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            touched,
+            errors,
+          }) => {
+            return (
+              <Form style={styles.form}>
+                <Item
+                  success={touched.email && !errors.email ? true : false}
+                  error={touched.email && errors.email ? true : false}
+                >
+                  <Icon active name="md-mail-open" />
+                  <Input
+                    autoFocus
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    placeholder="Email"
+                    autoCompleteType="email"
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                  />
+                  {touched.email &&
+                    (errors.email ? (
+                      <Icon name="md-close-circle" />
+                    ) : (
+                      <Icon name="md-checkmark-circle" />
+                    ))}
+                </Item>
+
+                <Button
+                  block
+                  primary
+                  style={styles.button}
+                  onPress={handleSubmit}
+                >
+                  {isSubmitting ? (
+                    <Spinner color="white" />
                   ) : (
-                    <Icon name="md-checkmark-circle" />
-                  ))}
-              </Item>
+                    <Text style={styles.buttonText}>Send Email</Text>
+                  )}
+                </Button>
 
-              <Button
-                block
-                primary
-                style={styles.button}
-                onPress={handleSubmit}
-              >
-                {isSubmitting ? (
-                  <Spinner color="white" />
-                ) : (
-                  <Text style={styles.buttonText}>Send Email</Text>
-                )}
-              </Button>
-
-              <Button
-                block
-                light
-                style={styles.button}
-                onPress={handlePressOnSignIn}
-              >
-                <Text style={styles.buttonText}>Go to Sign In</Text>
-              </Button>
-            </Form>
-          )
-        }}
-      </Formik>
+                <Button
+                  block
+                  light
+                  style={styles.button}
+                  onPress={handlePressOnSignIn}
+                >
+                  <Text style={styles.buttonText}>Go to Sign In</Text>
+                </Button>
+              </Form>
+            )
+          }}
+        </Formik>
+      </Content>
     </Container>
   )
 }
@@ -127,13 +128,6 @@ ForgotPasswordScreen.propTypes = {
 export default ForgotPasswordScreen
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
   image: {
     marginBottom: 20,
   },
