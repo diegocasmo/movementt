@@ -10,12 +10,13 @@ import { showError } from '../../../utils/toast'
 const ReauthenticateScreen = ({ navigation }) => {
   const [isReAuthenticating, setIsReAuthenticating] = useState(false)
 
-  const handleReAuthenticate = async ({ email, password }) => {
+  const handleReAuthenticate = async (values, { resetForm }) => {
     setIsReAuthenticating(true)
     try {
+      const { email, password } = values
       const user = currentUser()
       await reauthenticate(user, email, password)
-      // TODO: Clear <UpdatePasswordForm/> values
+      resetForm()
       navigation.navigate('UpdatePassword')
     } catch (err) {
       showError(err.message)

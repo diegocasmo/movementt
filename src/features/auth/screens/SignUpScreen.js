@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   captionText: {
-    marginTop: 40,
+    marginTop: 30,
     textAlign: 'center',
   },
   signInText: {

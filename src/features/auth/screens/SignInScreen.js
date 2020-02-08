@@ -67,14 +67,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   captionText: {
-    marginTop: 40,
+    marginTop: 30,
     textAlign: 'center',
   },
   signUpText: {
     textDecorationLine: 'underline',
   },
   forgotPasswordText: {
-    marginTop: 40,
+    marginTop: 25,
     textAlign: 'center',
     textDecorationLine: 'underline',
   },

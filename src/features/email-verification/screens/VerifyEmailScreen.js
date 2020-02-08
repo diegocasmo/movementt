@@ -59,9 +59,9 @@ const VerifyEmailScreen = () => {
       </Text>
       <Button success block style={styles.button} onPress={handlePressOnDone}>
         {isReloadingCurrentUser ? (
-          <Spinner color="white" />
+          <Spinner color="white" size="small" />
         ) : (
-          <Text style={styles.buttonText}>Done</Text>
+          <Text>Done</Text>
         )}
       </Button>
       <Button
@@ -71,16 +71,16 @@ const VerifyEmailScreen = () => {
         onPress={handlePressOnResendEmail}
       >
         {isSendingVerification ? (
-          <Spinner color="black" />
+          <Spinner color="black" size="small" />
         ) : (
-          <Text style={styles.buttonText}>Resend Email</Text>
+          <Text>Resend Email</Text>
         )}
       </Button>
       <Button light block style={styles.button} onPress={handlePressOnCancel}>
         {isSigningOut ? (
-          <Spinner color="black" />
+          <Spinner color="black" size="small" />
         ) : (
-          <Text style={styles.buttonText}>Cancel</Text>
+          <Text>Cancel</Text>
         )}
       </Button>
     </Container>
@@ -116,9 +116,5 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: 18,
-    height: 70,
-  },
-  buttonText: {
-    fontSize: 27,
   },
 })

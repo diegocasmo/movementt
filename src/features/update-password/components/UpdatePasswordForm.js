@@ -77,7 +77,7 @@ const EmailAndPasswordForm = ({ style, isSubmitting, onSubmit }) => {
                 secureTextEntry
                 autoCorrect={false}
                 autoCapitalize="none"
-                placeholder="New Password Confirm"
+                placeholder="Confirm New Password"
                 autoCompleteType="password"
                 onChangeText={handleChange('newPasswordConfirm')}
                 onBlur={handleBlur('newPasswordConfirm')}
@@ -93,9 +93,9 @@ const EmailAndPasswordForm = ({ style, isSubmitting, onSubmit }) => {
 
             <Button block primary style={styles.button} onPress={handleSubmit}>
               {isSubmitting ? (
-                <Spinner color="white" />
+                <Spinner color="white" size="small" />
               ) : (
-                <Text style={styles.buttonText}>Update Password</Text>
+                <Text>Update Password</Text>
               )}
             </Button>
           </Form>
@@ -116,9 +116,5 @@ export default EmailAndPasswordForm
 const styles = StyleSheet.create({
   button: {
     marginTop: 30,
-    height: 70,
-  },
-  buttonText: {
-    fontSize: 27,
   },
 })

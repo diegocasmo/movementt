@@ -94,9 +94,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
                   onPress={handleSubmit}
                 >
                   {isSubmitting ? (
-                    <Spinner color="white" />
+                    <Spinner color="white" size="small" />
                   ) : (
-                    <Text style={styles.buttonText}>Send Email</Text>
+                    <Text>Send Email</Text>
                   )}
                 </Button>
 
@@ -106,7 +106,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                   style={styles.button}
                   onPress={handlePressOnSignIn}
                 >
-                  <Text style={styles.buttonText}>Go to Sign In</Text>
+                  <Text>Go to Sign In</Text>
                 </Button>
               </Form>
             )
@@ -142,10 +142,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    marginTop: 30,
-    height: 70,
-  },
-  buttonText: {
-    fontSize: 27,
+    marginTop: 18,
   },
 })

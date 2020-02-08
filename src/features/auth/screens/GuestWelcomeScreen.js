@@ -17,10 +17,10 @@ const GuestWelcomeScreen = ({ navigation }) => {
     <Container style={styles.container}>
       <ImageLogo style={styles.image} />
       <Button primary block style={styles.button} onPress={handlePressOnSignIn}>
-        <Text style={styles.buttonText}>Sign In</Text>
+        <Text>Sign In</Text>
       </Button>
       <Button light block style={styles.button} onPress={handlePressOnSignUp}>
-        <Text style={styles.buttonText}>Create Account</Text>
+        <Text>Create Account</Text>
       </Button>
     </Container>
   )
@@ -51,9 +51,5 @@ const styles = StyleSheet.create({
   },
   button: {
     marginBottom: 18,
-    height: 70,
-  },
-  buttonText: {
-    fontSize: 27,
   },
 })

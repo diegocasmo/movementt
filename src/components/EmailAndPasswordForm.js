@@ -131,9 +131,9 @@ const EmailAndPasswordForm = ({
 
             <Button block primary style={styles.button} onPress={handleSubmit}>
               {isSubmitting ? (
-                <Spinner color="white" />
+                <Spinner color="white" size="small" />
               ) : (
-                <Text style={styles.buttonText}>{buttonText}</Text>
+                <Text>{buttonText}</Text>
               )}
             </Button>
           </Form>
@@ -163,9 +163,5 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 30,
-    height: 70,
-  },
-  buttonText: {
-    fontSize: 27,
   },
 })
