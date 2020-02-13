@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
-    "@reduxjs/toolkit": "^1.2.3",
+    "@reduxjs/toolkit": "^1.2.5",
     "expo": "^36.0.0",
     "expo-font": "~8.0.0",
-    "firebase": "^7.8.1",
+    "firebase": "^7.8.2",
     "formik": "^2.1.4",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
@@ -35,7 +35,7 @@
     "babel-preset-expo": "^8.0.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.18.3",
-    "husky": "^4.2.1",
+    "husky": "^4.2.3",
     "prettier": "1.19.1",
     "pretty-quick": "^2.0.1"
   },
