@@ -57,7 +57,13 @@ const VerifyEmailScreen = () => {
         We sent you an email with instructions on how to verify your email
         address. Click on the link in the email to get started with Workouter.
       </Text>
-      <Button success block style={styles.button} onPress={handlePressOnDone}>
+      <Button
+        success
+        block
+        style={styles.button}
+        disabled={isReloadingCurrentUser}
+        onPress={handlePressOnDone}
+      >
         {isReloadingCurrentUser ? (
           <Spinner color="white" size="small" />
         ) : (
@@ -68,6 +74,7 @@ const VerifyEmailScreen = () => {
         primary
         block
         style={styles.button}
+        disabled={isSendingVerification}
         onPress={handlePressOnResendEmail}
       >
         {isSendingVerification ? (
@@ -76,7 +83,13 @@ const VerifyEmailScreen = () => {
           <Text>Resend Email</Text>
         )}
       </Button>
-      <Button light block style={styles.button} onPress={handlePressOnCancel}>
+      <Button
+        light
+        block
+        style={styles.button}
+        disabled={isSigningOut}
+        onPress={handlePressOnCancel}
+      >
         {isSigningOut ? (
           <Spinner color="black" size="small" />
         ) : (

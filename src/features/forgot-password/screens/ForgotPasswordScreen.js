@@ -94,6 +94,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                   block
                   primary
                   style={styles.button}
+                  disabled={isSubmitting}
                   onPress={handleSubmit}
                 >
                   {isSubmitting ? (

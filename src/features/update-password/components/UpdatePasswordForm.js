@@ -91,7 +91,13 @@ const EmailAndPasswordForm = ({ style, isSubmitting, onSubmit }) => {
                 ))}
             </Item>
 
-            <Button block primary style={styles.button} onPress={handleSubmit}>
+            <Button
+              block
+              primary
+              style={styles.button}
+              disabled={isSubmitting}
+              onPress={handleSubmit}
+            >
               {isSubmitting ? (
                 <Spinner color="white" size="small" />
               ) : (

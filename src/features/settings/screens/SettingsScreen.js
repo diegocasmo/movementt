@@ -52,7 +52,7 @@ const SettingsScreen = ({ navigation }) => {
             <Text>Update password</Text>
           </Body>
         </ListItem>
-        <ListItem icon onPress={handlePressOnSignOut}>
+        <ListItem icon disabled={isSigningOut} onPress={handlePressOnSignOut}>
           <Left>
             <Button>
               <Icon name="md-log-out" />
