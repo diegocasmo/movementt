@@ -3,10 +3,14 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
+// Workout
 import WorkoutListScreen from '../features/workout-list/screens/WorkoutListScreen'
+
+// Settings
 import SettingsScreen from '../features/settings/screens/SettingsScreen'
 import ReauthenticateScreen from '../features/update-password/screens/ReauthenticateScreen'
 import UpdatePasswordScreen from '../features/update-password/screens/UpdatePasswordScreen'
+
 import FooterTabs from '../components/FooterTabs'
 
 const SettingsNavigator = createStackNavigator({
@@ -21,7 +25,7 @@ const VerifiedAppNavigator = createBottomTabNavigator(
     Settings: SettingsNavigator,
   },
   {
-    tabBarComponent: props => <FooterTabs {...props} />,
+    tabBarComponent: (props) => <FooterTabs {...props} />,
   }
 )
 

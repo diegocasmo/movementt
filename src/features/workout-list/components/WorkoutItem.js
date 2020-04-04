@@ -3,13 +3,17 @@ import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { Card, CardItem, H1, Body, View, Icon, Text } from 'native-base'
 
-const WorkoutItem = ({ workout }) => {
+const WorkoutItem = ({ workout, navigation }) => {
+  const onPress = () => {
+    navigation.navigate('NewSession')
+  }
+
   return (
     <Card>
-      <CardItem header style={styles.header}>
+      <CardItem header button style={styles.header} onPress={onPress}>
         <H1>{workout.name}</H1>
       </CardItem>
-      <CardItem>
+      <CardItem button onPress={onPress}>
         <Body>
           <Text numberOfLines={2} style={styles.summary}>
             {workout.exercises.map(({ name }) => name).join(', ')}
@@ -32,6 +36,7 @@ const WorkoutItem = ({ workout }) => {
 
 WorkoutItem.propTypes = {
   workout: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 }
 
 export default WorkoutItem
