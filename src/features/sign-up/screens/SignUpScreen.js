@@ -45,10 +45,6 @@ const SignUpScreen = ({ navigation }) => {
   )
 }
 
-SignUpScreen.navigationOptions = {
-  title: 'Create Account',
-}
-
 SignUpScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }

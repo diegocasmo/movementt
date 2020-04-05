@@ -21,11 +21,6 @@ const NewSessionScreen = () => {
 
 export default NewSessionScreen
 
-NewSessionScreen.navigationOptions = {
-  headerShown: false,
-  gestureEnabled: false,
-}
-
 const styles = StyleSheet.create({
   content: {
     flex: 1,

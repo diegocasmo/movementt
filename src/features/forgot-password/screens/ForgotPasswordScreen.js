@@ -18,9 +18,7 @@ import { showError, showSuccess } from '../../../utils/toast'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object({
-  email: Yup.string()
-    .email()
-    .required(),
+  email: Yup.string().email().required(),
 })
 
 const ForgotPasswordScreen = ({ navigation }) => {
@@ -119,10 +117,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
       </Content>
     </Container>
   )
-}
-
-ForgotPasswordScreen.navigationOptions = {
-  title: 'Forgot Password',
 }
 
 ForgotPasswordScreen.propTypes = {

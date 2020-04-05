@@ -76,10 +76,4 @@ SettingsScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }
 
-SettingsScreen.navigationOptions = {
-  title: 'Settings',
-  headerShown: false,
-  gestureEnabled: false,
-}
-
 export default SettingsScreen

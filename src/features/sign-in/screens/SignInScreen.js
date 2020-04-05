@@ -51,10 +51,6 @@ const SignInScreen = ({ navigation }) => {
   )
 }
 
-SignInScreen.navigationOptions = {
-  title: 'Sign In',
-}
-
 SignInScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }

@@ -1,16 +1,42 @@
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
 
 import GuestWelcomeScreen from '../features/guest-welcome/screens/GuestWelcomeScreen'
 import SignInScreen from '../features/sign-in/screens/SignInScreen'
 import SignUpScreen from '../features/sign-up/screens/SignUpScreen'
 import ForgotPasswordScreen from '../features/forgot-password/screens/ForgotPasswordScreen'
 
-export default createAppContainer(
-  createStackNavigator({
-    GuestWelcome: GuestWelcomeScreen,
-    SignIn: SignInScreen,
-    SignUp: SignUpScreen,
-    ForgotPassword: ForgotPasswordScreen,
-  })
-)
+const Stack = createStackNavigator()
+
+const GuestAppNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="GuestWelcome"
+        component={GuestWelcomeScreen}
+        options={{
+          title: 'Welcome',
+          headerShown: false,
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="SignIn"
+        component={SignInScreen}
+        options={{ title: 'Sign In' }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpScreen}
+        options={{ title: 'Create Account' }}
+      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+        options={{ title: 'Forgot Password' }}
+      />
+    </Stack.Navigator>
+  )
+}
+
+export default GuestAppNavigator

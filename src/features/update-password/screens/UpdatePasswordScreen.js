@@ -37,10 +37,6 @@ const UpdatePasswordScreen = ({ navigation }) => {
   )
 }
 
-UpdatePasswordScreen.navigationOptions = {
-  title: 'Update Password',
-}
-
 UpdatePasswordScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }

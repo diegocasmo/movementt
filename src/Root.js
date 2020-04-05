@@ -4,7 +4,7 @@ import { initializeApi } from './api/config'
 import { Provider } from 'react-redux'
 import store from './state'
 import { Root as NativeBaseRoot } from 'native-base'
-import 'react-native-gesture-handler'
+import { NavigationContainer } from '@react-navigation/native'
 
 initializeApi()
 
@@ -12,7 +12,9 @@ const Root = () => {
   return (
     <NativeBaseRoot>
       <Provider store={store}>
-        <App />
+        <NavigationContainer>
+          <App />
+        </NavigationContainer>
       </Provider>
     </NativeBaseRoot>
   )

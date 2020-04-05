@@ -39,10 +39,6 @@ const ReauthenticateScreen = ({ navigation }) => {
   )
 }
 
-ReauthenticateScreen.navigationOptions = {
-  title: 'Sign In',
-}
-
 ReauthenticateScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }

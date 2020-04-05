@@ -26,12 +26,6 @@ const GuestWelcomeScreen = ({ navigation }) => {
   )
 }
 
-GuestWelcomeScreen.navigationOptions = {
-  title: 'Welcome',
-  headerShown: false,
-  gestureEnabled: false,
-}
-
 GuestWelcomeScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }

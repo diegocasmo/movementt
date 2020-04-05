@@ -100,11 +100,6 @@ const VerifyEmailScreen = () => {
   )
 }
 
-VerifyEmailScreen.navigationOptions = {
-  headerShown: false,
-  gestureEnabled: false,
-}
-
 export default VerifyEmailScreen
 
 const styles = StyleSheet.create({
