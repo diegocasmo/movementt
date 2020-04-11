@@ -4,31 +4,27 @@ import { useInterval } from '../../hooks/use-interval'
 import Duration from './Duration'
 import moment from 'moment'
 
-const Countdown = ({
-  finishAt,
-  onCountdownCompleted,
-  extraThreshold = 0.5,
-}) => {
-  // Add a few additional seconds to avoid skipping the countdown start
-  finishAt = moment(finishAt).add(extraThreshold, 'seconds')
-  const [now, setNow] = useState(moment())
+const Countdown = ({ ms = 10500, startAt, onCompleted }) => {
+  const [elapsedMs, setElapsedMs] = useState(0)
 
   useInterval(() => {
-    const nextNow = moment()
-    if (nextNow.isAfter(finishAt)) {
-      onCountdownCompleted()
+    const duration = moment.duration(moment() - startAt)
+    const elapsedMs = moment.duration(duration).asMilliseconds()
+
+    if (elapsedMs > ms) {
+      onCompleted()
     } else {
-      setNow(nextNow)
+      setElapsedMs(elapsedMs)
     }
   }, 1000)
 
-  return <Duration start={now} stop={finishAt} />
+  return <Duration elapsedMs={ms - elapsedMs} />
 }
 
 export default Countdown
 
 Countdown.propTypes = {
-  finishAt: PropTypes.object.isRequired,
-  onCountdownCompleted: PropTypes.func.isRequired,
-  extraThreshold: PropTypes.number,
+  ms: PropTypes.number,
+  startAt: PropTypes.object,
+  onCompleted: PropTypes.func.isRequired,
 }

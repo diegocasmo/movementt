@@ -1,12 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 import moment from 'moment'
 
+const TIME_ENTRY_TYPE = {
+  EXERCISE: 'EXERCISE',
+  EXERCISE_REST: 'EXERCISE_REST',
+  ROUND_REST: 'ROUND_REST',
+}
+
 const initialState = {
   tick: null,
+  workout: null,
+  currExerciseIdx: null,
   timeEntries: [],
 }
 
-const startTimeEntry = (now = moment()) => ({
+const startTimeEntry = (type = TIME_ENTRY_TYPE.EXERCISE, now = moment()) => ({
+  type,
   startedAt: now.valueOf(),
   elapsedMs: null,
 })
@@ -25,14 +34,25 @@ const newSession = createSlice({
   name: 'newSession',
   initialState,
   reducers: {
-    start(state) {
-      const { timeEntries } = state
-      state.timeEntries = [...timeEntries, startTimeEntry()]
+    start(state, { payload }) {
+      state.tick = payload.now
+      state.workout = payload.workout
+      state.timeEntries = [startTimeEntry()]
     },
 
-    stop(state) {
+    play(state, { payload }) {
+      const { timeEntries } = state
+      const lastTimeEntry = timeEntries[timeEntries.length - 1]
+
+      state.tick = payload
+      state.timeEntries = [...timeEntries, startTimeEntry(lastTimeEntry.type)]
+    },
+
+    stop(state, { payload }) {
       let { timeEntries } = state
       const lastTimeEntry = timeEntries.pop()
+
+      state.tick = payload
       state.timeEntries = [...timeEntries, stopTimeEntry(lastTimeEntry)]
     },
 
@@ -46,12 +66,16 @@ export default newSession.reducer
 
 // ------------------------- Action creators -------------------------
 
-export const start = () => (dispatch) => {
-  dispatch(newSession.actions.start())
+export const start = (workout, now = moment()) => (dispatch) => {
+  dispatch(newSession.actions.start({ workout, now: now.valueOf() }))
 }
 
-export const stop = () => (dispatch) => {
-  dispatch(newSession.actions.stop())
+export const play = (now = moment()) => (dispatch) => {
+  dispatch(newSession.actions.play(now.valueOf()))
+}
+
+export const stop = (now = moment()) => (dispatch) => {
+  dispatch(newSession.actions.stop(now.valueOf()))
 }
 
 export const tick = (now = moment()) => (dispatch) => {
@@ -97,4 +121,17 @@ export const getElapsedMs = ({ newSession }, now = moment()) => {
   }
 
   return stoppedMs + runningMs
+}
+
+// Return session's next exercise (if any)
+export const getNextExercise = ({ newSession }) => {
+  const { currExerciseIdx, workout } = newSession
+  const { exercises = [] } = workout
+  if (!hasStarted({ newSession })) return exercises[0]
+
+  if (currExerciseIdx === exercises.length - 1) {
+    return exercises[0]
+  } else {
+    return exercises[currExerciseIdx + 1]
+  }
 }

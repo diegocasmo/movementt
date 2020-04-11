@@ -1,6 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { start, stop, tick, isRunning, getElapsedMs } from '../reducers'
+import {
+  play,
+  stop,
+  tick,
+  isRunning,
+  getElapsedMs,
+} from '../reducers/new-session'
 import { useInterval } from '../../../hooks/use-interval'
 import { StyleSheet } from 'react-native'
 import { View, Button, Icon } from 'native-base'
@@ -11,16 +17,12 @@ const SessionControls = () => {
   const running = useSelector(isRunning)
   const elapsedMs = useSelector(getElapsedMs)
 
-  useEffect(() => {
-    dispatch(start())
-  }, [])
-
   useInterval(() => {
     dispatch(tick())
   }, 1000)
 
-  const handleStart = () => {
-    dispatch(start())
+  const handlePlay = () => {
+    dispatch(play())
   }
 
   const handleStop = () => {
@@ -35,7 +37,7 @@ const SessionControls = () => {
           <Icon style={styles.icon} active name="md-pause" />
         </Button>
       ) : (
-        <Button style={styles.button} transparent onPress={handleStart}>
+        <Button style={styles.button} transparent onPress={handlePlay}>
           <Icon style={styles.icon} active name="md-play" />
         </Button>
       )}
@@ -49,6 +51,7 @@ SessionControls.propTypes = {}
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'space-around',
     flexDirection: 'row',
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 80,
     borderColor: 'black',
-    borderWidth: 2,
+    borderWidth: 3,
     alignItems: 'center',
     justifyContent: 'center',
   },
