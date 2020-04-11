@@ -1,20 +1,14 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Container } from 'native-base'
-import SessionStartup from '../components/SessionStartup'
-import moment from 'moment'
+import { Container, Content } from 'native-base'
+import SessionControls from '../components/SessionControls'
 
 const NewSessionScreen = () => {
-  const onSessionStartupCompleted = () => {
-    console.log('onSessionStartupCompleted')
-  }
-
   return (
     <Container style={styles.content}>
-      <SessionStartup
-        finishAt={moment().add(10, 'seconds')}
-        onSessionStartupCompleted={onSessionStartupCompleted}
-      />
+      <Content padder>
+        <SessionControls />
+      </Content>
     </Container>
   )
 }
@@ -24,7 +18,5 @@ export default NewSessionScreen
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })
