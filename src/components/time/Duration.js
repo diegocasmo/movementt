@@ -33,6 +33,5 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     fontSize: 52,
-    width: 85,
   },
 })

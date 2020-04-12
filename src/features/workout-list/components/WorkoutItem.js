@@ -5,7 +5,7 @@ import { Card, CardItem, H1, Body, View, Icon, Text } from 'native-base'
 
 const WorkoutItem = ({ workout, navigation }) => {
   const onPress = () => {
-    navigation.navigate('NewSession')
+    navigation.navigate('NewSession', { workout })
   }
 
   return (

@@ -5,17 +5,17 @@ import {
   stop,
   tick,
   isRunning,
-  getElapsedMs,
+  getTotalElapsedMs,
 } from '../reducers/new-session'
 import { useInterval } from '../../../hooks/use-interval'
 import { StyleSheet } from 'react-native'
 import { View, Button, Icon } from 'native-base'
 import Duration from '../../../components/time/Duration'
 
-const SessionControls = () => {
+const BottomControls = () => {
   const dispatch = useDispatch()
   const running = useSelector(isRunning)
-  const elapsedMs = useSelector(getElapsedMs)
+  const elapsedMs = useSelector(getTotalElapsedMs)
 
   useInterval(() => {
     dispatch(tick())
@@ -31,6 +31,9 @@ const SessionControls = () => {
 
   return (
     <View style={styles.container}>
+      <Button style={styles.button} transparent>
+        <Icon style={styles.icon} active name="md-volume-high" />
+      </Button>
       <Duration style={styles.duration} elapsedMs={elapsedMs} />
       {running ? (
         <Button style={styles.button} transparent onPress={handleStop}>
@@ -45,33 +48,27 @@ const SessionControls = () => {
   )
 }
 
-export default SessionControls
+export default BottomControls
 
-SessionControls.propTypes = {}
+BottomControls.propTypes = {}
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     flexDirection: 'row',
   },
-  duration: {
-    fontSize: 42,
-    width: 70,
-  },
   button: {
-    width: 80,
-    height: 80,
-    borderRadius: 80,
-    borderColor: 'black',
-    borderWidth: 3,
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
-    fontSize: 28,
+    fontSize: 36,
     color: 'black',
     fontWeight: 'bold',
+  },
+  duration: {
+    fontSize: 42,
   },
 })

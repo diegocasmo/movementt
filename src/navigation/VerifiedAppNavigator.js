@@ -15,13 +15,11 @@ import UpdatePasswordScreen from '../features/update-password/screens/UpdatePass
 
 import FooterTabs from '../components/FooterTabs'
 
-const Tab = createBottomTabNavigator()
-const Stack = createStackNavigator()
-
+const SettingsStack = createStackNavigator()
 const SettingsNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
@@ -30,43 +28,50 @@ const SettingsNavigator = () => {
           gestureEnabled: false,
         }}
       />
-      <Stack.Screen
+      <SettingsStack.Screen
         name="Reauthenticate"
         component={ReauthenticateScreen}
         options={{ title: 'Sign In' }}
       />
-      <Stack.Screen
+      <SettingsStack.Screen
         name="UpdatePassword"
         component={UpdatePasswordScreen}
         options={{ title: 'Update Password' }}
       />
-    </Stack.Navigator>
+    </SettingsStack.Navigator>
   )
 }
 
-const NewSessionNavigator = () => {
+const HomeTabs = createBottomTabNavigator()
+const HomeTabsNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="NewSession"
-        component={NewSessionScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
+    <HomeTabs.Navigator tabBar={(props) => <FooterTabs {...props} />}>
+      <HomeTabs.Screen name="Home" component={WorkoutListScreen} />
+      <HomeTabs.Screen name="Settings" component={SettingsNavigator} />
+    </HomeTabs.Navigator>
   )
 }
 
+const AppStack = createStackNavigator()
 const VerifiedAppNavigator = () => {
   return (
-    <Tab.Navigator tabBar={(props) => <FooterTabs {...props} />}>
-      <Tab.Screen name="WorkoutList" component={WorkoutListScreen} />
-      <Tab.Screen
-        name="NewSession"
-        component={NewSessionNavigator}
-        options={{ tabBarVisible: false, gestureEnabled: false }}
+    <AppStack.Navigator tabBar={(props) => <FooterTabs {...props} />}>
+      <AppStack.Screen
+        name="Home"
+        component={HomeTabsNavigator}
+        options={{ headerShown: false }}
       />
-      <Tab.Screen name="Settings" component={SettingsNavigator} />
-    </Tab.Navigator>
+      <AppStack.Screen
+        name="Settings"
+        component={HomeTabsNavigator}
+        options={{ headerShown: false }}
+      />
+      <AppStack.Screen
+        name="NewSession"
+        component={NewSessionScreen}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+    </AppStack.Navigator>
   )
 }
 

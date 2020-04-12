@@ -1,55 +1,105 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { start, hasStarted } from '../reducers/new-session'
+import {
+  init,
+  clear,
+  start,
+  hasStarted,
+  isCompleted,
+  getCurrTimeEntry,
+  TIME_ENTRY_TYPE,
+} from '../reducers/new-session'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
-import SessionControls from '../components/SessionControls'
+import TopControls from '../components/TopControls'
+import BottomControls from '../components/BottomControls'
+import SessionExercise from '../components/SessionExercise'
+import SessionExerciseRest from '../components/SessionExerciseRest'
+import SessionRoundRest from '../components/SessionRoundRest'
 import SessionStartup from '../components/SessionStartup'
-import { workouts } from '../../../seed/workouts.json'
+import SessionCompleted from '../components/SessionCompleted'
 
-const NewSessionScreen = () => {
+const NewSessionScreen = ({ navigation, route }) => {
+  const {
+    params: { workout },
+  } = route
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)
-  const workout = workouts[0]
+  const completed = useSelector(isCompleted)
+  const timeEntry = useSelector(getCurrTimeEntry)
 
   const handleStartupCompleted = () => {
-    dispatch(start(workout))
+    dispatch(init(workout))
+    dispatch(start())
   }
 
-  const renderSession = () => {
-    return (
-      <Content padder contentContainerStyle={styles.sessionContainer}>
-        <SessionControls />
-      </Content>
-    )
+  const handleQuit = () => {
+    dispatch(clear())
+    navigation.navigate('Home')
   }
 
-  const renderSessionStartup = () => {
+  const handleCompleteConfirmed = () => {
+    dispatch(clear())
+    navigation.navigate('Home')
+  }
+
+  const renderTimeEntry = () => {
+    switch (timeEntry.type) {
+      case TIME_ENTRY_TYPE.EXERCISE_REST:
+        return <SessionExerciseRest />
+      case TIME_ENTRY_TYPE.ROUND_REST:
+        return <SessionRoundRest />
+      default:
+        return <SessionExercise />
+    }
+  }
+
+  if (completed) {
     return (
-      <Content padder contentContainerStyle={styles.sessionStartupContainer}>
-        <SessionStartup
-          workout={workout}
-          onStartupCompleted={handleStartupCompleted}
-        />
-      </Content>
+      <Container>
+        <Content padder contentContainerStyle={styles.content}>
+          <SessionCompleted onConfirm={handleCompleteConfirmed} />
+        </Content>
+      </Container>
     )
   }
 
   return (
-    <Container>{started ? renderSession() : renderSessionStartup()}</Container>
+    <Container>
+      {started ? (
+        <Content padder contentContainerStyle={styles.content}>
+          <TopControls onQuit={handleQuit} />
+          {renderTimeEntry()}
+          <BottomControls />
+        </Content>
+      ) : (
+        <Content padder contentContainerStyle={styles.content}>
+          <SessionStartup
+            workout={workout}
+            onStartupCompleted={handleStartupCompleted}
+          />
+        </Content>
+      )}
+    </Container>
   )
 }
 
 export default NewSessionScreen
 
+NewSessionScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      workout: PropTypes.object.isRequired,
+    }).isRequired,
+  }).isRequired,
+}
+
 const styles = StyleSheet.create({
-  sessionStartupContainer: {
+  content: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  sessionContainer: {
-    flex: 1,
-    alignItems: 'center',
   },
 })
