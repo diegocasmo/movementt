@@ -1,46 +1,47 @@
 {
   "workouts": [
     {
+      "id": 1,
       "name": "Core Foundation",
       "difficulty": 5,
       "rounds": 4,
-      "restSeconds": 30,
+      "restMs": 30000,
       "exercises": [
         {
           "name": "Side Plank Right Side",
-          "quantity": 30,
-          "quantityUnit": "seconds",
-          "restSeconds": 20
+          "quantity": 30000,
+          "type": "time",
+          "restMs": 20000
         },
         {
           "name": "Ab Roll-out On Knees",
           "quantity": 8,
-          "quantityUnit": "repetitions",
-          "restSeconds": 20
+          "type": "repetitions",
+          "restMs": 20000
         },
         {
           "name": "Side Plank Left Side",
-          "quantity": 30,
-          "quantityUnit": "seconds",
-          "restSeconds": 20
+          "quantity": 30000,
+          "type": "time",
+          "restMs": 20000
         },
         {
           "name": "V Ups",
           "quantity": 15,
-          "quantityUnit": "repetitions",
-          "restSeconds": 20
+          "type": "repetitions",
+          "restMs": 20000
         },
         {
           "name": "Plank",
           "quantity": 30,
-          "quantityUnit": "seconds",
-          "restSeconds": 20
+          "type": "time",
+          "restMs": 20000
         },
         {
           "name": "Flutter Kicks",
-          "quantity": 30,
-          "quantityUnit": "seconds",
-          "restSeconds": 20
+          "quantity": 30000,
+          "type": "time",
+          "restMs": 20000
         }
       ]
     }

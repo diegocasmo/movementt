@@ -1,30 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useInterval } from '../../hooks/use-interval'
 import Duration from './Duration'
-import moment from 'moment'
+import * as Speech from 'expo-speech'
 
-const Countdown = ({ ms = 10500, startAt, onCompleted }) => {
-  const [elapsedMs, setElapsedMs] = useState(0)
+const Countdown = ({ elapsedMs, targetMs, onCompleted, thresholdMs = 500 }) => {
+  const remainingMs = targetMs - elapsedMs + thresholdMs
+  const remainingSeconds = parseInt(remainingMs / 1000)
 
-  useInterval(() => {
-    const duration = moment.duration(moment() - startAt)
-    const elapsedMs = moment.duration(duration).asMilliseconds()
-
-    if (elapsedMs > ms) {
+  useEffect(() => {
+    if (elapsedMs >= targetMs) {
       onCompleted()
-    } else {
-      setElapsedMs(elapsedMs)
     }
-  }, 1000)
+  }, [elapsedMs])
 
-  return <Duration elapsedMs={ms - elapsedMs} />
+  useEffect(() => {
+    if (remainingSeconds <= 5 && remainingSeconds > 0) {
+      Speech.speak(`${remainingSeconds}`)
+    }
+  }, [remainingSeconds])
+
+  return <Duration elapsedMs={remainingMs} />
 }
 
 export default Countdown
 
 Countdown.propTypes = {
-  ms: PropTypes.number,
-  startAt: PropTypes.object,
+  elapsedMs: PropTypes.number.isRequired,
+  targetMs: PropTypes.number.isRequired,
   onCompleted: PropTypes.func.isRequired,
+  thresholdMs: PropTypes.number,
 }

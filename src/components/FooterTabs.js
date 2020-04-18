@@ -13,16 +13,8 @@ const FooterTabs = ({ state, navigation }) => {
     }
   }
 
-  const shouldSkip = ({ name }) => {
-    const routeNames = ['NewSession']
-    return routeNames.some((routeName) => routeName === name)
-  }
-
   const renderButtons = () => {
     return state.routes.map((route, index) => {
-      // Avoid rendering footer button for route if it should be skipped
-      if (shouldSkip(route)) return null
-
       const isFocused = state.index === index
       const onPress = () => {
         const event = navigation.emit({

@@ -2,49 +2,48 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import Countdown from '../../../components/time/Countdown'
+import { useInterval } from '../../../hooks/use-interval'
 import { View, Button, Text } from 'native-base'
 import moment from 'moment'
 
 const SessionStartup = ({ workout, onStartupCompleted }) => {
   const { name, exercises } = workout
-  const [startAt, setStartAt] = useState(moment())
+  const [state, setState] = useState({ startAt: moment(), elapsedMs: 0 })
 
   const handleToggleStartAt = () => {
-    if (startAt) {
-      setStartAt(null)
+    if (state.startAt) {
+      setState({ startAt: null, elapsedMs: 0 })
     } else {
-      setStartAt(moment())
+      setState({ startAt: moment(), elapsedMs: 0 })
     }
   }
 
-  const renderCountdown = () => {
-    if (startAt) {
-      return (
-        <Button
-          transparent
-          style={styles.countdownBtn}
-          onPress={handleToggleStartAt}
-        >
-          <Countdown startAt={startAt} onCompleted={onStartupCompleted} />
-          <Text style={styles.countdownText}>Tab to pause</Text>
-        </Button>
-      )
-    } else {
-      return (
-        <Button
-          transparent
-          style={styles.countdownBtn}
-          onPress={handleToggleStartAt}
-        >
-          <Text style={styles.countdownText}>Tab to resume</Text>
-        </Button>
-      )
-    }
-  }
+  useInterval(() => {
+    const duration = moment.duration(moment() - state.startAt)
+    const elapsedMs = moment.duration(duration).asMilliseconds()
+    setState({ ...state, elapsedMs })
+  }, 1000)
 
   return (
     <View style={styles.container}>
-      {renderCountdown()}
+      <Button
+        transparent
+        style={styles.countdownBtn}
+        onPress={handleToggleStartAt}
+      >
+        {state.startAt && (
+          <Countdown
+            elapsedMs={state.elapsedMs}
+            targetMs={10000}
+            onCompleted={onStartupCompleted}
+          />
+        )}
+        {state.startAt ? (
+          <Text style={styles.countdownText}>Tab to pause</Text>
+        ) : (
+          <Text style={styles.countdownText}>Tab to resume</Text>
+        )}
+      </Button>
       <Text style={styles.workoutName} numberOfLines={2}>
         {name}
       </Text>
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   workoutName: {
-    marginTop: 40,
+    marginTop: 20,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 38,
