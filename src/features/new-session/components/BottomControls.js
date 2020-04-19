@@ -31,9 +31,6 @@ const BottomControls = () => {
 
   return (
     <View style={styles.container}>
-      <Button style={styles.button} transparent>
-        <Icon style={styles.icon} active name="md-volume-high" />
-      </Button>
       <Duration style={styles.duration} elapsedMs={elapsedMs} />
       {running ? (
         <Button style={styles.button} transparent onPress={handleStop}>
@@ -57,18 +54,21 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    fontSize: 36,
-    color: 'black',
-    fontWeight: 'bold',
+    flexDirection: 'column',
   },
   duration: {
     fontSize: 42,
+  },
+  button: {
+    width: 80,
+    height: 80,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  icon: {
+    fontSize: 42,
+    color: 'black',
+    fontWeight: 'bold',
   },
 })

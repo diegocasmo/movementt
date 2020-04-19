@@ -258,6 +258,9 @@ export const getWorkout = (state) => {
   return state.newSession.workout
 }
 
-export const getCurrRound = (state) => {
-  return state.newSession.roundsCompleted + 1
+export const getCurrRound = ({ newSession }) => {
+  return Math.min.apply(Math, [
+    newSession.roundsCompleted + 1,
+    newSession.workout.rounds,
+  ])
 }

@@ -36,10 +36,13 @@ const TopControls = ({ onQuit }) => {
 
   return (
     <View style={styles.container}>
+      <Button transparent>
+        <Icon style={styles.icon} active name="md-volume-high" />
+      </Button>
       <Text style={styles.text}>
         Round: {currRound}/{workout.rounds}
       </Text>
-      <Button style={styles.button} transparent onPress={handleQuit}>
+      <Button transparent onPress={handleQuit}>
         <Icon style={styles.icon} active name="md-close" />
       </Button>
     </View>
@@ -57,18 +60,13 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
   },
   text: {
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 38,
-  },
-  button: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
   },
   icon: {
     fontSize: 36,

@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 156,
   },
   workoutName: {
+    textAlign: 'center',
     marginTop: 20,
     fontWeight: 'bold',
     fontSize: 38,
