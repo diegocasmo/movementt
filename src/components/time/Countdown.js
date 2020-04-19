@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import Duration from './Duration'
 import * as Speech from 'expo-speech'
 
-const Countdown = ({ elapsedMs, targetMs, onCompleted, thresholdMs = 500 }) => {
+const Countdown = ({
+  elapsedMs,
+  targetMs,
+  onCompleted,
+  thresholdMs = 500,
+  hasSound = true,
+}) => {
   const remainingMs = targetMs - elapsedMs + thresholdMs
   const remainingSeconds = parseInt(remainingMs / 1000)
 
@@ -14,6 +20,8 @@ const Countdown = ({ elapsedMs, targetMs, onCompleted, thresholdMs = 500 }) => {
   }, [elapsedMs])
 
   useEffect(() => {
+    if (!hasSound) return
+
     if (remainingSeconds <= 5 && remainingSeconds > 0) {
       Speech.speak(`${remainingSeconds}`)
     }
@@ -29,4 +37,5 @@ Countdown.propTypes = {
   targetMs: PropTypes.number.isRequired,
   onCompleted: PropTypes.func.isRequired,
   thresholdMs: PropTypes.number,
+  hasSound: PropTypes.bool,
 }

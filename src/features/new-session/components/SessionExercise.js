@@ -4,6 +4,7 @@ import {
   getCurrExercise,
   getCurrTimeEntryElapsedMs,
   completeExercise,
+  hasSound,
 } from '../reducers/new-session'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
@@ -14,6 +15,7 @@ const SessionExercise = () => {
   const dispatch = useDispatch()
   const exercise = useSelector(getCurrExercise)
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
+  const sound = useSelector(hasSound)
 
   const handleCompleted = () => {
     dispatch(completeExercise())
@@ -26,6 +28,7 @@ const SessionExercise = () => {
           <Countdown
             elapsedMs={elapsedMs}
             targetMs={exercise.quantity}
+            hasSound={sound}
             onCompleted={handleCompleted}
           />
         </View>

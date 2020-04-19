@@ -5,6 +5,7 @@ import {
   getCurrExercise,
   getCurrTimeEntryElapsedMs,
   completeExerciseRest,
+  hasSound,
 } from '../reducers/new-session'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
@@ -15,6 +16,7 @@ const SessionExerciseRest = () => {
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
   const { name } = useSelector(getCurrExercise)
   const { restMs } = useSelector(getPrevExercise)
+  const sound = useSelector(hasSound)
 
   const handleComplete = () => {
     dispatch(completeExerciseRest())
@@ -26,6 +28,7 @@ const SessionExerciseRest = () => {
         <Countdown
           elapsedMs={elapsedMs}
           targetMs={restMs}
+          hasSound={sound}
           onCompleted={handleComplete}
         />
         <Text style={styles.btnText}>Tab to skip</Text>

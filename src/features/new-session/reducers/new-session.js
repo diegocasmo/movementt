@@ -9,9 +9,10 @@ export const TIME_ENTRY_TYPE = {
 
 const initialState = {
   tick: null,
-  workout: null,
+  hasSound: true,
   currExerciseIdx: null,
   roundsCompleted: 0,
+  workout: null,
   timeEntries: [],
 }
 
@@ -140,6 +141,10 @@ const newSession = createSlice({
         startTimeEntry(TIME_ENTRY_TYPE.EXERCISE),
       ]
     },
+
+    toggleSound(state) {
+      state.hasSound = !state.hasSound
+    },
   },
 })
 
@@ -183,11 +188,20 @@ export const completeRoundRest = () => (dispatch) => {
   dispatch(newSession.actions.completeRoundRest())
 }
 
+export const toggleSound = () => (dispatch) => {
+  dispatch(newSession.actions.toggleSound())
+}
+
 // ---------------------------- Selectors ----------------------------
 
 // Return true if new session has started, false otherwise
 export const hasStarted = (state) => {
   return state.newSession.tick !== null
+}
+
+// Return true if new session has sound, false otherwise
+export const hasSound = (state) => {
+  return state.newSession.hasSound
 }
 
 // Return true if session is running, false otherwise

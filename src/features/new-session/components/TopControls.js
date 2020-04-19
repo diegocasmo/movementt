@@ -1,7 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { play, stop, getCurrRound, getWorkout } from '../reducers/new-session'
+import {
+  play,
+  stop,
+  toggleSound,
+  getCurrRound,
+  getWorkout,
+  hasSound,
+} from '../reducers/new-session'
 import { StyleSheet, Alert, Text } from 'react-native'
 import { View, Button, Icon } from 'native-base'
 
@@ -9,6 +16,7 @@ const TopControls = ({ onQuit }) => {
   const dispatch = useDispatch()
   const currRound = useSelector(getCurrRound)
   const workout = useSelector(getWorkout)
+  const sound = useSelector(hasSound)
 
   const handleQuit = () => {
     dispatch(stop())
@@ -34,15 +42,23 @@ const TopControls = ({ onQuit }) => {
     )
   }
 
+  const handleToggleSound = () => {
+    dispatch(toggleSound())
+  }
+
   return (
     <View style={styles.container}>
-      <Button transparent>
-        <Icon style={styles.icon} active name="md-volume-high" />
+      <Button style={styles.btnSound} transparent onPress={handleToggleSound}>
+        {sound ? (
+          <Icon style={styles.icon} active name="md-volume-high" />
+        ) : (
+          <Icon style={styles.icon} active name="md-volume-off" />
+        )}
       </Button>
       <Text style={styles.text}>
         Round: {currRound}/{workout.rounds}
       </Text>
-      <Button transparent onPress={handleQuit}>
+      <Button style={styles.btnClose} transparent onPress={handleQuit}>
         <Icon style={styles.icon} active name="md-close" />
       </Button>
     </View>
@@ -60,8 +76,18 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     flexDirection: 'row',
+  },
+  btnSound: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  btnClose: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   text: {
     textAlign: 'center',

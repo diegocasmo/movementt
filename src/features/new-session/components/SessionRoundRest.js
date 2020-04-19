@@ -5,6 +5,7 @@ import {
   completeRoundRest,
   getCurrExercise,
   getCurrTimeEntryElapsedMs,
+  hasSound,
 } from '../reducers/new-session'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
@@ -15,6 +16,7 @@ const SessionRoundRest = () => {
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
   const { restMs } = useSelector(getWorkout)
   const { name } = useSelector(getCurrExercise)
+  const sound = useSelector(hasSound)
 
   const handleComplete = () => {
     dispatch(completeRoundRest())
@@ -26,6 +28,7 @@ const SessionRoundRest = () => {
         <Countdown
           elapsedMs={elapsedMs}
           targetMs={restMs}
+          hasSound={sound}
           onCompleted={handleComplete}
         />
         <Text style={styles.btnText}>Tab to skip</Text>
