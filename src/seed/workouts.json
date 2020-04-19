@@ -83,181 +83,193 @@
           "name": "Upward stretch",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Triceps stretch (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Triceps stretch (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Upwards wrist pull (R)",
           "quantity": 16000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Upwards wrist pull (L)",
           "quantity": 16000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Shoulder stretch (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Shoulder stretch (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Downwards wrist pull (R)",
           "quantity": 16000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Downwards wrist pull (L)",
           "quantity": 16000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Runners stretch (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Runners stretch (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Standing hamstring stretch",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 15000
         },
         {
           "name": "Lunging hip flexor (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Lunging hip flexor (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 12000
         },
         {
           "name": "The prayer",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Seated one-leg hamstring stretch (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Seated one-leg hamstring stretch (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Hamstring stretch",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Knee across the body (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Knee across the body (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 15000
         },
         {
-          "name": "Scorpion",
+          "name": "Scorpion (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
+        },
+        {
+          "name": "Scorpion (L)",
+          "quantity": 26000,
+          "type": "time",
+          "restMs": 15000
         },
         {
           "name": "Knee to the chest (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Knee to the chest (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Half kneeling quad (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Half kneeling quad (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
+        },
+        {
+          "name": "Half kneeling quads",
+          "quantity": 26000,
+          "type": "time",
+          "restMs": 15000
         },
         {
           "name": "Pigeon (R)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Pigeon (L)",
           "quantity": 26000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         },
         {
           "name": "Butterfly",
           "quantity": 31000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 12000
         },
         {
           "name": "Pancake",
           "quantity": 31000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 12000
         },
         {
           "name": "Downward facing dog",
           "quantity": 31000,
           "type": "time",
-          "restMs": 7000
+          "restMs": 10000
         }
       ]
     }
