@@ -20,6 +20,7 @@ const TopControls = ({ onQuit }) => {
 
   const handleQuit = () => {
     dispatch(stop())
+
     Alert.alert(
       'Quit Workout',
       'Are you sure you want to quit the workout?',

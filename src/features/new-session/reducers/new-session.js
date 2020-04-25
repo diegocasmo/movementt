@@ -60,20 +60,20 @@ const newSession = createSlice({
       state.timeEntries = [startTimeEntry()]
     },
 
-    play(state, { payload }) {
+    play(state) {
       const { timeEntries } = state
       const lastTimeEntry = timeEntries[timeEntries.length - 1]
-
-      state.tick = payload
-      state.timeEntries = [...timeEntries, startTimeEntry(lastTimeEntry.type)]
+      if (isTimeEntryStopped(lastTimeEntry)) {
+        state.timeEntries = [...timeEntries, startTimeEntry(lastTimeEntry.type)]
+      }
     },
 
-    stop(state, { payload }) {
+    stop(state) {
       let { timeEntries } = state
-      const lastTimeEntry = timeEntries.pop()
-
-      state.tick = payload
-      state.timeEntries = [...timeEntries, stopTimeEntry(lastTimeEntry)]
+      if (isTimeEntryRunning(timeEntries[timeEntries.length - 1])) {
+        const lastTimeEntry = timeEntries.pop()
+        state.timeEntries = [...timeEntries, stopTimeEntry(lastTimeEntry)]
+      }
     },
 
     tick(state, { payload }) {
@@ -164,12 +164,12 @@ export const start = (now = moment()) => (dispatch) => {
   dispatch(newSession.actions.start(now.valueOf()))
 }
 
-export const play = (now = moment()) => (dispatch) => {
-  dispatch(newSession.actions.play(now.valueOf()))
+export const play = () => (dispatch) => {
+  dispatch(newSession.actions.play())
 }
 
-export const stop = (now = moment()) => (dispatch) => {
-  dispatch(newSession.actions.stop(now.valueOf()))
+export const stop = () => (dispatch) => {
+  dispatch(newSession.actions.stop())
 }
 
 export const tick = (now = moment()) => (dispatch) => {
@@ -207,6 +207,11 @@ export const hasSound = (state) => {
 // Return true if session is running, false otherwise
 export const isRunning = (state) => {
   return isTimeEntryRunning(getCurrTimeEntry(state))
+}
+
+// Return true if session is stopped, false otherwise
+export const isStopped = (state) => {
+  return !isRunning(state)
 }
 
 // Return true if session is completed, false otherwise
