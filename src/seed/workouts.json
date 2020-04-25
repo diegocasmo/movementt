@@ -10,25 +10,25 @@
         {
           "name": "Skipping",
           "quantity": 50,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
           "name": "Walking lunge",
           "quantity": 24,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
           "name": "Reverse Lunge & Knee up",
           "quantity": 30,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
           "name": "Split Squat",
           "quantity": 15,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         }
       ]
@@ -43,25 +43,25 @@
         {
           "name": "Burpees",
           "quantity": 10,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
           "name": "Alternating lunge",
           "quantity": 20,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
           "name": "Knee up",
           "quantity": 24,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
           "name": "Sumo Squat",
           "quantity": 15,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         }
       ]
@@ -82,7 +82,7 @@
         {
           "name": "Ab Roll-out On Knees",
           "quantity": 10,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
@@ -94,7 +94,7 @@
         {
           "name": "V Ups",
           "quantity": 15,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
@@ -115,13 +115,13 @@
         {
           "name": "Sit ups",
           "quantity": 15,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
           "name": "Heel touch crunches",
           "quantity": 30,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         },
         {
@@ -133,7 +133,7 @@
         {
           "name": "Russian Twist",
           "quantity": 30,
-          "type": "repetitions",
+          "type": "repetition",
           "restMs": 20000
         }
       ]
@@ -336,6 +336,81 @@
           "quantity": 35000,
           "type": "time",
           "restMs": 15000
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Mobility Session",
+      "difficulty": 6,
+      "rounds": 2,
+      "restMs": 60000,
+      "exercises": [
+        {
+          "name": "Bar passes",
+          "quantity": 15,
+          "type": "repetition",
+          "restMs": 30000
+        },
+        {
+          "name": "Bottom squat hold",
+          "quantity": 30000,
+          "type": "time",
+          "restMs": 30000
+        },
+        {
+          "name": "Bottom squat full rotation",
+          "quantity": 10,
+          "type": "repetition",
+          "restMs": 30000
+        },
+        {
+          "name": "Bar pass in squat position",
+          "quantity": 10,
+          "type": "repetition",
+          "restMs": 30000
+        },
+        {
+          "name": "Rhombo stretch (R)",
+          "quantity": 16000,
+          "type": "time",
+          "restMs": 30000
+        },
+        {
+          "name": "Rhombo stretch (L)",
+          "quantity": 16000,
+          "type": "time",
+          "restMs": 30000
+        },
+        {
+          "name": "OHS hold",
+          "quantity": 30000,
+          "type": "time",
+          "restMs": 30000
+        },
+        {
+          "name": "Press in snatch",
+          "quantity": 10,
+          "type": "repetition",
+          "restMs": 30000
+        },
+        {
+          "name": "Reverse table",
+          "quantity": 26000,
+          "type": "time",
+          "restMs": 30000
+        },
+        {
+          "name": "Squat to stand",
+          "quantity": 10,
+          "type": "repetition",
+          "restMs": 30000
+        },
+        {
+          "name": "Wall squat",
+          "quantity": 10,
+          "type": "repetition",
+          "restMs": 30000
         }
       ]
     }
