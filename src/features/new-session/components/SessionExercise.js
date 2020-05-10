@@ -10,6 +10,7 @@ import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '../../../components/time/Countdown'
 import ExerciseInstructions from './ExerciseInstructions'
+import { secondsToMs } from '../../../utils/time-utils'
 
 const SessionExercise = () => {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const SessionExercise = () => {
         <View transparent style={styles.btn}>
           <Countdown
             elapsedMs={elapsedMs}
-            targetMs={exercise.quantity}
+            targetMs={secondsToMs(exercise.quantity)}
             hasSound={sound}
             onCompleted={handleCompleted}
           />

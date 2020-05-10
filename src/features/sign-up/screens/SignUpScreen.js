@@ -28,7 +28,7 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <Content padder>
+      <Content padder showsVerticalScrollIndicator={false}>
         <EmailAndPasswordForm
           style={styles.form}
           buttonText="Create Account"

@@ -10,12 +10,14 @@ import {
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '../../../components/time/Countdown'
+import { getInstructions } from '../../../api/models/exercise'
+import { secondsToMs } from '../../../utils/time-utils'
 
 const SessionExerciseRest = () => {
   const dispatch = useDispatch()
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
-  const { name } = useSelector(getCurrExercise)
-  const { restMs } = useSelector(getPrevExercise)
+  const exercise = useSelector(getCurrExercise)
+  const { restSeconds } = useSelector(getPrevExercise)
   const sound = useSelector(hasSound)
 
   const handleComplete = () => {
@@ -27,7 +29,7 @@ const SessionExerciseRest = () => {
       <Button transparent style={styles.btn} onPress={handleComplete}>
         <Countdown
           elapsedMs={elapsedMs}
-          targetMs={restMs}
+          targetMs={secondsToMs(restSeconds)}
           hasSound={sound}
           onCompleted={handleComplete}
         />
@@ -35,7 +37,7 @@ const SessionExerciseRest = () => {
       </Button>
       <Text style={styles.text}>Rest</Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {name}
+        Next: {exercise.name} {getInstructions(exercise)}
       </Text>
     </View>
   )

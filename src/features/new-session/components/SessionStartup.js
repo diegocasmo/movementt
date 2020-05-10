@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
 import Countdown from '../../../components/time/Countdown'
 import { useInterval } from '../../../hooks/use-interval'
+import { getInstructions } from '../../../api/models/exercise'
 import { View, Button, Text, Icon } from 'native-base'
 import { now, getTotalEllapsedMs } from '../../../utils/time-utils'
 
@@ -80,7 +81,7 @@ const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
         {name}
       </Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercises[0].name}
+        Next: {exercises[0].name} {getInstructions(exercises[0])}
       </Text>
     </View>
   )

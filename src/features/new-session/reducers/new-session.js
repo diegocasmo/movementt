@@ -92,7 +92,7 @@ const newSession = createSlice({
         state.timeEntries = [...timeEntries, stopTimeEntry(lastTimeEntry)]
       } else if (isLastExercise) {
         const nextTimeEntryType =
-          workout.restMs === 0
+          workout.restSeconds === 0
             ? TIME_ENTRY_TYPE.EXERCISE
             : TIME_ENTRY_TYPE.ROUND_REST
 
@@ -105,7 +105,7 @@ const newSession = createSlice({
         ]
       } else {
         const nextTimeEntryType =
-          currExercise.restMs === 0
+          currExercise.restSeconds === 0
             ? TIME_ENTRY_TYPE.EXERCISE
             : TIME_ENTRY_TYPE.EXERCISE_REST
 

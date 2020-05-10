@@ -1,5 +1,7 @@
 import moment from 'moment'
 
+const MS_IN_A_SECOND = 1000
+
 // Return today's date
 export const now = () => {
   return moment()
@@ -25,4 +27,12 @@ export const getDuration = (value) => {
   const minutes = moment.duration(duration).minutes()
   const seconds = moment.duration(duration).seconds()
   return { hours, minutes, seconds }
+}
+
+export const msToSeconds = (ms) => {
+  return ms ? ms / MS_IN_A_SECOND : 0
+}
+
+export const secondsToMs = (seconds) => {
+  return seconds ? seconds * MS_IN_A_SECOND : 0
 }

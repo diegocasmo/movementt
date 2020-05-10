@@ -26,7 +26,7 @@ const UpdatePasswordScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <Content padder>
+      <Content padder showsVerticalScrollIndicator={false}>
         <UpdatePasswordForm
           style={styles.form}
           onSubmit={handleUpdatePassword}

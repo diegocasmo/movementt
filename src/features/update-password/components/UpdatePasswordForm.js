@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Form, Item, Input, Button, Text, Icon, Spinner } from 'native-base'
+import { Form, Grid, Col, Button, Text, Spinner } from 'native-base'
 import * as Yup from 'yup'
-import { Formik } from 'formik'
+import { PasswordInput } from '../../../components/form'
+import { Formik, getIn } from 'formik'
 
 const validationSchema = Yup.object({
-  newPassword: Yup.string()
-    .required()
-    .min(6),
+  newPassword: Yup.string().required().min(6),
   newPasswordConfirm: Yup.string()
     .oneOf([Yup.ref('newPassword'), null])
     .required(),
@@ -34,62 +33,33 @@ const EmailAndPasswordForm = ({ style, isSubmitting, onSubmit }) => {
       }) => {
         return (
           <Form style={style}>
-            <Item
-              success={
-                touched.newPassword && !errors.newPassword ? true : false
-              }
-              error={touched.newPassword && errors.newPassword ? true : false}
-            >
-              <Icon active name="md-key" />
-              <Input
-                autoFocus
-                secureTextEntry
-                autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="New Password"
-                autoCompleteType="password"
-                onChangeText={handleChange('newPassword')}
-                onBlur={handleBlur('newPassword')}
-                value={values.newPassword}
-              />
-              {touched.newPassword &&
-                (errors.newPassword ? (
-                  <Icon name="md-close-circle" />
-                ) : (
-                  <Icon name="md-checkmark-circle" />
-                ))}
-            </Item>
+            <Grid>
+              <Col>
+                <PasswordInput
+                  style={styles.input}
+                  label="New Password"
+                  onBlur={handleBlur('newPassword')}
+                  onChange={handleChange('newPassword')}
+                  error={getIn(errors, 'newPassword')}
+                  touched={getIn(touched, 'newPassword')}
+                  value={values.newPassword}
+                />
+              </Col>
+            </Grid>
 
-            <Item
-              success={
-                touched.newPasswordConfirm && !errors.newPasswordConfirm
-                  ? true
-                  : false
-              }
-              error={
-                touched.newPasswordConfirm && errors.newPasswordConfirm
-                  ? true
-                  : false
-              }
-            >
-              <Icon active name="md-key" />
-              <Input
-                secureTextEntry
-                autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="Confirm New Password"
-                autoCompleteType="password"
-                onChangeText={handleChange('newPasswordConfirm')}
-                onBlur={handleBlur('newPasswordConfirm')}
-                value={values.newPasswordConfirm}
-              />
-              {touched.newPasswordConfirm &&
-                (errors.newPasswordConfirm ? (
-                  <Icon name="md-close-circle" />
-                ) : (
-                  <Icon name="md-checkmark-circle" />
-                ))}
-            </Item>
+            <Grid>
+              <Col>
+                <PasswordInput
+                  style={styles.input}
+                  label="Confirm New Password"
+                  onBlur={handleBlur('newPasswordConfirm')}
+                  onChange={handleChange('newPasswordConfirm')}
+                  error={getIn(errors, 'newPasswordConfirm')}
+                  touched={getIn(touched, 'newPasswordConfirm')}
+                  value={values.newPasswordConfirm}
+                />
+              </Col>
+            </Grid>
 
             <Button
               block
@@ -120,6 +90,9 @@ EmailAndPasswordForm.propTypes = {
 export default EmailAndPasswordForm
 
 const styles = StyleSheet.create({
+  input: {
+    marginBottom: 0,
+  },
   button: {
     marginTop: 30,
   },

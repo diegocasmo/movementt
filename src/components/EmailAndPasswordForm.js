@@ -1,19 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Form, Item, Input, Button, Text, Icon, Spinner } from 'native-base'
+import { Form, Grid, Col, Button, Text, Spinner } from 'native-base'
 import * as Yup from 'yup'
-import { Formik } from 'formik'
+import { Formik, getIn } from 'formik'
 import ImageLogo from './ImageLogo'
+import { PasswordInput, EmailInput } from './form'
 
-const buildValidationSchema = withPasswordConfirmation =>
+const buildValidationSchema = (withPasswordConfirmation) =>
   Yup.object({
-    email: Yup.string()
-      .email()
-      .required(),
-    password: Yup.string()
-      .required()
-      .min(6),
+    email: Yup.string().email().required(),
+    password: Yup.string().required().min(6),
     // Optionally require password confirmation
     ...(withPasswordConfirmation && {
       passwordConfirmation: Yup.string()
@@ -50,83 +47,50 @@ const EmailAndPasswordForm = ({
         return (
           <Form style={style}>
             <ImageLogo style={styles.image} />
-            <Item
-              success={touched.email && !errors.email ? true : false}
-              error={touched.email && errors.email ? true : false}
-            >
-              <Icon active name="md-mail-open" />
-              <Input
-                autoFocus
-                autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="Email"
-                autoCompleteType="email"
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
-                value={values.email}
-              />
-              {touched.email &&
-                (errors.email ? (
-                  <Icon name="md-close-circle" />
-                ) : (
-                  <Icon name="md-checkmark-circle" />
-                ))}
-            </Item>
 
-            <Item
-              success={touched.password && !errors.password ? true : false}
-              error={touched.password && errors.password ? true : false}
-            >
-              <Icon active name="md-key" />
-              <Input
-                secureTextEntry
-                autoCorrect={false}
-                autoCapitalize="none"
-                placeholder="Password"
-                autoCompleteType="password"
-                onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
-                value={values.password}
-              />
-              {touched.password &&
-                (errors.password ? (
-                  <Icon name="md-close-circle" />
-                ) : (
-                  <Icon name="md-checkmark-circle" />
-                ))}
-            </Item>
+            <Grid>
+              <Col>
+                <EmailInput
+                  autoFocus
+                  style={styles.input}
+                  label="Email"
+                  onBlur={handleBlur('email')}
+                  onChange={handleChange('email')}
+                  error={getIn(errors, 'email')}
+                  touched={getIn(touched, 'email')}
+                  value={values.email}
+                />
+              </Col>
+            </Grid>
+
+            <Grid>
+              <Col>
+                <PasswordInput
+                  style={styles.input}
+                  label="Password"
+                  onBlur={handleBlur('password')}
+                  onChange={handleChange('password')}
+                  error={getIn(errors, 'password')}
+                  touched={getIn(touched, 'password')}
+                  value={values.password}
+                />
+              </Col>
+            </Grid>
 
             {withPasswordConfirmation && (
-              <Item
-                success={
-                  touched.passwordConfirmation && !errors.passwordConfirmation
-                    ? true
-                    : false
-                }
-                error={
-                  touched.passwordConfirmation && errors.passwordConfirmation
-                    ? true
-                    : false
-                }
-              >
-                <Icon active name="md-key" />
-                <Input
-                  secureTextEntry
-                  autoCorrect={false}
-                  autoCapitalize="none"
-                  placeholder="Password Confirmation"
-                  autoCompleteType="password"
-                  onChangeText={handleChange('passwordConfirmation')}
-                  onBlur={handleBlur('passwordConfirmation')}
-                  value={values.passwordConfirmation}
-                />
-                {touched.passwordConfirmation &&
-                  (errors.passwordConfirmation ? (
-                    <Icon name="md-close-circle" />
-                  ) : (
-                    <Icon name="md-checkmark-circle" />
-                  ))}
-              </Item>
+              <Grid>
+                <Col>
+                  <PasswordInput
+                    style={styles.input}
+                    label="Password Confirmation"
+                    onBlur={handleBlur('passwordConfirmation')}
+                    onChange={handleChange('passwordConfirmation')}
+                    error={getIn(errors, 'passwordConfirmation')}
+                    touched={getIn(touched, 'passwordConfirmation')}
+                    value={values.passwordConfirmation}
+                  />
+                </Col>
+              </Grid>
             )}
 
             <Button
@@ -166,6 +130,9 @@ export default EmailAndPasswordForm
 const styles = StyleSheet.create({
   image: {
     marginBottom: 25,
+  },
+  input: {
+    marginBottom: 0,
   },
   button: {
     marginTop: 30,

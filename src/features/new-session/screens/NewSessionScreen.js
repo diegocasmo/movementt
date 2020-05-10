@@ -68,13 +68,21 @@ const NewSessionScreen = ({ navigation, route }) => {
   return (
     <Container>
       {started ? (
-        <Content padder contentContainerStyle={styles.content}>
+        <Content
+          padder
+          scrollEnabled={false}
+          contentContainerStyle={styles.content}
+        >
           <TopControls onQuit={handleQuit} />
           {renderTimeEntry()}
           <BottomControls />
         </Content>
       ) : (
-        <Content padder contentContainerStyle={styles.content}>
+        <Content
+          padder
+          scrollEnabled={false}
+          contentContainerStyle={styles.content}
+        >
           <SessionStartup
             workout={workout}
             onQuit={handleQuit}

@@ -29,7 +29,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <Container>
-      <Content padder>
+      <Content padder showsVerticalScrollIndicator={false}>
         <EmailAndPasswordForm
           style={styles.form}
           buttonText="Sign In"

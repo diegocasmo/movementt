@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
+  Button,
+  Col,
   Container,
   Content,
-  Text,
   Form,
-  Item,
-  Input,
-  Button,
-  Icon,
+  Grid,
   Spinner,
+  Text,
 } from 'native-base'
-import { Formik } from 'formik'
+import { Formik, getIn } from 'formik'
 import { sendPasswordResetEmail } from '../../../api/password-reset'
 import { showError, showSuccess } from '../../../utils/toast'
+import { EmailInput } from '../../../components/form'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object({
@@ -65,28 +65,20 @@ const ForgotPasswordScreen = ({ navigation }) => {
           }) => {
             return (
               <Form style={styles.form}>
-                <Item
-                  success={touched.email && !errors.email ? true : false}
-                  error={touched.email && errors.email ? true : false}
-                >
-                  <Icon active name="md-mail-open" />
-                  <Input
-                    autoFocus
-                    autoCorrect={false}
-                    autoCapitalize="none"
-                    placeholder="Email"
-                    autoCompleteType="email"
-                    onChangeText={handleChange('email')}
-                    onBlur={handleBlur('email')}
-                    value={values.email}
-                  />
-                  {touched.email &&
-                    (errors.email ? (
-                      <Icon name="md-close-circle" />
-                    ) : (
-                      <Icon name="md-checkmark-circle" />
-                    ))}
-                </Item>
+                <Grid>
+                  <Col>
+                    <EmailInput
+                      autoFocus
+                      style={styles.input}
+                      label="Email"
+                      onBlur={handleBlur('email')}
+                      onChange={handleChange('email')}
+                      error={getIn(errors, 'email')}
+                      touched={getIn(touched, 'email')}
+                      value={values.email}
+                    />
+                  </Col>
+                </Grid>
 
                 <Button
                   block

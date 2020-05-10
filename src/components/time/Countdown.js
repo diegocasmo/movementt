@@ -22,7 +22,7 @@ const Countdown = ({
   useEffect(() => {
     if (!hasSound) return
 
-    if (remainingSeconds <= 5 && remainingSeconds > 0) {
+    if (remainingSeconds < 6 && remainingSeconds > 0) {
       Speech.speak(`${remainingSeconds}`)
     }
   }, [remainingSeconds])

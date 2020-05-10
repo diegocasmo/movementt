@@ -5,31 +5,31 @@
       "name": "Quad Boost",
       "difficulty": 4,
       "rounds": 2,
-      "restMs": 30000,
+      "restSeconds": 30,
       "exercises": [
         {
           "name": "Skipping",
           "quantity": 50,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
           "name": "Walking lunge",
           "quantity": 24,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
           "name": "Reverse Lunge & Knee up",
           "quantity": 30,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
           "name": "Split Squat",
           "quantity": 15,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         }
       ]
     },
@@ -38,103 +38,97 @@
       "name": "Full Body Kick",
       "difficulty": 4,
       "rounds": 2,
-      "restMs": 30000,
+      "restSeconds": 30,
       "exercises": [
         {
           "name": "Burpees",
           "quantity": 10,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
           "name": "Alternating lunge",
           "quantity": 20,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
           "name": "Knee up",
           "quantity": 24,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
           "name": "Sumo Squat",
           "quantity": 15,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         }
       ]
     },
     {
       "id": 3,
-      "name": "Core Shaper",
+      "name": "Core I",
       "difficulty": 5,
-      "rounds": 4,
-      "restMs": 30000,
+      "rounds": 3,
+      "restSeconds": 30,
       "exercises": [
         {
-          "name": "Side Plank (R)",
-          "quantity": 30000,
-          "type": "time",
-          "restMs": 20000
-        },
-        {
-          "name": "Ab Roll-out On Knees",
-          "quantity": 10,
+          "name": "Hanging knee raises",
+          "quantity": 8,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
-          "name": "Side Plank (L)",
-          "quantity": 30000,
-          "type": "time",
-          "restMs": 20000
-        },
-        {
-          "name": "V Ups",
-          "quantity": 15,
-          "type": "repetition",
-          "restMs": 20000
-        },
-        {
-          "name": "Plank",
+          "name": "Side plank (R)",
           "quantity": 30,
           "type": "time",
-          "restMs": 20000
+          "restSeconds": 20
+        },
+        {
+          "name": "Side plank (L)",
+          "quantity": 30,
+          "type": "time",
+          "restSeconds": 20
+        },
+        {
+          "name": "Ab-wheel roll-out",
+          "quantity": 10,
+          "type": "repetition",
+          "restSeconds": 20
         }
       ]
     },
     {
       "id": 4,
-      "name": "Fine Cut",
+      "name": "Core II",
       "difficulty": 4,
-      "rounds": 4,
-      "restMs": 30000,
+      "rounds": 3,
+      "restSeconds": 30,
       "exercises": [
         {
-          "name": "Sit ups",
-          "quantity": 15,
+          "name": "Hanging knee raises",
+          "quantity": 8,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
-          "name": "Heel touch crunches",
+          "name": "Plank",
           "quantity": 30,
-          "type": "repetition",
-          "restMs": 20000
+          "type": "time",
+          "restSeconds": 20
         },
         {
           "name": "Hollow hold",
-          "quantity": 30000,
+          "quantity": 25,
           "type": "time",
-          "restMs": 20000
+          "restSeconds": 20
         },
         {
-          "name": "Russian Twist",
-          "quantity": 30,
+          "name": "Seated leg lifts",
+          "quantity": 10,
           "type": "repetition",
-          "restMs": 20000
+          "restSeconds": 20
         }
       ]
     },
@@ -143,199 +137,199 @@
       "name": "Full Body Stretch Session",
       "difficulty": 5,
       "rounds": 1,
-      "restMs": 0,
+      "restSeconds": 0,
       "exercises": [
         {
           "name": "Upward stretch",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Triceps stretch (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Triceps stretch (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Upwards wrist pull (R)",
-          "quantity": 16000,
+          "quantity": 16,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Upwards wrist pull (L)",
-          "quantity": 16000,
+          "quantity": 16,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Shoulder stretch (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Shoulder stretch (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Downwards wrist pull (R)",
-          "quantity": 16000,
+          "quantity": 16,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Downwards wrist pull (L)",
-          "quantity": 16000,
+          "quantity": 16,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Runners stretch (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Runners stretch (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Standing hamstring stretch",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Lunging hip flexor (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Lunging hip flexor (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "The prayer",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Seated one-leg hamstring stretch (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Seated one-leg hamstring stretch (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Hamstring stretch",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Knee across the body (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Knee across the body (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Scorpion (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Scorpion (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Knee to the chest (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Knee to the chest (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Half kneeling quad (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Half kneeling quad (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Half kneeling quads",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Pigeon (R)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Pigeon (L)",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 10000
+          "restSeconds": 10
         },
         {
           "name": "Butterfly",
-          "quantity": 35000,
+          "quantity": 35,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Pancake",
-          "quantity": 35000,
+          "quantity": 35,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         },
         {
           "name": "Downward facing dog",
-          "quantity": 35000,
+          "quantity": 35,
           "type": "time",
-          "restMs": 15000
+          "restSeconds": 15
         }
       ]
     },
@@ -344,73 +338,142 @@
       "name": "Mobility Session",
       "difficulty": 6,
       "rounds": 2,
-      "restMs": 60000,
+      "restSeconds": 60,
       "exercises": [
         {
           "name": "Bar passes",
           "quantity": 15,
           "type": "repetition",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Bottom squat hold",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Bottom squat full rotation",
           "quantity": 10,
           "type": "repetition",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Bar pass in squat position",
           "quantity": 10,
           "type": "repetition",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Rhombo stretch (R)",
-          "quantity": 16000,
+          "quantity": 16,
           "type": "time",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Rhombo stretch (L)",
-          "quantity": 16000,
+          "quantity": 16,
           "type": "time",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "OHS hold",
-          "quantity": 30000,
+          "quantity": 30,
           "type": "time",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Press in snatch",
           "quantity": 10,
           "type": "repetition",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Reverse table",
-          "quantity": 26000,
+          "quantity": 26,
           "type": "time",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Squat to stand",
           "quantity": 10,
           "type": "repetition",
-          "restMs": 30000
+          "restSeconds": 30
         },
         {
           "name": "Wall squat",
           "quantity": 10,
           "type": "repetition",
-          "restMs": 30000
+          "restSeconds": 30
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Pull/Push Superset I",
+      "difficulty": 7,
+      "rounds": 4,
+      "restSeconds": 90,
+      "exercises": [
+        {
+          "name": "Pull up",
+          "quantity": 5,
+          "type": "repetition",
+          "restSeconds": 90
+        },
+        {
+          "name": "Dips",
+          "quantity": 10,
+          "type": "repetition",
+          "restSeconds": 90
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Pull/Push Superset II",
+      "difficulty": 7,
+      "rounds": 4,
+      "restSeconds": 90,
+      "exercises": [
+        {
+          "name": "Chin up",
+          "quantity": 5,
+          "type": "repetition",
+          "restSeconds": 90
+        },
+        {
+          "name": "Chair pike push ups",
+          "quantity": 8,
+          "type": "repetition",
+          "restSeconds": 90
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Legs Superset I",
+      "difficulty": 6,
+      "rounds": 4,
+      "restSeconds": 60,
+      "exercises": [
+        {
+          "name": "Single leg glute bridge",
+          "quantity": 8,
+          "type": "repetition",
+          "restSeconds": 60
+        },
+        {
+          "name": "Globet squat",
+          "quantity": 10,
+          "type": "repetition",
+          "restSeconds": 60
+        },
+        {
+          "name": "Single leg calve raises",
+          "quantity": 8,
+          "type": "repetition",
+          "restSeconds": 60
         }
       ]
     }
