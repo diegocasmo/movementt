@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import moment from 'moment'
+import { now, timestamp, getTotalEllapsedMs } from '../../../utils/time-utils'
 
 export const TIME_ENTRY_TYPE = {
   EXERCISE: 'EXERCISE',
@@ -16,32 +16,30 @@ const initialState = {
   timeEntries: [],
 }
 
-const startTimeEntry = (type = TIME_ENTRY_TYPE.EXERCISE, now = moment()) => ({
+const startTimeEntry = (type = TIME_ENTRY_TYPE.EXERCISE) => ({
   type,
-  startedAt: now.valueOf(),
+  startedAt: timestamp(now()),
   elapsedMs: null,
 })
 
-const stopTimeEntry = (timeEntry, now = moment()) => {
-  const duration = moment.duration(now - moment(timeEntry.startedAt))
+const stopTimeEntry = (timeEntry) => {
   return {
     ...timeEntry,
-    elapsedMs: moment.duration(duration).asMilliseconds(),
+    elapsedMs: getTotalEllapsedMs(now(), timeEntry.startedAt),
   }
 }
 
 const isTimeEntryRunning = ({ elapsedMs }) => elapsedMs === null
 const isTimeEntryStopped = (timeEntry) => !isTimeEntryRunning(timeEntry)
 
-const getTimeEntriesElapsedMs = (timeEntries, now = moment()) => {
-  return timeEntries.reduce((acc, timeEntry) => {
-    if (timeEntry.elapsedMs === null) {
-      const duration = moment.duration(now - moment(timeEntry.startedAt))
-      return acc + moment.duration(duration).asMilliseconds()
-    } else {
-      return acc + timeEntry.elapsedMs
-    }
-  }, 0)
+const getTimeEntriesElapsedMs = (timeEntries) => {
+  return timeEntries.reduce(
+    (acc, timeEntry) =>
+      timeEntry.elapsedMs === null
+        ? acc + getTotalEllapsedMs(now(), timeEntry.startedAt)
+        : acc + timeEntry.elapsedMs,
+    0
+  )
 }
 
 const newSession = createSlice({
@@ -160,8 +158,8 @@ export const clear = () => (dispatch) => {
   dispatch(newSession.actions.clear())
 }
 
-export const start = (now = moment()) => (dispatch) => {
-  dispatch(newSession.actions.start(now.valueOf()))
+export const start = () => (dispatch) => {
+  dispatch(newSession.actions.start(timestamp(now())))
 }
 
 export const play = () => (dispatch) => {
@@ -172,8 +170,8 @@ export const stop = () => (dispatch) => {
   dispatch(newSession.actions.stop())
 }
 
-export const tick = (now = moment()) => (dispatch) => {
-  dispatch(newSession.actions.tick(now.valueOf()))
+export const tick = () => (dispatch) => {
+  dispatch(newSession.actions.tick(timestamp(now())))
 }
 
 export const completeExercise = () => (dispatch) => {

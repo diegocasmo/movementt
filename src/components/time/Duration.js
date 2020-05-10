@@ -2,13 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Text, View } from 'native-base'
-import moment from 'moment'
+import { getDuration } from '../../utils/time-utils'
 
 const Duration = ({ elapsedMs, style }) => {
-  const duration = moment.duration(elapsedMs, 'milliseconds')
-  const hours = moment.duration(duration).hours()
-  const minutes = moment.duration(duration).minutes()
-  const seconds = moment.duration(duration).seconds()
+  const { hours, minutes, seconds } = getDuration(elapsedMs)
   const zeroPad = (x) => (x > 9 ? x : `0${x}`)
   return (
     <View style={styles.container}>

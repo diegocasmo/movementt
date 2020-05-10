@@ -4,16 +4,16 @@ import { StyleSheet, Alert } from 'react-native'
 import Countdown from '../../../components/time/Countdown'
 import { useInterval } from '../../../hooks/use-interval'
 import { View, Button, Text, Icon } from 'native-base'
-import moment from 'moment'
+import { now, getTotalEllapsedMs } from '../../../utils/time-utils'
 
 const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
   const { name, exercises } = workout
-  const [state, setState] = useState({ startAt: moment(), elapsedMs: 0 })
+  const [state, setState] = useState({ startAt: now(), elapsedMs: 0 })
   const stop = () => {
     setState({ startAt: null, elapsedMs: 0 })
   }
   const start = () => {
-    setState({ startAt: moment(), elapsedMs: 0 })
+    setState({ startAt: now(), elapsedMs: 0 })
   }
 
   const handleToggleStartAt = () => {
@@ -25,9 +25,10 @@ const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
   }
 
   useInterval(() => {
-    const duration = moment.duration(moment() - state.startAt)
-    const elapsedMs = moment.duration(duration).asMilliseconds()
-    setState({ ...state, elapsedMs })
+    setState({
+      ...state,
+      elapsedMs: getTotalEllapsedMs(now(), state.startAt),
+    })
   }, 1000)
 
   const handleQuit = () => {
