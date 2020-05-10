@@ -77,6 +77,7 @@ const NewSessionScreen = ({ navigation, route }) => {
         <Content padder contentContainerStyle={styles.content}>
           <SessionStartup
             workout={workout}
+            onQuit={handleQuit}
             onStartupCompleted={handleStartupCompleted}
           />
         </Content>

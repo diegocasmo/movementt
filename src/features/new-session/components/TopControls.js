@@ -9,8 +9,8 @@ import {
   getWorkout,
   hasSound,
 } from '../reducers/new-session'
-import { StyleSheet, Alert, Text } from 'react-native'
-import { View, Button, Icon } from 'native-base'
+import { StyleSheet, Alert } from 'react-native'
+import { View, Button, Icon, Text } from 'native-base'
 
 const TopControls = ({ onQuit }) => {
   const dispatch = useDispatch()
