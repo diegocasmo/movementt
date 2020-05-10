@@ -13,7 +13,7 @@ const WorkoutListScreen = ({ navigation }) => {
           <Title>Workouts</Title>
         </Body>
       </Header>
-      <Content style={styles.content}>
+      <Content style={styles.content} showsVerticalScrollIndicator={false}>
         {workouts.map((workout, idx) => (
           <WorkoutItem key={idx} workout={workout} navigation={navigation} />
         ))}
