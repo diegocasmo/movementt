@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import { Card, CardItem, H1, Body, View, Icon, Text } from 'native-base'
+import { Card, CardItem, H1, Body, View, Text } from 'native-base'
 
 const WorkoutItem = ({ workout, navigation }) => {
   const onPress = () => {
@@ -20,11 +20,6 @@ const WorkoutItem = ({ workout, navigation }) => {
           </Text>
           <View style={styles.settingsContainer}>
             <View style={styles.settingsItem}>
-              <Icon active name="md-rocket" style={styles.settingsIcon} />
-              <Text>Difficulty: {workout.difficulty}</Text>
-            </View>
-            <View style={styles.settingsItem}>
-              <Icon active name="md-refresh" style={styles.settingsIcon} />
               <Text>Rounds: {workout.rounds}</Text>
             </View>
           </View>
@@ -49,19 +44,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   settingsContainer: {
-    flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '75%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   settingsItem: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   settingsIcon: {
     marginRight: 10,

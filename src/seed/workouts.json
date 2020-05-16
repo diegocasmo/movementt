@@ -3,7 +3,6 @@
     {
       "id": 1,
       "name": "Quad Boost",
-      "difficulty": 4,
       "rounds": 2,
       "restSeconds": 30,
       "exercises": [
@@ -36,7 +35,6 @@
     {
       "id": 2,
       "name": "Full Body Kick",
-      "difficulty": 4,
       "rounds": 2,
       "restSeconds": 30,
       "exercises": [
@@ -69,7 +67,6 @@
     {
       "id": 3,
       "name": "Core I",
-      "difficulty": 5,
       "rounds": 3,
       "restSeconds": 30,
       "exercises": [
@@ -102,7 +99,6 @@
     {
       "id": 4,
       "name": "Core II",
-      "difficulty": 4,
       "rounds": 3,
       "restSeconds": 30,
       "exercises": [
@@ -135,7 +131,6 @@
     {
       "id": 5,
       "name": "Full Body Stretch Session",
-      "difficulty": 5,
       "rounds": 1,
       "restSeconds": 0,
       "exercises": [
@@ -336,7 +331,6 @@
     {
       "id": 6,
       "name": "Mobility Session",
-      "difficulty": 6,
       "rounds": 2,
       "restSeconds": 60,
       "exercises": [
@@ -411,7 +405,6 @@
     {
       "id": 7,
       "name": "Pull/Push Superset I",
-      "difficulty": 7,
       "rounds": 4,
       "restSeconds": 90,
       "exercises": [
@@ -432,7 +425,6 @@
     {
       "id": 8,
       "name": "Pull/Push Superset II",
-      "difficulty": 7,
       "rounds": 4,
       "restSeconds": 90,
       "exercises": [
@@ -453,7 +445,6 @@
     {
       "id": 9,
       "name": "Legs Superset I",
-      "difficulty": 6,
       "rounds": 4,
       "restSeconds": 60,
       "exercises": [

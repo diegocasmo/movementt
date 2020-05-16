@@ -3,28 +3,18 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Button, Col, Form, Grid, H1, Spinner, Text, View } from 'native-base'
 import { Formik, getIn, FieldArray } from 'formik'
-import { TextInput, NumberInput, PickerInput } from '../../../components/form'
+import { TextInput, NumberInput } from '../../../components/form'
 import ExerciseForm from './ExerciseForm'
-import {
-  DIFFICULTY_OPTIONS,
-  EMPTY_EXERCISE,
-  VALIDATION_SCHEMA,
-} from '../../../api/models/exercise'
-
-const INITIAL_VALUES = {
-  title: `${''}`,
-  difficulty: 5,
-  rounds: 4,
-  restSeconds: 30,
-  exercises: [EMPTY_EXERCISE],
-}
+import { EMPTY_WORKOUT, SCHEMA } from '../../../api/models/workout'
 
 const WorkoutForm = ({ isSubmitting, onSubmit, style }) => {
   return (
     <Formik
-      initialValues={INITIAL_VALUES}
-      validationSchema={VALIDATION_SCHEMA}
-      onSubmit={onSubmit}
+      initialValues={EMPTY_WORKOUT}
+      validationSchema={SCHEMA}
+      onSubmit={(attrs) => {
+        onSubmit(SCHEMA.cast(attrs))
+      }}
     >
       {({
         handleChange,
@@ -42,7 +32,7 @@ const WorkoutForm = ({ isSubmitting, onSubmit, style }) => {
               <H1 style={styles.h1}>Setup</H1>
 
               <Grid>
-                <Col flexGrow={1.6} paddingRight={10}>
+                <Col>
                   <TextInput
                     label="Title"
                     autoFocus={true}
@@ -51,14 +41,6 @@ const WorkoutForm = ({ isSubmitting, onSubmit, style }) => {
                     onChange={handleChange('title')}
                     touched={getIn(touched, 'title')}
                     value={values.title}
-                  />
-                </Col>
-                <Col>
-                  <PickerInput
-                    label="Difficulty"
-                    value={values.difficulty}
-                    options={DIFFICULTY_OPTIONS}
-                    onValueChange={handleChange('difficulty')}
                   />
                 </Col>
               </Grid>
