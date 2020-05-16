@@ -40,14 +40,14 @@ const auth = createSlice({
 
 export default auth.reducer
 
-export const handleAuthStateChanged = user => dispatch => {
+export const handleAuthStateChanged = (user) => (dispatch) => {
   if (!user) return dispatch(auth.actions.authStateChangedSignOut())
 
   const { uid, emailVerified } = user
   dispatch(auth.actions.authStateChangedSignIn({ uid, emailVerified }))
 }
 
-export const reloadCurrentUser = () => async dispatch => {
+export const reloadCurrentUser = () => async (dispatch) => {
   try {
     dispatch(auth.actions.reloadCurrentUserInit())
     await currentUser().reload()
@@ -60,4 +60,9 @@ export const reloadCurrentUser = () => async dispatch => {
     dispatch(auth.actions.reloadCurrentUserFailure(err.message))
     throw err
   }
+}
+
+// Return the current user
+export const getUser = (state) => {
+  return state.auth.user
 }
