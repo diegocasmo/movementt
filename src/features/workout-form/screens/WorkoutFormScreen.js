@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, Header, Body, Title, Content } from 'native-base'
 import WorkoutForm from '../components/WorkoutForm'
 import { getUser } from '../../../state/reducers/auth'
 import { create } from '../../../api/models/workout'
 import { showError } from '../../../utils/toast'
+import { fetchWorkouts } from '../../workout-list/reducers/workouts'
 
 const WorkoutFormScreen = ({ navigation }) => {
+  const dispatch = useDispatch()
   const user = useSelector(getUser)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -16,6 +18,7 @@ const WorkoutFormScreen = ({ navigation }) => {
     setIsSubmitting(true)
     try {
       await create(user.uid, values)
+      dispatch(fetchWorkouts(user.uid))
       resetForm()
       navigation.navigate('Home')
     } catch (err) {

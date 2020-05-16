@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Input as NBInput, Item, Label } from 'native-base'
-import isEqual from 'react-fast-compare'
 
 const Input = ({
   error,
@@ -47,4 +46,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default React.memo(Input, isEqual)
+export default Input

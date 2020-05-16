@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Item, Picker, Label } from 'native-base'
-import isEqual from 'react-fast-compare'
 
 const PickerInput = ({ label, onValueChange, options, style, value }) => {
   return (
@@ -63,4 +62,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default React.memo(PickerInput, isEqual)
+export default PickerInput

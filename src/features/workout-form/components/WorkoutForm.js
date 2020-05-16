@@ -34,13 +34,13 @@ const WorkoutForm = ({ isSubmitting, onSubmit, style }) => {
               <Grid>
                 <Col>
                   <TextInput
-                    label="Title"
+                    label="Name"
                     autoFocus={true}
-                    error={getIn(errors, 'title')}
-                    onBlur={handleBlur('title')}
-                    onChange={handleChange('title')}
-                    touched={getIn(touched, 'title')}
-                    value={values.title}
+                    error={getIn(errors, 'name')}
+                    onBlur={handleBlur('name')}
+                    onChange={handleChange('name')}
+                    touched={getIn(touched, 'name')}
+                    value={values.name}
                   />
                 </Col>
               </Grid>
