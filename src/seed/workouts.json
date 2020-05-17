@@ -5,6 +5,8 @@
       "name": "Quad Boost",
       "rounds": 2,
       "restSeconds": 30,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Skipping",
@@ -37,6 +39,8 @@
       "name": "Full Body Kick",
       "rounds": 2,
       "restSeconds": 30,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Burpees",
@@ -69,6 +73,8 @@
       "name": "Core I",
       "rounds": 3,
       "restSeconds": 30,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Hanging knee raises",
@@ -101,6 +107,8 @@
       "name": "Core II",
       "rounds": 3,
       "restSeconds": 30,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Hanging knee raises",
@@ -133,6 +141,8 @@
       "name": "Full Body Stretch Session",
       "rounds": 1,
       "restSeconds": 0,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Upward stretch",
@@ -333,6 +343,8 @@
       "name": "Mobility Session",
       "rounds": 2,
       "restSeconds": 60,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Bar passes",
@@ -407,6 +419,8 @@
       "name": "Pull/Push Superset I",
       "rounds": 4,
       "restSeconds": 90,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Pull up",
@@ -427,6 +441,8 @@
       "name": "Pull/Push Superset II",
       "rounds": 4,
       "restSeconds": 90,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Chin up",
@@ -447,6 +463,8 @@
       "name": "Legs Superset I",
       "rounds": 4,
       "restSeconds": 60,
+      "createdAt": null,
+      "updatedAt": null,
       "exercises": [
         {
           "name": "Single leg glute bridge",
