@@ -3,13 +3,9 @@ import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { Card, CardItem, H1, Body, View, Text } from 'native-base'
 
-const WorkoutItem = ({ workout, navigation }) => {
-  const onPress = () => {
-    navigation.navigate('NewSession', { workout })
-  }
-
+const WorkoutItem = ({ workout, onPress }) => {
   return (
-    <Card>
+    <Card style={styles.container}>
       <CardItem header button style={styles.header} onPress={onPress}>
         <H1>{workout.name}</H1>
       </CardItem>
@@ -18,41 +14,36 @@ const WorkoutItem = ({ workout, navigation }) => {
           <Text numberOfLines={2} style={styles.summary}>
             {workout.exercises.map(({ name }) => name).join(', ')}
           </Text>
-          <View style={styles.settingsContainer}>
-            <View style={styles.settingsItem}>
-              <Text>Rounds: {workout.rounds}</Text>
-            </View>
-          </View>
         </Body>
       </CardItem>
+      <View style={styles.rounds}>
+        <Text>Rounds: {workout.rounds}</Text>
+      </View>
     </Card>
   )
 }
 
 WorkoutItem.propTypes = {
   workout: PropTypes.object.isRequired,
-  navigation: PropTypes.object.isRequired,
+  onPress: PropTypes.func.isRequired,
 }
 
 export default WorkoutItem
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    height: 135,
+  },
   header: {
     paddingBottom: 0,
   },
   summary: {
     marginBottom: 10,
   },
-  settingsContainer: {
-    flexDirection: 'row',
-  },
-  settingsItem: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  settingsIcon: {
-    marginRight: 10,
+  rounds: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
   },
 })

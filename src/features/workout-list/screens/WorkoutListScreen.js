@@ -2,46 +2,38 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import {
-  Body,
-  Button,
-  Container,
-  Content,
-  Header,
-  Spinner,
-  Text,
-  Title,
-} from 'native-base'
+import { Body, Container, Content, Header, Spinner, Title } from 'native-base'
 import WorkoutItem from '../components/WorkoutItem'
-import { fetchWorkouts, isFetching, getWorkouts } from '../reducers/workouts'
 import { getUser } from '../../../state/reducers/auth'
+import {
+  fetchWorkouts,
+  isFetching,
+  getWorkouts,
+} from '../../../state/reducers/workouts'
+import { showError } from '../../../utils/toast'
 import seed from '../../../seed/workouts.json'
 
 const WorkoutListScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
-  // TODO: Remove workouts seed usage
-  const workouts = useSelector(getWorkouts).concat(seed.workouts)
+  const workouts = useSelector(getWorkouts)
 
-  useEffect(() => {
-    dispatch(fetchWorkouts(user.uid))
-  }, [dispatch])
-
-  const onPress = () => {
-    navigation.navigate('WorkoutForm')
+  const handleFetchWorkouts = async () => {
+    try {
+      await dispatch(fetchWorkouts(user.uid))
+    } catch (err) {
+      showError(err.message)
+    }
   }
 
-  const children =
-    workouts.length === 0 ? (
-      <Button primary onPress={onPress}>
-        <Text>Create a workout</Text>
-      </Button>
-    ) : (
-      workouts.map((workout, idx) => (
-        <WorkoutItem key={idx} workout={workout} navigation={navigation} />
-      ))
-    )
+  useEffect(() => {
+    handleFetchWorkouts()
+  }, [dispatch])
+
+  const handleWorkoutPress = (workout) => {
+    navigation.navigate('NewSession', { workout })
+  }
 
   return (
     <Container>
@@ -52,13 +44,24 @@ const WorkoutListScreen = ({ navigation }) => {
       </Header>
       <Content
         contentContainerStyle={
-          !fetching && workouts.length > 0
-            ? styles.workoutsContent
-            : styles.emptyContent
+          fetching ? styles.emptyContent : styles.workoutsContent
         }
         showsVerticalScrollIndicator={false}
       >
-        {fetching ? <Spinner color="black" /> : children}
+        {fetching ? (
+          <Spinner color="black" />
+        ) : (
+          workouts
+            .concat(seed.workouts)
+            .map((workout) => (
+              <WorkoutItem
+                key={workout.key}
+                a
+                workout={workout}
+                onPress={handleWorkoutPress}
+              />
+            ))
+        )}
       </Content>
     </Container>
   )
@@ -73,6 +76,7 @@ WorkoutListScreen.propTypes = {
 const styles = StyleSheet.create({
   workoutsContent: {
     margin: 10,
+    paddingBottom: 25,
   },
   emptyContent: {
     margin: 10,

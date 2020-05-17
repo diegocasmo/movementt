@@ -5,9 +5,8 @@ import { StyleSheet } from 'react-native'
 import { Container, Header, Body, Title, Content } from 'native-base'
 import WorkoutForm from '../components/WorkoutForm'
 import { getUser } from '../../../state/reducers/auth'
-import { create } from '../../../api/models/workout'
 import { showError } from '../../../utils/toast'
-import { fetchWorkouts } from '../../workout-list/reducers/workouts'
+import { createWorkout } from '../../../state/reducers/workouts'
 
 const WorkoutFormScreen = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -17,8 +16,7 @@ const WorkoutFormScreen = ({ navigation }) => {
   const handleSubmit = async (values, { resetForm }) => {
     setIsSubmitting(true)
     try {
-      await create(user.uid, values)
-      dispatch(fetchWorkouts(user.uid))
+      await dispatch(createWorkout(user.uid, values))
       resetForm()
       navigation.navigate('Home')
     } catch (err) {
