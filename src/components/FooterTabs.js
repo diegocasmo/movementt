@@ -33,6 +33,7 @@ const FooterTabs = ({ state, navigation }) => {
       return (
         <Button vertical onPress={onPress} key={index}>
           <Icon
+            active
             style={isFocused ? styles.activeIcon : {}}
             name={getIconName(route)}
           />

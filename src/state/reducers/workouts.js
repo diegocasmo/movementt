@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetch, create } from '../../api/models/workout'
+import { fetch, create, destroy } from '../../api/models/workout'
 import { REQUEST_STATUS } from '../../utils/request-utils'
 
 const initialState = {
   itemsById: {},
+  statusByItemId: {},
   status: REQUEST_STATUS.NONE,
 }
 
@@ -16,7 +17,9 @@ const workouts = createSlice({
       state.status = REQUEST_STATUS.GET
     },
     fetchWorkoutsSuccess(state, { payload }) {
-      state.itemsById = payload
+      Object.entries(payload).map(([key, attrs]) => {
+        state.itemsById[key] = attrs
+      })
       state.status = REQUEST_STATUS.NONE
     },
     fetchWorkoutsError(state) {
@@ -28,11 +31,23 @@ const workouts = createSlice({
       state.status = REQUEST_STATUS.POST
     },
     createWorkoutSuccess(state, { payload }) {
-      state.itemsById[payload.key] = payload.attrs
+      state.itemsById[payload.key] = payload.values
       state.status = REQUEST_STATUS.NONE
     },
     createWorkoutError(state) {
       state.status = REQUEST_STATUS.NONE
+    },
+
+    // Delete workout
+    deleteWorkoutInit(state, { payload }) {
+      state.statusByItemId[payload] = REQUEST_STATUS.DELETE
+    },
+    deleteWorkoutSuccess(state, { payload }) {
+      delete state.itemsById[payload]
+      delete state.statusByItemId[payload]
+    },
+    deleteWorkoutError(state, { payload }) {
+      state.statusByItemId[payload] = REQUEST_STATUS.NONE
     },
   },
 })
@@ -59,12 +74,27 @@ export const createWorkout = (uid, attrs) => async (dispatch) => {
   }
 }
 
+export const deleteWorkout = (uid, key) => async (dispatch) => {
+  dispatch(workouts.actions.deleteWorkoutInit(key))
+  try {
+    const payload = await destroy(uid, key)
+    dispatch(workouts.actions.deleteWorkoutSuccess(payload))
+  } catch (err) {
+    dispatch(workouts.actions.deleteWorkoutError(key))
+    throw err
+  }
+}
+
 export const isFetching = (state) => {
   return state.workouts.status === REQUEST_STATUS.GET
 }
 
 export const isCreating = (state) => {
   return state.workouts.status === REQUEST_STATUS.POST
+}
+
+export const isDeleting = (state, key) => {
+  return state.workouts.statusByItemId[key] === REQUEST_STATUS.DELETE
 }
 
 export const getWorkouts = (state) => {

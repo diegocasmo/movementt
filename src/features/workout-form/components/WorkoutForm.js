@@ -12,6 +12,7 @@ const WorkoutForm = ({ isSubmitting, onSubmit, style }) => {
     <Formik
       initialValues={EMPTY_WORKOUT}
       validationSchema={SCHEMA}
+      validateOnMount={true}
       onSubmit={(attrs, opts) => {
         onSubmit(SCHEMA.cast(attrs), opts)
       }}

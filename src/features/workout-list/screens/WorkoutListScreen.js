@@ -2,24 +2,35 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import { Body, Container, Content, Header, Spinner, Title } from 'native-base'
-import WorkoutItem from '../components/WorkoutItem'
+import {
+  Body,
+  Container,
+  Content,
+  Header,
+  Spinner,
+  Title,
+  View,
+} from 'native-base'
+import MyWorkouts from '../components/MyWorkouts'
+import ExampleWorkouts from '../components/ExampleWorkouts'
 import { getUser } from '../../../state/reducers/auth'
 import {
   fetchWorkouts,
   isFetching,
-  getWorkouts,
+  deleteWorkout,
 } from '../../../state/reducers/workouts'
 import { showError } from '../../../utils/toast'
-import seed from '../../../seed/workouts.json'
 
 const WorkoutListScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
-  const workouts = useSelector(getWorkouts)
 
-  const handleFetchWorkouts = async () => {
+  useEffect(() => {
+    handleFetch()
+  }, [dispatch])
+
+  const handleFetch = async () => {
     try {
       await dispatch(fetchWorkouts(user.uid))
     } catch (err) {
@@ -27,12 +38,24 @@ const WorkoutListScreen = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    handleFetchWorkouts()
-  }, [dispatch])
+  const handleUpdate = (workout) => {
+    console.log('workout: ', workout)
+  }
 
-  const handleWorkoutPress = (workout) => {
+  const handleDeleteWorkout = async (key) => {
+    try {
+      await dispatch(deleteWorkout(user.uid, key))
+    } catch (err) {
+      showError(err.message)
+    }
+  }
+
+  const handleStart = (workout) => {
     navigation.navigate('NewSession', { workout })
+  }
+
+  const handleCreate = () => {
+    navigation.navigate('WorkoutForm')
   }
 
   return (
@@ -43,24 +66,21 @@ const WorkoutListScreen = ({ navigation }) => {
         </Body>
       </Header>
       <Content
-        contentContainerStyle={
-          fetching ? styles.emptyContent : styles.workoutsContent
-        }
+        contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
         {fetching ? (
           <Spinner color="black" />
         ) : (
-          workouts
-            .concat(seed.workouts)
-            .map((workout) => (
-              <WorkoutItem
-                key={workout.key}
-                a
-                workout={workout}
-                onPress={handleWorkoutPress}
-              />
-            ))
+          <View>
+            <MyWorkouts
+              onStart={handleStart}
+              onUpdate={handleUpdate}
+              onDelete={handleDeleteWorkout}
+              onCreateWorkout={handleCreate}
+            />
+            <ExampleWorkouts onStart={handleStart} />
+          </View>
         )}
       </Content>
     </Container>
@@ -74,15 +94,8 @@ WorkoutListScreen.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  workoutsContent: {
+  content: {
     margin: 10,
     paddingBottom: 25,
-  },
-  emptyContent: {
-    margin: 10,
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })
