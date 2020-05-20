@@ -4,10 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Button, Col, Form, Grid, H2, Icon, Text, View } from 'native-base'
 import { TextInput, NumberInput, PickerInput } from '../../../components/form'
 import { getIn } from 'formik'
-import {
-  EMPTY_EXERCISE,
-  EXERCISE_TYPE_OPTIONS,
-} from '../../../api/models/exercise'
+import Exercise from '../../../api/models/Exercise'
 
 const ExerciseForm = ({ remove, push, form }) => {
   const { values, errors, touched, handleBlur, handleChange } = form
@@ -61,7 +58,7 @@ const ExerciseForm = ({ remove, push, form }) => {
                 <PickerInput
                   label="Type"
                   value={values.exercises[idx].type}
-                  options={EXERCISE_TYPE_OPTIONS}
+                  options={Exercise.TYPE_OPTS}
                   onValueChange={handleChange(`${exercisePath}.type`)}
                 />
               </Col>
@@ -85,7 +82,7 @@ const ExerciseForm = ({ remove, push, form }) => {
         light
         style={styles.addBtn}
         onPress={() => {
-          push(EMPTY_EXERCISE)
+          push(Exercise.EMPTY)
         }}
       >
         <Text>+ Add Exercise</Text>

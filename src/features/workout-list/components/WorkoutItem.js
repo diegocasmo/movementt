@@ -14,7 +14,7 @@ import {
   Text,
   View,
 } from 'native-base'
-import { isFromSeed } from '../../../api/models/workout'
+import Workout from '../../../api/models/Workout'
 import { isDeleting } from '../../../state/reducers/workouts'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
@@ -83,7 +83,7 @@ const WorkoutItem = ({ workout, onStart, onUpdate, onDelete }) => {
         <Text style={styles.name} numberOfLines={1}>
           <H1>{workout.name}</H1>
         </Text>
-        {!isFromSeed(workout) && (
+        {!Workout.isFromSeed(workout) && (
           <View style={styles.options}>
             {deleting ? (
               <Spinner style={styles.spinner} color="black" size="small" />

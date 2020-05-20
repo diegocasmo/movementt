@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { View, Text } from 'native-base'
-import { getInstructions } from '../../../api/models/exercise'
+import Exercise from '../../../api/models/Exercise'
 
 const ExerciseInstructions = ({ exercise }) => {
   return (
@@ -11,7 +11,7 @@ const ExerciseInstructions = ({ exercise }) => {
         {exercise.name}
       </Text>
       <Text style={styles.instructions} numberOfLines={2}>
-        {getInstructions(exercise)}
+        {Exercise.getInstructions(exercise)}
       </Text>
     </View>
   )

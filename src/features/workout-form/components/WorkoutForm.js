@@ -5,16 +5,16 @@ import { Button, Col, Form, Grid, H1, Spinner, Text, View } from 'native-base'
 import { Formik, getIn, FieldArray } from 'formik'
 import { TextInput, NumberInput } from '../../../components/form'
 import ExerciseForm from './ExerciseForm'
-import { EMPTY_WORKOUT, SCHEMA } from '../../../api/models/workout'
+import Workout from '../../../api/models/Workout'
 
 const WorkoutForm = ({ isSubmitting, onSubmit, style }) => {
   return (
     <Formik
-      initialValues={EMPTY_WORKOUT}
-      validationSchema={SCHEMA}
+      initialValues={Workout.EMPTY}
+      validationSchema={Workout.getSchema()}
       validateOnMount={true}
       onSubmit={(attrs, opts) => {
-        onSubmit(SCHEMA.cast(attrs), opts)
+        onSubmit(Workout.getSchema().cast(attrs), opts)
       }}
     >
       {({

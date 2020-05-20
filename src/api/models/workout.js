@@ -1,61 +1,65 @@
 import * as Yup from 'yup'
 import { db } from '../config'
 import { transformYupToFormikError } from '../utils'
-import { EMPTY_EXERCISE, SCHEMA as EXERCISE_SCHEMA } from './exercise'
+import Exercise from './Exercise'
 import { timestamp } from '../../utils/time-utils'
 
-export const EMPTY_WORKOUT = {
-  name: '',
-  rounds: 4,
-  restSeconds: 30,
-  exercises: [EMPTY_EXERCISE],
-}
+export default class Workout {
+  static EMPTY = {
+    name: '',
+    rounds: 4,
+    restSeconds: 30,
+    exercises: [Exercise.EMPTY],
+  }
 
-export const SCHEMA = Yup.object({
-  name: Yup.string().trim().required(),
-  rounds: Yup.number().required().positive().min(1),
-  restSeconds: Yup.number().required().positive().min(0),
-  createdAt: Yup.number().positive(),
-  updatedAt: Yup.number().positive(),
-  exercises: Yup.array()
-    .of(Yup.mixed().concat(EXERCISE_SCHEMA))
-    .min(1)
-    .required(),
-})
+  static getSchema = () => {
+    return Yup.object({
+      name: Yup.string().trim().required(),
+      rounds: Yup.number().required().positive().min(1),
+      restSeconds: Yup.number().required().positive().min(0),
+      createdAt: Yup.number().positive(),
+      updatedAt: Yup.number().positive(),
+      exercises: Yup.array()
+        .of(Yup.mixed().concat(Exercise.getSchema()))
+        .min(1)
+        .required(),
+    })
+  }
 
-export const validate = async (values) => {
-  return SCHEMA.validate(values).catch((yupError) =>
-    Promise.reject(transformYupToFormikError(yupError))
-  )
-}
+  static validate = async (values) => {
+    return Workout.getSchema()
+      .validate(values)
+      .catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
+  }
 
-const getWorkoutsRef = (uid) => `workouts/${uid}`
-const getWorkoutRef = (uid, key) => `${getWorkoutsRef(uid)}/${key}`
+  static getWorkoutsRef = (uid) => `workouts/${uid}`
+  static getWorkoutRef = (uid, key) => `${Workout.getWorkoutsRef(uid)}/${key}`
 
-export const fetch = async (uid) => {
-  return db
-    .ref(getWorkoutsRef(uid))
-    .once('value')
-    .then((snapshot) => snapshot.val() || [])
-    .catch(() => Promise.reject(new Error('Unable to fetch workouts')))
-}
+  static fetch = async (uid) => {
+    return db
+      .ref(Workout.getWorkoutsRef(uid))
+      .once('value')
+      .then((snapshot) => snapshot.val() || [])
+      .catch(() => Promise.reject(new Error('Unable to fetch workouts')))
+  }
 
-export const create = async (uid, values) => {
-  const workoutAttrs = { createdAt: timestamp(), ...values }
-  return validate(workoutAttrs)
-    .then(() => db.ref(getWorkoutsRef(uid)).push(workoutAttrs))
-    .then((ref) => ({ key: ref.key, values: workoutAttrs }))
-    .catch(() => Promise.reject(new Error('Unable to create workout')))
-}
+  static create = async (uid, values) => {
+    const workoutAttrs = { createdAt: timestamp(), ...values }
+    return Workout.validate(workoutAttrs)
+      .then(() => db.ref(Workout.getWorkoutsRef(uid)).push(workoutAttrs))
+      .then((ref) => ({ key: ref.key, values: workoutAttrs }))
+      .catch(() => Promise.reject(new Error('Unable to create workout')))
+  }
 
-export const destroy = async (uid, key) => {
-  return db
-    .ref(getWorkoutRef(uid, key))
-    .remove()
-    .then(() => key)
-    .catch(() => Promise.reject(new Error('Unable to delete workout')))
-}
+  static destroy = async (uid, key) => {
+    return db
+      .ref(Workout.getWorkoutRef(uid, key))
+      .remove()
+      .then(() => key)
+      .catch(() => Promise.reject(new Error('Unable to delete workout')))
+  }
 
-export const isFromSeed = ({ createdAt, updatedAt }) => {
-  return createdAt === null && updatedAt === null
+  static isFromSeed = ({ createdAt, updatedAt }) => {
+    return createdAt === null && updatedAt === null
+  }
 }

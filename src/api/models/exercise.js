@@ -1,31 +1,35 @@
 import * as Yup from 'yup'
 
-export const REPETITION_TYPE = 'repetition'
-export const TIME_TYPE = 'time'
+export default class Exercise {
+  static REPETITION_TYPE = 'repetition'
+  static TIME_TYPE = 'time'
+  static TYPES = [Exercise.REPETITION_TYPE, Exercise.TIME_TYPE]
+  static TYPE_OPTS = [
+    { label: 'Reps', value: Exercise.REPETITION_TYPE },
+    { label: 'Time (sec)', value: Exercise.TIME_TYPE },
+  ]
 
-export const EXERCISE_TYPES = [REPETITION_TYPE, TIME_TYPE]
+  static EMPTY = {
+    name: '',
+    quantity: 10,
+    type: Exercise.REPETITION_TYPE,
+    restSeconds: 20,
+  }
 
-const getUnit = (exercise) => (exercise.type === TIME_TYPE ? 'sec' : ' reps')
+  static getSchema = () => {
+    return Yup.object().shape({
+      name: Yup.string().trim().required(),
+      quantity: Yup.number().required().positive().min(1),
+      type: Yup.mixed().oneOf(Exercise.TYPES).required(),
+      restSeconds: Yup.number().required().positive().min(0),
+    })
+  }
 
-export const EXERCISE_TYPE_OPTIONS = [
-  { label: 'Reps', value: REPETITION_TYPE },
-  { label: 'Time (sec)', value: TIME_TYPE },
-]
+  static getUnit = (exercise) => {
+    return exercise.type === Exercise.TIME_TYPE ? 'sec' : ' reps'
+  }
 
-export const EMPTY_EXERCISE = {
-  name: '',
-  quantity: 10,
-  type: REPETITION_TYPE,
-  restSeconds: 20,
-}
-
-export const SCHEMA = Yup.object().shape({
-  name: Yup.string().trim().required(),
-  quantity: Yup.number().required().positive().min(1),
-  type: Yup.mixed().oneOf(EXERCISE_TYPES).required(),
-  restSeconds: Yup.number().required().positive().min(0),
-})
-
-export const getInstructions = (exercise) => {
-  return `x${exercise.quantity} ${getUnit(exercise)}`
+  static getInstructions = (exercise) => {
+    return `x${exercise.quantity} ${Exercise.getUnit(exercise)}`
+  }
 }

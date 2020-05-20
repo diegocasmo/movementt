@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetch, create, destroy } from '../../api/models/workout'
+import Workout from '../../api/models/Workout'
 import { REQUEST_STATUS } from '../../utils/request-utils'
 
 const initialState = {
@@ -55,7 +55,7 @@ const workouts = createSlice({
 export const fetchWorkouts = (uid) => async (dispatch) => {
   dispatch(workouts.actions.fetchWorkoutsInit())
   try {
-    const payload = await fetch(uid)
+    const payload = await Workout.fetch(uid)
     dispatch(workouts.actions.fetchWorkoutsSuccess(payload))
   } catch (err) {
     dispatch(workouts.actions.fetchWorkoutsError())
@@ -66,7 +66,7 @@ export const fetchWorkouts = (uid) => async (dispatch) => {
 export const createWorkout = (uid, attrs) => async (dispatch) => {
   dispatch(workouts.actions.createWorkoutInit())
   try {
-    const payload = await create(uid, attrs)
+    const payload = await Workout.create(uid, attrs)
     dispatch(workouts.actions.createWorkoutSuccess(payload))
   } catch (err) {
     dispatch(workouts.actions.createWorkoutError())
@@ -77,7 +77,7 @@ export const createWorkout = (uid, attrs) => async (dispatch) => {
 export const deleteWorkout = (uid, key) => async (dispatch) => {
   dispatch(workouts.actions.deleteWorkoutInit(key))
   try {
-    const payload = await destroy(uid, key)
+    const payload = await Workout.destroy(uid, key)
     dispatch(workouts.actions.deleteWorkoutSuccess(payload))
   } catch (err) {
     dispatch(workouts.actions.deleteWorkoutError(key))
