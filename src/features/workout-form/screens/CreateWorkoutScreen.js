@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet } from 'react-native'
 import { Container, Header, Body, Title, Content } from 'native-base'
 import WorkoutForm from '../components/WorkoutForm'
 import { getUser } from '../../../state/reducers/auth'
 import { showError } from '../../../utils/toast'
 import { createWorkout } from '../../../state/reducers/workouts'
 
-const WorkoutFormScreen = ({ navigation }) => {
+const CreateWorkoutScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -26,6 +25,10 @@ const WorkoutFormScreen = ({ navigation }) => {
     }
   }
 
+  const handleQuit = () => {
+    navigation.navigate('Home')
+  }
+
   return (
     <Container>
       <Header>
@@ -36,22 +39,16 @@ const WorkoutFormScreen = ({ navigation }) => {
       <Content padder showsVerticalScrollIndicator={false}>
         <WorkoutForm
           isSubmitting={isSubmitting}
+          onQuit={handleQuit}
           onSubmit={handleSubmit}
-          style={styles.form}
         />
       </Content>
     </Container>
   )
 }
 
-export default WorkoutFormScreen
+export default CreateWorkoutScreen
 
-WorkoutFormScreen.propTypes = {
+CreateWorkoutScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }
-
-const styles = StyleSheet.create({
-  form: {
-    width: '100%',
-  },
-})

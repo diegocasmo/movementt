@@ -26,7 +26,11 @@ const FooterTabs = ({ state, navigation }) => {
         })
 
         if (!isFocused && !event.defaultPrevented) {
-          navigation.navigate(route.name)
+          if (route.name === 'WorkoutForm') {
+            navigation.navigate('CreateWorkout')
+          } else {
+            navigation.navigate(route.name)
+          }
         }
       }
 

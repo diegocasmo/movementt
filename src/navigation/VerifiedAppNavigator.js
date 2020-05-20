@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 // Workout
 import WorkoutListScreen from '../features/workout-list/screens/WorkoutListScreen'
-import WorkoutFormScreen from '../features/workout-form/screens/WorkoutFormScreen'
+import CreateWorkoutScreen from '../features/workout-form/screens/CreateWorkoutScreen'
 
 // Session
 import NewSessionScreen from '../features/new-session/screens/NewSessionScreen'
@@ -43,12 +43,13 @@ const SettingsNavigator = () => {
   )
 }
 
+const WorkoutForm = () => null
 const HomeTabs = createBottomTabNavigator()
 const HomeTabsNavigator = () => {
   return (
     <HomeTabs.Navigator tabBar={(props) => <FooterTabs {...props} />}>
       <HomeTabs.Screen name="Home" component={WorkoutListScreen} />
-      <HomeTabs.Screen name="WorkoutForm" component={WorkoutFormScreen} />
+      <HomeTabs.Screen name="WorkoutForm" component={WorkoutForm} />
       <HomeTabs.Screen name="Settings" component={SettingsNavigator} />
     </HomeTabs.Navigator>
   )
@@ -57,11 +58,19 @@ const HomeTabsNavigator = () => {
 const AppStack = createStackNavigator()
 const VerifiedAppNavigator = () => {
   return (
-    <AppStack.Navigator tabBar={(props) => <FooterTabs {...props} />}>
+    <AppStack.Navigator
+      mode="modal"
+      tabBar={(props) => <FooterTabs {...props} />}
+    >
       <AppStack.Screen
         name="Home"
         component={HomeTabsNavigator}
         options={{ headerShown: false }}
+      />
+      <AppStack.Screen
+        name="CreateWorkout"
+        component={CreateWorkoutScreen}
+        options={{ headerShown: false, gestureEnabled: false }}
       />
       <AppStack.Screen
         name="NewSession"
