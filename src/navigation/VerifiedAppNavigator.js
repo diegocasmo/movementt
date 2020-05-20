@@ -64,16 +64,6 @@ const VerifiedAppNavigator = () => {
         options={{ headerShown: false }}
       />
       <AppStack.Screen
-        name="WorkoutForm"
-        component={HomeTabsNavigator}
-        options={{ headerShown: false }}
-      />
-      <AppStack.Screen
-        name="Settings"
-        component={HomeTabsNavigator}
-        options={{ headerShown: false }}
-      />
-      <AppStack.Screen
         name="NewSession"
         component={NewSessionScreen}
         options={{ headerShown: false, gestureEnabled: false }}
