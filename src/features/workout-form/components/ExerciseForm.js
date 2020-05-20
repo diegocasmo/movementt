@@ -22,6 +22,7 @@ const ExerciseForm = ({ remove, push, form }) => {
               <Col flexGrow={4} paddingRight={10}>
                 <TextInput
                   label="Name"
+                  autoFocus={true}
                   error={getIn(errors, `${exercisePath}.name`)}
                   onBlur={handleBlur(`${exercisePath}.name`)}
                   onChange={handleChange(`${exercisePath}.name`)}
@@ -29,18 +30,16 @@ const ExerciseForm = ({ remove, push, form }) => {
                   value={values.exercises[idx].name}
                 />
               </Col>
-              {idx !== 0 && (
-                <Col alignItems="flex-end" justifyContent="center">
-                  <Button
-                    transparent
-                    onPress={() => {
-                      remove(idx)
-                    }}
-                  >
-                    <Icon style={styles.removeIcon} active name="md-close" />
-                  </Button>
-                </Col>
-              )}
+              <Col alignItems="flex-end" justifyContent="center">
+                <Button
+                  transparent
+                  onPress={() => {
+                    remove(idx)
+                  }}
+                >
+                  <Icon style={styles.removeIcon} active name="md-close" />
+                </Button>
+              </Col>
             </Grid>
 
             <Grid>

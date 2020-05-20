@@ -9,7 +9,7 @@ export default class Workout {
     name: '',
     rounds: 4,
     restSeconds: 30,
-    exercises: [Exercise.EMPTY],
+    exercises: [],
   }
 
   static getSchema = () => {

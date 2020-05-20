@@ -38,15 +38,15 @@ const workouts = createSlice({
       state.status = REQUEST_STATUS.NONE
     },
 
-    // Delete workout
-    deleteWorkoutInit(state, { payload }) {
+    // Destroy workout
+    destroyWorkoutInit(state, { payload }) {
       state.statusByItemId[payload] = REQUEST_STATUS.DELETE
     },
-    deleteWorkoutSuccess(state, { payload }) {
+    destroyWorkoutSuccess(state, { payload }) {
       delete state.itemsById[payload]
       delete state.statusByItemId[payload]
     },
-    deleteWorkoutError(state, { payload }) {
+    destroyWorkoutError(state, { payload }) {
       state.statusByItemId[payload] = REQUEST_STATUS.NONE
     },
   },
@@ -74,13 +74,13 @@ export const createWorkout = (uid, attrs) => async (dispatch) => {
   }
 }
 
-export const deleteWorkout = (uid, key) => async (dispatch) => {
-  dispatch(workouts.actions.deleteWorkoutInit(key))
+export const destroyWorkout = (uid, key) => async (dispatch) => {
+  dispatch(workouts.actions.destroyWorkoutInit(key))
   try {
     const payload = await Workout.destroy(uid, key)
-    dispatch(workouts.actions.deleteWorkoutSuccess(payload))
+    dispatch(workouts.actions.destroyWorkoutSuccess(payload))
   } catch (err) {
-    dispatch(workouts.actions.deleteWorkoutError(key))
+    dispatch(workouts.actions.destroyWorkoutError(key))
     throw err
   }
 }

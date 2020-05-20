@@ -17,7 +17,7 @@ import { getUser } from '../../../state/reducers/auth'
 import {
   fetchWorkouts,
   isFetching,
-  deleteWorkout,
+  destroyWorkout,
 } from '../../../state/reducers/workouts'
 import { showError } from '../../../utils/toast'
 
@@ -44,7 +44,7 @@ const WorkoutListScreen = ({ navigation }) => {
 
   const handleDeleteWorkout = async (key) => {
     try {
-      await dispatch(deleteWorkout(user.uid, key))
+      await dispatch(destroyWorkout(user.uid, key))
     } catch (err) {
       showError(err.message)
     }

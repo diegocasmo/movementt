@@ -73,7 +73,7 @@ const WorkoutItem = ({ workout, onStart, onUpdate, onDelete }) => {
   }
 
   return (
-    <Card style={styles.container}>
+    <Card style={[styles.container, deleting ? styles.clearContainer : {}]}>
       <CardItem
         header
         button
@@ -127,6 +127,9 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     height: 135,
+  },
+  clearContainer: {
+    opacity: 0.5,
   },
   header: {
     paddingBottom: 0,
