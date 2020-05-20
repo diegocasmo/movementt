@@ -38,7 +38,7 @@ const WorkoutItem = ({ workout, onStart, onUpdate, onDelete }) => {
           onPress: () => {
             if (deleting) return
 
-            onDelete(workout.key)
+            onDelete(workout)
           },
         },
       ],

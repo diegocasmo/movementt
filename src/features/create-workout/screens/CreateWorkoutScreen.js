@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Header, Body, Title, Content } from 'native-base'
-import WorkoutForm from '../components/WorkoutForm'
+import WorkoutForm from '../../../components/workout-form/WorkoutForm'
 import { getUser } from '../../../state/reducers/auth'
 import { showError } from '../../../utils/toast'
 import { createWorkout } from '../../../state/reducers/workouts'
@@ -12,10 +12,10 @@ const CreateWorkoutScreen = ({ navigation }) => {
   const user = useSelector(getUser)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async (workout, { resetForm }) => {
     setIsSubmitting(true)
     try {
-      await dispatch(createWorkout(user.uid, values))
+      await dispatch(createWorkout(user.uid, workout))
       resetForm()
       navigation.navigate('Home')
     } catch (err) {
@@ -38,6 +38,7 @@ const CreateWorkoutScreen = ({ navigation }) => {
       </Header>
       <Content padder showsVerticalScrollIndicator={false}>
         <WorkoutForm
+          autoFocus={true}
           isSubmitting={isSubmitting}
           onQuit={handleQuit}
           onSubmit={handleSubmit}

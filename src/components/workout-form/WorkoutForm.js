@@ -13,11 +13,19 @@ import {
   View,
 } from 'native-base'
 import { Formik, getIn, FieldArray } from 'formik'
-import { TextInput, NumberInput } from '../../../components/form'
+import { TextInput, NumberInput } from '../form'
 import ExerciseForm from './ExerciseForm'
-import Workout from '../../../api/models/Workout'
+import Workout from '../../api/models/Workout'
 
-const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
+const WorkoutForm = ({
+  workout,
+  isSubmitting,
+  onQuit,
+  onSubmit,
+  style,
+  submitText,
+  autoFocus,
+}) => {
   const confirmQuit = () => {
     Alert.alert(
       'Leave Workout',
@@ -40,7 +48,7 @@ const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
 
   return (
     <Formik
-      initialValues={Workout.EMPTY}
+      initialValues={workout || Workout.EMPTY}
       validationSchema={Workout.getSchema()}
       validateOnMount={true}
       onSubmit={(attrs, opts) => {
@@ -48,6 +56,7 @@ const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
       }}
     >
       {({
+        initialValues,
         handleChange,
         handleBlur,
         handleSubmit,
@@ -57,7 +66,7 @@ const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
       }) => {
         const isValid = Object.keys(errors).length === 0
         const hasUnsavedChanges =
-          JSON.stringify(values) !== JSON.stringify(Workout.EMPTY)
+          JSON.stringify(values) !== JSON.stringify(initialValues)
 
         return (
           <Form style={[styles.form, style]}>
@@ -81,7 +90,7 @@ const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
                 <Col>
                   <TextInput
                     label="Name"
-                    autoFocus={true}
+                    autoFocus={autoFocus}
                     error={getIn(errors, 'name')}
                     onBlur={handleBlur('name')}
                     onChange={handleChange('name')}
@@ -114,7 +123,12 @@ const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
               </Grid>
             </View>
 
-            <FieldArray name="exercises" component={ExerciseForm} />
+            <FieldArray
+              name="exercises"
+              render={(props) => (
+                <ExerciseForm {...props} autoFocus={autoFocus} />
+              )}
+            />
 
             <Button
               block
@@ -126,7 +140,7 @@ const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
               {isSubmitting ? (
                 <Spinner color="white" size="small" />
               ) : (
-                <Text>Create</Text>
+                <Text>{submitText}</Text>
               )}
             </Button>
           </Form>
@@ -136,8 +150,16 @@ const WorkoutForm = ({ isSubmitting, onQuit, onSubmit, style }) => {
   )
 }
 
+WorkoutForm.defaultProps = {
+  autoFocus: false,
+  submitText: 'Create Workout',
+}
+
 WorkoutForm.propTypes = {
   style: PropTypes.object,
+  workout: PropTypes.object,
+  autoFocus: PropTypes.bool,
+  submitText: PropTypes.string,
   onQuit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,

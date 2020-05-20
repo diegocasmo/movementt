@@ -4,4 +4,5 @@ export const REQUEST_STATUS = {
   GET: 'GET',
   DELETE: 'DELETE',
   POST: 'POST',
+  PUT: 'PUT',
 }

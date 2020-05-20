@@ -39,7 +39,7 @@ const WorkoutListScreen = ({ navigation }) => {
   }
 
   const handleUpdate = (workout) => {
-    console.log('workout: ', workout)
+    navigation.navigate('UpdateWorkout', { workout })
   }
 
   const handleDeleteWorkout = async (key) => {

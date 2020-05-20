@@ -17,8 +17,8 @@ const workouts = createSlice({
       state.status = REQUEST_STATUS.GET
     },
     fetchWorkoutsSuccess(state, { payload }) {
-      Object.entries(payload).map(([key, attrs]) => {
-        state.itemsById[key] = attrs
+      Object.entries(payload).map(([key, workout]) => {
+        state.itemsById[key] = workout
       })
       state.status = REQUEST_STATUS.NONE
     },
@@ -31,23 +31,35 @@ const workouts = createSlice({
       state.status = REQUEST_STATUS.POST
     },
     createWorkoutSuccess(state, { payload }) {
-      state.itemsById[payload.key] = payload.values
+      state.itemsById[payload.key] = payload
       state.status = REQUEST_STATUS.NONE
     },
     createWorkoutError(state) {
       state.status = REQUEST_STATUS.NONE
     },
 
+    // Update workout
+    updateWorkoutInit(state, { payload }) {
+      state.statusByItemId[payload.key] = REQUEST_STATUS.PUT
+    },
+    updateWorkoutSuccess(state, { payload }) {
+      state.itemsById[payload.key] = payload
+      state.statusByItemId[payload.key] = REQUEST_STATUS.NONE
+    },
+    updateWorkoutError(state, { payload }) {
+      state.statusByItemId[payload.key] = REQUEST_STATUS.NONE
+    },
+
     // Destroy workout
     destroyWorkoutInit(state, { payload }) {
-      state.statusByItemId[payload] = REQUEST_STATUS.DELETE
+      state.statusByItemId[payload.key] = REQUEST_STATUS.DELETE
     },
     destroyWorkoutSuccess(state, { payload }) {
-      delete state.itemsById[payload]
-      delete state.statusByItemId[payload]
+      delete state.itemsById[payload.key]
+      delete state.statusByItemId[payload.key]
     },
     destroyWorkoutError(state, { payload }) {
-      state.statusByItemId[payload] = REQUEST_STATUS.NONE
+      state.statusByItemId[payload.key] = REQUEST_STATUS.NONE
     },
   },
 })
@@ -63,10 +75,10 @@ export const fetchWorkouts = (uid) => async (dispatch) => {
   }
 }
 
-export const createWorkout = (uid, attrs) => async (dispatch) => {
+export const createWorkout = (uid, workout) => async (dispatch) => {
   dispatch(workouts.actions.createWorkoutInit())
   try {
-    const payload = await Workout.create(uid, attrs)
+    const payload = await Workout.create(uid, workout)
     dispatch(workouts.actions.createWorkoutSuccess(payload))
   } catch (err) {
     dispatch(workouts.actions.createWorkoutError())
@@ -74,13 +86,24 @@ export const createWorkout = (uid, attrs) => async (dispatch) => {
   }
 }
 
-export const destroyWorkout = (uid, key) => async (dispatch) => {
-  dispatch(workouts.actions.destroyWorkoutInit(key))
+export const updateWorkout = (uid, workout) => async (dispatch) => {
+  dispatch(workouts.actions.updateWorkoutInit(workout))
   try {
-    const payload = await Workout.destroy(uid, key)
+    const payload = await Workout.update(uid, workout)
+    dispatch(workouts.actions.updateWorkoutSuccess(payload))
+  } catch (err) {
+    dispatch(workouts.actions.updateWorkoutError(workout))
+    throw err
+  }
+}
+
+export const destroyWorkout = (uid, workout) => async (dispatch) => {
+  dispatch(workouts.actions.destroyWorkoutInit(workout))
+  try {
+    const payload = await Workout.destroy(uid, workout)
     dispatch(workouts.actions.destroyWorkoutSuccess(payload))
   } catch (err) {
-    dispatch(workouts.actions.destroyWorkoutError(key))
+    dispatch(workouts.actions.destroyWorkoutError(workout))
     throw err
   }
 }
@@ -93,15 +116,19 @@ export const isCreating = (state) => {
   return state.workouts.status === REQUEST_STATUS.POST
 }
 
+export const isUpdating = (state, key) => {
+  return state.workouts.statusByItemId[key] === REQUEST_STATUS.PUT
+}
+
 export const isDeleting = (state, key) => {
   return state.workouts.statusByItemId[key] === REQUEST_STATUS.DELETE
 }
 
 export const getWorkouts = (state) => {
-  return Object.entries(state.workouts.itemsById).map(([key, attrs]) => {
+  return Object.entries(state.workouts.itemsById).map(([key, workout]) => {
     return {
       key,
-      ...attrs,
+      ...workout,
     }
   })
 }

@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Button, Col, Form, Grid, H2, Icon, Text, View } from 'native-base'
-import { TextInput, NumberInput, PickerInput } from '../../../components/form'
+import { TextInput, NumberInput, PickerInput } from '../form'
 import { getIn } from 'formik'
-import Exercise from '../../../api/models/Exercise'
+import Exercise from '../../api/models/Exercise'
 
-const ExerciseForm = ({ remove, push, form }) => {
+const ExerciseForm = ({ remove, push, form, autoFocus }) => {
   const { values, errors, touched, handleBlur, handleChange } = form
 
   return (
@@ -22,7 +22,7 @@ const ExerciseForm = ({ remove, push, form }) => {
               <Col flexGrow={4} paddingRight={10}>
                 <TextInput
                   label="Name"
-                  autoFocus={true}
+                  autoFocus={autoFocus}
                   error={getIn(errors, `${exercisePath}.name`)}
                   onBlur={handleBlur(`${exercisePath}.name`)}
                   onChange={handleChange(`${exercisePath}.name`)}
@@ -90,10 +90,15 @@ const ExerciseForm = ({ remove, push, form }) => {
   )
 }
 
+ExerciseForm.defaultProps = {
+  autoFocus: false,
+}
+
 ExerciseForm.propTypes = {
   remove: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   form: PropTypes.object.isRequired,
+  autoFocus: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({

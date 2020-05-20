@@ -14,6 +14,7 @@ export default class Workout {
 
   static getSchema = () => {
     return Yup.object({
+      key: Yup.string(),
       name: Yup.string().trim().required(),
       rounds: Yup.number().required().positive().min(1),
       restSeconds: Yup.number().required().positive().min(0),
@@ -43,19 +44,27 @@ export default class Workout {
       .catch(() => Promise.reject(new Error('Unable to fetch workouts')))
   }
 
-  static create = async (uid, values) => {
-    const workoutAttrs = { createdAt: timestamp(), ...values }
-    return Workout.validate(workoutAttrs)
-      .then(() => db.ref(Workout.getWorkoutsRef(uid)).push(workoutAttrs))
-      .then((ref) => ({ key: ref.key, values: workoutAttrs }))
+  static create = async (uid, workout) => {
+    const attrs = { createdAt: timestamp(), ...workout }
+    return Workout.validate(attrs)
+      .then(() => db.ref(Workout.getWorkoutsRef(uid)).push(attrs))
+      .then((ref) => ({ key: ref.key, ...attrs }))
       .catch(() => Promise.reject(new Error('Unable to create workout')))
   }
 
-  static destroy = async (uid, key) => {
+  static update = async (uid, workout) => {
+    const attrs = { updatedAt: timestamp(), ...workout }
+    return Workout.validate(attrs)
+      .then(() => db.ref(Workout.getWorkoutRef(uid, workout.key)).update(attrs))
+      .then(() => attrs)
+      .catch((err) => Promise.reject(new Error('Unable to update workout')))
+  }
+
+  static destroy = async (uid, workout) => {
     return db
-      .ref(Workout.getWorkoutRef(uid, key))
+      .ref(Workout.getWorkoutRef(uid, workout.key))
       .remove()
-      .then(() => key)
+      .then(() => workout)
       .catch(() => Promise.reject(new Error('Unable to delete workout')))
   }
 

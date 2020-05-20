@@ -3,8 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 // Workout
-import WorkoutListScreen from '../features/workout-list/screens/WorkoutListScreen'
-import CreateWorkoutScreen from '../features/workout-form/screens/CreateWorkoutScreen'
+import WorkoutListScreen from '../features/show-workouts/screens/WorkoutListScreen'
+import CreateWorkoutScreen from '../features/create-workout/screens/CreateWorkoutScreen'
+import UpdateWorkoutScreen from '../features/update-workout/screens/UpdateWorkoutScreen'
 
 // Session
 import NewSessionScreen from '../features/new-session/screens/NewSessionScreen'
@@ -70,6 +71,11 @@ const VerifiedAppNavigator = () => {
       <AppStack.Screen
         name="CreateWorkout"
         component={CreateWorkoutScreen}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <AppStack.Screen
+        name="UpdateWorkout"
+        component={UpdateWorkoutScreen}
         options={{ headerShown: false, gestureEnabled: false }}
       />
       <AppStack.Screen
