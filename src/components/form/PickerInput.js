@@ -3,11 +3,19 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Item, Picker, Label } from 'native-base'
 
-const PickerInput = ({ label, onValueChange, options, style, value }) => {
+const PickerInput = ({
+  enabled = true,
+  label,
+  onValueChange,
+  options,
+  style,
+  value,
+}) => {
   return (
     <Item stackedLabel style={[styles.container, style]}>
       <Label style={styles.label}>{label}</Label>
       <Picker
+        enabled={enabled}
         iosHeader={label}
         style={styles.picker}
         textStyle={styles.textStyle}
@@ -23,6 +31,7 @@ const PickerInput = ({ label, onValueChange, options, style, value }) => {
 }
 
 PickerInput.propTypes = {
+  enabled: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onValueChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(

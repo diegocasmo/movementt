@@ -1,18 +1,30 @@
 import * as Yup from 'yup'
 
 export default class Exercise {
-  static REPETITION_TYPE = 'repetition'
-  static TIME_TYPE = 'time'
-  static TYPES = [Exercise.REPETITION_TYPE, Exercise.TIME_TYPE]
-  static TYPE_OPTS = [
-    { label: 'Reps', value: Exercise.REPETITION_TYPE },
-    { label: 'Time (sec)', value: Exercise.TIME_TYPE },
+  static QTY_REPETITION_UNIT = 'rep'
+  static QTY_TIME_UNIT = 'second'
+  static QTY_DISTANCE_UNIT = 'Km'
+  static QTY_UNITS = [
+    Exercise.QTY_REPETITION_UNIT,
+    Exercise.QTY_TIME_UNIT,
+    Exercise.QTY_DISTANCE_UNIT,
   ]
+  static QTY_UNIT_OPTS = [
+    { label: 'Reps', value: Exercise.QTY_REPETITION_UNIT },
+    { label: 'Sec', value: Exercise.QTY_TIME_UNIT },
+    { label: 'Km', value: Exercise.QTY_DISTANCE_UNIT },
+  ]
+
+  static WEIGHT_KG_UNIT = 'Kg'
+  static WEIGHT_UNITS = [Exercise.WEIGHT_KG_UNIT]
+  static WEIGHT_UNIT_OPTS = [{ label: 'Kg', value: Exercise.WEIGHT_KG_UNIT }]
 
   static EMPTY = {
     name: '',
     quantity: 10,
-    type: Exercise.REPETITION_TYPE,
+    quantityUnit: Exercise.QTY_REPETITION_UNIT,
+    weight: 0,
+    weightUnit: Exercise.WEIGHT_KG_UNIT,
     restSeconds: 20,
   }
 
@@ -20,16 +32,25 @@ export default class Exercise {
     return Yup.object().shape({
       name: Yup.string().trim().required(),
       quantity: Yup.number().required().positive().min(1),
-      type: Yup.mixed().oneOf(Exercise.TYPES).required(),
+      quantityUnit: Yup.mixed().oneOf(Exercise.QTY_UNITS).required(),
+      weight: Yup.number().required().positive().min(0),
+      weightUnit: Yup.mixed().oneOf(Exercise.WEIGHT_UNITS).required(),
       restSeconds: Yup.number().required().positive().min(0),
     })
   }
 
+  static isQtyTimeUnit = (exercise) =>
+    exercise.quantityUnit === Exercise.QTY_TIME_UNIT
+
   static getUnit = (exercise) => {
-    return exercise.type === Exercise.TIME_TYPE ? 'sec' : ' reps'
+    return Exercise.isQtyTimeUnit(exercise) ? 's' : 'reps'
   }
 
   static getInstructions = (exercise) => {
-    return `x${exercise.quantity} ${Exercise.getUnit(exercise)}`
+    if (Exercise.isQtyTimeUnit(exercise)) {
+      return `x${exercise.quantity}${Exercise.getUnit(exercise)}`
+    } else {
+      return `x${exercise.quantity} ${Exercise.getUnit(exercise)}`
+    }
   }
 }

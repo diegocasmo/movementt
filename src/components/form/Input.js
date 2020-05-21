@@ -15,8 +15,8 @@ const Input = ({
 }) => {
   return (
     <Item
-      style={[styles.container, style]}
       stackedLabel
+      style={[styles.container, style]}
       error={touched && error ? true : false}
     >
       <Label>{label}</Label>

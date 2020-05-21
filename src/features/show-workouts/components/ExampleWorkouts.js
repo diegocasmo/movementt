@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'native-base'
+import { StyleSheet } from 'react-native'
+import { View, H1 } from 'native-base'
 import WorkoutItem from './WorkoutItem'
-import Divider from '../../../components/Divider'
 import { workouts } from '../../../seed/workouts.json'
 
 const ExampleWorkouts = ({ onStart }) => {
   return (
     <View>
-      <Divider>Example Workouts ({workouts.length})</Divider>
+      <H1 style={styles.h1}>Example Workouts ({workouts.length})</H1>
       {workouts.map((workout) => (
         <WorkoutItem key={workout.key} workout={workout} onStart={onStart} />
       ))}
@@ -21,3 +21,10 @@ ExampleWorkouts.propTypes = {
 }
 
 export default ExampleWorkouts
+
+const styles = StyleSheet.create({
+  h1: {
+    marginTop: 15,
+    marginBottom: 15,
+  },
+})
