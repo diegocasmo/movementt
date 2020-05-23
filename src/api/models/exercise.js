@@ -46,6 +46,12 @@ export default class Exercise {
     return Exercise.isQtyTimeUnit(exercise) ? 's' : 'reps'
   }
 
+  static getFormattedRest = (exercise) => {
+    return exercise.restSeconds > 0
+      ? `${exercise.restSeconds}s rest`
+      : 'No rest'
+  }
+
   static getInstructions = (exercise) => {
     if (Exercise.isQtyTimeUnit(exercise)) {
       return `x${exercise.quantity}${Exercise.getUnit(exercise)}`

@@ -3,7 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 // Workout
-import WorkoutListScreen from '../features/show-workouts/screens/WorkoutListScreen'
+import WorkoutListScreen from '../features/workout-list/screens/WorkoutListScreen'
+import WorkoutItemScreen from '../features/workout-item/screens/WorkoutItemScreen'
 import CreateWorkoutScreen from '../features/create-workout/screens/CreateWorkoutScreen'
 import UpdateWorkoutScreen from '../features/update-workout/screens/UpdateWorkoutScreen'
 
@@ -24,11 +25,7 @@ const SettingsNavigator = () => {
       <SettingsStack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{
-          title: 'Settings',
-          headerShown: false,
-          gestureEnabled: false,
-        }}
+        options={{ title: 'Settings', headerShown: false }}
       />
       <SettingsStack.Screen
         name="Reauthenticate"
@@ -44,12 +41,30 @@ const SettingsNavigator = () => {
   )
 }
 
+const HomeStack = createStackNavigator()
+const HomeNavigator = () => {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="Home"
+        component={WorkoutListScreen}
+        options={{ headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="WorkoutItem"
+        component={WorkoutItemScreen}
+        options={{ headerShown: false }}
+      />
+    </HomeStack.Navigator>
+  )
+}
+
 const WorkoutForm = () => null
 const HomeTabs = createBottomTabNavigator()
 const HomeTabsNavigator = () => {
   return (
     <HomeTabs.Navigator tabBar={(props) => <FooterTabs {...props} />}>
-      <HomeTabs.Screen name="Home" component={WorkoutListScreen} />
+      <HomeTabs.Screen name="Home" component={HomeNavigator} />
       <HomeTabs.Screen name="WorkoutForm" component={WorkoutForm} />
       <HomeTabs.Screen name="Settings" component={SettingsNavigator} />
     </HomeTabs.Navigator>

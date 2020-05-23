@@ -68,6 +68,10 @@ export default class Workout {
       .catch(() => Promise.reject(new Error('Unable to delete workout')))
   }
 
+  static getFormattedRest = (workout) => {
+    return workout.restSeconds > 0 ? `${workout.restSeconds}s` : 'none'
+  }
+
   static isFromSeed = ({ createdAt, updatedAt }) => {
     return createdAt === null && updatedAt === null
   }

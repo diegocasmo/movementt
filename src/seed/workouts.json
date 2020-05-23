@@ -12,24 +12,32 @@
           "name": "Skipping",
           "quantity": 50,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Walking lunge",
           "quantity": 24,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Reverse Lunge & Knee up",
           "quantity": 30,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Split Squat",
           "quantity": 15,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         }
       ]
@@ -46,24 +54,32 @@
           "name": "Burpees",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Alternating lunge",
           "quantity": 20,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Knee up",
           "quantity": 24,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Sumo Squat",
           "quantity": 15,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         }
       ]
@@ -80,24 +96,32 @@
           "name": "Hanging knee raises",
           "quantity": 8,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Side plank (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Side plank (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Ab-wheel roll-out",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         }
       ]
@@ -114,24 +138,32 @@
           "name": "Hanging knee raises",
           "quantity": 8,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Plank",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Hollow hold",
           "quantity": 25,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         },
         {
           "name": "Seated leg lifts",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 20
         }
       ]
@@ -148,192 +180,256 @@
           "name": "Upward stretch",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Triceps stretch (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Triceps stretch (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Upwards wrist pull (R)",
           "quantity": 16,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Upwards wrist pull (L)",
           "quantity": 16,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Shoulder stretch (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Shoulder stretch (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Downwards wrist pull (R)",
           "quantity": 16,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Downwards wrist pull (L)",
           "quantity": 16,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Runners stretch (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Runners stretch (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Standing hamstring stretch",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Lunging hip flexor (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Lunging hip flexor (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "The prayer",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Seated one-leg hamstring stretch (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Seated one-leg hamstring stretch (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Hamstring stretch",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Knee across the body (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Knee across the body (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Scorpion (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Scorpion (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Knee to the chest (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Knee to the chest (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Half kneeling quad (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Half kneeling quad (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Half kneeling quads",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Pigeon (R)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Pigeon (L)",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 10
         },
         {
           "name": "Butterfly",
           "quantity": 35,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Pancake",
           "quantity": 35,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
           "name": "Downward facing dog",
           "quantity": 35,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 15
         }
       ]
@@ -350,66 +446,88 @@
           "name": "Bar passes",
           "quantity": 15,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Bottom squat hold",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Bottom squat full rotation",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Bar pass in squat position",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Rhombo stretch (R)",
           "quantity": 16,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Rhombo stretch (L)",
           "quantity": 16,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "OHS hold",
           "quantity": 30,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Press in snatch",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Reverse table",
           "quantity": 26,
           "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Squat to stand",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         },
         {
           "name": "Wall squat",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 30
         }
       ]
@@ -426,12 +544,16 @@
           "name": "Pull up",
           "quantity": 5,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 90
         },
         {
           "name": "Dips",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 90
         }
       ]
@@ -448,12 +570,16 @@
           "name": "Chin up",
           "quantity": 5,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 90
         },
         {
           "name": "Chair pike push ups",
           "quantity": 8,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 90
         }
       ]
@@ -470,18 +596,24 @@
           "name": "Single leg glute bridge",
           "quantity": 8,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 60
         },
         {
           "name": "Globet squat",
           "quantity": 10,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 60
         },
         {
           "name": "Single leg calve raises",
           "quantity": 8,
           "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
           "restSeconds": 60
         }
       ]

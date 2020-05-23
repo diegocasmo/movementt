@@ -42,16 +42,16 @@ const WorkoutListScreen = ({ navigation }) => {
     navigation.navigate('UpdateWorkout', { workout })
   }
 
-  const handleDeleteWorkout = async (key) => {
+  const handleDelete = async (workout) => {
     try {
-      await dispatch(destroyWorkout(user.uid, key))
+      await dispatch(destroyWorkout(user.uid, workout))
     } catch (err) {
       showError(err.message)
     }
   }
 
   const handleStart = (workout) => {
-    navigation.navigate('NewSession', { workout })
+    navigation.navigate('WorkoutItem', { workout })
   }
 
   const handleCreate = () => {
@@ -76,7 +76,7 @@ const WorkoutListScreen = ({ navigation }) => {
             <MyWorkouts
               onStart={handleStart}
               onUpdate={handleUpdate}
-              onDelete={handleDeleteWorkout}
+              onDelete={handleDelete}
               onCreateWorkout={handleCreate}
             />
             <ExampleWorkouts onStart={handleStart} />
