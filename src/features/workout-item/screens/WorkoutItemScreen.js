@@ -59,7 +59,7 @@ const WorkoutItemScreen = ({ navigation, route }) => {
         showsVerticalScrollIndicator={false}
       >
         {workout.exercises.map((exercise, idx) => (
-          <ExerciseDetails key={idx} number={idx + 1} exercise={exercise} />
+          <ExerciseDetails key={idx} exercise={exercise} />
         ))}
       </Content>
 
