@@ -10,8 +10,8 @@ export default class Exercise {
     Exercise.QTY_DISTANCE_UNIT,
   ]
   static QTY_UNIT_OPTS = [
-    { label: 'Reps', value: Exercise.QTY_REPETITION_UNIT },
-    { label: 'Sec', value: Exercise.QTY_TIME_UNIT },
+    { label: 'reps', value: Exercise.QTY_REPETITION_UNIT },
+    { label: 's', value: Exercise.QTY_TIME_UNIT },
     { label: 'Km', value: Exercise.QTY_DISTANCE_UNIT },
   ]
 

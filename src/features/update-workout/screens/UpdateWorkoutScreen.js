@@ -20,7 +20,7 @@ const UpdateWorkoutScreen = ({ navigation, route }) => {
     try {
       await dispatch(updateWorkout(user.uid, workout))
       resetForm()
-      navigation.navigate('Home')
+      navigation.navigate('WorkoutItem', { workout })
     } catch (err) {
       showError(err.message)
     } finally {
@@ -29,7 +29,7 @@ const UpdateWorkoutScreen = ({ navigation, route }) => {
   }
 
   const handleQuit = () => {
-    navigation.navigate('Home')
+    navigation.navigate('WorkoutItem', { workout })
   }
 
   return (
@@ -39,15 +39,13 @@ const UpdateWorkoutScreen = ({ navigation, route }) => {
           <Title>Update Workout</Title>
         </Body>
       </Header>
-      <Content padder showsVerticalScrollIndicator={false}>
-        <WorkoutForm
-          submitText="Update Workout"
-          workout={workout}
-          isSubmitting={isSubmitting}
-          onQuit={handleQuit}
-          onSubmit={handleSubmit}
-        />
-      </Content>
+      <WorkoutForm
+        submitText="Update Workout"
+        workout={workout}
+        isSubmitting={isSubmitting}
+        onQuit={handleQuit}
+        onSubmit={handleSubmit}
+      />
     </Container>
   )
 }

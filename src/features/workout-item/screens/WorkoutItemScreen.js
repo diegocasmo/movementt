@@ -34,7 +34,7 @@ const WorkoutItemScreen = ({ navigation, route }) => {
 
   return (
     <Container>
-      <View style={[styles.content, styles.header]}>
+      <View style={[styles.content, styles.top]}>
         <View>
           <H1 style={styles.h1}>Setup</H1>
 
@@ -55,7 +55,7 @@ const WorkoutItemScreen = ({ navigation, route }) => {
       </View>
 
       <Content
-        contentContainerStyle={styles.content}
+        contentContainerStyle={[styles.content, styles.middle]}
         showsVerticalScrollIndicator={false}
       >
         {workout.exercises.map((exercise, idx) => (
@@ -63,7 +63,7 @@ const WorkoutItemScreen = ({ navigation, route }) => {
         ))}
       </Content>
 
-      <View style={[styles.content, styles.footer]}>
+      <View style={[styles.content, styles.bottom]}>
         <Button style={styles.startBtn} onPress={handleStart}>
           <Text>Start Workout</Text>
         </Button>
@@ -88,13 +88,20 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-  header: {
+  top: {
     marginTop: 10,
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
-  footer: {
+  middle: {
+    paddingBottom: 75,
+  },
+  bottom: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     marginBottom: 10,
   },
   h1: {
