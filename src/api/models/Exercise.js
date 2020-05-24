@@ -54,9 +54,9 @@ export default class Exercise {
 
   static getInstructions = (exercise) => {
     if (Exercise.isQtyUnitTime(exercise)) {
-      return `x${exercise.quantity}${Exercise.getUnit(exercise)}`
+      return `${exercise.quantity}${Exercise.getUnit(exercise)}`
     } else {
-      return `x${exercise.quantity} ${Exercise.getUnit(exercise)}`
+      return `${exercise.quantity} ${Exercise.getUnit(exercise)}`
     }
   }
 }
