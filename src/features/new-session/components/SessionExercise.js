@@ -11,6 +11,7 @@ import { View, Button, Text } from 'native-base'
 import Countdown from '../../../components/time/Countdown'
 import ExerciseInstructions from './ExerciseInstructions'
 import { secondsToMs } from '../../../utils/time-utils'
+import Exercise from '../../../api/models/Exercise'
 
 const SessionExercise = () => {
   const dispatch = useDispatch()
@@ -24,7 +25,7 @@ const SessionExercise = () => {
 
   return (
     <View style={styles.container}>
-      {exercise.type === 'time' ? (
+      {Exercise.isQtyUnitTime(exercise) ? (
         <View transparent style={styles.btn}>
           <Countdown
             elapsedMs={elapsedMs}

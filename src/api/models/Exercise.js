@@ -39,11 +39,11 @@ export default class Exercise {
     })
   }
 
-  static isQtyTimeUnit = (exercise) =>
+  static isQtyUnitTime = (exercise) =>
     exercise.quantityUnit === Exercise.QTY_TIME_UNIT
 
   static getUnit = (exercise) => {
-    return Exercise.isQtyTimeUnit(exercise) ? 's' : 'reps'
+    return Exercise.isQtyUnitTime(exercise) ? 's' : 'reps'
   }
 
   static getFormattedRest = (exercise) => {
@@ -53,7 +53,7 @@ export default class Exercise {
   }
 
   static getInstructions = (exercise) => {
-    if (Exercise.isQtyTimeUnit(exercise)) {
+    if (Exercise.isQtyUnitTime(exercise)) {
       return `x${exercise.quantity}${Exercise.getUnit(exercise)}`
     } else {
       return `x${exercise.quantity} ${Exercise.getUnit(exercise)}`
