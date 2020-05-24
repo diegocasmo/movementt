@@ -48,12 +48,12 @@ const HomeNavigator = () => {
       <HomeStack.Screen
         name="Home"
         component={WorkoutListScreen}
-        options={{ headerShown: false }}
+        options={{ title: 'Home', headerShown: false }}
       />
       <HomeStack.Screen
         name="WorkoutItem"
         component={WorkoutItemScreen}
-        options={{ headerShown: false }}
+        options={{ title: 'Workout Details' }}
       />
     </HomeStack.Navigator>
   )

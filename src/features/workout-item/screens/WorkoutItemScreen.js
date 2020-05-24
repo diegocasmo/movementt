@@ -2,21 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  Body,
-  Button,
-  Container,
-  Content,
-  H1,
-  H2,
-  Header,
-  Icon,
-  Left,
-  Right,
-  Text,
-  Title,
-  View,
-} from 'native-base'
+import { Button, Container, Content, H1, H2, Text, View } from 'native-base'
 import ExerciseDetails from '../components/ExerciseDetails'
 import Workout from '../../../api/models/Workout'
 import WorkoutActions from '../../../components/WorkoutActions'
@@ -28,10 +14,6 @@ const WorkoutItemScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const { workout } = route.params
-
-  const handleBackPress = () => {
-    navigation.navigate('Home')
-  }
 
   const handleStart = () => {
     navigation.navigate('NewSession', { workout })
@@ -52,22 +34,11 @@ const WorkoutItemScreen = ({ navigation, route }) => {
 
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent onPress={handleBackPress}>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>{workout.name}</Title>
-        </Body>
-        <Right />
-      </Header>
-
       <View style={[styles.content, styles.header]}>
         <View>
           <H1 style={styles.h1}>Setup</H1>
 
+          <Text style={styles.workoutDetail}>Name: {workout.name}</Text>
           <Text style={styles.workoutDetail}>Rounds: {workout.rounds}</Text>
           <Text style={styles.workoutDetail}>
             Round rest: {Workout.getFormattedRest(workout)}
