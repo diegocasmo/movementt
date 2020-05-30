@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { Container, Header, Body, Title, Content } from 'native-base'
+import { Container, Header, Body, Title } from 'native-base'
 import WorkoutForm from '../../../components/workout-form/WorkoutForm'
 import { getUser } from '../../../state/reducers/auth'
 import { showError } from '../../../utils/toast'
@@ -20,7 +20,7 @@ const UpdateWorkoutScreen = ({ navigation, route }) => {
     try {
       await dispatch(updateWorkout(user.uid, workout))
       resetForm()
-      navigation.navigate('WorkoutItem', { workout })
+      navigation.pop()
     } catch (err) {
       showError(err.message)
     } finally {
@@ -29,7 +29,7 @@ const UpdateWorkoutScreen = ({ navigation, route }) => {
   }
 
   const handleQuit = () => {
-    navigation.navigate('WorkoutItem', { workout })
+    navigation.pop()
   }
 
   return (

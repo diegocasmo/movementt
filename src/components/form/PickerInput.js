@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
   },
   picker: {
     paddingTop: 0,
-    paddingBottom: 12,
-    marginBottom: 4,
+    paddingBottom: 16,
+    marginBottom: -5,
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },

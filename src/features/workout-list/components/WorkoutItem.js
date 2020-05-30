@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
-import Workout from '../../../api/models/Workout'
 import { isDeleting } from '../../../state/reducers/workouts'
 import WorkoutActions from '../../../components/WorkoutActions'
 
@@ -32,15 +31,13 @@ const WorkoutItem = ({
           <Text style={styles.name} numberOfLines={1}>
             <H1>{workout.name}</H1>
           </Text>
-          {!Workout.isFromSeed(workout) && (
-            <View style={styles.options}>
-              <WorkoutActions
-                workout={workout}
-                onUpdate={onUpdate}
-                onDelete={onDelete}
-              />
-            </View>
-          )}
+          <View style={styles.actions}>
+            <WorkoutActions
+              workout={workout}
+              onUpdate={onUpdate}
+              onDelete={onDelete}
+            />
+          </View>
         </CardItem>
         <CardItem>
           <Body>
@@ -85,7 +82,7 @@ const styles = StyleSheet.create({
   name: {
     maxWidth: '90%',
   },
-  options: {
+  actions: {
     position: 'absolute',
     top: 8,
     right: -2,

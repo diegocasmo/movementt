@@ -1,22 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
-import { ActionSheet, Button, Icon, Spinner } from 'native-base'
-import { isDeleting } from '../state/reducers/workouts'
-import Workout from '../api/models/Workout'
+import { ActionSheet, Button, Icon } from 'native-base'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
 const CANCEL_INDEX = 2
 
-const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
-  const deleting = useSelector((state) => isDeleting(state, workout.key))
-
+const ExerciseActions = ({ exercise, onUpdate, onDelete }) => {
   const handleDelete = () => {
     Alert.alert(
-      'Delete Workout',
-      `Are you sure you want to delete the "${workout.name}" workout?`,
+      'Delete Exercise',
+      `Are you sure you want to delete the "${exercise.name}" exercise?`,
       [
         {
           text: 'Cancel',
@@ -25,9 +20,7 @@ const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
         {
           text: 'OK',
           onPress: async () => {
-            if (deleting) return
-
-            onDelete(workout)
+            onDelete(exercise)
           },
         },
       ],
@@ -43,22 +36,14 @@ const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
         destructiveButtonIndex: DESTRUCTIVE_INDEX,
       },
       (buttonIndex) => {
-        if (deleting) return
-
         switch (buttonIndex) {
           case 0:
-            return onUpdate(workout)
+            return onUpdate(exercise)
           case 1:
             return handleDelete()
         }
       }
     )
-  }
-
-  if (Workout.isFromSeed(workout)) return null
-
-  if (deleting) {
-    return <Spinner style={styles.spinner} color="black" size="small" />
   }
 
   return (
@@ -72,10 +57,10 @@ const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
   )
 }
 
-export default WorkoutActions
+export default ExerciseActions
 
-WorkoutActions.propTypes = {
-  workout: PropTypes.object.isRequired,
+ExerciseActions.propTypes = {
+  exercise: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
 }
@@ -84,12 +69,6 @@ const styles = StyleSheet.create({
   actionsBtn: {
     width: 40,
     height: 40,
-  },
-  spinner: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   actionBtn: {
     color: 'black',

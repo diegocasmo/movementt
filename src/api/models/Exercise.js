@@ -46,17 +46,30 @@ export default class Exercise {
     return Exercise.isQtyUnitTime(exercise) ? 's' : 'reps'
   }
 
+  static getFormattedWeight = (exercise) => {
+    if (exercise.weight === 0) return
+
+    return `${exercise.weight} ${exercise.weightUnit}`
+  }
+
   static getFormattedRest = (exercise) => {
     return exercise.restSeconds > 0
-      ? `${exercise.restSeconds}s rest`
+      ? `Rest: ${exercise.restSeconds}s`
       : 'No rest'
   }
 
   static getInstructions = (exercise) => {
+    const { quantity } = exercise
+
+    const formattedWeight =
+      exercise.weight === 0 ? '' : `@${Exercise.getFormattedWeight(exercise)}`
+
+    const unit = Exercise.getUnit(exercise)
+
     if (Exercise.isQtyUnitTime(exercise)) {
-      return `${exercise.quantity}${Exercise.getUnit(exercise)}`
+      return `${quantity}${unit} ${formattedWeight}`
     } else {
-      return `${exercise.quantity} ${Exercise.getUnit(exercise)}`
+      return `${quantity} ${unit} ${formattedWeight}`
     }
   }
 }

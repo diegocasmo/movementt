@@ -20,10 +20,7 @@ export default class Workout {
       restSeconds: Yup.number().required().positive().min(0),
       createdAt: Yup.number().positive(),
       updatedAt: Yup.number().positive(),
-      exercises: Yup.array()
-        .of(Yup.mixed().concat(Exercise.getSchema()))
-        .min(1)
-        .required(),
+      exercises: Yup.array().min(1).required(),
     })
   }
 
