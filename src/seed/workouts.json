@@ -14,7 +14,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         },
         {
           "name": "Walking lunge",
@@ -22,7 +22,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         },
         {
           "name": "Reverse Lunge & Knee up",
@@ -30,7 +30,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         },
         {
           "name": "Split Squat",
@@ -38,7 +38,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         }
       ]
     },
@@ -56,7 +56,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         },
         {
           "name": "Alternating lunge",
@@ -64,7 +64,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         },
         {
           "name": "Knee up",
@@ -72,7 +72,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         },
         {
           "name": "Sumo Squat",
@@ -80,7 +80,7 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 20
+          "restSeconds": 30
         }
       ]
     },
@@ -98,7 +98,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Triceps stretch (R)",
@@ -106,7 +106,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Triceps stretch (L)",
@@ -114,7 +114,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Upwards wrist pull (R)",
@@ -122,7 +122,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Upwards wrist pull (L)",
@@ -130,7 +130,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Shoulder stretch (R)",
@@ -138,7 +138,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Shoulder stretch (L)",
@@ -146,7 +146,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Downwards wrist pull (R)",
@@ -154,7 +154,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Downwards wrist pull (L)",
@@ -162,7 +162,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Runners stretch (R)",
@@ -170,7 +170,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Runners stretch (L)",
@@ -178,7 +178,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Standing hamstring stretch",
@@ -186,7 +186,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Lunging hip flexor (R)",
@@ -194,7 +194,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Lunging hip flexor (L)",
@@ -202,7 +202,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "The prayer",
@@ -210,7 +210,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Seated one-leg hamstring stretch (R)",
@@ -218,7 +218,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Seated one-leg hamstring stretch (L)",
@@ -226,7 +226,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Hamstring stretch",
@@ -234,7 +234,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Knee across the body (R)",
@@ -242,7 +242,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Knee across the body (L)",
@@ -250,7 +250,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Scorpion (R)",
@@ -258,7 +258,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Scorpion (L)",
@@ -266,7 +266,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Knee to the chest (R)",
@@ -274,7 +274,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Knee to the chest (L)",
@@ -282,7 +282,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Half kneeling quad (R)",
@@ -290,7 +290,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Half kneeling quad (L)",
@@ -298,7 +298,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Half kneeling quads",
@@ -306,7 +306,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Pigeon (R)",
@@ -314,7 +314,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Pigeon (L)",
@@ -322,7 +322,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 10
+          "restSeconds": 15
         },
         {
           "name": "Butterfly",
@@ -330,7 +330,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Pancake",
@@ -338,7 +338,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         },
         {
           "name": "Downward facing dog",
@@ -346,7 +346,7 @@
           "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 15
+          "restSeconds": 30
         }
       ]
     },

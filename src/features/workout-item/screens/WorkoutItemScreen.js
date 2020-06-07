@@ -4,11 +4,11 @@ import { StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Container, Content, H1, H2, Text, View } from 'native-base'
 import ExerciseDetails from '../components/ExerciseDetails'
-import Workout from '../../../api/models/Workout'
 import WorkoutActions from '../../../components/WorkoutActions'
 import { getUser } from '../../../state/reducers/auth'
 import { destroyWorkout } from '../../../state/reducers/workouts'
 import { showError } from '../../../utils/toast'
+import { getFormattedDuration } from '../../../utils/time-utils'
 
 const WorkoutItemScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
@@ -41,7 +41,7 @@ const WorkoutItemScreen = ({ navigation, route }) => {
           <Text style={styles.workoutDetail}>Name: {workout.name}</Text>
           <Text style={styles.workoutDetail}>Rounds: {workout.rounds}</Text>
           <Text style={styles.workoutDetail}>
-            Round rest: {Workout.getFormattedRest(workout)}
+            Round rest: {getFormattedDuration(workout.restSeconds)}
           </Text>
 
           <H2 style={styles.h2}>Exercises ({workout.exercises.length})</H2>

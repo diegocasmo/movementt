@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { Text, Card, CardItem, Body } from 'native-base'
 import Exercise from '../../../api/models/Exercise'
+import { getFormattedDuration } from '../../../utils/time-utils'
 
 const ExerciseDetails = ({ exercise }) => {
   return (
@@ -13,7 +14,7 @@ const ExerciseDetails = ({ exercise }) => {
       <CardItem>
         <Body style={styles.body}>
           <Text>{Exercise.getInstructions(exercise)}</Text>
-          <Text>{Exercise.getFormattedRest(exercise)}</Text>
+          <Text>Rest: {getFormattedDuration(exercise.restSeconds)}</Text>
         </Body>
       </CardItem>
     </Card>

@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, StyleSheet } from 'react-native'
 import { View, Col, Grid, Button, Text } from 'native-base'
-import { TextInput, NumberInput, PickerInput } from '../form'
+import { TextInput, NumberInput, ModalPickerInput } from '../form'
 import { Formik, getIn } from 'formik'
+import TimePicker from './TimePicker'
 import Exercise from '../../api/models/Exercise'
 
 const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
@@ -58,11 +59,14 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
                     />
                   </Col>
                   <Col flexGrow={0.8}>
-                    <PickerInput
+                    <ModalPickerInput
                       label="Unit"
-                      value={values.quantityUnit}
-                      options={Exercise.QTY_UNIT_OPTS}
+                      options={Exercise.QTY_UNIT_OPTS.map((opt, idx) => ({
+                        key: idx,
+                        ...opt,
+                      }))}
                       onValueChange={handleChange('quantityUnit')}
+                      value={values.quantityUnit}
                     />
                   </Col>
                 </Grid>
@@ -79,13 +83,10 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
                     />
                   </Col>
                   <Col flexGrow={1}>
-                    <NumberInput
-                      label="Rest (sec)"
-                      error={getIn(errors, 'restSeconds')}
-                      onBlur={handleBlur('restSeconds')}
+                    <TimePicker
+                      label="Rest"
+                      value={`${values.restSeconds}`}
                       onChange={handleChange('restSeconds')}
-                      touched={getIn(touched, 'restSeconds')}
-                      value={values.restSeconds}
                     />
                   </Col>
                 </Grid>
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 20,
     shadowColor: 'black',
     shadowOffset: {

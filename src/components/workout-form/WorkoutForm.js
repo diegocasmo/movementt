@@ -16,6 +16,7 @@ import {
 import { Formik, getIn } from 'formik'
 import { TextInput, NumberInput } from '../form'
 import ExerciseItem from './ExerciseItem'
+import TimePicker from './TimePicker'
 import Workout from '../../api/models/Workout'
 import Exercise from '../../api/models/Exercise'
 
@@ -115,13 +116,10 @@ const WorkoutForm = ({
                   />
                 </Col>
                 <Col>
-                  <NumberInput
-                    error={getIn(errors, 'restSeconds')}
-                    onBlur={handleBlur('restSeconds')}
+                  <TimePicker
+                    label="Round rest"
+                    value={`${values.restSeconds}`}
                     onChange={handleChange('restSeconds')}
-                    touched={getIn(touched, 'restSeconds')}
-                    value={values.restSeconds}
-                    label="Round rest (sec)"
                   />
                 </Col>
               </Grid>

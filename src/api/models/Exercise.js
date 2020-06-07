@@ -1,4 +1,5 @@
 import * as Yup from 'yup'
+import { getFormattedDuration } from '../../utils/time-utils'
 
 export default class Exercise {
   static QTY_REPETITION_UNIT = 'rep'
@@ -25,7 +26,7 @@ export default class Exercise {
     quantityUnit: Exercise.QTY_REPETITION_UNIT,
     weight: 0,
     weightUnit: Exercise.WEIGHT_KG_UNIT,
-    restSeconds: 20,
+    restSeconds: 0,
   }
 
   static getSchema = () => {
@@ -42,9 +43,6 @@ export default class Exercise {
   static isQtyUnitTime = (exercise) =>
     exercise.quantityUnit === Exercise.QTY_TIME_UNIT
 
-  static getUnit = (exercise) => {
-    return Exercise.isQtyUnitTime(exercise) ? 's' : 'reps'
-  }
 
   static getFormattedWeight = (exercise) => {
     if (exercise.weight === 0) return
@@ -52,11 +50,6 @@ export default class Exercise {
     return `${exercise.weight} ${exercise.weightUnit}`
   }
 
-  static getFormattedRest = (exercise) => {
-    return exercise.restSeconds > 0
-      ? `Rest: ${exercise.restSeconds}s`
-      : 'No rest'
-  }
 
   static getInstructions = (exercise) => {
     const { quantity } = exercise
@@ -64,12 +57,13 @@ export default class Exercise {
     const formattedWeight =
       exercise.weight === 0 ? '' : `@${Exercise.getFormattedWeight(exercise)}`
 
-    const unit = Exercise.getUnit(exercise)
-
     if (Exercise.isQtyUnitTime(exercise)) {
-      return `${quantity}${unit} ${formattedWeight}`
-    } else {
-      return `${quantity} ${unit} ${formattedWeight}`
+      return `${getFormattedDuration(quantity)} ${formattedWeight}`
     }
+
+    const unitOpt = Exercise.QTY_UNIT_OPTS.find(
+      ({ value }) => exercise.quantityUnit === value
+    )
+    return `${quantity} ${unitOpt.label} ${formattedWeight}`
   }
 }

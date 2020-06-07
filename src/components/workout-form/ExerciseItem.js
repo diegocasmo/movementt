@@ -5,6 +5,7 @@ import { View, Text, Card, CardItem, Body } from 'native-base'
 import Exercise from '../../api/models/Exercise'
 import ExerciseActions from './ExerciseActions'
 import ExerciseForm from './ExerciseForm'
+import { getFormattedDuration } from '../../utils/time-utils'
 
 const ExerciseItem = ({
   visible = false,
@@ -65,7 +66,7 @@ const ExerciseItem = ({
         <CardItem>
           <Body style={styles.body}>
             <Text>{Exercise.getInstructions(exercise)}</Text>
-            <Text>{Exercise.getFormattedRest(exercise)}</Text>
+            <Text>Rest: {getFormattedDuration(exercise.restSeconds)}</Text>
           </Body>
         </CardItem>
       </Card>

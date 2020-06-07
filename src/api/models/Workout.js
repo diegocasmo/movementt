@@ -8,7 +8,7 @@ export default class Workout {
   static EMPTY = {
     name: '',
     rounds: 4,
-    restSeconds: 30,
+    restSeconds: 0,
     exercises: [],
   }
 
@@ -63,10 +63,6 @@ export default class Workout {
       .remove()
       .then(() => workout)
       .catch(() => Promise.reject(new Error('Unable to delete workout')))
-  }
-
-  static getFormattedRest = (workout) => {
-    return workout.restSeconds > 0 ? `${workout.restSeconds}s` : 'none'
   }
 
   static isFromSeed = ({ createdAt, updatedAt }) => {

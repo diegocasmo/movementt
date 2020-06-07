@@ -5920,6 +5920,13 @@ react-native-keyboard-aware-scroll-view@0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-modal-selector@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-modal-selector/-/react-native-modal-selector-2.0.1.tgz#ae75bbe23d5bff06165f18476eb1088ae3d361ba"
+  integrity sha512-biDUC51MnH3aIbCL4tGJjqN6MPd+H3iPy/EsoPwY5qcUjYn1owbCXs+RY80wOOYpu9OLi6RZQ+C87v2JQ8TxOA==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-reanimated@~1.7.0:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.7.1.tgz#6363c7f3ebbabc56a05d5dccaf09d95f3b6a2d69"
