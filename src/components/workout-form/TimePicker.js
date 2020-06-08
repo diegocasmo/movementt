@@ -5,7 +5,7 @@ import ModalSelector from 'react-native-modal-selector'
 import { TextInput } from '../form'
 import { TIME_OPTS } from '../../utils/time-utils'
 
-const TimePicker = ({ label, onChange, value }) => {
+const TimePicker = ({ label, onChange, value, allowNone = true }) => {
   const [visible] = useState(false)
 
   const handleChange = (option) => {
@@ -23,9 +23,15 @@ const TimePicker = ({ label, onChange, value }) => {
 
   const selectedOpt = findTimeOpt(value)
 
+  // Remove 'None' from available options if it's value isn't allowed
+  let options = TIME_OPTS
+  if (!allowNone) {
+    options = options.filter(({ valueInSeconds }) => valueInSeconds !== 0)
+  }
+
   return (
     <ModalSelector
-      data={TIME_OPTS.map((opt, idx) => ({ key: idx, ...opt }))}
+      data={options.map((opt, idx) => ({ key: idx, ...opt }))}
       visible={visible}
       supportedOrientations={['portrait']}
       cancelText="Cancel"
@@ -49,6 +55,7 @@ const TimePicker = ({ label, onChange, value }) => {
 export default TimePicker
 
 TimePicker.propTypes = {
+  allowNone: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
@@ -57,7 +64,7 @@ TimePicker.propTypes = {
 const styles = StyleSheet.create({
   overlayStyle: {
     flex: 1,
-    paddingTop: 150,
+    paddingTop: 120,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.7)',

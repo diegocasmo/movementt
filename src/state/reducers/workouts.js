@@ -18,7 +18,7 @@ const workouts = createSlice({
     },
     fetchWorkoutsSuccess(state, { payload }) {
       Object.entries(payload).map(([key, workout]) => {
-        state.itemsById[key] = workout
+        state.itemsById[key] = { key, ...workout }
       })
       state.status = REQUEST_STATUS.NONE
     },
@@ -80,6 +80,7 @@ export const createWorkout = (uid, workout) => async (dispatch) => {
   try {
     const payload = await Workout.create(uid, workout)
     dispatch(workouts.actions.createWorkoutSuccess(payload))
+    return payload
   } catch (err) {
     dispatch(workouts.actions.createWorkoutError())
     throw err
@@ -106,6 +107,10 @@ export const destroyWorkout = (uid, workout) => async (dispatch) => {
     dispatch(workouts.actions.destroyWorkoutError(workout))
     throw err
   }
+}
+
+export const getWorkout = (state, key) => {
+  return state.workouts.itemsById[key]
 }
 
 export const isFetching = (state) => {

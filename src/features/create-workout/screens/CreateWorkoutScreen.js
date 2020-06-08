@@ -12,12 +12,12 @@ const CreateWorkoutScreen = ({ navigation }) => {
   const user = useSelector(getUser)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (workout, { resetForm }) => {
+  const handleSubmit = async (attrs, { resetForm }) => {
     setIsSubmitting(true)
     try {
-      await dispatch(createWorkout(user.uid, workout))
+      const workout = await dispatch(createWorkout(user.uid, attrs))
       resetForm()
-      navigation.navigate('WorkoutItem', { workout })
+      navigation.navigate('WorkoutItem', { workoutKey: workout.key })
     } catch (err) {
       showError(err.message)
     } finally {

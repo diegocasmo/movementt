@@ -5,12 +5,12 @@ import { Container, Header, Body, Title } from 'native-base'
 import WorkoutForm from '../../../components/workout-form/WorkoutForm'
 import { getUser } from '../../../state/reducers/auth'
 import { showError } from '../../../utils/toast'
-import { updateWorkout } from '../../../state/reducers/workouts'
+import { updateWorkout, getWorkout } from '../../../state/reducers/workouts'
 
 const UpdateWorkoutScreen = ({ navigation, route }) => {
-  const {
-    params: { workout },
-  } = route
+  const workout = useSelector((state) =>
+    getWorkout(state, route.params.workoutKey)
+  )
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -56,7 +56,7 @@ UpdateWorkoutScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      workout: PropTypes.object.isRequired,
+      workoutKey: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 }

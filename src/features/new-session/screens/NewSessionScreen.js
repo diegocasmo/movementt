@@ -19,11 +19,12 @@ import SessionExerciseRest from '../components/SessionExerciseRest'
 import SessionRoundRest from '../components/SessionRoundRest'
 import SessionStartup from '../components/SessionStartup'
 import SessionCompleted from '../components/SessionCompleted'
+import { getWorkout } from '../../../state/reducers/workouts'
 
 const NewSessionScreen = ({ navigation, route }) => {
-  const {
-    params: { workout },
-  } = route
+  const workout = useSelector((state) =>
+    getWorkout(state, route.params.workoutKey)
+  )
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)
   const completed = useSelector(isCompleted)
@@ -100,7 +101,7 @@ NewSessionScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      workout: PropTypes.object.isRequired,
+      workoutKey: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 }

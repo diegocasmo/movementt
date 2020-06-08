@@ -2,17 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, StyleSheet } from 'react-native'
 import { View, Col, Grid, Button, Text } from 'native-base'
-import { TextInput, NumberInput, ModalPickerInput } from '../form'
+import {
+  TextInput,
+  IntegerInput,
+  DecimalInput,
+  ModalPickerInput,
+} from '../form'
 import { Formik, getIn } from 'formik'
 import TimePicker from './TimePicker'
 import Exercise from '../../api/models/Exercise'
 
 const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
+  const handleChangeQtyUnit = (quantityUnit, values, setValues) => {
+    if (values.quantityUnit === quantityUnit) return
+
+    setValues(
+      {
+        ...values,
+        quantityUnit,
+        ...(Exercise.isQtyUnitTime({ quantityUnit })
+          ? {
+              quantity: 15,
+            }
+          : {
+              quantity: Exercise.EMPTY.quantity,
+            }),
+      },
+      false
+    )
+  }
+
   return (
     <Formik
       initialValues={exercise}
       validationSchema={Exercise.getSchema()}
-      validateOnMount={false}
       onSubmit={(attrs, opts) => {
         onSubmit(Exercise.getSchema().cast(attrs), opts)
       }}
@@ -24,6 +47,7 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
         handleSubmit,
         touched,
         values,
+        setValues,
       }) => {
         const isValid = Object.keys(errors).length === 0
 
@@ -37,6 +61,22 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
             <View style={styles.container}>
               <View style={styles.modalView}>
                 <Grid>
+                  <Col flexGrow={1}>
+                    <ModalPickerInput
+                      label="Exercise type"
+                      options={Exercise.QTY_UNIT_OPTS.map((opt, idx) => ({
+                        key: idx,
+                        ...opt,
+                      }))}
+                      onValueChange={(qtyUnit) => {
+                        handleChangeQtyUnit(qtyUnit, values, setValues)
+                      }}
+                      value={values.quantityUnit}
+                    />
+                  </Col>
+                </Grid>
+
+                <Grid>
                   <Col flexGrow={1.5} paddingRight={10}>
                     <TextInput
                       label="Name"
@@ -48,32 +88,30 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
                       value={values.name}
                     />
                   </Col>
-                  <Col flexGrow={0.8} paddingRight={10}>
-                    <NumberInput
-                      label="Quantity"
-                      error={getIn(errors, 'quantity')}
-                      onBlur={handleBlur('quantity')}
-                      onChange={handleChange('quantity')}
-                      touched={getIn(touched, 'quantity')}
-                      value={values.quantity}
-                    />
-                  </Col>
                   <Col flexGrow={0.8}>
-                    <ModalPickerInput
-                      label="Unit"
-                      options={Exercise.QTY_UNIT_OPTS.map((opt, idx) => ({
-                        key: idx,
-                        ...opt,
-                      }))}
-                      onValueChange={handleChange('quantityUnit')}
-                      value={values.quantityUnit}
-                    />
+                    {Exercise.isQtyUnitTime(values) ? (
+                      <TimePicker
+                        label="Time"
+                        allowNone={false}
+                        value={`${values.quantity}`}
+                        onChange={handleChange('quantity')}
+                      />
+                    ) : (
+                      <IntegerInput
+                        label="Reps"
+                        error={getIn(errors, 'quantity')}
+                        onBlur={handleBlur('quantity')}
+                        onChange={handleChange('quantity')}
+                        touched={getIn(touched, 'quantity')}
+                        value={values.quantity}
+                      />
+                    )}
                   </Col>
                 </Grid>
 
                 <Grid>
                   <Col flexGrow={1} paddingRight={10}>
-                    <NumberInput
+                    <DecimalInput
                       label={`Weight (${Exercise.WEIGHT_KG_UNIT})`}
                       error={getIn(errors, 'weight')}
                       onBlur={handleBlur('weight')}
@@ -124,7 +162,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 150,
+    marginTop: 100,
     marginBottom: 150,
     marginLeft: 25,
     marginRight: 25,
@@ -141,7 +179,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    height: 300,
+    height: 350,
     width: '100%',
   },
   actions: {

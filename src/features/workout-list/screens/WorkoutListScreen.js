@@ -39,7 +39,7 @@ const WorkoutListScreen = ({ navigation }) => {
   }
 
   const handleUpdate = (workout) => {
-    navigation.navigate('UpdateWorkout', { workout })
+    navigation.navigate('UpdateWorkout', { workoutKey: workout.key })
   }
 
   const handleDelete = async (workout) => {
@@ -51,7 +51,7 @@ const WorkoutListScreen = ({ navigation }) => {
   }
 
   const handleStart = (workout) => {
-    navigation.navigate('WorkoutItem', { workout })
+    navigation.navigate('WorkoutItem', { workoutKey: workout.key })
   }
 
   const handleCreate = () => {

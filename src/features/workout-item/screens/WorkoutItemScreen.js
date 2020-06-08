@@ -2,34 +2,53 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Container, Content, H1, H2, Text, View } from 'native-base'
+import {
+  Button,
+  Container,
+  Content,
+  H1,
+  H2,
+  Text,
+  View,
+  Spinner,
+} from 'native-base'
 import ExerciseDetails from '../components/ExerciseDetails'
 import WorkoutActions from '../../../components/WorkoutActions'
 import { getUser } from '../../../state/reducers/auth'
-import { destroyWorkout } from '../../../state/reducers/workouts'
+import { getWorkout, destroyWorkout } from '../../../state/reducers/workouts'
 import { showError } from '../../../utils/toast'
 import { getFormattedDuration } from '../../../utils/time-utils'
 
 const WorkoutItemScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
-  const { workout } = route.params
+  const workout = useSelector((state) =>
+    getWorkout(state, route.params.workoutKey)
+  )
 
   const handleStart = () => {
-    navigation.navigate('NewSession', { workout })
+    navigation.navigate('NewSession', { workoutKey: workout.key })
   }
 
   const handleUpdate = (workout) => {
-    navigation.navigate('UpdateWorkout', { workout })
+    navigation.navigate('UpdateWorkout', { workoutKey: workout.key })
   }
 
   const handleDelete = async (workout) => {
     try {
-      await dispatch(destroyWorkout(user.uid, workout))
+      dispatch(destroyWorkout(user.uid, workout))
       navigation.navigate('Home')
     } catch (err) {
       showError(err.message)
     }
+  }
+
+  if (!workout) {
+    return (
+      <Container>
+        <Spinner color="black" size="small" />
+      </Container>
+    )
   }
 
   return (
@@ -78,7 +97,7 @@ WorkoutItemScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      workout: PropTypes.object.isRequired,
+      workoutKey: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 }

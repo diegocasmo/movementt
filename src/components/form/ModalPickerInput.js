@@ -48,7 +48,7 @@ ModalPickerInput.propTypes = {
 const styles = StyleSheet.create({
   overlayStyle: {
     flex: 1,
-    paddingTop: 150,
+    paddingTop: 120,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.7)',

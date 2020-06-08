@@ -19,8 +19,9 @@ const Input = ({
       style={[styles.container, style]}
       error={touched && error ? true : false}
     >
-      <Label>{label}</Label>
+      <Label style={styles.label}>{label}</Label>
       <NBInput
+        style={styles.input}
         onChangeText={onChange}
         onBlur={onBlur}
         value={value}
@@ -41,8 +42,12 @@ Input.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: {},
+  label: {
     marginBottom: 5,
+  },
+  input: {
+    maxHeight: 35,
   },
 })
 

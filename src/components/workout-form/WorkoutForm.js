@@ -14,7 +14,7 @@ import {
   View,
 } from 'native-base'
 import { Formik, getIn } from 'formik'
-import { TextInput, NumberInput } from '../form'
+import { TextInput, IntegerInput } from '../form'
 import ExerciseItem from './ExerciseItem'
 import TimePicker from './TimePicker'
 import Workout from '../../api/models/Workout'
@@ -52,7 +52,6 @@ const WorkoutForm = ({
     <Formik
       initialValues={workout || Workout.EMPTY}
       validationSchema={Workout.getSchema()}
-      validateOnMount={false}
       onSubmit={(attrs, opts) => {
         onSubmit(Workout.getSchema().cast(attrs), opts)
       }}
@@ -106,7 +105,7 @@ const WorkoutForm = ({
               </Grid>
               <Grid>
                 <Col paddingRight={10}>
-                  <NumberInput
+                  <IntegerInput
                     error={getIn(errors, 'rounds')}
                     onBlur={handleBlur('rounds')}
                     onChange={handleChange('rounds')}
