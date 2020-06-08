@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Workouter",
-    "slug": "workouter",
+    "name": "Movementt",
+    "slug": "movementt",
     "privacy": "public",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
