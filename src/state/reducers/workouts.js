@@ -3,8 +3,8 @@ import Workout from '../../api/models/Workout'
 import { REQUEST_STATUS } from '../../utils/request-utils'
 
 const initialState = {
-  itemsById: {},
-  statusByItemId: {},
+  byKey: {},
+  statusByKey: {},
   status: REQUEST_STATUS.NONE,
 }
 
@@ -18,7 +18,7 @@ const workouts = createSlice({
     },
     fetchWorkoutsSuccess(state, { payload }) {
       Object.entries(payload).map(([key, workout]) => {
-        state.itemsById[key] = { key, ...workout }
+        state.byKey[key] = { key, ...workout }
       })
       state.status = REQUEST_STATUS.NONE
     },
@@ -31,7 +31,7 @@ const workouts = createSlice({
       state.status = REQUEST_STATUS.POST
     },
     createWorkoutSuccess(state, { payload }) {
-      state.itemsById[payload.key] = payload
+      state.byKey[payload.key] = payload
       state.status = REQUEST_STATUS.NONE
     },
     createWorkoutError(state) {
@@ -40,26 +40,26 @@ const workouts = createSlice({
 
     // Update workout
     updateWorkoutInit(state, { payload }) {
-      state.statusByItemId[payload.key] = REQUEST_STATUS.PUT
+      state.statusByKey[payload.key] = REQUEST_STATUS.PUT
     },
     updateWorkoutSuccess(state, { payload }) {
-      state.itemsById[payload.key] = payload
-      state.statusByItemId[payload.key] = REQUEST_STATUS.NONE
+      state.byKey[payload.key] = payload
+      state.statusByKey[payload.key] = REQUEST_STATUS.NONE
     },
     updateWorkoutError(state, { payload }) {
-      state.statusByItemId[payload.key] = REQUEST_STATUS.NONE
+      state.statusByKey[payload.key] = REQUEST_STATUS.NONE
     },
 
     // Destroy workout
     destroyWorkoutInit(state, { payload }) {
-      state.statusByItemId[payload.key] = REQUEST_STATUS.DELETE
+      state.statusByKey[payload.key] = REQUEST_STATUS.DELETE
     },
     destroyWorkoutSuccess(state, { payload }) {
-      delete state.itemsById[payload.key]
-      delete state.statusByItemId[payload.key]
+      delete state.byKey[payload.key]
+      delete state.statusByKey[payload.key]
     },
     destroyWorkoutError(state, { payload }) {
-      state.statusByItemId[payload.key] = REQUEST_STATUS.NONE
+      state.statusByKey[payload.key] = REQUEST_STATUS.NONE
     },
   },
 })
@@ -110,7 +110,7 @@ export const destroyWorkout = (uid, workout) => async (dispatch) => {
 }
 
 export const getWorkout = (state, key) => {
-  return state.workouts.itemsById[key]
+  return state.workouts.byKey[key]
 }
 
 export const isFetching = (state) => {
@@ -122,15 +122,15 @@ export const isCreating = (state) => {
 }
 
 export const isUpdating = (state, key) => {
-  return state.workouts.statusByItemId[key] === REQUEST_STATUS.PUT
+  return state.workouts.statusByKey[key] === REQUEST_STATUS.PUT
 }
 
 export const isDeleting = (state, key) => {
-  return state.workouts.statusByItemId[key] === REQUEST_STATUS.DELETE
+  return state.workouts.statusByKey[key] === REQUEST_STATUS.DELETE
 }
 
 export const getWorkouts = (state) => {
-  return Object.entries(state.workouts.itemsById).map(([key, workout]) => {
+  return Object.entries(state.workouts.byKey).map(([key, workout]) => {
     return {
       key,
       ...workout,
