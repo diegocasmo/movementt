@@ -55,7 +55,7 @@ const WorkoutListScreen = ({ navigation }) => {
   }
 
   const handleCreate = () => {
-    navigation.navigate('WorkoutForm')
+    navigation.navigate('CreateWorkout')
   }
 
   return (
