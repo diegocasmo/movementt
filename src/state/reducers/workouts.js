@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Workout from '../../api/models/Workout'
 import { REQUEST_STATUS } from '../../utils/request-utils'
+import * as seed from '../../seed/workouts.json'
 
 const initialState = {
   byKey: {},
@@ -110,7 +111,7 @@ export const destroyWorkout = (uid, workout) => async (dispatch) => {
 }
 
 export const getWorkout = (state, key) => {
-  return state.workouts.byKey[key]
+  return state.workouts.byKey[key] || seed.workouts.find((w) => w.key === key)
 }
 
 export const isFetching = (state) => {

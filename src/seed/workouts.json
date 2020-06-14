@@ -1,7 +1,7 @@
 {
   "workouts": [
     {
-      "key": 1,
+      "key": "1",
       "name": "Quad Boost",
       "rounds": 2,
       "restSeconds": 30,
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "key": 2,
+      "key": "2",
       "name": "Full Body Kick",
       "rounds": 2,
       "restSeconds": 30,
@@ -85,7 +85,7 @@
       ]
     },
     {
-      "key": 5,
+      "key": "5",
       "name": "Full Body Stretch Session",
       "rounds": 1,
       "restSeconds": 0,
@@ -351,7 +351,7 @@
       ]
     },
     {
-      "key": 6,
+      "key": "6",
       "name": "Mobility Session",
       "rounds": 2,
       "restSeconds": 60,
@@ -449,7 +449,7 @@
       ]
     },
     {
-      "key": 7,
+      "key": "7",
       "name": "Pull/Push Superset I",
       "rounds": 4,
       "restSeconds": 90,
@@ -475,7 +475,7 @@
       ]
     },
     {
-      "key": 8,
+      "key": "8",
       "name": "Pull/Push Superset II",
       "rounds": 4,
       "restSeconds": 90,
@@ -501,7 +501,7 @@
       ]
     },
     {
-      "key": 9,
+      "key": "9",
       "name": "Legs Superset I",
       "rounds": 4,
       "restSeconds": 60,
