@@ -1,35 +1,49 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, StyleSheet } from 'react-native'
-import { View, Col, Grid, Button, Text } from 'native-base'
-import {
-  TextInput,
-  IntegerInput,
-  DecimalInput,
-  ModalPickerInput,
-} from '../form'
-import { Formik, getIn } from 'formik'
-import TimePicker from './TimePicker'
+import { View, Button, Text } from 'native-base'
+import { ModalPickerInput } from '../form'
+import { Formik } from 'formik'
 import Exercise from '../../api/models/Exercise'
+import RepsExerciseForm from './exercise-types/RepsExerciseForm'
+import TimeExerciseForm from './exercise-types/TimeExerciseForm'
+import DistanceExerciseForm from './exercise-types/DistanceExerciseForm'
 
 const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
-  const handleChangeQtyUnit = (quantityUnit, values, setValues) => {
-    if (values.quantityUnit === quantityUnit) return
+  const renderExerciseForm = (type, bag) => {
+    const props = {
+      errors: bag.errors,
+      handleBlur: bag.handleBlur,
+      handleChange: bag.handleChange,
+      touched: bag.touched,
+      values: bag.values,
+    }
 
-    setValues(
-      {
-        ...values,
-        quantityUnit,
-        ...(Exercise.isQtyUnitTime({ quantityUnit })
-          ? {
-              quantity: 15,
-            }
-          : {
-              quantity: Exercise.EMPTY.quantity,
-            }),
-      },
-      false
-    )
+    switch (type) {
+      case Exercise.TYPE_TIME:
+        return <TimeExerciseForm {...props} />
+      case Exercise.TYPE_DISTANCE:
+        return <DistanceExerciseForm {...props} />
+      default:
+        return <RepsExerciseForm {...props} />
+    }
+  }
+
+  const handleTypeChange = (type, values, setValues) => {
+    if (values.type === type) return
+
+    const changes = ((type) => {
+      switch (type) {
+        case Exercise.TYPE_TIME:
+          return { quantity: 15, quantityUnit: Exercise.TIME_UNIT }
+        case Exercise.TYPE_DISTANCE:
+          return { quantity: 200, quantityUnit: Exercise.DISTANCE_UNIT }
+        default:
+          return { quantity: 10, quantityUnit: Exercise.REP_UNIT }
+      }
+    })(type)
+
+    setValues({ ...values, type, ...changes }, false)
   }
 
   return (
@@ -40,15 +54,8 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
         onSubmit(Exercise.getSchema().cast(attrs), opts)
       }}
     >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        touched,
-        values,
-        setValues,
-      }) => {
+      {(bag) => {
+        const { errors, handleSubmit, setValues, values } = bag
         const isValid = Object.keys(errors).length === 0
 
         return (
@@ -60,74 +67,21 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
           >
             <View style={styles.container}>
               <View style={styles.modalView}>
-                <Grid>
-                  <Col flexGrow={1}>
-                    <ModalPickerInput
-                      label="Exercise type"
-                      options={Exercise.QTY_UNIT_OPTS.map((opt, idx) => ({
-                        key: idx,
-                        ...opt,
-                      }))}
-                      onValueChange={(qtyUnit) => {
-                        handleChangeQtyUnit(qtyUnit, values, setValues)
-                      }}
-                      value={values.quantityUnit}
-                    />
-                  </Col>
-                </Grid>
+                <View style={styles.typeContainer}>
+                  <ModalPickerInput
+                    label="Exercise type"
+                    options={Exercise.TYPE_OPTS.map((opt, idx) => ({
+                      key: idx,
+                      ...opt,
+                    }))}
+                    onValueChange={(type) => {
+                      handleTypeChange(type, values, setValues)
+                    }}
+                    value={values.type}
+                  />
+                </View>
 
-                <Grid>
-                  <Col flexGrow={1.5} paddingRight={10}>
-                    <TextInput
-                      label="Name"
-                      autoFocus={true}
-                      error={getIn(errors, 'name')}
-                      onBlur={handleBlur('name')}
-                      onChange={handleChange('name')}
-                      touched={getIn(touched, 'name')}
-                      value={values.name}
-                    />
-                  </Col>
-                  <Col flexGrow={0.8}>
-                    {Exercise.isQtyUnitTime(values) ? (
-                      <TimePicker
-                        label="Time"
-                        allowNone={false}
-                        value={`${values.quantity}`}
-                        onChange={handleChange('quantity')}
-                      />
-                    ) : (
-                      <IntegerInput
-                        label="Reps"
-                        error={getIn(errors, 'quantity')}
-                        onBlur={handleBlur('quantity')}
-                        onChange={handleChange('quantity')}
-                        touched={getIn(touched, 'quantity')}
-                        value={values.quantity}
-                      />
-                    )}
-                  </Col>
-                </Grid>
-
-                <Grid>
-                  <Col flexGrow={1} paddingRight={10}>
-                    <DecimalInput
-                      label={`Weight (${Exercise.WEIGHT_KG_UNIT})`}
-                      error={getIn(errors, 'weight')}
-                      onBlur={handleBlur('weight')}
-                      onChange={handleChange('weight')}
-                      touched={getIn(touched, 'weight')}
-                      value={values.weight}
-                    />
-                  </Col>
-                  <Col flexGrow={1}>
-                    <TimePicker
-                      label="Rest"
-                      value={`${values.restSeconds}`}
-                      onChange={handleChange('restSeconds')}
-                    />
-                  </Col>
-                </Grid>
+                {renderExerciseForm(values.type, bag)}
 
                 <View style={styles.actions}>
                   <Button light onPress={onClose}>
@@ -181,6 +135,9 @@ const styles = StyleSheet.create({
     elevation: 5,
     height: 350,
     width: '100%',
+  },
+  typeContainer: {
+    marginBottom: 20,
   },
   actions: {
     flexDirection: 'row',

@@ -25,7 +25,7 @@ const SessionExercise = () => {
 
   return (
     <View style={styles.container}>
-      {Exercise.isQtyUnitTime(exercise) ? (
+      {Exercise.isTypeTime(exercise) ? (
         <View transparent style={styles.btn}>
           <Countdown
             elapsedMs={elapsedMs}
