@@ -3,20 +3,20 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 // Workout
-import WorkoutListScreen from '../features/workout-list/screens/WorkoutListScreen'
-import WorkoutItemScreen from '../features/workout-item/screens/WorkoutItemScreen'
-import CreateWorkoutScreen from '../features/create-workout/screens/CreateWorkoutScreen'
-import UpdateWorkoutScreen from '../features/update-workout/screens/UpdateWorkoutScreen'
+import WorkoutListScreen from '_features/workout-list/screens/WorkoutListScreen'
+import WorkoutItemScreen from '_features/workout-item/screens/WorkoutItemScreen'
+import CreateWorkoutScreen from '_features/create-workout/screens/CreateWorkoutScreen'
+import UpdateWorkoutScreen from '_features/update-workout/screens/UpdateWorkoutScreen'
 
 // Session
-import NewSessionScreen from '../features/new-session/screens/NewSessionScreen'
+import NewSessionScreen from '_features/new-session/screens/NewSessionScreen'
 
 // Settings
-import SettingsScreen from '../features/settings/screens/SettingsScreen'
-import ReauthenticateScreen from '../features/update-password/screens/ReauthenticateScreen'
-import UpdatePasswordScreen from '../features/update-password/screens/UpdatePasswordScreen'
+import SettingsScreen from '_features/settings/screens/SettingsScreen'
+import ReauthenticateScreen from '_features/update-password/screens/ReauthenticateScreen'
+import UpdatePasswordScreen from '_features/update-password/screens/UpdatePasswordScreen'
 
-import FooterTabs from '../components/FooterTabs'
+import FooterTabs from '_components/FooterTabs'
 
 const SettingsStack = createStackNavigator()
 const SettingsNavigator = () => {

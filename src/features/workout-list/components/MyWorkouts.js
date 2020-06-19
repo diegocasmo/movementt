@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, View, Text, H1 } from 'native-base'
-import { getWorkouts } from '../../../state/reducers/workouts'
+import { getWorkouts } from '_state/reducers/workouts'
 import WorkoutItem from './WorkoutItem'
 
 const MyWorkouts = ({ onCreateWorkout, onStart, onUpdate, onDelete }) => {

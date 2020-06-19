@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import VerifyEmailScreen from '../features/email-verification/screens/VerifyEmailScreen'
+import VerifyEmailScreen from '_features/email-verification/screens/VerifyEmailScreen'
 
 const Stack = createStackNavigator()
 

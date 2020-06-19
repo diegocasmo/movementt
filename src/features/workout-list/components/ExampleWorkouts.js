@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, H1 } from 'native-base'
 import WorkoutItem from './WorkoutItem'
-import { workouts } from '../../../seed/workouts.json'
+import { workouts } from '_seed/workouts.json'
 
 const ExampleWorkouts = ({ onStart }) => {
   return (

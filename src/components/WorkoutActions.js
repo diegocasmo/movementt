@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
 import { ActionSheet, Button, Icon, Spinner } from 'native-base'
-import { isDeleting } from '../state/reducers/workouts'
-import Workout from '../api/models/Workout'
+import { isDeleting } from '_state/reducers/workouts'
+import Workout from '_api/models/Workout'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1

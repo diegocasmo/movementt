@@ -1,8 +1,8 @@
 import * as Yup from 'yup'
-import { db } from '../config'
-import { transformYupToFormikError } from '../utils'
+import { db } from '_api/config'
+import { transformYupToFormikError } from '_api/utils'
 import Exercise from './Exercise'
-import { timestamp } from '../../utils/time-utils'
+import { timestamp } from '_utils/time-utils'
 
 export default class Workout {
   static EMPTY = {

@@ -4,12 +4,12 @@ import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
 
-import { onAuthStateChanged } from './api/on-auth-state-changed'
-import { handleAuthStateChanged } from './state/reducers/auth'
+import { onAuthStateChanged } from '_api/on-auth-state-changed'
+import { handleAuthStateChanged } from '_state/reducers/auth'
 
-import UnverifiedAppNavigator from './navigation/UnverifiedAppNavigator'
-import VerifiedAppNavigator from './navigation/VerifiedAppNavigator'
-import GuestAppNavigator from './navigation/GuestAppNavigator'
+import UnverifiedAppNavigator from '_navigation/UnverifiedAppNavigator'
+import VerifiedAppNavigator from '_navigation/VerifiedAppNavigator'
+import GuestAppNavigator from '_navigation/GuestAppNavigator'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -36,7 +36,7 @@ const App = () => {
 
   // Listen to authentication state changes
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(user => {
+    const unsubscribe = onAuthStateChanged((user) => {
       dispatch(handleAuthStateChanged(user))
     })
 

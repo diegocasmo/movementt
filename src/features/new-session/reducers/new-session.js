@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { now, timestamp, getTotalEllapsedMs } from '../../../utils/time-utils'
+import { now, timestamp, getTotalEllapsedMs } from '_utils/time-utils'
 
 export const TIME_ENTRY_TYPE = {
   EXERCISE: 'EXERCISE',

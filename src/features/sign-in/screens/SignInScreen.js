@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
-import EmailAndPasswordForm from '../../../components/EmailAndPasswordForm'
-import { showError } from '../../../utils/toast'
-import { signInWithEmailAndPassword } from '../../../api/sign-in'
+import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
+import { showError } from '_utils/toast'
+import { signInWithEmailAndPassword } from '_api/sign-in'
 
 const SignInScreen = ({ navigation }) => {
   const [isSigningIn, setIsSigningIn] = useState(false)

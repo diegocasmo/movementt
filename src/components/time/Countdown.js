@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Duration from './Duration'
-import { msToSeconds } from '../../utils/time-utils'
+import { msToSeconds } from '_utils/time-utils'
 import { Audio } from 'expo-av'
 import * as Speech from 'expo-speech'
 

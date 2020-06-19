@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Header, Body, Title } from 'native-base'
-import WorkoutForm from '../../../components/workout-form/WorkoutForm'
-import { getUser } from '../../../state/reducers/auth'
-import { showError } from '../../../utils/toast'
-import { updateWorkout, getWorkout } from '../../../state/reducers/workouts'
+import WorkoutForm from '_components/workout-form/WorkoutForm'
+import { getUser } from '_state/reducers/auth'
+import { showError } from '_utils/toast'
+import { updateWorkout, getWorkout } from '_state/reducers/workouts'
 
 const UpdateWorkoutScreen = ({ navigation, route }) => {
   const workout = useSelector((state) =>

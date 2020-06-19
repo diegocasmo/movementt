@@ -13,11 +13,11 @@ import {
   Spinner,
 } from 'native-base'
 import ExerciseDetails from '../components/ExerciseDetails'
-import WorkoutActions from '../../../components/WorkoutActions'
-import { getUser } from '../../../state/reducers/auth'
-import { getWorkout, destroyWorkout } from '../../../state/reducers/workouts'
-import { showError } from '../../../utils/toast'
-import { getFormattedDuration } from '../../../utils/time-utils'
+import WorkoutActions from '_components/WorkoutActions'
+import { getUser } from '_state/reducers/auth'
+import { getWorkout, destroyWorkout } from '_state/reducers/workouts'
+import { showError } from '_utils/toast'
+import { getFormattedDuration } from '_utils/time-utils'
 
 const WorkoutItemScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()

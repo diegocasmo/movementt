@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import ModalSelector from 'react-native-modal-selector'
-import { TextInput } from '../../form'
-import { DISTANCE_OPTS } from '../../../utils/distance-utils'
+import { TextInput } from '_components/form'
+import { DISTANCE_OPTS } from '_utils/distance-utils'
 
 const DistancePicker = ({ label, onChange, value, allowNone = true }) => {
   const [visible] = useState(false)

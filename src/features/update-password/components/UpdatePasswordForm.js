@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Form, Grid, Col, Button, Text, Spinner } from 'native-base'
 import * as Yup from 'yup'
-import { PasswordInput } from '../../../components/form'
+import { PasswordInput } from '_components/form'
 import { Formik, getIn } from 'formik'
 
 const validationSchema = Yup.object({

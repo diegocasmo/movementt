@@ -8,10 +8,10 @@ import {
 } from '../reducers/new-session'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
-import Countdown from '../../../components/time/Countdown'
+import Countdown from '_components/time/Countdown'
 import ExerciseInstructions from './ExerciseInstructions'
-import { secondsToMs } from '../../../utils/time-utils'
-import Exercise from '../../../api/models/Exercise'
+import { secondsToMs } from '_utils/time-utils'
+import Exercise from '_api/models/Exercise'
 
 const SessionExercise = () => {
   const dispatch = useDispatch()

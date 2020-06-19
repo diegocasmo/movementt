@@ -12,9 +12,9 @@ import {
   Text,
 } from 'native-base'
 import { Formik, getIn } from 'formik'
-import { sendPasswordResetEmail } from '../../../api/password-reset'
-import { showError, showSuccess } from '../../../utils/toast'
-import { EmailInput } from '../../../components/form'
+import { sendPasswordResetEmail } from '_api/password-reset'
+import { showError, showSuccess } from '_utils/toast'
+import { EmailInput } from '_components/form'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object({

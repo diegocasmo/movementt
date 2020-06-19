@@ -19,7 +19,7 @@ import SessionExerciseRest from '../components/SessionExerciseRest'
 import SessionRoundRest from '../components/SessionRoundRest'
 import SessionStartup from '../components/SessionStartup'
 import SessionCompleted from '../components/SessionCompleted'
-import { getWorkout } from '../../../state/reducers/workouts'
+import { getWorkout } from '_state/reducers/workouts'
 
 const NewSessionScreen = ({ navigation, route }) => {
   const workout = useSelector((state) =>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
-import { getFormattedDuration } from '../../utils/time-utils'
-import { getFormattedDistance } from '../../utils/distance-utils'
+import { getFormattedDuration } from '_utils/time-utils'
+import { getFormattedDistance } from '_utils/distance-utils'
 
 export default class Exercise {
   static TYPE_REPS = 'reps'

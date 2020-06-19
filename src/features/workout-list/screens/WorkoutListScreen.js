@@ -13,13 +13,13 @@ import {
 } from 'native-base'
 import MyWorkouts from '../components/MyWorkouts'
 import ExampleWorkouts from '../components/ExampleWorkouts'
-import { getUser } from '../../../state/reducers/auth'
+import { getUser } from '_state/reducers/auth'
 import {
   fetchWorkouts,
   isFetching,
   destroyWorkout,
-} from '../../../state/reducers/workouts'
-import { showError } from '../../../utils/toast'
+} from '_state/reducers/workouts'
+import { showError } from '_utils/toast'
 
 const WorkoutListScreen = ({ navigation }) => {
   const dispatch = useDispatch()

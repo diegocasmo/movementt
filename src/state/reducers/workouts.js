@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import Workout from '../../api/models/Workout'
-import { REQUEST_STATUS } from '../../utils/request-utils'
-import * as seed from '../../seed/workouts.json'
+import Workout from '_api/models/Workout'
+import { REQUEST_STATUS } from '_utils/request-utils'
+import * as seed from '_seed/workouts.json'
 
 const initialState = {
   byKey: {},

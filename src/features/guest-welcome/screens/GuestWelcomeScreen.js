@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Button, Text } from 'native-base'
-import ImageLogo from '../../../components/ImageLogo'
+import ImageLogo from '_components/ImageLogo'
 
 const GuestWelcomeScreen = ({ navigation }) => {
   const handlePressOnSignIn = () => {

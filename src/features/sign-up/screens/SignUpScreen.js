@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
-import EmailAndPasswordForm from '../../../components/EmailAndPasswordForm'
-import { showError } from '../../../utils/toast'
-import { createUserWithEmailAndPassword } from '../../../api/sign-up'
-import { sendEmailVerification } from '../../../api/send-email-verification'
-import { currentUser } from '../../../api/current-user'
+import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
+import { showError } from '_utils/toast'
+import { createUserWithEmailAndPassword } from '_api/sign-up'
+import { sendEmailVerification } from '_api/send-email-verification'
+import { currentUser } from '_api/current-user'
 
 const SignUpScreen = ({ navigation }) => {
   const [isSigningUp, setIsSigningUp] = useState(false)

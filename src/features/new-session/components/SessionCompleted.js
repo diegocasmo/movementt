@@ -8,7 +8,7 @@ import {
   getTotalElapsedMs,
 } from '../reducers/new-session'
 import { View, Text, Button, Icon } from 'native-base'
-import Duration from '../../../components/time/Duration'
+import Duration from '_components/time/Duration'
 
 const SessionCompleted = ({ onConfirm }) => {
   const currRound = useSelector(getCurrRound)

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Text, View } from 'native-base'
-import { getDuration } from '../../utils/time-utils'
+import { getDuration } from '_utils/time-utils'
 
 const Duration = ({ elapsedMs, style }) => {
   const { hours, minutes, seconds } = getDuration(elapsedMs)

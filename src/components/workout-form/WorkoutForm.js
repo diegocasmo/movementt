@@ -17,8 +17,8 @@ import { Formik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import ExerciseItem from './ExerciseItem'
 import TimePicker from './pickers/TimePicker'
-import Workout from '../../api/models/Workout'
-import Exercise from '../../api/models/Exercise'
+import Workout from '_api/models/Workout'
+import Exercise from '_api/models/Exercise'
 
 const WorkoutForm = ({
   workout,

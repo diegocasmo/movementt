@@ -9,9 +9,9 @@ import {
 } from '../reducers/new-session'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
-import Countdown from '../../../components/time/Countdown'
-import Exercise from '../../../api/models/Exercise'
-import { secondsToMs } from '../../../utils/time-utils'
+import Countdown from '_components/time/Countdown'
+import Exercise from '_api/models/Exercise'
+import { secondsToMs } from '_utils/time-utils'
 
 const SessionExerciseRest = () => {
   const dispatch = useDispatch()

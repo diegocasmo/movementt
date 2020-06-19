@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
-import { isDeleting } from '../../../state/reducers/workouts'
-import WorkoutActions from '../../../components/WorkoutActions'
+import { isDeleting } from '_state/reducers/workouts'
+import WorkoutActions from '_components/WorkoutActions'
 
 const WorkoutItem = ({
   workout,

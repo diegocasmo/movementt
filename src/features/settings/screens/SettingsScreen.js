@@ -14,8 +14,8 @@ import {
   Right,
   Spinner,
 } from 'native-base'
-import { signOut } from '../../../api/sign-out'
-import { showError } from '../../../utils/toast'
+import { signOut } from '_api/sign-out'
+import { showError } from '_utils/toast'
 
 const SettingsScreen = ({ navigation }) => {
   const [isSigningOut, setSigningOut] = useState(false)

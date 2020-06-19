@@ -7,10 +7,10 @@ import {
   isRunning,
   getTotalElapsedMs,
 } from '../reducers/new-session'
-import { useInterval } from '../../../hooks/use-interval'
+import { useInterval } from '_hooks/use-interval'
 import { StyleSheet } from 'react-native'
 import { View, Button, Icon } from 'native-base'
-import Duration from '../../../components/time/Duration'
+import Duration from '_components/time/Duration'
 
 const BottomControls = () => {
   const dispatch = useDispatch()

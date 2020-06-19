@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
-import { reloadCurrentUser } from '../../../state/reducers/auth'
-import { currentUser } from '../../../api/current-user'
-import { sendEmailVerification } from '../../../api/send-email-verification'
-import { signOut } from '../../../api/sign-out'
-import { showSuccess, showWarning, showError } from '../../../utils/toast'
-import ImageLogo from '../../../components/ImageLogo'
+import { reloadCurrentUser } from '_state/reducers/auth'
+import { currentUser } from '_api/current-user'
+import { sendEmailVerification } from '_api/send-email-verification'
+import { signOut } from '_api/sign-out'
+import { showSuccess, showWarning, showError } from '_utils/toast'
+import ImageLogo from '_components/ImageLogo'
 
 const VerifyEmailScreen = () => {
   const dispatch = useDispatch()

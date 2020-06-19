@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Text, Card, CardItem, Body } from 'native-base'
-import Exercise from '../../api/models/Exercise'
+import Exercise from '_api/models/Exercise'
 import ExerciseActions from './ExerciseActions'
 import ExerciseForm from './ExerciseForm'
-import { getFormattedDuration } from '../../utils/time-utils'
+import { getFormattedDuration } from '_utils/time-utils'
 
 const ExerciseItem = ({
   visible = false,

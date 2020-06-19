@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import Countdown from '../../../components/time/Countdown'
-import { useInterval } from '../../../hooks/use-interval'
-import Exercise from '../../../api/models/Exercise'
+import Countdown from '_components/time/Countdown'
+import { useInterval } from '_hooks/use-interval'
+import Exercise from '_api/models/Exercise'
 import { View, Button, Text, Icon } from 'native-base'
-import { now, getTotalEllapsedMs } from '../../../utils/time-utils'
+import { now, getTotalEllapsedMs } from '_utils/time-utils'
 
 const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
   const { name, exercises } = workout

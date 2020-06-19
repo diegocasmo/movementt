@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { View, Text } from 'native-base'
-import Exercise from '../../../api/models/Exercise'
+import Exercise from '_api/models/Exercise'
 
 const ExerciseInstructions = ({ exercise }) => {
   return (

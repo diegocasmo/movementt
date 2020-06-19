@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import ModalSelector from 'react-native-modal-selector'
-import { TextInput } from '../../form'
-import { TIME_OPTS } from '../../../utils/time-utils'
+import { TextInput } from '_components/form'
+import { TIME_OPTS } from '_utils/time-utils'
 
 const TimePicker = ({ label, onChange, value, allowNone = true }) => {
   const [visible] = useState(false)

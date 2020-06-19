@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Col, Grid } from 'native-base'
-import { TextInput, DecimalInput } from '../../form'
+import { TextInput, DecimalInput } from '_components/form'
 import { getIn } from 'formik'
-import Exercise from '../../../api/models/Exercise'
-import TimePicker from '../pickers/TimePicker'
+import Exercise from '_api/models/Exercise'
+import TimePicker from '_components/workout-form/pickers/TimePicker'
 
 const TimeExerciseForm = ({
   errors,
