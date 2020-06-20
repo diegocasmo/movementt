@@ -4,84 +4,178 @@
       "key": "1",
       "type": "circuit",
       "name": "Quad Boost",
-      "rounds": 2,
-      "restSeconds": 30,
+      "rounds": 3,
+      "restSeconds": 45,
       "createdAt": null,
       "updatedAt": null,
       "exercises": [
         {
           "name": "Skipping",
-          "type": "rep",
-          "quantity": 50,
-          "quantityUnit": "rep",
+          "type": "time",
+          "quantity": 60,
+          "quantityUnit": "second",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
+          "restSeconds": 15
         },
         {
-          "name": "Walking lunge",
+          "name": "Alternating lunges",
           "type": "rep",
           "quantity": 24,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
+          "restSeconds": 15
         },
         {
-          "name": "Reverse Lunge & Knee up",
+          "name": "Donkey kicks (R)",
           "type": "rep",
-          "quantity": 30,
+          "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
+          "restSeconds": 15
         },
         {
-          "name": "Split Squat",
+          "name": "Donkey kicks (L)",
+          "type": "rep",
+          "quantity": 10,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Squats",
           "type": "rep",
           "quantity": 15,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
+          "restSeconds": 15
         }
       ]
     },
     {
       "key": "2",
       "type": "circuit",
-      "name": "Full Body Kick",
-      "rounds": 2,
-      "restSeconds": 30,
+      "name": "Core Foundation",
+      "rounds": 3,
+      "restSeconds": 45,
       "createdAt": null,
       "updatedAt": null,
       "exercises": [
         {
-          "name": "Burpees",
+          "name": "Ab wheel roll out",
+          "type": "rep",
+          "quantity": 8,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Side plank (R)",
+          "type": "time",
+          "quantity": 30,
+          "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Side plank (L)",
+          "type": "time",
+          "quantity": 30,
+          "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "V-ups",
           "type": "rep",
           "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
-        },
+          "restSeconds": 15
+        }
+      ]
+    },
+    {
+      "key": "3",
+      "type": "circuit",
+      "name": "Upper-Body Complete",
+      "rounds": 3,
+      "restSeconds": 45,
+      "createdAt": null,
+      "updatedAt": null,
+      "exercises": [
         {
-          "name": "Alternating lunge",
+          "name": "Push ups",
           "type": "rep",
-          "quantity": 20,
+          "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
+          "restSeconds": 15
         },
         {
-          "name": "Knee up",
+          "name": "Pull ups",
           "type": "rep",
-          "quantity": 24,
+          "quantity": 5,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
+          "restSeconds": 15
+        },
+        {
+          "name": "Dips",
+          "type": "rep",
+          "quantity": 8,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Superman",
+          "type": "rep",
+          "quantity": 10,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        }
+      ]
+    },
+    {
+      "key": "4",
+      "type": "circuit",
+      "name": "Full Body Kick",
+      "rounds": 3,
+      "restSeconds": 45,
+      "createdAt": null,
+      "updatedAt": null,
+      "exercises": [
+        {
+          "name": "Running",
+          "type": "distance",
+          "quantity": 200,
+          "quantityUnit": "m",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Burpees",
+          "type": "rep",
+          "quantity": 8,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
         },
         {
           "name": "Sumo Squat",
@@ -90,512 +184,16 @@
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
-        }
-      ]
-    },
-    {
-      "key": "5",
-      "type": "circuit",
-      "name": "Full Body Stretch Session",
-      "rounds": 1,
-      "restSeconds": 0,
-      "createdAt": null,
-      "updatedAt": null,
-      "exercises": [
-        {
-          "name": "Upward stretch",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
           "restSeconds": 15
         },
         {
-          "name": "Triceps stretch (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Triceps stretch (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Upwards wrist pull (R)",
-          "type": "time",
-          "quantity": 16,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Upwards wrist pull (L)",
-          "type": "time",
-          "quantity": 16,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Shoulder stretch (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Shoulder stretch (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Downwards wrist pull (R)",
-          "type": "time",
-          "quantity": 16,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Downwards wrist pull (L)",
-          "type": "time",
-          "quantity": 16,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Runners stretch (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Runners stretch (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Standing hamstring stretch",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Lunging hip flexor (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Lunging hip flexor (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "The prayer",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Seated one-leg hamstring stretch (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Seated one-leg hamstring stretch (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Hamstring stretch",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Knee across the body (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Knee across the body (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Scorpion (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Scorpion (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Knee to the chest (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Knee to the chest (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Half kneeling quad (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Half kneeling quad (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Half kneeling quads",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Pigeon (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Pigeon (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Butterfly",
-          "type": "time",
-          "quantity": 35,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Pancake",
-          "type": "time",
-          "quantity": 35,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Downward facing dog",
-          "type": "time",
-          "quantity": 35,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        }
-      ]
-    },
-    {
-      "key": "6",
-      "type": "circuit",
-      "name": "Mobility Session",
-      "rounds": 2,
-      "restSeconds": 60,
-      "createdAt": null,
-      "updatedAt": null,
-      "exercises": [
-        {
-          "name": "Bar passes",
+          "name": "Shoulder tabs",
           "type": "rep",
           "quantity": 15,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Bottom squat hold",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Bottom squat full rotation",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Bar pass in squat position",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Rhombo stretch (R)",
-          "type": "time",
-          "quantity": 16,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Rhombo stretch (L)",
-          "type": "time",
-          "quantity": 16,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "OHS hold",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Press in snatch",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Reverse table",
-          "type": "time",
-          "quantity": 26,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Squat to stand",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        },
-        {
-          "name": "Wall squat",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 30
-        }
-      ]
-    },
-    {
-      "key": "7",
-      "type": "circuit",
-      "name": "Pull/Push Superset I",
-      "rounds": 4,
-      "restSeconds": 90,
-      "createdAt": null,
-      "updatedAt": null,
-      "exercises": [
-        {
-          "name": "Pull up",
-          "type": "rep",
-          "quantity": 5,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 90
-        },
-        {
-          "name": "Dips",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 90
-        }
-      ]
-    },
-    {
-      "key": "8",
-      "type": "circuit",
-      "name": "Pull/Push Superset II",
-      "rounds": 4,
-      "restSeconds": 90,
-      "createdAt": null,
-      "updatedAt": null,
-      "exercises": [
-        {
-          "name": "Chin up",
-          "type": "rep",
-          "quantity": 5,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 90
-        },
-        {
-          "name": "Chair pike push ups",
-          "type": "rep",
-          "quantity": 8,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 90
-        }
-      ]
-    },
-    {
-      "key": "9",
-      "type": "circuit",
-      "name": "Legs Superset I",
-      "rounds": 4,
-      "restSeconds": 60,
-      "createdAt": null,
-      "updatedAt": null,
-      "exercises": [
-        {
-          "name": "Single leg glute bridge",
-          "type": "rep",
-          "quantity": 8,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 60
-        },
-        {
-          "name": "Globet squat",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 60
-        },
-        {
-          "name": "Single leg calve raises",
-          "type": "rep",
-          "quantity": 8,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 60
+          "restSeconds": 15
         }
       ]
     }

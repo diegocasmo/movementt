@@ -52,7 +52,6 @@ const EmailAndPasswordForm = ({
               <Col>
                 <EmailInput
                   autoFocus
-                  style={styles.input}
                   label="Email"
                   onBlur={handleBlur('email')}
                   onChange={handleChange('email')}
@@ -66,7 +65,6 @@ const EmailAndPasswordForm = ({
             <Grid>
               <Col>
                 <PasswordInput
-                  style={styles.input}
                   label="Password"
                   onBlur={handleBlur('password')}
                   onChange={handleChange('password')}
@@ -81,7 +79,6 @@ const EmailAndPasswordForm = ({
               <Grid>
                 <Col>
                   <PasswordInput
-                    style={styles.input}
                     label="Password Confirmation"
                     onBlur={handleBlur('passwordConfirmation')}
                     onChange={handleChange('passwordConfirmation')}
@@ -130,9 +127,6 @@ export default EmailAndPasswordForm
 const styles = StyleSheet.create({
   image: {
     marginBottom: 25,
-  },
-  input: {
-    marginBottom: 0,
   },
   button: {
     marginTop: 30,

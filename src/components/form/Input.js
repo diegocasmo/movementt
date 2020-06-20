@@ -46,9 +46,6 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 5,
   },
-  input: {
-    maxHeight: 35,
-  },
 })
 
 export default Input
