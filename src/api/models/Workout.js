@@ -5,8 +5,13 @@ import Exercise from './Exercise'
 import { timestamp } from '_utils/time-utils'
 
 export default class Workout {
+  static TYPE_CIRCUIT = 'circuit'
+
+  static TYPES = [Workout.TYPE_CIRCUIT]
+
   static EMPTY = {
     name: '',
+    type: Workout.TYPE_CIRCUIT,
     rounds: 4,
     restSeconds: 0,
     exercises: [],
@@ -15,6 +20,7 @@ export default class Workout {
   static getSchema = () => {
     return Yup.object({
       key: Yup.string(),
+      type: Yup.mixed().oneOf(Workout.TYPES).required(),
       name: Yup.string().trim().required(),
       rounds: Yup.number().required().positive().min(1),
       restSeconds: Yup.number().required().positive().min(0),

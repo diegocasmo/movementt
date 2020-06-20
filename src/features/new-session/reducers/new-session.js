@@ -50,7 +50,14 @@ const newSession = createSlice({
       state.workout = payload
     },
 
-    clear: () => initialState,
+    reset: (state) => {
+      state.tick = initialState.tick
+      state.hasSound = initialState.hasSound
+      state.currExerciseIdx = initialState.currExerciseIdx
+      state.roundsCompleted = initialState.roundsCompleted
+      state.workout = initialState.workout
+      state.timeEntries = initialState.timeEntries
+    },
 
     start(state, { payload }) {
       state.tick = payload
@@ -154,8 +161,8 @@ export const init = (workout) => (dispatch) => {
   dispatch(newSession.actions.init(workout))
 }
 
-export const clear = () => (dispatch) => {
-  dispatch(newSession.actions.clear())
+export const reset = () => (dispatch) => {
+  dispatch(newSession.actions.reset())
 }
 
 export const start = () => (dispatch) => {

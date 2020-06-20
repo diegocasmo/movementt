@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   init,
-  clear,
+  reset,
   start,
   hasStarted,
   isCompleted,
@@ -36,12 +36,12 @@ const NewSessionScreen = ({ navigation, route }) => {
   }
 
   const handleQuit = () => {
-    dispatch(clear())
+    dispatch(reset())
     navigation.navigate('Home')
   }
 
   const handleCompleteConfirmed = () => {
-    dispatch(clear())
+    dispatch(reset())
     navigation.navigate('Home')
   }
 

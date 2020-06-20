@@ -13,6 +13,12 @@ const workouts = createSlice({
   name: 'workouts',
   initialState,
   reducers: {
+    reset: (state) => {
+      state.byKey = initialState.byKey
+      state.statusByKey = initialState.statusByKey
+      state.status = initialState.status
+    },
+
     // Fetch workouts
     fetchWorkoutsInit(state) {
       state.status = REQUEST_STATUS.GET
@@ -64,6 +70,10 @@ const workouts = createSlice({
     },
   },
 })
+
+export const reset = () => (dispatch) => {
+  dispatch(workouts.actions.reset())
+}
 
 export const fetchWorkouts = (uid) => async (dispatch) => {
   dispatch(workouts.actions.fetchWorkoutsInit())
