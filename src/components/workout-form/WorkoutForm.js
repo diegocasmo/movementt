@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, Alert } from 'react-native'
+import {
+  Alert,
+  Keyboard,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native'
 import {
   Button,
   Col,
@@ -73,79 +78,85 @@ const WorkoutForm = ({
 
         return (
           <View style={styles.content}>
-            <View style={styles.top}>
-              <View style={styles.setup}>
-                <H1 style={styles.h1}>Setup</H1>
-                <Button
-                  transparent
-                  onPress={() => {
-                    if (hasUnsavedChanges) {
-                      confirmQuit()
-                    } else {
-                      onQuit()
-                    }
-                  }}
-                >
-                  <Icon style={styles.icon} active name="md-close" />
-                </Button>
+            <TouchableWithoutFeedback
+              accessible={false}
+              onPress={Keyboard.dismiss}
+            >
+              <View style={styles.top}>
+                <View style={styles.setup}>
+                  <H1 style={styles.h1}>Setup</H1>
+                  <Button
+                    transparent
+                    onPress={() => {
+                      if (hasUnsavedChanges) {
+                        confirmQuit()
+                      } else {
+                        onQuit()
+                      }
+                    }}
+                  >
+                    <Icon style={styles.icon} active name="md-close" />
+                  </Button>
+                </View>
+
+                <Grid>
+                  <Col>
+                    <TextInput
+                      label="Name"
+                      autoFocus={autoFocus}
+                      error={getIn(errors, 'name')}
+                      onBlur={handleBlur('name')}
+                      onChange={handleChange('name')}
+                      touched={getIn(touched, 'name')}
+                      value={values.name}
+                    />
+                  </Col>
+                </Grid>
+                <Grid>
+                  <Col paddingRight={10}>
+                    <IntegerInput
+                      error={getIn(errors, 'rounds')}
+                      onBlur={handleBlur('rounds')}
+                      onChange={handleChange('rounds')}
+                      touched={getIn(touched, 'rounds')}
+                      value={values.rounds}
+                      label="Rounds"
+                    />
+                  </Col>
+                  <Col>
+                    <TimePicker
+                      label="Round rest"
+                      value={`${values.restSeconds}`}
+                      onChange={handleChange('restSeconds')}
+                    />
+                  </Col>
+                </Grid>
+
+                <View style={styles.exercisesSetup}>
+                  <H2 style={styles.h2}>Exercises ({exercises.length})</H2>
+
+                  <Button
+                    light
+                    onPress={() => {
+                      setValues(
+                        {
+                          ...values,
+                          exercises: values.exercises.concat(Exercise.EMPTY),
+                        },
+                        true
+                      )
+                    }}
+                  >
+                    <Text>+ Add Exercise</Text>
+                  </Button>
+                </View>
               </View>
-
-              <Grid>
-                <Col>
-                  <TextInput
-                    label="Name"
-                    autoFocus={autoFocus}
-                    error={getIn(errors, 'name')}
-                    onBlur={handleBlur('name')}
-                    onChange={handleChange('name')}
-                    touched={getIn(touched, 'name')}
-                    value={values.name}
-                  />
-                </Col>
-              </Grid>
-              <Grid>
-                <Col paddingRight={10}>
-                  <IntegerInput
-                    error={getIn(errors, 'rounds')}
-                    onBlur={handleBlur('rounds')}
-                    onChange={handleChange('rounds')}
-                    touched={getIn(touched, 'rounds')}
-                    value={values.rounds}
-                    label="Rounds"
-                  />
-                </Col>
-                <Col>
-                  <TimePicker
-                    label="Round rest"
-                    value={`${values.restSeconds}`}
-                    onChange={handleChange('restSeconds')}
-                  />
-                </Col>
-              </Grid>
-
-              <View style={styles.exercisesSetup}>
-                <H2 style={styles.h2}>Exercises ({exercises.length})</H2>
-
-                <Button
-                  light
-                  onPress={() => {
-                    setValues(
-                      {
-                        ...values,
-                        exercises: values.exercises.concat(Exercise.EMPTY),
-                      },
-                      true
-                    )
-                  }}
-                >
-                  <Text>+ Add Exercise</Text>
-                </Button>
-              </View>
-            </View>
+            </TouchableWithoutFeedback>
 
             <Content
               contentContainerStyle={styles.middle}
               showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="never"
             >
               {exercises.map((exercise, idx) => (
                 <ExerciseItem
@@ -241,7 +252,7 @@ const styles = StyleSheet.create({
     height: 255,
   },
   middle: {
-    paddingBottom: 45,
+    paddingBottom: 50,
   },
   bottom: {
     position: 'absolute',
