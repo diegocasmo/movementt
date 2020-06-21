@@ -37,7 +37,7 @@ const SessionRoundRest = () => {
       </Button>
       <Text style={styles.text}>Rest</Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercise.name} {Exercise.getInstructions(exercise)}
+        Next: {exercise.name} {Exercise.formattedRx(exercise)}
       </Text>
     </View>
   )

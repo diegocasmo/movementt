@@ -13,7 +13,7 @@ const ExerciseDetails = ({ exercise }) => {
       </CardItem>
       <CardItem>
         <Body style={styles.body}>
-          <Text>{Exercise.getInstructions(exercise)}</Text>
+          <Text>{Exercise.formattedRx(exercise)}</Text>
           <Text>Rest: {getFormattedDuration(exercise.restSeconds)}</Text>
         </Body>
       </CardItem>

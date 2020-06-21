@@ -64,7 +64,7 @@ export default class Exercise {
     return `${exercise.weight} ${exercise.weightUnit}`
   }
 
-  static getInstructions = (exercise) => {
+  static formattedRx = (exercise) => {
     const { quantity } = exercise
 
     const formattedWeight =

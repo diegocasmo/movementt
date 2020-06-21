@@ -81,7 +81,7 @@ const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
         {name}
       </Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercises[0].name} {Exercise.getInstructions(exercises[0])}
+        Next: {exercises[0].name} {Exercise.formattedRx(exercises[0])}
       </Text>
     </View>
   )

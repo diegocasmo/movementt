@@ -11,7 +11,7 @@ const ExerciseInstructions = ({ exercise }) => {
         {exercise.name}
       </Text>
       <Text style={styles.instructions} numberOfLines={2}>
-        {Exercise.getInstructions(exercise)}
+        {Exercise.formattedRx(exercise)}
       </Text>
     </View>
   )

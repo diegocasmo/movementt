@@ -74,4 +74,11 @@ export default class Workout {
   static isFromSeed = ({ createdAt, updatedAt }) => {
     return createdAt === null && updatedAt === null
   }
+
+  static formattedExercises = (workout) => {
+    const names = workout.exercises.map((ex) => ex.name)
+    if (names.length === 1) return names
+
+    return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
+  }
 }

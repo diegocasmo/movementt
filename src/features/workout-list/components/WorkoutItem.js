@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
-import PropTypes from 'prop-types'
 import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
 import { isDeleting } from '_state/reducers/workouts'
 import WorkoutActions from '_components/WorkoutActions'
+import Workout from '_api/models/Workout'
 
 const WorkoutItem = ({
   workout,
@@ -42,7 +43,7 @@ const WorkoutItem = ({
         <CardItem>
           <Body>
             <Text numberOfLines={2} style={styles.summary}>
-              {workout.exercises.map(({ name }) => name).join(', ')}
+              {Workout.formattedExercises(workout)}
             </Text>
           </Body>
         </CardItem>
