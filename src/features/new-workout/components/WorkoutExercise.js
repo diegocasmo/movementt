@@ -5,7 +5,7 @@ import {
   getCurrTimeEntryElapsedMs,
   completeExercise,
   hasSound,
-} from '../reducers/new-session'
+} from '../reducers/new-workout'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
@@ -13,7 +13,7 @@ import ExerciseInstructions from './ExerciseInstructions'
 import { secondsToMs } from '_utils/time-utils'
 import Exercise from '_api/models/Exercise'
 
-const SessionExercise = () => {
+const WorkoutExercise = () => {
   const dispatch = useDispatch()
   const exercise = useSelector(getCurrExercise)
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
@@ -44,9 +44,9 @@ const SessionExercise = () => {
   )
 }
 
-export default SessionExercise
+export default WorkoutExercise
 
-SessionExercise.propTypes = {}
+WorkoutExercise.propTypes = {}
 
 const styles = StyleSheet.create({
   container: {

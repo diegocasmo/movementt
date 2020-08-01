@@ -3,25 +3,25 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   init,
-  resetSession,
+  resetWorkout,
   start,
   hasStarted,
   isCompleted,
   getCurrTimeEntry,
   TIME_ENTRY_TYPE,
-} from '../reducers/new-session'
+} from '../reducers/new-workout'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import TopControls from '../components/TopControls'
 import BottomControls from '../components/BottomControls'
-import SessionExercise from '../components/SessionExercise'
-import SessionExerciseRest from '../components/SessionExerciseRest'
-import SessionRoundRest from '../components/SessionRoundRest'
-import SessionStartup from '../components/SessionStartup'
-import SessionCompleted from '../components/SessionCompleted'
+import WorkoutExercise from '../components/WorkoutExercise'
+import WorkoutExerciseRest from '../components/WorkoutExerciseRest'
+import WorkoutRoundRest from '../components/WorkoutRoundRest'
+import WorkoutStartup from '../components/WorkoutStartup'
+import WorkoutCompleted from '../components/WorkoutCompleted'
 import { getRoutine } from '_state/reducers/routines'
 
-const NewSessionScreen = ({ navigation, route }) => {
+const NewWorkoutScreen = ({ navigation, route }) => {
   const routine = useSelector((state) =>
     getRoutine(state, route.params.routineKey)
   )
@@ -36,23 +36,23 @@ const NewSessionScreen = ({ navigation, route }) => {
   }
 
   const handleQuit = () => {
-    dispatch(resetSession())
+    dispatch(resetWorkout())
     navigation.navigate('Home')
   }
 
   const handleCompleteConfirmed = () => {
-    dispatch(resetSession())
+    dispatch(resetWorkout())
     navigation.navigate('Home')
   }
 
   const renderTimeEntry = () => {
     switch (timeEntry.type) {
       case TIME_ENTRY_TYPE.EXERCISE_REST:
-        return <SessionExerciseRest />
+        return <WorkoutExerciseRest />
       case TIME_ENTRY_TYPE.ROUND_REST:
-        return <SessionRoundRest />
+        return <WorkoutRoundRest />
       default:
-        return <SessionExercise />
+        return <WorkoutExercise />
     }
   }
 
@@ -60,7 +60,7 @@ const NewSessionScreen = ({ navigation, route }) => {
     return (
       <Container>
         <Content padder contentContainerStyle={styles.content}>
-          <SessionCompleted onConfirm={handleCompleteConfirmed} />
+          <WorkoutCompleted onConfirm={handleCompleteConfirmed} />
         </Content>
       </Container>
     )
@@ -84,7 +84,7 @@ const NewSessionScreen = ({ navigation, route }) => {
           scrollEnabled={false}
           contentContainerStyle={styles.content}
         >
-          <SessionStartup
+          <WorkoutStartup
             routine={routine}
             onQuit={handleQuit}
             onStartupCompleted={handleStartupCompleted}
@@ -95,9 +95,9 @@ const NewSessionScreen = ({ navigation, route }) => {
   )
 }
 
-export default NewSessionScreen
+export default NewWorkoutScreen
 
-NewSessionScreen.propTypes = {
+NewWorkoutScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({

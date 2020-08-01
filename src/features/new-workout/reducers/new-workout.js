@@ -42,8 +42,8 @@ const getTimeEntriesElapsedMs = (timeEntries) => {
   )
 }
 
-const newSession = createSlice({
-  name: 'newSession',
+const newWorkout = createSlice({
+  name: 'newWorkout',
   initialState,
   reducers: {
     init(state, { payload }) {
@@ -153,93 +153,93 @@ const newSession = createSlice({
   },
 })
 
-export default newSession.reducer
+export default newWorkout.reducer
 
 // ------------------------- Action creators -------------------------
 
 export const init = (routine) => (dispatch) => {
-  dispatch(newSession.actions.init(routine))
+  dispatch(newWorkout.actions.init(routine))
 }
 
-export const resetSession = () => (dispatch) => {
-  dispatch(newSession.actions.reset())
+export const resetWorkout = () => (dispatch) => {
+  dispatch(newWorkout.actions.reset())
 }
 
 export const start = () => (dispatch) => {
-  dispatch(newSession.actions.start(timestamp(now())))
+  dispatch(newWorkout.actions.start(timestamp(now())))
 }
 
 export const play = () => (dispatch) => {
-  dispatch(newSession.actions.play())
+  dispatch(newWorkout.actions.play())
 }
 
 export const stop = () => (dispatch) => {
-  dispatch(newSession.actions.stop())
+  dispatch(newWorkout.actions.stop())
 }
 
 export const tick = () => (dispatch) => {
-  dispatch(newSession.actions.tick(timestamp(now())))
+  dispatch(newWorkout.actions.tick(timestamp(now())))
 }
 
 export const completeExercise = () => (dispatch) => {
-  dispatch(newSession.actions.completeExercise())
+  dispatch(newWorkout.actions.completeExercise())
 }
 
 export const completeExerciseRest = () => (dispatch) => {
-  dispatch(newSession.actions.completeExerciseRest())
+  dispatch(newWorkout.actions.completeExerciseRest())
 }
 
 export const completeRoundRest = () => (dispatch) => {
-  dispatch(newSession.actions.completeRoundRest())
+  dispatch(newWorkout.actions.completeRoundRest())
 }
 
 export const toggleSound = () => (dispatch) => {
-  dispatch(newSession.actions.toggleSound())
+  dispatch(newWorkout.actions.toggleSound())
 }
 
 // ---------------------------- Selectors ----------------------------
 
-// Return true if new session has started, false otherwise
+// Return true if new workout has started, false otherwise
 export const hasStarted = (state) => {
-  return state.newSession.tick !== null
+  return state.newWorkout.tick !== null
 }
 
-// Return true if new session has sound, false otherwise
+// Return true if new workout has sound, false otherwise
 export const hasSound = (state) => {
-  return state.newSession.hasSound
+  return state.newWorkout.hasSound
 }
 
-// Return true if session is running, false otherwise
+// Return true if workout is running, false otherwise
 export const isRunning = (state) => {
   return isTimeEntryRunning(getCurrTimeEntry(state))
 }
 
-// Return true if session is stopped, false otherwise
+// Return true if workout is stopped, false otherwise
 export const isStopped = (state) => {
   return !isRunning(state)
 }
 
-// Return true if session is completed, false otherwise
-export const isCompleted = ({ newSession }) => {
-  const currTimeEntry = getCurrTimeEntry({ newSession })
+// Return true if workout is completed, false otherwise
+export const isCompleted = ({ newWorkout }) => {
+  const currTimeEntry = getCurrTimeEntry({ newWorkout })
   return (
-    newSession.currExerciseIdx === null &&
+    newWorkout.currExerciseIdx === null &&
     currTimeEntry &&
     isTimeEntryStopped(currTimeEntry)
   )
 }
 
 // Returns time entry which is currently running
-export const getCurrTimeEntry = ({ newSession }) => {
-  const { timeEntries = [] } = newSession
+export const getCurrTimeEntry = ({ newWorkout }) => {
+  const { timeEntries = [] } = newWorkout
 
   return timeEntries[timeEntries.length - 1]
 }
 
 // Return the total elapsed time in ms of the current time entry (including)
 // time it has been stopped for
-export const getCurrTimeEntryElapsedMs = ({ newSession }) => {
-  let timeEntries = [...newSession.timeEntries]
+export const getCurrTimeEntryElapsedMs = ({ newWorkout }) => {
+  let timeEntries = [...newWorkout.timeEntries]
   if (timeEntries.length === 0) return 0
 
   const currTimeEntry = timeEntries.pop()
@@ -253,16 +253,16 @@ export const getCurrTimeEntryElapsedMs = ({ newSession }) => {
   return getTimeEntriesElapsedMs(prevTimeEntries)
 }
 
-// Return the number of milliseconds the session has been running for
+// Return the number of milliseconds the workout has been running for
 export const getTotalElapsedMs = (state) => {
-  return getTimeEntriesElapsedMs(state.newSession.timeEntries)
+  return getTimeEntriesElapsedMs(state.newWorkout.timeEntries)
 }
 
-export const getPrevExercise = ({ newSession }) => {
+export const getPrevExercise = ({ newWorkout }) => {
   const {
     currExerciseIdx,
     routine: { exercises },
-  } = newSession
+  } = newWorkout
   if (currExerciseIdx === 0) {
     return exercises[exercises.length - 1]
   } else {
@@ -270,21 +270,21 @@ export const getPrevExercise = ({ newSession }) => {
   }
 }
 
-export const getCurrExercise = ({ newSession }) => {
+export const getCurrExercise = ({ newWorkout }) => {
   const {
     currExerciseIdx,
     routine: { exercises },
-  } = newSession
+  } = newWorkout
   return exercises[currExerciseIdx]
 }
 
 export const getRoutine = (state) => {
-  return state.newSession.routine
+  return state.newWorkout.routine
 }
 
-export const getCurrRound = ({ newSession }) => {
+export const getCurrRound = ({ newWorkout }) => {
   return Math.min.apply(Math, [
-    newSession.roundsCompleted + 1,
-    newSession.routine.rounds,
+    newWorkout.roundsCompleted + 1,
+    newWorkout.routine.rounds,
   ])
 }

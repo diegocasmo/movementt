@@ -8,8 +8,8 @@ import RoutineItemScreen from '_features/routine-item/screens/RoutineItemScreen'
 import CreateRoutineScreen from '_features/create-routine/screens/CreateRoutineScreen'
 import UpdateRoutineScreen from '_features/update-routine/screens/UpdateRoutineScreen'
 
-// Session
-import NewSessionScreen from '_features/new-session/screens/NewSessionScreen'
+// Workout
+import NewWorkoutScreen from '_features/new-workout/screens/NewWorkoutScreen'
 
 // Settings
 import SettingsScreen from '_features/settings/screens/SettingsScreen'
@@ -94,8 +94,8 @@ const VerifiedAppNavigator = () => {
         options={{ headerShown: false, gestureEnabled: false }}
       />
       <AppStack.Screen
-        name="NewSession"
-        component={NewSessionScreen}
+        name="NewWorkout"
+        component={NewWorkoutScreen}
         options={{ headerShown: false, gestureEnabled: false }}
       />
     </AppStack.Navigator>

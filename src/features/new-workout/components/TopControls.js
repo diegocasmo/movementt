@@ -8,7 +8,7 @@ import {
   getCurrRound,
   getRoutine,
   hasSound,
-} from '../reducers/new-session'
+} from '../reducers/new-workout'
 import { StyleSheet, Alert } from 'react-native'
 import { View, Button, Icon, Text } from 'native-base'
 

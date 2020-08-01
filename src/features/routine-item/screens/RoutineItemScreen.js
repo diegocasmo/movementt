@@ -27,7 +27,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
   )
 
   const handleStart = () => {
-    navigation.navigate('NewSession', { routineKey: routine.key })
+    navigation.navigate('NewWorkout', { routineKey: routine.key })
   }
 
   const handleUpdate = (routine) => {

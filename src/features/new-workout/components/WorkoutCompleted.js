@@ -6,11 +6,11 @@ import {
   getCurrRound,
   getRoutine,
   getTotalElapsedMs,
-} from '../reducers/new-session'
+} from '../reducers/new-workout'
 import { View, Text, Button, Icon } from 'native-base'
 import Duration from '_components/time/Duration'
 
-const SessionCompleted = ({ onConfirm }) => {
+const WorkoutCompleted = ({ onConfirm }) => {
   const currRound = useSelector(getCurrRound)
   const routine = useSelector(getRoutine)
   const elapsedMs = useSelector(getTotalElapsedMs)
@@ -39,9 +39,9 @@ const SessionCompleted = ({ onConfirm }) => {
   )
 }
 
-export default SessionCompleted
+export default WorkoutCompleted
 
-SessionCompleted.propTypes = {
+WorkoutCompleted.propTypes = {
   onConfirm: PropTypes.func.isRequired,
 }
 

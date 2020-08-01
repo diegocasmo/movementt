@@ -1,27 +1,27 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  getPrevExercise,
+  getRoutine,
+  completeRoundRest,
   getCurrExercise,
   getCurrTimeEntryElapsedMs,
-  completeExerciseRest,
   hasSound,
-} from '../reducers/new-session'
+} from '../reducers/new-workout'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
 import Exercise from '_api/models/Exercise'
 import { secondsToMs } from '_utils/time-utils'
 
-const SessionExerciseRest = () => {
+const WorkoutRoundRest = () => {
   const dispatch = useDispatch()
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
+  const { restSeconds } = useSelector(getRoutine)
   const exercise = useSelector(getCurrExercise)
-  const { restSeconds } = useSelector(getPrevExercise)
   const sound = useSelector(hasSound)
 
   const handleComplete = () => {
-    dispatch(completeExerciseRest())
+    dispatch(completeRoundRest())
   }
 
   return (
@@ -43,9 +43,9 @@ const SessionExerciseRest = () => {
   )
 }
 
-export default SessionExerciseRest
+export default WorkoutRoundRest
 
-SessionExerciseRest.propTypes = {}
+WorkoutRoundRest.propTypes = {}
 
 const styles = StyleSheet.create({
   container: {

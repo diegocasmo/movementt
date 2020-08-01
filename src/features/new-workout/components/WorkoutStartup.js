@@ -7,7 +7,7 @@ import Exercise from '_api/models/Exercise'
 import { View, Button, Text, Icon } from 'native-base'
 import { now, getTotalEllapsedMs } from '_utils/time-utils'
 
-const SessionStartup = ({ routine, onStartupCompleted, onQuit }) => {
+const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
   const { name, exercises } = routine
   const [state, setState] = useState({ startAt: now(), elapsedMs: 0 })
   const stop = () => {
@@ -87,9 +87,9 @@ const SessionStartup = ({ routine, onStartupCompleted, onQuit }) => {
   )
 }
 
-export default SessionStartup
+export default WorkoutStartup
 
-SessionStartup.propTypes = {
+WorkoutStartup.propTypes = {
   routine: PropTypes.object.isRequired,
   onStartupCompleted: PropTypes.func.isRequired,
   onQuit: PropTypes.func.isRequired,
