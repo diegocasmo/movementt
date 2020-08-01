@@ -7,7 +7,7 @@ import {
   FIREBASE_STORAGE_BUCKET,
   FIREBASE_MESSAGING_SENDERID,
   FIREBASE_APP_ID,
-} from 'react-native-dotenv'
+} from '@env'
 
 const app = firebase.initializeApp({
   apiKey: FIREBASE_API_KEY,
