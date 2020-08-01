@@ -148,5 +148,10 @@ export const getRoutine = createSelector(
 
 export const getRoutines = createSelector(
   routinesSelector.selectAll,
-  (routines) => routines
+  (routines) => {
+    // Sort routines by ascending case insensitive name
+    return [...routines].sort((a, b) => {
+      return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    })
+  }
 )
