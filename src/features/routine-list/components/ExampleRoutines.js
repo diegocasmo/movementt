@@ -3,9 +3,13 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, H1 } from 'native-base'
 import RoutineItem from './RoutineItem'
-import { routines } from '_seed/routines.json'
+import * as seed from '_seed/routines.json'
 
 const ExampleRoutines = ({ onStart }) => {
+  const routines = [...seed.routines].sort((a, b) => {
+    return a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  })
+
   return (
     <View>
       <H1 style={styles.h1}>Example Routines ({routines.length})</H1>

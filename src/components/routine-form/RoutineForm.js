@@ -147,7 +147,7 @@ const RoutineForm = ({
                       )
                     }}
                   >
-                    <Text>+ Add Exercise</Text>
+                    <Text>+ Exercise</Text>
                   </Button>
                 </View>
               </View>
