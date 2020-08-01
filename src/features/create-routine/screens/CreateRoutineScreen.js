@@ -1,26 +1,25 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { Container, Header, Body, Title } from 'native-base'
-import WorkoutForm from '_components/workout-form/WorkoutForm'
+import RoutineForm from '_components/routine-form/RoutineForm'
 import { getUser } from '_state/reducers/auth'
 import { showError } from '_utils/toast'
-import { updateWorkout, getWorkout } from '_state/reducers/workouts'
+import { createRoutine } from '_state/reducers/routines'
 
-const UpdateWorkoutScreen = ({ navigation, route }) => {
-  const workout = useSelector((state) =>
-    getWorkout(state, route.params.workoutKey)
-  )
+const CreateRoutineScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (workout, { resetForm }) => {
+  const handleSubmit = async (attrs, { resetForm }) => {
     setIsSubmitting(true)
     try {
-      await dispatch(updateWorkout(user.uid, workout))
+      const action = await dispatch(createRoutine({ uid: user.uid, ...attrs }))
+      unwrapResult(action)
       resetForm()
-      navigation.pop()
+      navigation.navigate('RoutineItem', { routineKey: action.payload.key })
     } catch (err) {
       showError(err.message)
     } finally {
@@ -29,19 +28,18 @@ const UpdateWorkoutScreen = ({ navigation, route }) => {
   }
 
   const handleQuit = () => {
-    navigation.pop()
+    navigation.navigate('Home')
   }
 
   return (
     <Container>
       <Header>
         <Body>
-          <Title>Update Workout</Title>
+          <Title>Create Routine</Title>
         </Body>
       </Header>
-      <WorkoutForm
-        submitText="Update Workout"
-        workout={workout}
+      <RoutineForm
+        autoFocus={true}
         isSubmitting={isSubmitting}
         onQuit={handleQuit}
         onSubmit={handleSubmit}
@@ -50,13 +48,8 @@ const UpdateWorkoutScreen = ({ navigation, route }) => {
   )
 }
 
-export default UpdateWorkoutScreen
+export default CreateRoutineScreen
 
-UpdateWorkoutScreen.propTypes = {
+CreateRoutineScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
-  route: PropTypes.shape({
-    params: PropTypes.shape({
-      workoutKey: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
 }

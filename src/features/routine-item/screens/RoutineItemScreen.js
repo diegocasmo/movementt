@@ -13,37 +13,37 @@ import {
   Spinner,
 } from 'native-base'
 import ExerciseDetails from '../components/ExerciseDetails'
-import WorkoutActions from '_components/WorkoutActions'
+import RoutineActions from '_components/RoutineActions'
 import { getUser } from '_state/reducers/auth'
-import { getWorkout, destroyWorkout } from '_state/reducers/workouts'
+import { getRoutine, destroyRoutine } from '_state/reducers/routines'
 import { showError } from '_utils/toast'
 import { getFormattedDuration } from '_utils/time-utils'
 
-const WorkoutItemScreen = ({ navigation, route }) => {
+const RoutineItemScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
-  const workout = useSelector((state) =>
-    getWorkout(state, route.params.workoutKey)
+  const routine = useSelector((state) =>
+    getRoutine(state, route.params.routineKey)
   )
 
   const handleStart = () => {
-    navigation.navigate('NewSession', { workoutKey: workout.key })
+    navigation.navigate('NewSession', { routineKey: routine.key })
   }
 
-  const handleUpdate = (workout) => {
-    navigation.navigate('UpdateWorkout', { workoutKey: workout.key })
+  const handleUpdate = (routine) => {
+    navigation.navigate('UpdateRoutine', { routineKey: routine.key })
   }
 
-  const handleDelete = async (workout) => {
+  const handleDelete = async (routine) => {
     try {
-      dispatch(destroyWorkout(user.uid, workout))
+      dispatch(destroyRoutine({ uid: user.uid, ...routine }))
       navigation.navigate('Home')
     } catch (err) {
       showError(err.message)
     }
   }
 
-  if (!workout) {
+  if (!routine) {
     return (
       <Container>
         <Spinner color="black" size="small" />
@@ -57,17 +57,17 @@ const WorkoutItemScreen = ({ navigation, route }) => {
         <View>
           <H1 style={styles.h1}>Setup</H1>
 
-          <Text style={styles.workoutDetail}>Name: {workout.name}</Text>
-          <Text style={styles.workoutDetail}>Rounds: {workout.rounds}</Text>
-          <Text style={styles.workoutDetail}>
-            Round rest: {getFormattedDuration(workout.restSeconds)}
+          <Text style={styles.routineDetail}>Name: {routine.name}</Text>
+          <Text style={styles.routineDetail}>Rounds: {routine.rounds}</Text>
+          <Text style={styles.routineDetail}>
+            Round rest: {getFormattedDuration(routine.restSeconds)}
           </Text>
 
-          <H2 style={styles.h2}>Exercises ({workout.exercises.length})</H2>
+          <H2 style={styles.h2}>Exercises ({routine.exercises.length})</H2>
         </View>
 
-        <WorkoutActions
-          workout={workout}
+        <RoutineActions
+          routine={routine}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
         />
@@ -77,27 +77,27 @@ const WorkoutItemScreen = ({ navigation, route }) => {
         contentContainerStyle={[styles.content, styles.middle]}
         showsVerticalScrollIndicator={false}
       >
-        {workout.exercises.map((exercise, idx) => (
+        {routine.exercises.map((exercise, idx) => (
           <ExerciseDetails key={idx} exercise={exercise} />
         ))}
       </Content>
 
       <View style={[styles.content, styles.bottom]}>
         <Button style={styles.startBtn} onPress={handleStart}>
-          <Text>Start Workout</Text>
+          <Text>Start Routine</Text>
         </Button>
       </View>
     </Container>
   )
 }
 
-export default WorkoutItemScreen
+export default RoutineItemScreen
 
-WorkoutItemScreen.propTypes = {
+RoutineItemScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      workoutKey: PropTypes.string.isRequired,
+      routineKey: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 }
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   h1: {
     marginBottom: 12,
   },
-  workoutDetail: {
+  routineDetail: {
     marginBottom: 10,
   },
   h2: {

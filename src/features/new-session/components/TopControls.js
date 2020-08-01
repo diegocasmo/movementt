@@ -6,7 +6,7 @@ import {
   stop,
   toggleSound,
   getCurrRound,
-  getWorkout,
+  getRoutine,
   hasSound,
 } from '../reducers/new-session'
 import { StyleSheet, Alert } from 'react-native'
@@ -15,15 +15,15 @@ import { View, Button, Icon, Text } from 'native-base'
 const TopControls = ({ onQuit }) => {
   const dispatch = useDispatch()
   const currRound = useSelector(getCurrRound)
-  const workout = useSelector(getWorkout)
+  const routine = useSelector(getRoutine)
   const sound = useSelector(hasSound)
 
   const handleQuit = () => {
     dispatch(stop())
 
     Alert.alert(
-      'Quit Workout',
-      'Are you sure you want to quit the workout?',
+      'Quit Routine',
+      'Are you sure you want to quit the routine?',
       [
         {
           text: 'Cancel',
@@ -57,7 +57,7 @@ const TopControls = ({ onQuit }) => {
         )}
       </Button>
       <Text style={styles.text}>
-        Round: {currRound}/{workout.rounds}
+        Round: {currRound}/{routine.rounds}
       </Text>
       <Button style={styles.btnClose} transparent onPress={handleQuit}>
         <Icon style={styles.icon} active name="md-close" />

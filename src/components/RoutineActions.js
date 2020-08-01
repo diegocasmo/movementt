@@ -3,20 +3,20 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
 import { ActionSheet, Button, Icon, Spinner } from 'native-base'
-import { isDeleting } from '_state/reducers/workouts'
-import Workout from '_api/models/Workout'
+import { isDestroying } from '_state/reducers/routines'
+import Routine from '_api/models/Routine'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
 const CANCEL_INDEX = 2
 
-const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
-  const deleting = useSelector((state) => isDeleting(state, workout.key))
+const RoutineActions = ({ routine, onUpdate, onDelete }) => {
+  const destroying = useSelector((state) => isDestroying(state, routine.key))
 
   const handleDelete = () => {
     Alert.alert(
-      'Delete Workout',
-      `Are you sure you want to delete the "${workout.name}" workout?`,
+      'Delete Routine',
+      `Are you sure you want to delete the "${routine.name}" routine?`,
       [
         {
           text: 'Cancel',
@@ -25,9 +25,9 @@ const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
         {
           text: 'OK',
           onPress: async () => {
-            if (deleting) return
+            if (destroying) return
 
-            onDelete(workout)
+            onDelete(routine)
           },
         },
       ],
@@ -43,11 +43,11 @@ const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
         destructiveButtonIndex: DESTRUCTIVE_INDEX,
       },
       (buttonIndex) => {
-        if (deleting) return
+        if (destroying) return
 
         switch (buttonIndex) {
           case 0:
-            return onUpdate(workout)
+            return onUpdate(routine)
           case 1:
             return handleDelete()
         }
@@ -55,9 +55,9 @@ const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
     )
   }
 
-  if (Workout.isFromSeed(workout)) return null
+  if (Routine.isFromSeed(routine)) return null
 
-  if (deleting) {
+  if (destroying) {
     return <Spinner style={styles.spinner} color="black" size="small" />
   }
 
@@ -72,10 +72,10 @@ const WorkoutActions = ({ workout, onUpdate, onDelete }) => {
   )
 }
 
-export default WorkoutActions
+export default RoutineActions
 
-WorkoutActions.propTypes = {
-  workout: PropTypes.object.isRequired,
+RoutineActions.propTypes = {
+  routine: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
 }

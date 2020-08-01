@@ -3,38 +3,38 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
-import { isDeleting } from '_state/reducers/workouts'
-import WorkoutActions from '_components/WorkoutActions'
-import Workout from '_api/models/Workout'
+import { isDestroying } from '_state/reducers/routines'
+import RoutineActions from '_components/RoutineActions'
+import Routine from '_api/models/Routine'
 
-const WorkoutItem = ({
-  workout,
+const RoutineItem = ({
+  routine,
   onStart,
   onUpdate = () => {},
   onDelete = () => {},
 }) => {
-  const deleting = useSelector((state) => isDeleting(state, workout.key))
+  const destroying = useSelector((state) => isDestroying(state, routine.key))
 
   const handlePressOnStart = () => {
-    if (deleting) return
+    if (destroying) return
 
-    onStart(workout)
+    onStart(routine)
   }
 
   return (
     <Button
       transparent
-      style={[styles.container, deleting ? styles.clearContainer : {}]}
+      style={[styles.container, destroying ? styles.clearContainer : {}]}
       onPress={handlePressOnStart}
     >
       <Card style={styles.card}>
         <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>
-            <H1>{workout.name}</H1>
+            <H1>{routine.name}</H1>
           </Text>
           <View style={styles.actions}>
-            <WorkoutActions
-              workout={workout}
+            <RoutineActions
+              routine={routine}
               onUpdate={onUpdate}
               onDelete={onDelete}
             />
@@ -43,26 +43,26 @@ const WorkoutItem = ({
         <CardItem>
           <Body>
             <Text numberOfLines={2} style={styles.summary}>
-              {Workout.formattedExercises(workout)}
+              {Routine.formattedExercises(routine)}
             </Text>
           </Body>
         </CardItem>
         <View style={styles.rounds}>
-          <Text>Rounds: {workout.rounds}</Text>
+          <Text>Rounds: {routine.rounds}</Text>
         </View>
       </Card>
     </Button>
   )
 }
 
-WorkoutItem.propTypes = {
-  workout: PropTypes.object.isRequired,
+RoutineItem.propTypes = {
+  routine: PropTypes.object.isRequired,
   onStart: PropTypes.func.isRequired,
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func,
 }
 
-export default WorkoutItem
+export default RoutineItem
 
 const styles = StyleSheet.create({
   container: {

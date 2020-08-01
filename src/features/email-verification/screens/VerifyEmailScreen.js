@@ -55,7 +55,7 @@ const VerifyEmailScreen = () => {
       <H1 style={styles.title}>Check your email</H1>
       <Text style={styles.text}>
         We sent you an email with instructions on how to verify your email
-        address. Click on the link in the email to get started with Workouter.
+        address. Click on the link in the email to get started with Movementt.
       </Text>
       <Button
         success

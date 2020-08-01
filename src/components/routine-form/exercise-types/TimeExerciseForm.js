@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Col, Grid } from 'native-base'
-import { TextInput, IntegerInput, DecimalInput } from '_components/form'
+import { TextInput, DecimalInput } from '_components/form'
 import { getIn } from 'formik'
 import Exercise from '_api/models/Exercise'
-import TimePicker from '_components/workout-form/pickers/TimePicker'
+import TimePicker from '_components/routine-form/pickers/TimePicker'
 
-const RepsExerciseForm = ({
+const TimeExerciseForm = ({
   errors,
   handleBlur,
   handleChange,
@@ -29,13 +29,11 @@ const RepsExerciseForm = ({
           />
         </Col>
         <Col flexGrow={0.8}>
-          <IntegerInput
-            label="Reps"
-            error={getIn(errors, 'quantity')}
-            onBlur={handleBlur('quantity')}
+          <TimePicker
+            label="Time"
+            allowNone={false}
+            value={`${values.quantity}`}
             onChange={handleChange('quantity')}
-            touched={getIn(touched, 'quantity')}
-            value={values.quantity}
           />
         </Col>
       </Grid>
@@ -63,7 +61,7 @@ const RepsExerciseForm = ({
   )
 }
 
-RepsExerciseForm.propTypes = {
+TimeExerciseForm.propTypes = {
   errors: PropTypes.object,
   handleBlur: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -71,7 +69,7 @@ RepsExerciseForm.propTypes = {
   values: PropTypes.object,
 }
 
-export default RepsExerciseForm
+export default TimeExerciseForm
 
 const styles = StyleSheet.create({
   container: {

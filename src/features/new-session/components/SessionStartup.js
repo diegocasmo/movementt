@@ -7,8 +7,8 @@ import Exercise from '_api/models/Exercise'
 import { View, Button, Text, Icon } from 'native-base'
 import { now, getTotalEllapsedMs } from '_utils/time-utils'
 
-const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
-  const { name, exercises } = workout
+const SessionStartup = ({ routine, onStartupCompleted, onQuit }) => {
+  const { name, exercises } = routine
   const [state, setState] = useState({ startAt: now(), elapsedMs: 0 })
   const stop = () => {
     setState({ startAt: null, elapsedMs: 0 })
@@ -36,8 +36,8 @@ const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
     stop()
 
     Alert.alert(
-      'Quit Workout',
-      'Are you sure you want to quit the workout?',
+      'Quit Routine',
+      'Are you sure you want to quit the routine?',
       [
         {
           text: 'Cancel',
@@ -77,7 +77,7 @@ const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
           <Text style={styles.countdownText}>Tab to resume</Text>
         )}
       </Button>
-      <Text style={styles.workoutName} numberOfLines={2}>
+      <Text style={styles.routineName} numberOfLines={2}>
         {name}
       </Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
@@ -90,7 +90,7 @@ const SessionStartup = ({ workout, onStartupCompleted, onQuit }) => {
 export default SessionStartup
 
 SessionStartup.propTypes = {
-  workout: PropTypes.object.isRequired,
+  routine: PropTypes.object.isRequired,
   onStartupCompleted: PropTypes.func.isRequired,
   onQuit: PropTypes.func.isRequired,
 }
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
   },
-  workoutName: {
+  routineName: {
     marginTop: 20,
     textAlign: 'center',
     fontWeight: 'bold',

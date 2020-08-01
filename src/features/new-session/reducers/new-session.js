@@ -12,7 +12,7 @@ const initialState = {
   hasSound: true,
   currExerciseIdx: null,
   roundsCompleted: 0,
-  workout: null,
+  routine: null,
   timeEntries: [],
 }
 
@@ -47,7 +47,7 @@ const newSession = createSlice({
   initialState,
   reducers: {
     init(state, { payload }) {
-      state.workout = payload
+      state.routine = payload
     },
 
     reset: (state) => {
@@ -55,7 +55,7 @@ const newSession = createSlice({
       state.hasSound = initialState.hasSound
       state.currExerciseIdx = initialState.currExerciseIdx
       state.roundsCompleted = initialState.roundsCompleted
-      state.workout = initialState.workout
+      state.routine = initialState.routine
       state.timeEntries = initialState.timeEntries
     },
 
@@ -86,12 +86,12 @@ const newSession = createSlice({
     },
 
     completeExercise(state) {
-      let { currExerciseIdx, roundsCompleted, workout, timeEntries } = state
+      let { currExerciseIdx, roundsCompleted, routine, timeEntries } = state
 
       const lastTimeEntry = timeEntries.pop()
-      const currExercise = workout.exercises[currExerciseIdx]
-      const isLastExercise = currExerciseIdx === workout.exercises.length - 1
-      const isLastRound = roundsCompleted === workout.rounds - 1
+      const currExercise = routine.exercises[currExerciseIdx]
+      const isLastExercise = currExerciseIdx === routine.exercises.length - 1
+      const isLastRound = roundsCompleted === routine.rounds - 1
 
       if (isLastExercise && isLastRound) {
         state.currExerciseIdx = null
@@ -99,7 +99,7 @@ const newSession = createSlice({
         state.timeEntries = [...timeEntries, stopTimeEntry(lastTimeEntry)]
       } else if (isLastExercise) {
         const nextTimeEntryType =
-          workout.restSeconds === 0
+          routine.restSeconds === 0
             ? TIME_ENTRY_TYPE.EXERCISE
             : TIME_ENTRY_TYPE.ROUND_REST
 
@@ -157,11 +157,11 @@ export default newSession.reducer
 
 // ------------------------- Action creators -------------------------
 
-export const init = (workout) => (dispatch) => {
-  dispatch(newSession.actions.init(workout))
+export const init = (routine) => (dispatch) => {
+  dispatch(newSession.actions.init(routine))
 }
 
-export const reset = () => (dispatch) => {
+export const resetSession = () => (dispatch) => {
   dispatch(newSession.actions.reset())
 }
 
@@ -261,7 +261,7 @@ export const getTotalElapsedMs = (state) => {
 export const getPrevExercise = ({ newSession }) => {
   const {
     currExerciseIdx,
-    workout: { exercises },
+    routine: { exercises },
   } = newSession
   if (currExerciseIdx === 0) {
     return exercises[exercises.length - 1]
@@ -273,18 +273,18 @@ export const getPrevExercise = ({ newSession }) => {
 export const getCurrExercise = ({ newSession }) => {
   const {
     currExerciseIdx,
-    workout: { exercises },
+    routine: { exercises },
   } = newSession
   return exercises[currExerciseIdx]
 }
 
-export const getWorkout = (state) => {
-  return state.newSession.workout
+export const getRoutine = (state) => {
+  return state.newSession.routine
 }
 
 export const getCurrRound = ({ newSession }) => {
   return Math.min.apply(Math, [
     newSession.roundsCompleted + 1,
-    newSession.workout.rounds,
+    newSession.routine.rounds,
   ])
 }

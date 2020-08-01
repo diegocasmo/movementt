@@ -11,17 +11,17 @@ import {
   Title,
   View,
 } from 'native-base'
-import MyWorkouts from '../components/MyWorkouts'
-import ExampleWorkouts from '../components/ExampleWorkouts'
+import MyRoutines from '../components/MyRoutines'
+import ExampleRoutines from '../components/ExampleRoutines'
 import { getUser } from '_state/reducers/auth'
 import {
-  fetchWorkouts,
+  fetchRoutines,
   isFetching,
-  destroyWorkout,
-} from '_state/reducers/workouts'
+  destroyRoutine,
+} from '_state/reducers/routines'
 import { showError } from '_utils/toast'
 
-const WorkoutListScreen = ({ navigation }) => {
+const RoutineListScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
@@ -32,37 +32,37 @@ const WorkoutListScreen = ({ navigation }) => {
 
   const handleFetch = async () => {
     try {
-      await dispatch(fetchWorkouts(user.uid))
+      await dispatch(fetchRoutines(user.uid))
     } catch (err) {
       showError(err.message)
     }
   }
 
-  const handleUpdate = (workout) => {
-    navigation.navigate('UpdateWorkout', { workoutKey: workout.key })
+  const handleUpdate = (routine) => {
+    navigation.navigate('UpdateRoutine', { routineKey: routine.key })
   }
 
-  const handleDelete = async (workout) => {
+  const handleDelete = async (routine) => {
     try {
-      await dispatch(destroyWorkout(user.uid, workout))
+      await dispatch(destroyRoutine({ uid: user.uid, ...routine }))
     } catch (err) {
       showError(err.message)
     }
   }
 
-  const handleStart = (workout) => {
-    navigation.navigate('WorkoutItem', { workoutKey: workout.key })
+  const handleStart = (routine) => {
+    navigation.navigate('RoutineItem', { routineKey: routine.key })
   }
 
   const handleCreate = () => {
-    navigation.navigate('CreateWorkout')
+    navigation.navigate('CreateRoutine')
   }
 
   return (
     <Container>
       <Header>
         <Body>
-          <Title>Workouts</Title>
+          <Title>Routines</Title>
         </Body>
       </Header>
       <Content
@@ -73,13 +73,13 @@ const WorkoutListScreen = ({ navigation }) => {
           <Spinner color="black" />
         ) : (
           <View>
-            <MyWorkouts
+            <MyRoutines
               onStart={handleStart}
               onUpdate={handleUpdate}
               onDelete={handleDelete}
-              onCreateWorkout={handleCreate}
+              onCreateRoutine={handleCreate}
             />
-            <ExampleWorkouts onStart={handleStart} />
+            <ExampleRoutines onStart={handleStart} />
           </View>
         )}
       </Content>
@@ -87,9 +87,9 @@ const WorkoutListScreen = ({ navigation }) => {
   )
 }
 
-export default WorkoutListScreen
+export default RoutineListScreen
 
-WorkoutListScreen.propTypes = {
+RoutineListScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
 }
 

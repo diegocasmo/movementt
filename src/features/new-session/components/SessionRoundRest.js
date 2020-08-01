@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  getWorkout,
+  getRoutine,
   completeRoundRest,
   getCurrExercise,
   getCurrTimeEntryElapsedMs,
@@ -16,7 +16,7 @@ import { secondsToMs } from '_utils/time-utils'
 const SessionRoundRest = () => {
   const dispatch = useDispatch()
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
-  const { restSeconds } = useSelector(getWorkout)
+  const { restSeconds } = useSelector(getRoutine)
   const exercise = useSelector(getCurrExercise)
   const sound = useSelector(hasSound)
 

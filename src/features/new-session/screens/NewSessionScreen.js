@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   init,
-  reset,
+  resetSession,
   start,
   hasStarted,
   isCompleted,
@@ -19,11 +19,11 @@ import SessionExerciseRest from '../components/SessionExerciseRest'
 import SessionRoundRest from '../components/SessionRoundRest'
 import SessionStartup from '../components/SessionStartup'
 import SessionCompleted from '../components/SessionCompleted'
-import { getWorkout } from '_state/reducers/workouts'
+import { getRoutine } from '_state/reducers/routines'
 
 const NewSessionScreen = ({ navigation, route }) => {
-  const workout = useSelector((state) =>
-    getWorkout(state, route.params.workoutKey)
+  const routine = useSelector((state) =>
+    getRoutine(state, route.params.routineKey)
   )
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)
@@ -31,17 +31,17 @@ const NewSessionScreen = ({ navigation, route }) => {
   const timeEntry = useSelector(getCurrTimeEntry)
 
   const handleStartupCompleted = () => {
-    dispatch(init(workout))
+    dispatch(init(routine))
     dispatch(start())
   }
 
   const handleQuit = () => {
-    dispatch(reset())
+    dispatch(resetSession())
     navigation.navigate('Home')
   }
 
   const handleCompleteConfirmed = () => {
-    dispatch(reset())
+    dispatch(resetSession())
     navigation.navigate('Home')
   }
 
@@ -85,7 +85,7 @@ const NewSessionScreen = ({ navigation, route }) => {
           contentContainerStyle={styles.content}
         >
           <SessionStartup
-            workout={workout}
+            routine={routine}
             onQuit={handleQuit}
             onStartupCompleted={handleStartupCompleted}
           />
@@ -101,7 +101,7 @@ NewSessionScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      workoutKey: PropTypes.string.isRequired,
+      routineKey: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 }

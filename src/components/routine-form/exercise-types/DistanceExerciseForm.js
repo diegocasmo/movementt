@@ -5,8 +5,8 @@ import { View, Col, Grid } from 'native-base'
 import { TextInput, DecimalInput } from '_components/form'
 import { getIn } from 'formik'
 import Exercise from '_api/models/Exercise'
-import TimePicker from '_components/workout-form/pickers/TimePicker'
-import DistancePicker from '_components/workout-form/pickers/DistancePicker'
+import TimePicker from '_components/routine-form/pickers/TimePicker'
+import DistancePicker from '_components/routine-form/pickers/DistancePicker'
 
 const DistanceForm = ({
   errors,

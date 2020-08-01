@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import {
   getCurrRound,
-  getWorkout,
+  getRoutine,
   getTotalElapsedMs,
 } from '../reducers/new-session'
 import { View, Text, Button, Icon } from 'native-base'
@@ -12,14 +12,14 @@ import Duration from '_components/time/Duration'
 
 const SessionCompleted = ({ onConfirm }) => {
   const currRound = useSelector(getCurrRound)
-  const workout = useSelector(getWorkout)
+  const routine = useSelector(getRoutine)
   const elapsedMs = useSelector(getTotalElapsedMs)
 
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.topText}>
-          Round: {currRound}/{workout.rounds}
+          Round: {currRound}/{routine.rounds}
         </Text>
         <Button style={styles.topBtn} transparent onPress={onConfirm}>
           <Icon style={styles.topIcon} active name="md-close" />
@@ -29,8 +29,8 @@ const SessionCompleted = ({ onConfirm }) => {
         <Button transparent style={styles.checkBtn} onPress={onConfirm}>
           <Icon style={styles.checkIcon} active name="md-checkmark" />
         </Button>
-        <Text style={styles.workoutName} numberOfLines={2}>
-          {workout.name}
+        <Text style={styles.routineName} numberOfLines={2}>
+          {routine.name}
         </Text>
         <Duration style={styles.duration} elapsedMs={elapsedMs} />
       </View>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 156,
   },
-  workoutName: {
+  routineName: {
     textAlign: 'center',
     marginTop: 20,
     fontWeight: 'bold',

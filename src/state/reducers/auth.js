@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { currentUser } from '_api/current-user'
-import { reset as resetWorkouts } from '_state/reducers/workouts'
-import { reset as resetSession } from '_features/new-session/reducers/new-session'
+import { resetRoutines } from '_state/reducers/routines'
+import { resetSession } from '_features/new-session/reducers/new-session'
 
 const initialState = {
   user: null,
@@ -47,7 +47,7 @@ export const handleAuthStateChanged = (user) => (dispatch) => {
     const { uid, emailVerified } = user
     dispatch(auth.actions.authStateChangedSignIn({ uid, emailVerified }))
   } else {
-    dispatch(resetWorkouts())
+    dispatch(resetRoutines())
     dispatch(resetSession())
     dispatch(auth.actions.authStateChangedSignOut())
   }

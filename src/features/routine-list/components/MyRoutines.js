@@ -3,24 +3,24 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Button, View, Text, H1 } from 'native-base'
-import { getWorkouts } from '_state/reducers/workouts'
-import WorkoutItem from './WorkoutItem'
+import { getRoutines } from '_state/reducers/routines'
+import RoutineItem from './RoutineItem'
 
-const MyWorkouts = ({ onCreateWorkout, onStart, onUpdate, onDelete }) => {
-  const workouts = useSelector(getWorkouts)
+const MyRoutines = ({ onCreateRoutine, onStart, onUpdate, onDelete }) => {
+  const routines = useSelector(getRoutines)
 
   return (
     <View>
-      <H1 style={styles.h1}>My Workouts ({workouts.length})</H1>
-      {workouts.length === 0 ? (
-        <Button block primary style={styles.btn} onPress={onCreateWorkout}>
-          <Text>Create workout</Text>
+      <H1 style={styles.h1}>My Routines ({routines.length})</H1>
+      {routines.length === 0 ? (
+        <Button block primary style={styles.btn} onPress={onCreateRoutine}>
+          <Text>Create routine</Text>
         </Button>
       ) : (
-        workouts.map((workout) => (
-          <WorkoutItem
-            key={workout.key}
-            workout={workout}
+        routines.map((routine) => (
+          <RoutineItem
+            key={routine.key}
+            routine={routine}
             onStart={onStart}
             onUpdate={onUpdate}
             onDelete={onDelete}
@@ -31,14 +31,14 @@ const MyWorkouts = ({ onCreateWorkout, onStart, onUpdate, onDelete }) => {
   )
 }
 
-MyWorkouts.propTypes = {
-  onCreateWorkout: PropTypes.func.isRequired,
+MyRoutines.propTypes = {
+  onCreateRoutine: PropTypes.func.isRequired,
   onStart: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 }
 
-export default MyWorkouts
+export default MyRoutines
 
 const styles = StyleSheet.create({
   h1: {

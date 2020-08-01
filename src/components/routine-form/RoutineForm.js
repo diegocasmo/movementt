@@ -22,11 +22,11 @@ import { Formik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import ExerciseItem from './ExerciseItem'
 import TimePicker from './pickers/TimePicker'
-import Workout from '_api/models/Workout'
+import Routine from '_api/models/Routine'
 import Exercise from '_api/models/Exercise'
 
-const WorkoutForm = ({
-  workout,
+const RoutineForm = ({
+  routine,
   isSubmitting,
   onQuit,
   onSubmit,
@@ -35,7 +35,7 @@ const WorkoutForm = ({
 }) => {
   const confirmQuit = () => {
     Alert.alert(
-      'Leave Workout',
+      'Leave Routine',
       'You have unsaved changes. Are you sure you want to leave?',
       [
         {
@@ -55,10 +55,10 @@ const WorkoutForm = ({
 
   return (
     <Formik
-      initialValues={workout || Workout.EMPTY}
-      validationSchema={Workout.getSchema()}
+      initialValues={routine || Routine.EMPTY}
+      validationSchema={Routine.getSchema()}
       onSubmit={(attrs, opts) => {
-        onSubmit(Workout.getSchema().cast(attrs), opts)
+        onSubmit(Routine.getSchema().cast(attrs), opts)
       }}
     >
       {({
@@ -223,13 +223,13 @@ const WorkoutForm = ({
   )
 }
 
-WorkoutForm.defaultProps = {
+RoutineForm.defaultProps = {
   autoFocus: false,
-  submitText: 'Create Workout',
+  submitText: 'Create Routine',
 }
 
-WorkoutForm.propTypes = {
-  workout: PropTypes.object,
+RoutineForm.propTypes = {
+  routine: PropTypes.object,
   autoFocus: PropTypes.bool,
   submitText: PropTypes.string,
   onQuit: PropTypes.func.isRequired,
@@ -237,7 +237,7 @@ WorkoutForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
 }
 
-export default WorkoutForm
+export default RoutineForm
 
 const styles = StyleSheet.create({
   content: {
