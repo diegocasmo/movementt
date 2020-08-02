@@ -5,13 +5,13 @@ import {
   getCurrTimeEntryElapsedMs,
   completeExercise,
   hasSound,
-} from '../reducers/new-workout'
+} from '../reducers/create-workout'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
-import ExerciseInstructions from './ExerciseInstructions'
+import RoutineExerciseInstructions from './RoutineExerciseInstructions'
 import { secondsToMs } from '_utils/time-utils'
-import Exercise from '_api/models/Exercise'
+import RoutineExercise from '_api/models/RoutineExercise'
 
 const WorkoutExercise = () => {
   const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const WorkoutExercise = () => {
 
   return (
     <View style={styles.container}>
-      {Exercise.isTypeTime(exercise) ? (
+      {RoutineExercise.isCategoryTime(exercise) ? (
         <View transparent style={styles.btn}>
           <Countdown
             elapsedMs={elapsedMs}
@@ -39,7 +39,7 @@ const WorkoutExercise = () => {
           <Text style={styles.btnText}>Done</Text>
         </Button>
       )}
-      <ExerciseInstructions exercise={exercise} />
+      <RoutineExerciseInstructions exercise={exercise} />
     </View>
   )
 }

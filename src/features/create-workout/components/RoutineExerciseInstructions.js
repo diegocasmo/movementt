@@ -2,26 +2,26 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { View, Text } from 'native-base'
-import Exercise from '_api/models/Exercise'
+import RoutineExercise from '_api/models/RoutineExercise'
 
-const ExerciseInstructions = ({ exercise }) => {
+const RoutineExerciseInstructions = ({ exercise }) => {
   return (
     <View>
       <Text style={styles.name} numberOfLines={2}>
         {exercise.name}
       </Text>
       <Text style={styles.instructions} numberOfLines={2}>
-        {Exercise.formattedRx(exercise)}
+        {RoutineExercise.formattedRx(exercise)}
       </Text>
     </View>
   )
 }
 
-ExerciseInstructions.propTypes = {
+RoutineExerciseInstructions.propTypes = {
   exercise: PropTypes.object.isRequired,
 }
 
-export default ExerciseInstructions
+export default RoutineExerciseInstructions
 
 const styles = StyleSheet.create({
   name: {

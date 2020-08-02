@@ -9,7 +9,7 @@ import {
   isCompleted,
   getCurrTimeEntry,
   TIME_ENTRY_TYPE,
-} from '../reducers/new-workout'
+} from '../reducers/create-workout'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import TopControls from '../components/TopControls'
@@ -21,7 +21,7 @@ import WorkoutStartup from '../components/WorkoutStartup'
 import WorkoutCompleted from '../components/WorkoutCompleted'
 import { getRoutine } from '_state/reducers/routines'
 
-const NewWorkoutScreen = ({ navigation, route }) => {
+const CreateWorkoutScreen = ({ navigation, route }) => {
   const routine = useSelector((state) =>
     getRoutine(state, route.params.routineKey)
   )
@@ -95,9 +95,9 @@ const NewWorkoutScreen = ({ navigation, route }) => {
   )
 }
 
-export default NewWorkoutScreen
+export default CreateWorkoutScreen
 
-NewWorkoutScreen.propTypes = {
+CreateWorkoutScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({

@@ -23,7 +23,7 @@ import { TextInput, IntegerInput } from '../form'
 import ExerciseItem from './ExerciseItem'
 import TimePicker from './pickers/TimePicker'
 import Routine from '_api/models/Routine'
-import Exercise from '_api/models/Exercise'
+import RoutineExercise from '_api/models/RoutineExercise'
 
 const RoutineForm = ({
   routine,
@@ -136,12 +136,14 @@ const RoutineForm = ({
                   <H2 style={styles.h2}>Exercises ({exercises.length})</H2>
 
                   <Button
-                    light
+                    primary
                     onPress={() => {
                       setValues(
                         {
                           ...values,
-                          exercises: values.exercises.concat(Exercise.EMPTY),
+                          exercises: values.exercises.concat(
+                            RoutineExercise.EMPTY
+                          ),
                         },
                         true
                       )
@@ -164,7 +166,8 @@ const RoutineForm = ({
                   style={styles.exercise}
                   exercise={exercise}
                   visible={
-                    JSON.stringify(exercise) === JSON.stringify(Exercise.EMPTY)
+                    JSON.stringify(exercise) ===
+                    JSON.stringify(RoutineExercise.EMPTY)
                   }
                   onAdd={(exercise) => {
                     setValues(
@@ -204,7 +207,7 @@ const RoutineForm = ({
             <View style={styles.bottom}>
               <Button
                 block
-                primary
+                success
                 style={styles.submitBtn}
                 disabled={isSubmitting || !isValid}
                 onPress={handleSubmit}

@@ -8,8 +8,8 @@ const FooterTabs = ({ state, navigation }) => {
     switch (name) {
       case 'Settings':
         return 'md-settings'
-      case 'RoutineForm':
-        return 'md-add'
+      case 'ExerciseList':
+        return 'md-fitness'
       default:
         return 'md-home'
     }
@@ -26,11 +26,7 @@ const FooterTabs = ({ state, navigation }) => {
         })
 
         if (!isFocused && !event.defaultPrevented) {
-          if (route.name === 'RoutineForm') {
-            navigation.navigate('CreateRoutine')
-          } else {
-            navigation.navigate(route.name)
-          }
+          navigation.navigate(route.name)
         }
       }
 

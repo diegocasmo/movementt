@@ -3,6 +3,100 @@
     {
       "key": "1",
       "type": "circuit",
+      "name": "Core Foundation",
+      "rounds": 3,
+      "restSeconds": 45,
+      "createdAt": null,
+      "updatedAt": null,
+      "exercises": [
+        {
+          "name": "Ab wheel roll out",
+          "type": "rep",
+          "quantity": 8,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Side plank (R)",
+          "type": "time",
+          "quantity": 30,
+          "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Side plank (L)",
+          "type": "time",
+          "quantity": 30,
+          "quantityUnit": "second",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "V-ups",
+          "type": "rep",
+          "quantity": 10,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        }
+      ]
+    },
+    {
+      "key": "2",
+      "type": "circuit",
+      "name": "Full Body Kick",
+      "rounds": 3,
+      "restSeconds": 45,
+      "createdAt": null,
+      "updatedAt": null,
+      "exercises": [
+        {
+          "name": "Running",
+          "type": "distance",
+          "quantity": 200,
+          "quantityUnit": "m",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Burpees",
+          "type": "rep",
+          "quantity": 8,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Sumo Squat",
+          "type": "rep",
+          "quantity": 15,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        },
+        {
+          "name": "Shoulder tabs",
+          "type": "rep",
+          "quantity": 15,
+          "quantityUnit": "rep",
+          "weight": 0,
+          "weightUnit": "Kg",
+          "restSeconds": 15
+        }
+      ]
+    },
+    {
+      "key": "3",
+      "type": "circuit",
       "name": "Quad Boost",
       "rounds": 3,
       "restSeconds": 45,
@@ -57,54 +151,7 @@
       ]
     },
     {
-      "key": "2",
-      "type": "circuit",
-      "name": "Core Foundation",
-      "rounds": 3,
-      "restSeconds": 45,
-      "createdAt": null,
-      "updatedAt": null,
-      "exercises": [
-        {
-          "name": "Ab wheel roll out",
-          "type": "rep",
-          "quantity": 8,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Side plank (R)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Side plank (L)",
-          "type": "time",
-          "quantity": 30,
-          "quantityUnit": "second",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "V-ups",
-          "type": "rep",
-          "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        }
-      ]
-    },
-    {
-      "key": "3",
+      "key": "4",
       "type": "circuit",
       "name": "Upper-Body Complete",
       "rounds": 3,
@@ -143,53 +190,6 @@
           "name": "Superman",
           "type": "rep",
           "quantity": 10,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        }
-      ]
-    },
-    {
-      "key": "4",
-      "type": "circuit",
-      "name": "Full Body Kick",
-      "rounds": 3,
-      "restSeconds": 45,
-      "createdAt": null,
-      "updatedAt": null,
-      "exercises": [
-        {
-          "name": "Running",
-          "type": "distance",
-          "quantity": 200,
-          "quantityUnit": "m",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Burpees",
-          "type": "rep",
-          "quantity": 8,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Sumo Squat",
-          "type": "rep",
-          "quantity": 15,
-          "quantityUnit": "rep",
-          "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
-        },
-        {
-          "name": "Shoulder tabs",
-          "type": "rep",
-          "quantity": 15,
           "quantityUnit": "rep",
           "weight": 0,
           "weightUnit": "Kg",

@@ -4,27 +4,33 @@ import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import {
   Body,
+  Button,
   Container,
   Content,
+  H1,
   Header,
   Spinner,
+  Text,
   Title,
   View,
 } from 'native-base'
-import MyRoutines from '../components/MyRoutines'
-import ExampleRoutines from '../components/ExampleRoutines'
+import RoutineItem from '../components/RoutineItem'
+import SearchForm from '../components/SearchForm'
 import { getUser } from '_state/reducers/auth'
 import {
-  fetchRoutines,
-  isFetching,
   destroyRoutine,
+  fetchRoutines,
+  getRoutines,
+  isFetching,
 } from '_state/reducers/routines'
 import { showError } from '_utils/toast'
+import * as seed from '_seed/routines.json'
 
 const RoutineListScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
+  const routines = useSelector(getRoutines)
 
   useEffect(() => {
     handleFetch()
@@ -62,24 +68,27 @@ const RoutineListScreen = ({ navigation }) => {
     <Container>
       <Header>
         <Body>
-          <Title>Routines</Title>
+          <Title>Routines ({routines.length})</Title>
         </Body>
       </Header>
       <Content
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
+        <SearchForm style={styles.searchForm} onCreate={handleCreate} />
         {fetching ? (
           <Spinner color="black" />
         ) : (
           <View>
-            <MyRoutines
-              onStart={handleStart}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              onCreateRoutine={handleCreate}
-            />
-            <ExampleRoutines onStart={handleStart} />
+            {routines.concat(seed.routines).map((routine) => (
+              <RoutineItem
+                key={routine.key}
+                routine={routine}
+                onStart={handleStart}
+                onUpdate={handleUpdate}
+                onDelete={handleDelete}
+              />
+            ))}
           </View>
         )}
       </Content>
@@ -97,5 +106,8 @@ const styles = StyleSheet.create({
   content: {
     margin: 10,
     paddingBottom: 25,
+  },
+  searchForm: {
+    marginBottom: 20,
   },
 })

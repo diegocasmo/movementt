@@ -4,7 +4,7 @@ import { Modal, StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import { ModalPickerInput } from '../form'
 import { Formik } from 'formik'
-import Exercise from '_api/models/Exercise'
+import RoutineExercise from '_api/models/RoutineExercise'
 import RepsExerciseForm from './exercise-types/RepsExerciseForm'
 import TimeExerciseForm from './exercise-types/TimeExerciseForm'
 import DistanceExerciseForm from './exercise-types/DistanceExerciseForm'
@@ -20,9 +20,9 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
     }
 
     switch (type) {
-      case Exercise.TYPE_TIME:
+      case RoutineExercise.CATEGORY_TIME:
         return <TimeExerciseForm {...props} />
-      case Exercise.TYPE_DISTANCE:
+      case RoutineExercise.CATEGORY_DISTANCE:
         return <DistanceExerciseForm {...props} />
       default:
         return <RepsExerciseForm {...props} />
@@ -34,12 +34,12 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
 
     const changes = ((type) => {
       switch (type) {
-        case Exercise.TYPE_TIME:
-          return { quantity: 15, quantityUnit: Exercise.TIME_UNIT }
-        case Exercise.TYPE_DISTANCE:
-          return { quantity: 200, quantityUnit: Exercise.DISTANCE_UNIT }
+        case RoutineExercise.CATEGORY_TIME:
+          return { quantity: 15, quantityUnit: RoutineExercise.TIME_UNIT }
+        case RoutineExercise.CATEGORY_DISTANCE:
+          return { quantity: 200, quantityUnit: RoutineExercise.DISTANCE_UNIT }
         default:
-          return { quantity: 10, quantityUnit: Exercise.REP_UNIT }
+          return { quantity: 10, quantityUnit: RoutineExercise.REP_UNIT }
       }
     })(type)
 
@@ -49,9 +49,9 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
   return (
     <Formik
       initialValues={exercise}
-      validationSchema={Exercise.getSchema()}
+      validationSchema={RoutineExercise.getSchema()}
       onSubmit={(attrs, opts) => {
-        onSubmit(Exercise.getSchema().cast(attrs), opts)
+        onSubmit(RoutineExercise.getSchema().cast(attrs), opts)
       }}
     >
       {(bag) => {
@@ -70,7 +70,7 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
                 <View style={styles.typeContainer}>
                   <ModalPickerInput
                     label="Exercise type"
-                    options={Exercise.TYPE_OPTS.map((opt, idx) => ({
+                    options={RoutineExercise.CATEGORY_OPTS.map((opt, idx) => ({
                       key: idx,
                       ...opt,
                     }))}

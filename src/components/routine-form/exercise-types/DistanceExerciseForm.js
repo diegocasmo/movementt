@@ -4,11 +4,11 @@ import { StyleSheet } from 'react-native'
 import { View, Col, Grid } from 'native-base'
 import { TextInput, DecimalInput } from '_components/form'
 import { getIn } from 'formik'
-import Exercise from '_api/models/Exercise'
+import RoutineExercise from '_api/models/RoutineExercise'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
 import DistancePicker from '_components/routine-form/pickers/DistancePicker'
 
-const DistanceForm = ({
+const DistanceExerciseForm = ({
   errors,
   handleBlur,
   handleChange,
@@ -42,7 +42,7 @@ const DistanceForm = ({
       <Grid>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
-            label={`Weight (${Exercise.WEIGHT_KG_UNIT})`}
+            label={`Weight (${RoutineExercise.WEIGHT_KG_UNIT})`}
             error={getIn(errors, 'weight')}
             onBlur={handleBlur('weight')}
             onChange={handleChange('weight')}
@@ -62,7 +62,7 @@ const DistanceForm = ({
   )
 }
 
-DistanceForm.propTypes = {
+DistanceExerciseForm.propTypes = {
   errors: PropTypes.object,
   handleBlur: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -70,7 +70,7 @@ DistanceForm.propTypes = {
   values: PropTypes.object,
 }
 
-export default DistanceForm
+export default DistanceExerciseForm
 
 const styles = StyleSheet.create({
   container: {

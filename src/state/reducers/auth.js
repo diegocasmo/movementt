@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { currentUser } from '_api/current-user'
 import { resetRoutines } from '_state/reducers/routines'
-import { resetWorkout } from '_features/new-workout/reducers/new-workout'
+import { resetWorkout } from '_features/create-workout/reducers/create-workout'
 
 const initialState = {
   user: null,

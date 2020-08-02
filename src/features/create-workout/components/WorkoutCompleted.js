@@ -6,7 +6,7 @@ import {
   getCurrRound,
   getRoutine,
   getTotalElapsedMs,
-} from '../reducers/new-workout'
+} from '../reducers/create-workout'
 import { View, Text, Button, Icon } from 'native-base'
 import Duration from '_components/time/Duration'
 

@@ -8,8 +8,11 @@ import RoutineItemScreen from '_features/routine-item/screens/RoutineItemScreen'
 import CreateRoutineScreen from '_features/create-routine/screens/CreateRoutineScreen'
 import UpdateRoutineScreen from '_features/update-routine/screens/UpdateRoutineScreen'
 
+// Exercise
+import ExerciseListScreen from '_features/exercise-list/screens/ExerciseListScreen'
+
 // Workout
-import NewWorkoutScreen from '_features/new-workout/screens/NewWorkoutScreen'
+import CreateWorkoutScreen from '_features/create-workout/screens/CreateWorkoutScreen'
 
 // Settings
 import SettingsScreen from '_features/settings/screens/SettingsScreen'
@@ -59,13 +62,25 @@ const HomeNavigator = () => {
   )
 }
 
-const RoutineForm = () => null
+const ExerciseStack = createStackNavigator()
+const ExerciseNavigator = () => {
+  return (
+    <ExerciseStack.Navigator>
+      <ExerciseStack.Screen
+        name="ExerciseList"
+        component={ExerciseListScreen}
+        options={{ title: 'Exercise', headerShown: false }}
+      />
+    </ExerciseStack.Navigator>
+  )
+}
+
 const HomeTabs = createBottomTabNavigator()
 const HomeTabsNavigator = () => {
   return (
     <HomeTabs.Navigator tabBar={(props) => <FooterTabs {...props} />}>
       <HomeTabs.Screen name="Home" component={HomeNavigator} />
-      <HomeTabs.Screen name="RoutineForm" component={RoutineForm} />
+      <HomeTabs.Screen name="ExerciseList" component={ExerciseNavigator} />
       <HomeTabs.Screen name="Settings" component={SettingsNavigator} />
     </HomeTabs.Navigator>
   )
@@ -94,8 +109,8 @@ const VerifiedAppNavigator = () => {
         options={{ headerShown: false, gestureEnabled: false }}
       />
       <AppStack.Screen
-        name="NewWorkout"
-        component={NewWorkoutScreen}
+        name="CreateWorkout"
+        component={CreateWorkoutScreen}
         options={{ headerShown: false, gestureEnabled: false }}
       />
     </AppStack.Navigator>
