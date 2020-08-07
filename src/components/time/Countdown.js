@@ -6,9 +6,7 @@ import { Audio } from 'expo-av'
 import * as Speech from 'expo-speech'
 
 const silentObject = new Audio.Sound()
-silentObject.loadAsync(
-  require('../../../assets/500-milliseconds-of-silence.mp3')
-)
+silentObject.loadAsync(require('../../../assets/1-second-of-silence.mp3'))
 
 const Countdown = ({
   elapsedMs,
