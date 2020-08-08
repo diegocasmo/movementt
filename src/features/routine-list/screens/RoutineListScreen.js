@@ -31,6 +31,7 @@ const RoutineListScreen = ({ navigation }) => {
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
   const routines = useSelector(getRoutines)
+  const allRoutines = routines.concat(seed.routines)
 
   useEffect(() => {
     handleFetch()
@@ -68,7 +69,7 @@ const RoutineListScreen = ({ navigation }) => {
     <Container>
       <Header>
         <Body>
-          <Title>Routines ({routines.length})</Title>
+          <Title>Routines ({allRoutines.length})</Title>
         </Body>
       </Header>
       <Content
@@ -80,7 +81,7 @@ const RoutineListScreen = ({ navigation }) => {
           <Spinner color="black" />
         ) : (
           <View>
-            {routines.concat(seed.routines).map((routine) => (
+            {allRoutines.map((routine) => (
               <RoutineItem
                 key={routine.key}
                 routine={routine}

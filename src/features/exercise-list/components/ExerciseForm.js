@@ -61,7 +61,7 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
                 <Grid>
                   <Col flexGrow={1}>
                     <ModalPickerInput
-                      label="Exercise category"
+                      label="Category"
                       options={Exercise.CATEGORY_OPTS.map((opt, idx) => ({
                         key: idx,
                         ...opt,
