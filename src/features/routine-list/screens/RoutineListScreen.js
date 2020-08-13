@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import {
   Body,
-  Button,
   Container,
   Content,
-  H1,
   Header,
   Spinner,
   Text,
@@ -15,7 +13,7 @@ import {
   View,
 } from 'native-base'
 import RoutineItem from '../components/RoutineItem'
-import SearchForm from '../components/SearchForm'
+import SearchForm from '_components/SearchForm'
 import { getUser } from '_state/reducers/auth'
 import {
   destroyRoutine,
@@ -24,14 +22,15 @@ import {
   isFetching,
 } from '_state/reducers/routines'
 import { showError } from '_utils/toast'
+import { search } from '_utils/fuzzy-search'
 import * as seed from '_seed/routines.json'
 
 const RoutineListScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
-  const routines = useSelector(getRoutines)
-  const allRoutines = routines.concat(seed.routines)
+  const [query, setQuery] = useState('')
+  const routines = search(useSelector(getRoutines).concat(seed.routines), query)
 
   useEffect(() => {
     handleFetch()
@@ -65,23 +64,40 @@ const RoutineListScreen = ({ navigation }) => {
     navigation.navigate('CreateRoutine')
   }
 
+  const handleQueryChange = (value) => {
+    setQuery(value)
+  }
+
+  const noMatches = routines.length === 0 && query.trim() !== ''
+  const noRoutines = routines.length === 0 && query.trim() === ''
+
   return (
     <Container>
       <Header>
         <Body>
-          <Title>Routines ({allRoutines.length})</Title>
+          <Title>Routines ({routines.length})</Title>
         </Body>
       </Header>
       <Content
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <SearchForm style={styles.searchForm} onCreate={handleCreate} />
+        <SearchForm
+          style={styles.searchForm}
+          btnText="+ Routine"
+          query={query}
+          onChangeText={handleQueryChange}
+          onCreate={handleCreate}
+        />
         {fetching ? (
           <Spinner color="black" />
         ) : (
           <View>
-            {allRoutines.map((routine) => (
+            {noRoutines && <Text>There are no routines to show</Text>}
+            {noMatches && (
+              <Text>We could not find any routines based on your criteria</Text>
+            )}
+            {routines.map((routine) => (
               <RoutineItem
                 key={routine.key}
                 routine={routine}

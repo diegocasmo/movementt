@@ -1,16 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { View, Item, Input, Button, Text } from 'native-base'
+import { View, Item, Input, Button, Text, Icon } from 'native-base'
 
-const SearchForm = ({ style, onCreate }) => {
+const SearchForm = ({ onChangeText, onCreate, query, style, btnText }) => {
+  const handleClearQuery = () => {
+    onChangeText('')
+  }
+
   return (
     <View style={[styles.header, style]}>
       <Item regular style={styles.item}>
-        <Input placeholder="Search" />
+        <Input placeholder="Search" onChangeText={onChangeText} value={query} />
+        <Button transparent onPress={handleClearQuery}>
+          <Icon style={styles.icon} active name="md-close" />
+        </Button>
       </Item>
       <Button primary style={styles.btn} onPress={onCreate}>
-        <Text>+ Routine</Text>
+        <Text>{btnText}</Text>
       </Button>
     </View>
   )
@@ -19,8 +26,11 @@ const SearchForm = ({ style, onCreate }) => {
 export default SearchForm
 
 SearchForm.propTypes = {
-  style: PropTypes.object,
+  onChangeText: PropTypes.func.isRequired,
   onCreate: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
+  style: PropTypes.object,
+  btnText: PropTypes.string.isRequired,
 }
 
 const styles = StyleSheet.create({
@@ -36,5 +46,8 @@ const styles = StyleSheet.create({
   btn: {
     marginLeft: 20,
     height: 50,
+  },
+  icon: {
+    color: 'black',
   },
 })

@@ -8,6 +8,7 @@ import {
   Content,
   Header,
   Spinner,
+  Text,
   Title,
   View,
 } from 'native-base'
@@ -21,7 +22,8 @@ import {
   updateExercise,
 } from '_state/reducers/exercises'
 import { showError } from '_utils/toast'
-import SearchForm from '../components/SearchForm'
+import { search } from '_utils/fuzzy-search'
+import SearchForm from '_components/SearchForm'
 import ExerciseItem from '../components/ExerciseItem'
 import ExerciseForm from '../components/ExerciseForm'
 import Exercise from '_api/models/Exercise'
@@ -30,9 +32,10 @@ const ExerciseListScreen = () => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
-  const exercises = useSelector(getExercises)
   const initialState = { visible: false, exercise: Exercise.EMPTY }
   const [state, setState] = useState(initialState)
+  const [query, setQuery] = useState('')
+  const exercises = search(useSelector(getExercises), query)
 
   useEffect(() => {
     handleFetch()
@@ -84,6 +87,13 @@ const ExerciseListScreen = () => {
     }
   }
 
+  const handleQueryChange = (value) => {
+    setQuery(value)
+  }
+
+  const noMatches = exercises.length === 0 && query.trim() !== ''
+  const noExercises = exercises.length === 0 && query.trim() === ''
+
   return (
     <Container>
       <Header>
@@ -95,11 +105,23 @@ const ExerciseListScreen = () => {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <SearchForm style={styles.searchForm} onCreate={handleCreate} />
+        <SearchForm
+          style={styles.searchForm}
+          btnText="+ Exercise"
+          query={query}
+          onChangeText={handleQueryChange}
+          onCreate={handleCreate}
+        />
         {fetching ? (
           <Spinner color="black" />
         ) : (
           <View>
+            {noExercises && <Text>There are no exercises to show</Text>}
+            {noMatches && (
+              <Text>
+                We could not find any exercises based on your criteria
+              </Text>
+            )}
             {exercises.map((exercise) => (
               <ExerciseItem
                 key={exercise.key}
