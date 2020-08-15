@@ -16,7 +16,7 @@ import {
 } from '_api/routine-exercise'
 
 const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
-  const renderExerciseForm = (type, bag) => {
+  const renderExerciseForm = (category, bag) => {
     const props = {
       errors: bag.errors,
       handleBlur: bag.handleBlur,
@@ -25,7 +25,7 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
       values: bag.values,
     }
 
-    switch (type) {
+    switch (category) {
       case CATEGORY_TIME:
         return <TimeExerciseForm {...props} />
       case CATEGORY_DISTANCE:
@@ -35,11 +35,11 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
     }
   }
 
-  const handleTypeChange = (type, values, setValues) => {
-    if (values.type === type) return
+  const handleCategoryChange = (category, values, setValues) => {
+    if (values.category === category) return
 
-    const changes = ((type) => {
-      switch (type) {
+    const changes = ((category) => {
+      switch (category) {
         case CATEGORY_TIME:
           return { quantity: 15, quantityUnit: TIME_UNIT }
         case CATEGORY_DISTANCE:
@@ -47,9 +47,9 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
         default:
           return { quantity: 10, quantityUnit: REP_UNIT }
       }
-    })(type)
+    })(category)
 
-    setValues({ ...values, type, ...changes }, false)
+    setValues({ ...values, category, ...changes }, false)
   }
 
   return (
@@ -73,21 +73,21 @@ const ExerciseForm = ({ visible, isUpdate, exercise, onClose, onSubmit }) => {
           >
             <View style={styles.container}>
               <View style={styles.modalView}>
-                <View style={styles.typeContainer}>
+                <View style={styles.categoryContainer}>
                   <ModalPickerInput
-                    label="Exercise type"
+                    label="Exercise category"
                     options={CATEGORY_OPTS.map((opt, idx) => ({
                       key: idx,
                       ...opt,
                     }))}
-                    onValueChange={(type) => {
-                      handleTypeChange(type, values, setValues)
+                    onValueChange={(category) => {
+                      handleCategoryChange(category, values, setValues)
                     }}
-                    value={values.type}
+                    value={values.category}
                   />
                 </View>
 
-                {renderExerciseForm(values.type, bag)}
+                {renderExerciseForm(values.category, bag)}
 
                 <View style={styles.actions}>
                   <Button light onPress={onClose}>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     height: 350,
     width: '100%',
   },
-  typeContainer: {
+  categoryContainer: {
     marginBottom: 20,
   },
   actions: {

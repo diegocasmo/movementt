@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { View, Text, Card, CardItem, Body } from 'native-base'
+import { View, Text, Card, CardItem, Body, Button } from 'native-base'
 import { getRoutineExerciseFormatteRx } from '_api/routine-exercise'
 import ExerciseActions from './ExerciseActions'
 import ExerciseForm from './ExerciseForm'
@@ -35,8 +35,12 @@ const ExerciseItem = ({
     setState({ ...state, visible: false, isUpdate: false })
   }
 
+  const handlePress = () => {
+    setState({ ...state, visible: true, isUpdate: true })
+  }
+
   return (
-    <View>
+    <Button transparent style={styles.btn} onPress={handlePress}>
       <ExerciseForm
         visible={state.visible}
         isUpdate={state.isUpdate}
@@ -52,13 +56,7 @@ const ExerciseItem = ({
           <View style={styles.actions}>
             <ExerciseActions
               exercise={exercise}
-              onUpdate={() => {
-                setState({
-                  ...state,
-                  visible: true,
-                  isUpdate: true,
-                })
-              }}
+              onUpdate={handlePress}
               onDelete={onDelete}
             />
           </View>
@@ -70,7 +68,7 @@ const ExerciseItem = ({
           </Body>
         </CardItem>
       </Card>
-    </View>
+    </Button>
   )
 }
 
@@ -86,8 +84,14 @@ ExerciseItem.propTypes = {
 export default ExerciseItem
 
 const styles = StyleSheet.create({
+  btn: {
+    height: 75,
+    marginTop: 7,
+    marginBottom: 7,
+  },
   card: {
     position: 'relative',
+    flex: 1,
   },
   header: {
     paddingBottom: 0,

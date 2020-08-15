@@ -23,6 +23,7 @@ export const DEFAULT_EXERCISE = {
 }
 
 const EXERCISE_SCHEMA = Yup.object().shape({
+  key: Yup.string(),
   name: Yup.string().trim().required(),
   category: Yup.mixed().oneOf(CATEGORIES).required(),
   createdAt: Yup.number().positive(),
@@ -114,6 +115,10 @@ export const getExerciseFormattedRx = (exercise) => {
   }
 
   return `${quantity} reps ${formattedWeight}`
+}
+
+export const isExerciseFromSeed = ({ createdAt, updatedAt }) => {
+  return createdAt === null && updatedAt === null
 }
 
 export const getExerciseCategoryIcon = (exercise) => {

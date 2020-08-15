@@ -5,12 +5,14 @@ import { useSelector } from 'react-redux'
 import { Button, Card, CardItem, H1, Text, View, Icon } from 'native-base'
 import { isDestroying } from '_state/reducers/exercises'
 import ExerciseActions from './ExerciseActions'
-import { getExerciseCategoryIcon } from '_api/exercise'
+import { getExerciseCategoryIcon, isExerciseFromSeed } from '_api/exercise'
 
 const ExerciseItem = ({ exercise, onUpdate, onDestroy }) => {
   const destroying = useSelector((state) => isDestroying(state, exercise.key))
 
   const handlePress = () => {
+    if (isExerciseFromSeed(exercise)) return
+
     onUpdate(exercise)
   }
 

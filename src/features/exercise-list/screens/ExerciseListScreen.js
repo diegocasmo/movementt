@@ -27,6 +27,7 @@ import SearchForm from '_components/SearchForm'
 import ExerciseItem from '../components/ExerciseItem'
 import ExerciseForm from '../components/ExerciseForm'
 import { DEFAULT_EXERCISE } from '_api/exercise'
+import * as seed from '_seed/exercises.json'
 
 const ExerciseListScreen = () => {
   const dispatch = useDispatch()
@@ -35,7 +36,10 @@ const ExerciseListScreen = () => {
   const initialState = { visible: false, exercise: DEFAULT_EXERCISE }
   const [state, setState] = useState(initialState)
   const [query, setQuery] = useState('')
-  const exercises = search(useSelector(getExercises), query)
+  const exercises = search(
+    useSelector(getExercises).concat(seed.exercises),
+    query
+  )
 
   useEffect(() => {
     handleFetch()

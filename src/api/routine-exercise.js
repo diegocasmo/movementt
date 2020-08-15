@@ -8,18 +8,18 @@ import {
   isExerciseCategoryTime,
 } from '_api/exercise'
 
-const REP_UNIT = 'rep'
-const TIME_UNIT = 'second'
-const DISTANCE_UNIT = 'm'
+export const REP_UNIT = 'rep'
+export const TIME_UNIT = 'second'
+export const DISTANCE_UNIT = 'm'
 
-const QTY_UNITS = [REP_UNIT, TIME_UNIT, DISTANCE_UNIT]
+export const QTY_UNITS = [REP_UNIT, TIME_UNIT, DISTANCE_UNIT]
 
-const WEIGHT_KG_UNIT = 'Kg'
-const WEIGHT_UNITS = [WEIGHT_KG_UNIT]
+export const WEIGHT_KG_UNIT = 'Kg'
+export const WEIGHT_UNITS = [WEIGHT_KG_UNIT]
 
 export const DEFAULT_ROUTINE_EXERCISE = {
   name: '',
-  type: CATEGORY_REPS,
+  category: CATEGORY_REPS,
   quantity: 10,
   quantityUnit: REP_UNIT,
   weight: 0,
@@ -29,7 +29,7 @@ export const DEFAULT_ROUTINE_EXERCISE = {
 
 export const ROUTINE_EXERCISE_SCHEMA = Yup.object().shape({
   name: Yup.string().trim().required(),
-  type: Yup.mixed().oneOf(CATEGORIES).required(),
+  category: Yup.mixed().oneOf(CATEGORIES).required(),
   quantity: Yup.number().required().positive().min(1),
   quantityUnit: Yup.mixed().oneOf(QTY_UNITS).required(),
   weight: Yup.number().required().positive().min(0),
