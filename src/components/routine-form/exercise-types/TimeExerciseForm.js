@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { View, Col, Grid } from 'native-base'
 import { TextInput, DecimalInput } from '_components/form'
 import { getIn } from 'formik'
-import RoutineExercise from '_api/models/RoutineExercise'
+import { WEIGHT_KG_UNIT } from '_api/routine-exercise'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
 
 const TimeExerciseForm = ({
@@ -41,7 +41,7 @@ const TimeExerciseForm = ({
       <Grid>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
-            label={`Weight (${RoutineExercise.WEIGHT_KG_UNIT})`}
+            label={`Weight (${WEIGHT_KG_UNIT})`}
             error={getIn(errors, 'weight')}
             onBlur={handleBlur('weight')}
             onChange={handleChange('weight')}

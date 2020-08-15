@@ -26,13 +26,13 @@ import { search } from '_utils/fuzzy-search'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '../components/ExerciseItem'
 import ExerciseForm from '../components/ExerciseForm'
-import Exercise from '_api/models/Exercise'
+import { DEFAULT_EXERCISE } from '_api/exercise'
 
 const ExerciseListScreen = () => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
-  const initialState = { visible: false, exercise: Exercise.EMPTY }
+  const initialState = { visible: false, exercise: DEFAULT_EXERCISE }
   const [state, setState] = useState(initialState)
   const [query, setQuery] = useState('')
   const exercises = search(useSelector(getExercises), query)

@@ -22,8 +22,8 @@ import { Formik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import ExerciseItem from './ExerciseItem'
 import TimePicker from './pickers/TimePicker'
-import Routine from '_api/models/Routine'
-import RoutineExercise from '_api/models/RoutineExercise'
+import { ROUTINE_SCHEMA, DEFAULT_ROUTINE } from '_api/routine'
+import { DEFAULT_ROUTINE_EXERCISE } from '_api/routine-exercise'
 
 const RoutineForm = ({
   routine,
@@ -55,10 +55,10 @@ const RoutineForm = ({
 
   return (
     <Formik
-      initialValues={routine || Routine.EMPTY}
-      validationSchema={Routine.getSchema()}
+      initialValues={routine || DEFAULT_ROUTINE}
+      validationSchema={ROUTINE_SCHEMA}
       onSubmit={(attrs, opts) => {
-        onSubmit(Routine.getSchema().cast(attrs), opts)
+        onSubmit(ROUTINE_SCHEMA.cast(attrs), opts)
       }}
     >
       {({
@@ -142,7 +142,7 @@ const RoutineForm = ({
                         {
                           ...values,
                           exercises: values.exercises.concat(
-                            RoutineExercise.EMPTY
+                            DEFAULT_ROUTINE_EXERCISE
                           ),
                         },
                         true
@@ -167,7 +167,7 @@ const RoutineForm = ({
                   exercise={exercise}
                   visible={
                     JSON.stringify(exercise) ===
-                    JSON.stringify(RoutineExercise.EMPTY)
+                    JSON.stringify(DEFAULT_ROUTINE_EXERCISE)
                   }
                   onAdd={(exercise) => {
                     setValues(

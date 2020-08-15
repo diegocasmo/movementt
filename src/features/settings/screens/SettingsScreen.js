@@ -14,7 +14,7 @@ import {
   Right,
   Spinner,
 } from 'native-base'
-import { signOut } from '_api/sign-out'
+import { signOut } from '_api/user'
 import { showError } from '_utils/toast'
 
 const SettingsScreen = ({ navigation }) => {

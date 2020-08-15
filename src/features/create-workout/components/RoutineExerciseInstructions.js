@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { View, Text } from 'native-base'
-import RoutineExercise from '_api/models/RoutineExercise'
+import { getRoutineExerciseFormatteRx } from '_api/routine-exercise'
 
 const RoutineExerciseInstructions = ({ exercise }) => {
   return (
@@ -11,7 +11,7 @@ const RoutineExerciseInstructions = ({ exercise }) => {
         {exercise.name}
       </Text>
       <Text style={styles.instructions} numberOfLines={2}>
-        {RoutineExercise.formattedRx(exercise)}
+        {getRoutineExerciseFormatteRx(exercise)}
       </Text>
     </View>
   )

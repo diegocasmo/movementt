@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
-import { signInWithEmailAndPassword } from '_api/sign-in'
+import { signInWithEmailAndPassword } from '_api/user'
 
 const SignInScreen = ({ navigation }) => {
   const [isSigningIn, setIsSigningIn] = useState(false)

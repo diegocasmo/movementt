@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Text, Card, CardItem, Body } from 'native-base'
-import RoutineExercise from '_api/models/RoutineExercise'
+import { getRoutineExerciseFormatteRx } from '_api/routine-exercise'
 import ExerciseActions from './ExerciseActions'
 import ExerciseForm from './ExerciseForm'
 import { getFormattedDuration } from '_utils/time-utils'
@@ -65,7 +65,7 @@ const ExerciseItem = ({
         </CardItem>
         <CardItem>
           <Body style={styles.body}>
-            <Text>{RoutineExercise.formattedRx(exercise)}</Text>
+            <Text>{getRoutineExerciseFormatteRx(exercise)}</Text>
             <Text>Rest: {getFormattedDuration(exercise.restSeconds)}</Text>
           </Body>
         </CardItem>

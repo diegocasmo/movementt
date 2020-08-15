@@ -12,7 +12,7 @@ import {
   Text,
 } from 'native-base'
 import { Formik, getIn } from 'formik'
-import { sendPasswordResetEmail } from '_api/password-reset'
+import { sendPasswordResetEmail } from '_api/user'
 import { showError, showSuccess } from '_utils/toast'
 import { EmailInput } from '_components/form'
 import * as Yup from 'yup'

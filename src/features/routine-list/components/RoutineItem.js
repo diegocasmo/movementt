@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
 import { isDestroying } from '_state/reducers/routines'
 import RoutineActions from '_components/RoutineActions'
-import Routine from '_api/models/Routine'
+import { getRoutineFormattedExercises } from '_api/routine'
 
 const RoutineItem = ({
   routine,
@@ -43,7 +43,7 @@ const RoutineItem = ({
         <CardItem>
           <Body>
             <Text numberOfLines={2} style={styles.summary}>
-              {Routine.formattedExercises(routine)}
+              {getRoutineFormattedExercises(routine)}
             </Text>
           </Body>
         </CardItem>

@@ -4,7 +4,7 @@ import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
 
-import { onAuthStateChanged } from '_api/on-auth-state-changed'
+import { onAuthStateChanged } from '_api/user'
 import { handleAuthStateChanged } from '_state/reducers/auth'
 
 import UnverifiedAppNavigator from '_navigation/UnverifiedAppNavigator'
@@ -23,7 +23,9 @@ const App = () => {
   useEffect(() => {
     async function loadAssets() {
       await Font.loadAsync({
+        // eslint-disable-next-line no-undef
         Roboto: require('../node_modules/native-base/Fonts/Roboto.ttf'),
+        // eslint-disable-next-line no-undef
         Roboto_medium: require('../node_modules/native-base/Fonts/Roboto_medium.ttf'),
         ...Ionicons.font,
       })

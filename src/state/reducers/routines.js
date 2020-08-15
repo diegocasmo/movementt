@@ -5,7 +5,12 @@ import {
   createSelector,
 } from '@reduxjs/toolkit'
 import * as seed from '_seed/routines.json'
-import Routine from '_api/models/Routine'
+import {
+  createRoutine as create,
+  destroyRoutine as destroy,
+  fetchRoutines as fetch,
+  updateRoutine as update,
+} from '_api/routine'
 import { REQUEST_STATUS } from '_utils/request-utils'
 
 const routinesAdapter = createEntityAdapter({
@@ -15,7 +20,7 @@ const routinesAdapter = createEntityAdapter({
 export const fetchRoutines = createAsyncThunk(
   'routines/fetchRoutines',
   async (uid) => {
-    const routines = await Routine.fetch(uid)
+    const routines = await fetch(uid)
     return { routines }
   }
 )
@@ -23,7 +28,7 @@ export const fetchRoutines = createAsyncThunk(
 export const createRoutine = createAsyncThunk(
   'routines/createRoutine',
   async (attrs) => {
-    const routine = await Routine.create(attrs.uid, attrs)
+    const routine = await create(attrs.uid, attrs)
     return routine
   }
 )
@@ -31,7 +36,7 @@ export const createRoutine = createAsyncThunk(
 export const updateRoutine = createAsyncThunk(
   'routines/updateRoutine',
   async (attrs) => {
-    const routine = await Routine.update(attrs.uid, attrs)
+    const routine = await update(attrs.uid, attrs)
     return routine
   }
 )
@@ -39,7 +44,7 @@ export const updateRoutine = createAsyncThunk(
 export const destroyRoutine = createAsyncThunk(
   'routines/destroyRoutine',
   async (attrs) => {
-    const routine = await Routine.destroy(attrs.uid, attrs)
+    const routine = await destroy(attrs.uid, attrs)
     return routine
   }
 )

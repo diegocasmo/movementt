@@ -4,7 +4,12 @@ import {
   createAsyncThunk,
   createSelector,
 } from '@reduxjs/toolkit'
-import Exercise from '_api/models/Exercise'
+import {
+  createExercise as create,
+  destroyExercise as destroy,
+  fetchExercises as fetch,
+  updateExercise as update,
+} from '_api/exercise'
 import { REQUEST_STATUS } from '_utils/request-utils'
 
 const exercisesAdapter = createEntityAdapter({
@@ -14,7 +19,7 @@ const exercisesAdapter = createEntityAdapter({
 export const fetchExercises = createAsyncThunk(
   'exercises/fetchExercises',
   async (uid) => {
-    const exercises = await Exercise.fetch(uid)
+    const exercises = await fetch(uid)
     return { exercises }
   }
 )
@@ -22,7 +27,7 @@ export const fetchExercises = createAsyncThunk(
 export const createExercise = createAsyncThunk(
   'exercises/createExercise',
   async (attrs) => {
-    const exercise = await Exercise.create(attrs.uid, attrs)
+    const exercise = await create(attrs.uid, attrs)
     return exercise
   }
 )
@@ -30,7 +35,7 @@ export const createExercise = createAsyncThunk(
 export const updateExercise = createAsyncThunk(
   'exercises/updateExercise',
   async (attrs) => {
-    const exercise = await Exercise.update(attrs.uid, attrs)
+    const exercise = await update(attrs.uid, attrs)
     return exercise
   }
 )
@@ -38,7 +43,7 @@ export const updateExercise = createAsyncThunk(
 export const destroyExercise = createAsyncThunk(
   'exercises/destroyExercise',
   async (attrs) => {
-    const exercise = await Exercise.destroy(attrs.uid, attrs)
+    const exercise = await destroy(attrs.uid, attrs)
     return exercise
   }
 )

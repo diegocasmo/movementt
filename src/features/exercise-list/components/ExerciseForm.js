@@ -6,7 +6,7 @@ import { View, H1, Button, Text, Spinner, Grid, Col } from 'native-base'
 import { Formik, getIn } from 'formik'
 import { TextInput, ModalPickerInput } from '_components/form'
 import { isCreating, isUpdating } from '_state/reducers/exercises'
-import Exercise from '_api/models/Exercise'
+import { EXERCISE_SCHEMA, CATEGORY_OPTS } from '_api/exercise'
 
 const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
   const creating = useSelector(isCreating)
@@ -16,9 +16,9 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
   return (
     <Formik
       initialValues={exercise}
-      validationSchema={Exercise.getSchema()}
+      validationSchema={EXERCISE_SCHEMA}
       onSubmit={(attrs, opts) => {
-        onSubmit(Exercise.getSchema().cast(attrs), opts)
+        onSubmit(EXERCISE_SCHEMA.cast(attrs), opts)
       }}
     >
       {({
@@ -62,7 +62,7 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
                   <Col flexGrow={1}>
                     <ModalPickerInput
                       label="Category"
-                      options={Exercise.CATEGORY_OPTS.map((opt, idx) => ({
+                      options={CATEGORY_OPTS.map((opt, idx) => ({
                         key: idx,
                         ...opt,
                       }))}

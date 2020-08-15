@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { currentUser } from '_api/current-user'
+import { currentUser } from '_api/user'
 import { resetExercises } from '_state/reducers/exercises'
 import { resetRoutines } from '_state/reducers/routines'
 import { resetWorkout } from '_features/create-workout/reducers/create-workout'

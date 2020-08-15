@@ -4,9 +4,11 @@ import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
-import { createUserWithEmailAndPassword } from '_api/sign-up'
-import { sendEmailVerification } from '_api/send-email-verification'
-import { currentUser } from '_api/current-user'
+import {
+  createUserWithEmailAndPassword,
+  currentUser,
+  sendEmailVerification,
+} from '_api/user'
 
 const SignUpScreen = ({ navigation }) => {
   const [isSigningUp, setIsSigningUp] = useState(false)
