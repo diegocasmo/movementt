@@ -23,7 +23,6 @@ export const DEFAULT_EXERCISE = {
 }
 
 export const EXERCISE_SCHEMA = Yup.object().shape({
-  key: Yup.string(),
   name: Yup.string().trim().required(),
   category: Yup.mixed().oneOf(CATEGORIES).required(),
   createdAt: Yup.number().positive(),

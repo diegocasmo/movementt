@@ -16,7 +16,6 @@ export const DEFAULT_ROUTINE = {
 }
 
 export const ROUTINE_SCHEMA = Yup.object({
-  key: Yup.string(),
   type: Yup.mixed().oneOf(TYPES).required(),
   name: Yup.string().trim().required(),
   rounds: Yup.number().required().positive().min(1),
