@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   Alert,
@@ -20,10 +20,12 @@ import {
 } from 'native-base'
 import { Formik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
-import ExerciseItem from './ExerciseItem'
 import TimePicker from './pickers/TimePicker'
 import { ROUTINE_SCHEMA, DEFAULT_ROUTINE } from '_api/routine'
-import { DEFAULT_ROUTINE_EXERCISE } from '_api/routine-exercise'
+import { buildRoutineExercise } from '_api/routine-exercise'
+import ExerciseListModal from './ExerciseListModal'
+import RoutineExerciseForm from './RoutineExerciseForm'
+import { showError } from '_utils/toast'
 
 const RoutineForm = ({
   routine,
@@ -33,6 +35,8 @@ const RoutineForm = ({
   submitText,
   autoFocus,
 }) => {
+  const [isVisible, setIsVisible] = useState(false)
+
   const confirmQuit = () => {
     Alert.alert(
       'Leave Routine',
@@ -53,6 +57,59 @@ const RoutineForm = ({
     )
   }
 
+  const handleShowExercises = () => {
+    setIsVisible(true)
+  }
+
+  const handleCloseExercises = () => {
+    setIsVisible(false)
+  }
+
+  const handleAddExercise = async (exercise, bag) => {
+    const { setValues, values } = bag
+
+    try {
+      handleCloseExercises()
+      const routineExercise = await buildRoutineExercise(exercise)
+
+      setValues(
+        {
+          ...values,
+          exercises: values.exercises.concat(routineExercise),
+        },
+        true
+      )
+    } catch (err) {
+      showError(err.message)
+    }
+  }
+
+  const handleUpdateRoutineExercise = (idx, routineExercise, bag) => {
+    const { setValues, values } = bag
+
+    setValues(
+      {
+        ...values,
+        exercises: values.exercises.map((attr, i) =>
+          i === idx ? routineExercise : attr
+        ),
+      },
+      true
+    )
+  }
+
+  const handleDeleteRoutineExercise = (idx, bag) => {
+    const { setValues, values } = bag
+
+    setValues(
+      {
+        ...values,
+        exercises: values.exercises.filter((_, i) => i !== idx),
+      },
+      true
+    )
+  }
+
   return (
     <Formik
       initialValues={routine || DEFAULT_ROUTINE}
@@ -61,16 +118,16 @@ const RoutineForm = ({
         onSubmit(ROUTINE_SCHEMA.cast(attrs), opts)
       }}
     >
-      {({
-        initialValues,
-        handleChange,
-        handleBlur,
-        setValues,
-        handleSubmit,
-        values,
-        touched,
-        errors,
-      }) => {
+      {(bag) => {
+        const {
+          errors,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          initialValues,
+          touched,
+          values,
+        } = bag
         const { exercises } = values
         const isValid = Object.keys(errors).length === 0
         const hasUnsavedChanges =
@@ -135,70 +192,36 @@ const RoutineForm = ({
                 <View style={styles.exercisesSetup}>
                   <H2 style={styles.h2}>Exercises ({exercises.length})</H2>
 
-                  <Button
-                    primary
-                    onPress={() => {
-                      setValues(
-                        {
-                          ...values,
-                          exercises: values.exercises.concat(
-                            DEFAULT_ROUTINE_EXERCISE
-                          ),
-                        },
-                        true
-                      )
-                    }}
-                  >
+                  <Button primary onPress={handleShowExercises}>
                     <Text>+ Exercise</Text>
                   </Button>
                 </View>
               </View>
             </TouchableWithoutFeedback>
 
+            <ExerciseListModal
+              onClose={handleCloseExercises}
+              onPress={(exercise) => {
+                handleAddExercise(exercise, bag)
+              }}
+              visible={isVisible}
+            />
+
             <Content
               contentContainerStyle={styles.middle}
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="never"
+              enableResetScrollToCoords={false}
             >
-              {exercises.map((exercise, idx) => (
-                <ExerciseItem
+              {exercises.map((routineExercise, idx) => (
+                <RoutineExerciseForm
                   key={idx}
-                  style={styles.exercise}
-                  exercise={exercise}
-                  visible={
-                    JSON.stringify(exercise) ===
-                    JSON.stringify(DEFAULT_ROUTINE_EXERCISE)
-                  }
-                  onAdd={(exercise) => {
-                    setValues(
-                      {
-                        ...values,
-                        exercises: values.exercises
-                          .filter((_, i) => i !== idx)
-                          .concat(exercise),
-                      },
-                      true
-                    )
-                  }}
-                  onUpdate={(exercise) => {
-                    setValues(
-                      {
-                        ...values,
-                        exercises: values.exercises.map((attr, i) =>
-                          i === idx ? exercise : attr
-                        ),
-                      },
-                      true
-                    )
+                  routineExercise={routineExercise}
+                  onChange={(routineExercise) => {
+                    handleUpdateRoutineExercise(idx, routineExercise, bag)
                   }}
                   onDelete={() => {
-                    setValues(
-                      {
-                        ...values,
-                        exercises: values.exercises.filter((_, i) => i !== idx),
-                      },
-                      true
-                    )
+                    handleDeleteRoutineExercise(idx, bag)
                   }}
                 />
               ))}

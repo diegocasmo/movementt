@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 import { db } from '_api/config'
 import { transformYupToFormikError } from '_api/utils'
 import { timestamp } from '_utils/time-utils'
+import { ROUTINE_EXERCISE_SCHEMA } from '_api/routine-exercise'
 
 const TYPE_CIRCUIT = 'circuit'
 
@@ -18,11 +19,21 @@ export const DEFAULT_ROUTINE = {
 export const ROUTINE_SCHEMA = Yup.object({
   type: Yup.mixed().oneOf(TYPES).required(),
   name: Yup.string().trim().required(),
-  rounds: Yup.number().required().positive().min(1),
-  restSeconds: Yup.number().required().positive().min(0),
+  rounds: Yup.number()
+    .transform((v) => (isNaN(v) ? -1 : v))
+    .required()
+    .positive()
+    .min(1),
+  restSeconds: Yup.number()
+    .transform((v) => (isNaN(v) ? -1 : v))
+    .required()
+    .positive()
+    .min(0),
   createdAt: Yup.number().positive(),
   updatedAt: Yup.number().positive(),
-  exercises: Yup.array().min(1).required(),
+  exercises: Yup.array(Yup.object().concat(ROUTINE_EXERCISE_SCHEMA))
+    .min(1)
+    .required(),
 })
 
 export const validate = async (values) => {

@@ -101,7 +101,7 @@ const VerifiedAppNavigator = () => {
       <AppStack.Screen
         name="CreateRoutine"
         component={CreateRoutineScreen}
-        options={{ headerShown: false, gestureEnabled: false }}
+        options={{ title: 'Create Routine', headerShown: false }}
       />
       <AppStack.Screen
         name="UpdateRoutine"

@@ -11,7 +11,7 @@
       "exercises": [
         {
           "name": "Ab wheel roll out",
-          "type": "rep",
+          "category": "rep",
           "quantity": 8,
           "quantityUnit": "rep",
           "weight": 0,
@@ -20,7 +20,7 @@
         },
         {
           "name": "Side plank (R)",
-          "type": "time",
+          "category": "time",
           "quantity": 30,
           "quantityUnit": "second",
           "weight": 0,
@@ -29,7 +29,7 @@
         },
         {
           "name": "Side plank (L)",
-          "type": "time",
+          "category": "time",
           "quantity": 30,
           "quantityUnit": "second",
           "weight": 0,
@@ -38,7 +38,7 @@
         },
         {
           "name": "V-ups",
-          "type": "rep",
+          "category": "rep",
           "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,
@@ -58,7 +58,7 @@
       "exercises": [
         {
           "name": "Running",
-          "type": "distance",
+          "category": "distance",
           "quantity": 200,
           "quantityUnit": "m",
           "weight": 0,
@@ -67,7 +67,7 @@
         },
         {
           "name": "Burpees",
-          "type": "rep",
+          "category": "rep",
           "quantity": 8,
           "quantityUnit": "rep",
           "weight": 0,
@@ -76,7 +76,7 @@
         },
         {
           "name": "Sumo Squat",
-          "type": "rep",
+          "category": "rep",
           "quantity": 15,
           "quantityUnit": "rep",
           "weight": 0,
@@ -85,7 +85,7 @@
         },
         {
           "name": "Shoulder tabs",
-          "type": "rep",
+          "category": "rep",
           "quantity": 15,
           "quantityUnit": "rep",
           "weight": 0,
@@ -105,7 +105,7 @@
       "exercises": [
         {
           "name": "Skipping",
-          "type": "time",
+          "category": "time",
           "quantity": 60,
           "quantityUnit": "second",
           "weight": 0,
@@ -114,7 +114,7 @@
         },
         {
           "name": "Alternating lunges",
-          "type": "rep",
+          "category": "rep",
           "quantity": 24,
           "quantityUnit": "rep",
           "weight": 0,
@@ -123,7 +123,7 @@
         },
         {
           "name": "Donkey kicks (R)",
-          "type": "rep",
+          "category": "rep",
           "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,
@@ -132,7 +132,7 @@
         },
         {
           "name": "Donkey kicks (L)",
-          "type": "rep",
+          "category": "rep",
           "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,
@@ -141,7 +141,7 @@
         },
         {
           "name": "Squats",
-          "type": "rep",
+          "category": "rep",
           "quantity": 15,
           "quantityUnit": "rep",
           "weight": 0,
@@ -161,7 +161,7 @@
       "exercises": [
         {
           "name": "Push ups",
-          "type": "rep",
+          "category": "rep",
           "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,
@@ -170,7 +170,7 @@
         },
         {
           "name": "Pull ups",
-          "type": "rep",
+          "category": "rep",
           "quantity": 5,
           "quantityUnit": "rep",
           "weight": 0,
@@ -179,7 +179,7 @@
         },
         {
           "name": "Dips",
-          "type": "rep",
+          "category": "rep",
           "quantity": 8,
           "quantityUnit": "rep",
           "weight": 0,
@@ -188,7 +188,7 @@
         },
         {
           "name": "Superman",
-          "type": "rep",
+          "category": "rep",
           "quantity": 10,
           "quantityUnit": "rep",
           "weight": 0,

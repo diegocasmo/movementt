@@ -5,14 +5,16 @@ import { useSelector } from 'react-redux'
 import { Button, Card, CardItem, H1, Text, View, Icon } from 'native-base'
 import { isDestroying } from '_state/reducers/exercises'
 import ExerciseActions from './ExerciseActions'
-import { getExerciseCategoryIcon, isExerciseFromSeed } from '_api/exercise'
+import { getExerciseCategoryIcon } from '_api/exercise'
 
-const ExerciseItem = ({ exercise, onUpdate, onDestroy }) => {
+const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
   const destroying = useSelector((state) => isDestroying(state, exercise.key))
 
   const handlePress = () => {
-    if (isExerciseFromSeed(exercise)) return
+    onPress(exercise)
+  }
 
+  const handleUpdate = () => {
     onUpdate(exercise)
   }
 
@@ -31,8 +33,8 @@ const ExerciseItem = ({ exercise, onUpdate, onDestroy }) => {
           <View style={styles.actions}>
             <ExerciseActions
               exercise={exercise}
-              onUpdate={onUpdate}
               onDestroy={onDestroy}
+              onUpdate={handleUpdate}
             />
           </View>
         </CardItem>
@@ -43,8 +45,9 @@ const ExerciseItem = ({ exercise, onUpdate, onDestroy }) => {
 
 ExerciseItem.propTypes = {
   exercise: PropTypes.object.isRequired,
-  onUpdate: PropTypes.func.isRequired,
   onDestroy: PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 }
 
 export default ExerciseItem
