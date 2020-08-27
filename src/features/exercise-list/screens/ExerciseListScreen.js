@@ -102,7 +102,7 @@ const ExerciseListScreen = () => {
     <Container>
       <Header>
         <Body>
-          <Title>Exercises ({exercises.length})</Title>
+          <Title>Exercises ({fetching ? 0 : exercises.length})</Title>
         </Body>
       </Header>
       <Content
