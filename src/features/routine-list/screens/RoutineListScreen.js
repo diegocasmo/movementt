@@ -75,7 +75,7 @@ const RoutineListScreen = ({ navigation }) => {
     <Container>
       <Header>
         <Body>
-          <Title>Routines ({routines.length})</Title>
+          <Title>Routines ({fetching ? 0 : routines.length})</Title>
         </Body>
       </Header>
       <Content
