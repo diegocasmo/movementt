@@ -83,6 +83,7 @@ const ExerciseList = ({
     <Content
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
+      enableResetScrollToCoords={false}
     >
       <SearchForm
         style={styles.searchForm}
