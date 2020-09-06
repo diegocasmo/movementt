@@ -17,6 +17,7 @@ export const WEIGHT_KG_UNIT = 'Kg'
 export const WEIGHT_UNITS = [WEIGHT_KG_UNIT]
 
 export const ROUTINE_EXERCISE_SCHEMA = Yup.object().shape({
+  uid: Yup.string().required(),
   name: Yup.string().trim().required(),
   category: Yup.mixed().oneOf(CATEGORIES).required(),
   quantity: Yup.number()
@@ -47,6 +48,7 @@ export const validate = async (values) => {
 export const buildRoutineExercise = async (exercise) => {
   try {
     const routineExercise = await validate({
+      uid: `${new Date().getTime()}`,
       name: '',
       category: CATEGORY_REPS,
       quantity: 10,

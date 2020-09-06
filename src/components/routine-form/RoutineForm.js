@@ -5,11 +5,11 @@ import {
   Keyboard,
   StyleSheet,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from 'react-native'
 import {
   Button,
   Col,
-  Content,
   Grid,
   H1,
   H2,
@@ -25,6 +25,7 @@ import { ROUTINE_SCHEMA, DEFAULT_ROUTINE } from '_api/routine'
 import { buildRoutineExercise } from '_api/routine-exercise'
 import ExerciseListModal from './ExerciseListModal'
 import RoutineExerciseForm from './RoutineExerciseForm'
+import DraggableFlatList from 'react-native-draggable-flatlist'
 import { showError } from '_utils/toast'
 
 const RoutineForm = ({
@@ -105,6 +106,18 @@ const RoutineForm = ({
       {
         ...values,
         exercises: values.exercises.filter((_, i) => i !== idx),
+      },
+      true
+    )
+  }
+
+  const handleDragEnd = (routineExercises, bag) => {
+    const { setValues, values } = bag
+
+    setValues(
+      {
+        ...values,
+        exercises: routineExercises,
       },
       true
     )
@@ -207,25 +220,33 @@ const RoutineForm = ({
               visible={isVisible}
             />
 
-            <Content
+            <DraggableFlatList
               contentContainerStyle={styles.middle}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="never"
-              enableResetScrollToCoords={false}
-            >
-              {exercises.map((routineExercise, idx) => (
-                <RoutineExerciseForm
-                  key={idx}
-                  routineExercise={routineExercise}
-                  onChange={(routineExercise) => {
-                    handleUpdateRoutineExercise(idx, routineExercise, bag)
-                  }}
-                  onDelete={() => {
-                    handleDeleteRoutineExercise(idx, bag)
-                  }}
-                />
-              ))}
-            </Content>
+              data={exercises}
+              renderItem={({ item, index, drag, isActive }) => {
+                return (
+                  <TouchableOpacity
+                    style={{ opacity: isActive ? 0.5 : 1 }}
+                    activeOpacity={0.5}
+                    onLongPress={drag}
+                  >
+                    <RoutineExerciseForm
+                      routineExercise={item}
+                      onChange={(item) => {
+                        handleUpdateRoutineExercise(index, item, bag)
+                      }}
+                      onDelete={() => {
+                        handleDeleteRoutineExercise(index, bag)
+                      }}
+                    />
+                  </TouchableOpacity>
+                )
+              }}
+              keyExtractor={(data) => `draggable-item-${data.uid}`}
+              onDragEnd={({ data }) => {
+                handleDragEnd(data, bag)
+              }}
+            />
 
             <View style={styles.bottom}>
               <Button
