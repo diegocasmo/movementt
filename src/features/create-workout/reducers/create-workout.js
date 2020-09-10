@@ -16,8 +16,19 @@ const initialState = {
   timeEntries: [],
 }
 
-const startTimeEntry = (type = TIME_ENTRY_TYPE.EXERCISE) => ({
+const getCurrExerciseUid = (state, timeEntryType) => {
+  if (timeEntryType !== TIME_ENTRY_TYPE.EXERCISE) return null
+
+  const currExercise = getCurrExercise({ createWorkout: state })
+  return currExercise.uid
+}
+
+const startTimeEntry = (
+  type = TIME_ENTRY_TYPE.EXERCISE,
+  exerciseUid = null
+) => ({
   type,
+  exerciseUid,
   startedAt: timestamp(now()),
   elapsedMs: null,
 })
@@ -62,14 +73,24 @@ const createWorkout = createSlice({
     start(state, { payload }) {
       state.tick = payload
       state.currExerciseIdx = 0
-      state.timeEntries = [startTimeEntry()]
+
+      const type = TIME_ENTRY_TYPE.EXERCISE
+      state.timeEntries = [
+        startTimeEntry(type, getCurrExerciseUid(state, type)),
+      ]
     },
 
     play(state) {
       const { timeEntries } = state
       const lastTimeEntry = timeEntries[timeEntries.length - 1]
       if (isTimeEntryStopped(lastTimeEntry)) {
-        state.timeEntries = [...timeEntries, startTimeEntry(lastTimeEntry.type)]
+        state.timeEntries = [
+          ...timeEntries,
+          startTimeEntry(
+            lastTimeEntry.type,
+            getCurrExerciseUid(state, lastTimeEntry.type)
+          ),
+        ]
       }
     },
 
@@ -108,7 +129,10 @@ const createWorkout = createSlice({
         state.timeEntries = [
           ...timeEntries,
           stopTimeEntry(lastTimeEntry),
-          startTimeEntry(nextTimeEntryType),
+          startTimeEntry(
+            nextTimeEntryType,
+            getCurrExerciseUid(state, nextTimeEntryType)
+          ),
         ]
       } else {
         const nextTimeEntryType =
@@ -120,7 +144,10 @@ const createWorkout = createSlice({
         state.timeEntries = [
           ...timeEntries,
           stopTimeEntry(lastTimeEntry),
-          startTimeEntry(nextTimeEntryType),
+          startTimeEntry(
+            nextTimeEntryType,
+            getCurrExerciseUid(state, nextTimeEntryType)
+          ),
         ]
       }
     },
@@ -129,10 +156,14 @@ const createWorkout = createSlice({
       let { timeEntries } = state
       const lastTimeEntry = timeEntries.pop()
 
+      const nextTimeEntryType = TIME_ENTRY_TYPE.EXERCISE
       state.timeEntries = [
         ...timeEntries,
         stopTimeEntry(lastTimeEntry),
-        startTimeEntry(TIME_ENTRY_TYPE.EXERCISE),
+        startTimeEntry(
+          nextTimeEntryType,
+          getCurrExerciseUid(state, nextTimeEntryType)
+        ),
       ]
     },
 
@@ -140,10 +171,14 @@ const createWorkout = createSlice({
       let { timeEntries } = state
       const lastTimeEntry = timeEntries.pop()
 
+      const nextTimeEntryType = TIME_ENTRY_TYPE.EXERCISE
       state.timeEntries = [
         ...timeEntries,
         stopTimeEntry(lastTimeEntry),
-        startTimeEntry(TIME_ENTRY_TYPE.EXERCISE),
+        startTimeEntry(
+          nextTimeEntryType,
+          getCurrExerciseUid(state, nextTimeEntryType)
+        ),
       ]
     },
 
@@ -246,10 +281,15 @@ export const getCurrTimeEntryElapsedMs = ({ createWorkout }) => {
   const prevTimeEntries = [currTimeEntry]
 
   let timeEntry = timeEntries.pop()
-  while (timeEntry && timeEntry.type === currTimeEntry.type) {
+  while (
+    timeEntry &&
+    timeEntry.type === currTimeEntry.type &&
+    timeEntry.exerciseUid === currTimeEntry.exerciseUid
+  ) {
     prevTimeEntries.push(timeEntry)
     timeEntry = timeEntries.pop()
   }
+
   return getTimeEntriesElapsedMs(prevTimeEntries)
 }
 
