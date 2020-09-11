@@ -84,7 +84,7 @@ const RoutineListScreen = ({ navigation }) => {
       >
         <SearchForm
           style={styles.searchForm}
-          btnText="+ Routine"
+          btnText="+ New"
           query={query}
           onChangeText={handleQueryChange}
           onCreate={handleCreate}

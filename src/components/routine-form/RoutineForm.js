@@ -206,7 +206,7 @@ const RoutineForm = ({
                   <H2 style={styles.h2}>Exercises ({exercises.length})</H2>
 
                   <Button primary onPress={handleShowExercises}>
-                    <Text>+ Exercise</Text>
+                    <Text>+ Add</Text>
                   </Button>
                 </View>
               </View>

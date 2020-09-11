@@ -87,7 +87,7 @@ const ExerciseList = ({
     >
       <SearchForm
         style={styles.searchForm}
-        btnText="+ Exercise"
+        btnText="+ New"
         query={query}
         onChangeText={onQueryChange}
         onCreate={handleCreate}
