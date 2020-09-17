@@ -63,7 +63,6 @@ const ExerciseList = ({
   }
 
   const handleSubmit = async (exercise) => {
-    setState(initialState)
     try {
       const attrs = { uid: user.uid, ...exercise }
       const action = await dispatch(
