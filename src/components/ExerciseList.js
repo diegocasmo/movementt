@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { unwrapResult } from '@reduxjs/toolkit'
-import { Content, Spinner, Text, View } from 'native-base'
+import { Content, Spinner, Button, Text, View } from 'native-base'
 import { getUser } from '_state/reducers/auth'
 import {
   createExercise,
@@ -40,11 +40,18 @@ const ExerciseList = ({
     handleUpdate(exercise)
   }
 
+  const handlePrefillExercise = () => {
+    setState({
+      visible: true,
+      exercise: { ...DEFAULT_EXERCISE, name: query },
+    })
+  }
+
   const handleUpdate = (exercise) => {
     // Only non-seed exercises can be updated
     if (isExerciseFromSeed(exercise)) return
 
-    setState({ ...state, visible: true, exercise })
+    setState({ visible: true, exercise })
   }
 
   const handleDestroy = async (exercise) => {
@@ -97,7 +104,19 @@ const ExerciseList = ({
         <View>
           {noExercises && <Text>There are no exercises to show</Text>}
           {noMatches && (
-            <Text>We could not find any exercises based on your criteria</Text>
+            <View>
+              <Text>
+                We could not find any exercises based on your criteria
+              </Text>
+              <Button
+                primary
+                block
+                style={styles.btn}
+                onPress={handlePrefillExercise}
+              >
+                <Text>+ {query}</Text>
+              </Button>
+            </View>
           )}
           {exercises.map((exercise) => (
             <ExerciseItem
@@ -139,5 +158,8 @@ const styles = StyleSheet.create({
   },
   searchForm: {
     marginBottom: 20,
+  },
+  btn: {
+    marginTop: 20,
   },
 })
