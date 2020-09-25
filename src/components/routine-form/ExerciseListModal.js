@@ -21,6 +21,7 @@ const ExerciseListModal = ({ onClose, onPress, visible }) => {
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
+  const [showRetry, setShowRetry] = useState(false)
   const exercises = search(
     useSelector(getExercises).concat(seed.exercises),
     query
@@ -31,10 +32,13 @@ const ExerciseListModal = ({ onClose, onPress, visible }) => {
   }, [dispatch])
 
   const handleFetch = async () => {
+    setShowRetry(false)
+
     try {
       const action = await dispatch(fetchExercises(user.uid))
       unwrapResult(action)
     } catch (err) {
+      setShowRetry(true)
       showError(err.message)
     }
   }
@@ -60,8 +64,9 @@ const ExerciseListModal = ({ onClose, onPress, visible }) => {
         exercises={exercises}
         fetching={fetching}
         onQueryChange={handleQueryChange}
-        onPress={onPress}
+        onRetry={handleFetch}
         query={query}
+        showRetry={showRetry}
       />
     </Modal>
   )

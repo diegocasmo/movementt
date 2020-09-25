@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import {
   Body,
+  Button,
   Container,
   Content,
   Header,
@@ -30,6 +32,7 @@ const RoutineListScreen = ({ navigation }) => {
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
+  const [showRetry, setShowRetry] = useState(false)
   const routines = search(useSelector(getRoutines).concat(seed.routines), query)
 
   useEffect(() => {
@@ -37,9 +40,13 @@ const RoutineListScreen = ({ navigation }) => {
   }, [dispatch])
 
   const handleFetch = async () => {
+    setShowRetry(false)
+
     try {
-      await dispatch(fetchRoutines(user.uid))
+      const action = await dispatch(fetchRoutines(user.uid))
+      unwrapResult(action)
     } catch (err) {
+      setShowRetry(true)
       showError(err.message)
     }
   }
@@ -91,6 +98,10 @@ const RoutineListScreen = ({ navigation }) => {
         />
         {fetching ? (
           <Spinner color="black" />
+        ) : showRetry ? (
+          <Button primary block style={styles.retryBtn} onPress={handleFetch}>
+            <Text>Retry</Text>
+          </Button>
         ) : (
           <View>
             {noRoutines && <Text>There are no routines to show</Text>}
@@ -126,5 +137,8 @@ const styles = StyleSheet.create({
   },
   searchForm: {
     marginBottom: 20,
+  },
+  retryBtn: {
+    marginTop: 20,
   },
 })

@@ -18,6 +18,7 @@ const ExerciseListScreen = () => {
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
+  const [showRetry, setShowRetry] = useState(false)
   const exercises = search(
     useSelector(getExercises).concat(seed.exercises),
     query
@@ -28,10 +29,13 @@ const ExerciseListScreen = () => {
   }, [dispatch])
 
   const handleFetch = async () => {
+    setShowRetry(false)
+
     try {
       const action = await dispatch(fetchExercises(user.uid))
       unwrapResult(action)
     } catch (err) {
+      setShowRetry(true)
       showError(err.message)
     }
   }
@@ -51,7 +55,9 @@ const ExerciseListScreen = () => {
         exercises={exercises}
         fetching={fetching}
         onQueryChange={handleQueryChange}
+        onRetry={handleFetch}
         query={query}
+        showRetry={showRetry}
       />
     </Container>
   )

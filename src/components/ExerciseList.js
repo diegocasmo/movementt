@@ -21,7 +21,9 @@ const ExerciseList = ({
   fetching,
   onPress,
   onQueryChange,
+  onRetry,
   query,
+  showRetry,
 }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
@@ -100,6 +102,10 @@ const ExerciseList = ({
       />
       {fetching ? (
         <Spinner color="black" />
+      ) : showRetry ? (
+        <Button primary block style={styles.btn} onPress={onRetry}>
+          <Text>Retry</Text>
+        </Button>
       ) : (
         <View>
           {noExercises && <Text>There are no exercises to show</Text>}
@@ -148,7 +154,9 @@ ExerciseList.propTypes = {
   fetching: PropTypes.bool.isRequired,
   onPress: PropTypes.func,
   onQueryChange: PropTypes.func.isRequired,
+  onRetry: PropTypes.func.isRequired,
   query: PropTypes.string,
+  showRetry: PropTypes.bool.isRequired,
 }
 
 const styles = StyleSheet.create({
