@@ -63,6 +63,7 @@ const ExerciseListModal = ({ onClose, onPress, visible }) => {
       <ExerciseList
         exercises={exercises}
         fetching={fetching}
+        onPress={onPress}
         onQueryChange={handleQueryChange}
         onRetry={handleFetch}
         query={query}
