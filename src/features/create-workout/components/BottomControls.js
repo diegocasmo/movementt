@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
   button: {
     width: 80,
     height: 80,
-    flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'flex-end',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   icon: {
     fontSize: 42,

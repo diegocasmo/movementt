@@ -83,7 +83,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
       </Content>
 
       <View style={[styles.content, styles.bottom]}>
-        <Button style={styles.startBtn} onPress={handleStart}>
+        <Button block onPress={handleStart}>
           <Text>Start Routine</Text>
         </Button>
       </View>
@@ -131,8 +131,5 @@ const styles = StyleSheet.create({
   },
   h2: {
     marginBottom: 12,
-  },
-  startBtn: {
-    justifyContent: 'center',
   },
 })

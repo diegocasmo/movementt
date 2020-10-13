@@ -122,6 +122,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   countdownText: {
     color: 'black',
