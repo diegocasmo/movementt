@@ -4,7 +4,6 @@ import {
   createAsyncThunk,
   createSelector,
 } from '@reduxjs/toolkit'
-import * as seed from '_seed/routines.json'
 import {
   createRoutine as create,
   destroyRoutine as destroy,
@@ -144,11 +143,7 @@ export const isDestroying = createSelector(
 
 export const getRoutine = createSelector(
   routinesSelector.selectById,
-  (_, id) => id,
-  (routine, id) => {
-    // Fall-back to seed if routine cannot be found in state
-    return routine || seed.routines.find((w) => w.key === id)
-  }
+  (routine) => routine
 )
 
 export const getRoutines = createSelector(

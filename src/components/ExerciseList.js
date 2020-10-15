@@ -14,7 +14,7 @@ import { showError } from '_utils/toast'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
-import { DEFAULT_EXERCISE, isExerciseFromSeed } from '_api/exercise'
+import { DEFAULT_EXERCISE } from '_api/exercise'
 
 const ExerciseList = ({
   exercises,
@@ -50,9 +50,6 @@ const ExerciseList = ({
   }
 
   const handleUpdate = (exercise) => {
-    // Only non-seed exercises can be updated
-    if (isExerciseFromSeed(exercise)) return
-
     setState({ visible: true, exercise })
   }
 

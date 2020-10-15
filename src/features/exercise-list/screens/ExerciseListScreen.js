@@ -11,7 +11,6 @@ import {
 import { showError } from '_utils/toast'
 import { search } from '_utils/fuzzy-search'
 import ExerciseList from '_components/ExerciseList'
-import * as seed from '_seed/exercises.json'
 
 const ExerciseListScreen = () => {
   const dispatch = useDispatch()
@@ -19,10 +18,7 @@ const ExerciseListScreen = () => {
   const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
   const [showRetry, setShowRetry] = useState(false)
-  const exercises = search(
-    useSelector(getExercises).concat(seed.exercises),
-    query
-  )
+  const exercises = search(useSelector(getExercises), query)
 
   useEffect(() => {
     handleFetch()

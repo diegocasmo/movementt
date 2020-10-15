@@ -25,7 +25,6 @@ import {
 } from '_state/reducers/routines'
 import { showError } from '_utils/toast'
 import { search } from '_utils/fuzzy-search'
-import * as seed from '_seed/routines.json'
 
 const RoutineListScreen = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -33,7 +32,7 @@ const RoutineListScreen = ({ navigation }) => {
   const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
   const [showRetry, setShowRetry] = useState(false)
-  const routines = search(useSelector(getRoutines).concat(seed.routines), query)
+  const routines = search(useSelector(getRoutines), query)
 
   useEffect(() => {
     handleFetch()

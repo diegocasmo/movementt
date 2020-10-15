@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
 import { ActionSheet, Button, Icon, Spinner } from 'native-base'
 import { isDestroying } from '_state/reducers/routines'
-import { isRoutineFromSeed } from '_api/routine'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
@@ -54,8 +53,6 @@ const RoutineActions = ({ routine, onUpdate, onDelete }) => {
       }
     )
   }
-
-  if (isRoutineFromSeed(routine)) return null
 
   if (destroying) {
     return <Spinner style={styles.spinner} color="black" size="small" />

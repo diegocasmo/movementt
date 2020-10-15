@@ -116,10 +116,6 @@ export const getExerciseFormattedRx = (exercise) => {
   return `${quantity} reps ${formattedWeight}`
 }
 
-export const isExerciseFromSeed = ({ createdAt, updatedAt }) => {
-  return createdAt === null && updatedAt === null
-}
-
 export const getExerciseCategoryIcon = (exercise) => {
   switch (exercise.category) {
     case CATEGORY_TIME:

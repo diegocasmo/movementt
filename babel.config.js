@@ -24,7 +24,6 @@ module.exports = function (api) {
             _features: './src/features',
             _hooks: './src/hooks',
             _navigation: './src/navigation',
-            _seed: './src/seed',
             _state: './src/state',
             _utils: './src/utils',
           },

@@ -92,10 +92,6 @@ export const destroyRoutine = async (uid, routine) => {
   }
 }
 
-export const isRoutineFromSeed = ({ createdAt, updatedAt }) => {
-  return createdAt === null && updatedAt === null
-}
-
 export const getRoutineFormattedExercises = (routine) => {
   const names = routine.exercises.map((ex) => ex.name)
   if (names.length === 1) return names
