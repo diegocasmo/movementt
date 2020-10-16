@@ -115,14 +115,3 @@ export const getExerciseFormattedRx = (exercise) => {
 
   return `${quantity} reps ${formattedWeight}`
 }
-
-export const getExerciseCategoryIcon = (exercise) => {
-  switch (exercise.category) {
-    case CATEGORY_TIME:
-      return 'md-time'
-    case CATEGORY_DISTANCE:
-      return 'md-navigate'
-    default:
-      return 'md-repeat'
-  }
-}

@@ -119,6 +119,7 @@
           "restSeconds": 15
         },
         {
+          "name": "Donkey kicks (R)",
           "category": "rep",
           "quantity": 10,
           "quantityUnit": "rep",
@@ -127,6 +128,7 @@
           "restSeconds": 15
         },
         {
+          "name": "Donkey kicks (L)",
           "category": "rep",
           "quantity": 10,
           "quantityUnit": "rep",

@@ -8,6 +8,7 @@ import {
 } from '_api/exercise'
 import { getFormattedDistance } from '_utils/distance-utils'
 import { getFormattedDuration } from '_utils/time-utils'
+import ExerciseIcon from '_components/ExerciseIcon'
 
 export const getRoutineExerciseFormattedWeight = (exercise) => {
   if (exercise.weight === 0) return
@@ -43,6 +44,9 @@ const RoutineExerciseInstructions = ({ exercise }) => {
       <Text style={styles.instructions} numberOfLines={2}>
         {getRoutineExerciseFormatteRx(exercise)}
       </Text>
+      <View style={styles.iconContainer}>
+        <ExerciseIcon exercise={exercise} />
+      </View>
     </View>
   )
 }
@@ -64,5 +68,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     fontSize: 28,
+  },
+  iconContainer: {
+    marginTop: 10,
+    alignItems: 'center',
   },
 })

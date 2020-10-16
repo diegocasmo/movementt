@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 import { Text, Card, CardItem, Body } from 'native-base'
 import { getExerciseFormattedRx } from '_api/exercise'
 import { getFormattedDuration } from '_utils/time-utils'
+import ExerciseIcon from '_components/ExerciseIcon'
 
 const ExerciseDetails = ({ exercise }) => {
   return (
     <Card style={styles.card}>
       <CardItem header style={styles.header}>
+        <ExerciseIcon exercise={exercise} />
         <Text numberOfLines={1}>{exercise.name}</Text>
       </CardItem>
       <CardItem>

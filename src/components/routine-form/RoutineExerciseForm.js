@@ -8,6 +8,7 @@ import TimeRoutineExerciseForm from './exercise-categories/TimeRoutineExerciseFo
 import DistanceRoutineExerciseForm from './exercise-categories/DistanceRoutineExerciseForm'
 import { CATEGORY_DISTANCE, CATEGORY_TIME } from '_api/exercise'
 import { ROUTINE_EXERCISE_SCHEMA } from '_api/routine-exercise'
+import ExerciseIcon from '_components/ExerciseIcon'
 
 const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
   const renderRoutineExerciseForm = (category, bag) => {
@@ -54,6 +55,7 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
         return (
           <Card style={styles.card}>
             <CardItem style={styles.header} header>
+              <ExerciseIcon exercise={routineExercise} />
               <Text style={styles.name} numberOfLines={1}>
                 {routineExercise.name}
               </Text>

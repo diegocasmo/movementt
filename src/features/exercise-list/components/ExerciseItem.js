@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { Button, Card, CardItem, H1, Text, View, Icon } from 'native-base'
 import { isDestroying } from '_state/reducers/exercises'
 import ExerciseActions from './ExerciseActions'
-import { getExerciseCategoryIcon } from '_api/exercise'
+import ExerciseIcon from '_components/ExerciseIcon'
 
 const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
   const destroying = useSelector((state) => isDestroying(state, exercise.key))
@@ -26,7 +26,7 @@ const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
     >
       <Card style={styles.card} onPress={handlePress}>
         <CardItem style={styles.cardItem}>
-          <Icon name={getExerciseCategoryIcon(exercise)} />
+          <ExerciseIcon exercise={exercise} />
           <Text style={styles.name} numberOfLines={2}>
             <H1>{exercise.name}</H1>
           </Text>

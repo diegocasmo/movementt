@@ -22,7 +22,7 @@ exports.addRoutinesSeed = functions.auth.user().onCreate((user) => {
   let updates = {}
   routines.forEach((routine) => {
     const key = db.ref(getRoutinesRef(user.uid)).push().key
-    updates[getRoutineRef(user.uid, key)] = routine
+    updates[getRoutineRef(user.uid, key)] = { ...routine, key }
   })
 
   return db.ref().update(updates)
@@ -39,7 +39,7 @@ exports.addExercisesSeed = functions.auth.user().onCreate((user) => {
   let updates = {}
   exercises.forEach((exercise) => {
     const key = db.ref(getExercisesRef(user.uid)).push().key
-    updates[getExerciseRef(user.uid, key)] = exercise
+    updates[getExerciseRef(user.uid, key)] = { ...exercise, key }
   })
 
   return db.ref().update(updates)
