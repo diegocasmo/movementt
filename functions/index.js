@@ -16,6 +16,12 @@ exports.addRoutinesSeed = functions.auth.user().onCreate((user) => {
     return {
       ...routine,
       createdAt: new Date().getTime(),
+      exercises: routine.exercises.map((exercise) => {
+        return {
+          ...exercise,
+          key: `${new Date().getTime()}`,
+        }
+      }),
     }
   })
 
