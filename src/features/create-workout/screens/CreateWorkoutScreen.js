@@ -1,14 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import {
+  TIME_ENTRY_TYPE,
+  getCurrTimeEntry,
+  getDoneAt,
+  getStartedAt,
+  getTotalElapsedMs,
+  hasStarted,
   init,
+  isCompleted,
   resetWorkout,
   start,
-  hasStarted,
-  isCompleted,
-  getCurrTimeEntry,
-  TIME_ENTRY_TYPE,
 } from '../reducers/create-workout'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
@@ -20,6 +24,9 @@ import WorkoutRoundRest from '../components/WorkoutRoundRest'
 import WorkoutStartup from '../components/WorkoutStartup'
 import WorkoutCompleted from '../components/WorkoutCompleted'
 import { getRoutine } from '_state/reducers/routines'
+import { getUser } from '_state/reducers/auth'
+import { createWorkout } from '_state/reducers/workouts'
+import { showError } from '_utils/toast'
 
 const CreateWorkoutScreen = ({ navigation, route }) => {
   const routine = useSelector((state) =>
@@ -29,6 +36,10 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
   const started = useSelector(hasStarted)
   const completed = useSelector(isCompleted)
   const timeEntry = useSelector(getCurrTimeEntry)
+  const user = useSelector(getUser)
+  const elapsedMs = useSelector(getTotalElapsedMs)
+  const startedAt = useSelector(getStartedAt)
+  const doneAt = useSelector(getDoneAt)
 
   const handleStartupCompleted = () => {
     dispatch(init(routine))
@@ -40,9 +51,22 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
     navigation.navigate('Home')
   }
 
-  const handleCompleteConfirmed = () => {
-    dispatch(resetWorkout())
-    navigation.navigate('Home')
+  const handleCompleteConfirmed = async () => {
+    try {
+      const workout = {
+        startedAt,
+        doneAt,
+        elapsedMs,
+        routine,
+        uid: user.uid,
+      }
+      const action = await dispatch(createWorkout(workout))
+      unwrapResult(action)
+      dispatch(resetWorkout())
+      navigation.navigate('Home')
+    } catch (err) {
+      showError(err.message)
+    }
   }
 
   const renderTimeEntry = () => {

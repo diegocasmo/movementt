@@ -11,6 +11,12 @@
         ".write": "$uid === auth.uid",
         ".read": "$uid === auth.uid"
       }
+    },
+    "workouts": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid"
+      }
     }
   }
 }

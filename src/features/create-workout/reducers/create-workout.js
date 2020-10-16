@@ -328,3 +328,18 @@ export const getCurrRound = ({ createWorkout }) => {
     createWorkout.routine.rounds,
   ])
 }
+
+export const getStartedAt = ({ createWorkout }) => {
+  const { timeEntries = [] } = createWorkout
+  if (timeEntries.length <= 0) return -1
+
+  return timeEntries[0].startedAt
+}
+
+export const getDoneAt = ({ createWorkout }) => {
+  const { timeEntries = [] } = createWorkout
+  if (timeEntries.length <= 0) return -1
+
+  const lastTimeEntry = timeEntries[timeEntries.length - 1]
+  return lastTimeEntry.startedAt + lastTimeEntry.elapsedMs
+}

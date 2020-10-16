@@ -1,15 +1,17 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
 import auth from './auth'
-import routines from './routines'
-import exercises from './exercises'
 import createWorkout from '_features/create-workout/reducers/create-workout'
+import exercises from './exercises'
+import routines from './routines'
+import workouts from './workouts'
 
 const rootReducer = combineReducers({
   auth,
-  routines,
-  exercises,
   createWorkout,
+  exercises,
+  routines,
+  workouts,
 })
 
 export default rootReducer
