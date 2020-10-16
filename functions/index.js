@@ -1,4 +1,5 @@
 const functions = require('firebase-functions')
+const { v4: uuidv4 } = require('uuid')
 const admin = require('firebase-admin')
 const routinesSeed = require('./seed/routines.json')
 const exercisesSeed = require('./seed/exercises.json')
@@ -19,7 +20,7 @@ exports.addRoutinesSeed = functions.auth.user().onCreate((user) => {
       exercises: routine.exercises.map((exercise) => {
         return {
           ...exercise,
-          key: `${new Date().getTime()}`,
+          uid: uuidv4(),
         }
       }),
     }
