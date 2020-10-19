@@ -7,13 +7,15 @@ import {
   getRoutine,
   getTotalElapsedMs,
 } from '../reducers/create-workout'
-import { View, Text, Button, Icon } from 'native-base'
+import { isCreating } from '_state/reducers/workouts'
+import { View, Text, Button, Icon, Spinner } from 'native-base'
 import Duration from '_components/time/Duration'
 
 const WorkoutCompleted = ({ onConfirm }) => {
   const currRound = useSelector(getCurrRound)
   const routine = useSelector(getRoutine)
   const elapsedMs = useSelector(getTotalElapsedMs)
+  const creating = useSelector(isCreating)
 
   return (
     <View style={styles.container}>
@@ -21,18 +23,36 @@ const WorkoutCompleted = ({ onConfirm }) => {
         <Text style={styles.topText}>
           Round: {currRound}/{routine.rounds}
         </Text>
-        <Button style={styles.topBtn} transparent onPress={onConfirm}>
-          <Icon style={styles.topIcon} active name="md-close" />
-        </Button>
       </View>
       <View style={styles.middleContainer}>
-        <Button transparent style={styles.checkBtn} onPress={onConfirm}>
-          <Icon style={styles.checkIcon} active name="md-checkmark" />
+        <Button
+          transparent
+          disabled={creating}
+          style={styles.checkBtn}
+          onPress={onConfirm}
+        >
+          {creating ? (
+            <Spinner color="black" size="large" />
+          ) : (
+            <Icon style={styles.checkIcon} active name="md-checkmark" />
+          )}
         </Button>
         <Text style={styles.routineName} numberOfLines={2}>
           {routine.name}
         </Text>
         <Duration style={styles.duration} elapsedMs={elapsedMs} />
+        <Button
+          success
+          style={styles.saveBtn}
+          disabled={creating}
+          onPress={onConfirm}
+        >
+          {creating ? (
+            <Spinner color="white" size="small" />
+          ) : (
+            <Text>Save Workout</Text>
+          )}
+        </Button>
       </View>
       <View style={styles.middleContainer}></View>
     </View>
@@ -104,5 +124,13 @@ const styles = StyleSheet.create({
   duration: {
     marginTop: 10,
     fontSize: 42,
+  },
+  saveBtn: {
+    marginTop: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
