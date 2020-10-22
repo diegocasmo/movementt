@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { now, timestamp, getTotalEllapsedMs } from '_utils/time-utils'
-
-export const TIME_ENTRY_TYPE = {
-  EXERCISE: 'EXERCISE',
-  EXERCISE_REST: 'EXERCISE_REST',
-  ROUND_REST: 'ROUND_REST',
-}
+import {
+  TYPE_EXERCISE,
+  TYPE_EXERCISE_REST,
+  TYPE_ROUND_REST,
+} from '_api/time-entry'
 
 const initialState = {
   tick: null,
@@ -17,16 +16,13 @@ const initialState = {
 }
 
 const getCurrExerciseUid = (state, timeEntryType) => {
-  if (timeEntryType !== TIME_ENTRY_TYPE.EXERCISE) return null
+  if (timeEntryType !== TYPE_EXERCISE) return null
 
   const currExercise = getCurrExercise({ createWorkout: state })
   return currExercise.uid
 }
 
-const startTimeEntry = (
-  type = TIME_ENTRY_TYPE.EXERCISE,
-  exerciseUid = null
-) => ({
+const startTimeEntry = (type = TYPE_EXERCISE, exerciseUid = null) => ({
   type,
   exerciseUid,
   startedAt: timestamp(now()),
@@ -74,7 +70,7 @@ const createWorkout = createSlice({
       state.tick = payload
       state.currExerciseIdx = 0
 
-      const type = TIME_ENTRY_TYPE.EXERCISE
+      const type = TYPE_EXERCISE
       state.timeEntries = [
         startTimeEntry(type, getCurrExerciseUid(state, type)),
       ]
@@ -120,9 +116,7 @@ const createWorkout = createSlice({
         state.timeEntries = [...timeEntries, stopTimeEntry(lastTimeEntry)]
       } else if (isLastExercise) {
         const nextTimeEntryType =
-          routine.restSeconds === 0
-            ? TIME_ENTRY_TYPE.EXERCISE
-            : TIME_ENTRY_TYPE.ROUND_REST
+          routine.restSeconds === 0 ? TYPE_EXERCISE : TYPE_ROUND_REST
 
         state.currExerciseIdx = 0
         state.roundsCompleted += 1
@@ -136,9 +130,7 @@ const createWorkout = createSlice({
         ]
       } else {
         const nextTimeEntryType =
-          currExercise.restSeconds === 0
-            ? TIME_ENTRY_TYPE.EXERCISE
-            : TIME_ENTRY_TYPE.EXERCISE_REST
+          currExercise.restSeconds === 0 ? TYPE_EXERCISE : TYPE_EXERCISE_REST
 
         state.currExerciseIdx += 1
         state.timeEntries = [
@@ -156,7 +148,7 @@ const createWorkout = createSlice({
       let { timeEntries } = state
       const lastTimeEntry = timeEntries.pop()
 
-      const nextTimeEntryType = TIME_ENTRY_TYPE.EXERCISE
+      const nextTimeEntryType = TYPE_EXERCISE
       state.timeEntries = [
         ...timeEntries,
         stopTimeEntry(lastTimeEntry),
@@ -171,7 +163,7 @@ const createWorkout = createSlice({
       let { timeEntries } = state
       const lastTimeEntry = timeEntries.pop()
 
-      const nextTimeEntryType = TIME_ENTRY_TYPE.EXERCISE
+      const nextTimeEntryType = TYPE_EXERCISE
       state.timeEntries = [
         ...timeEntries,
         stopTimeEntry(lastTimeEntry),
@@ -336,10 +328,18 @@ export const getStartedAt = ({ createWorkout }) => {
   return timeEntries[0].startedAt
 }
 
-export const getDoneAt = ({ createWorkout }) => {
+export const getCompletedAt = ({ createWorkout }) => {
   const { timeEntries = [] } = createWorkout
   if (timeEntries.length <= 0) return -1
 
   const lastTimeEntry = timeEntries[timeEntries.length - 1]
   return lastTimeEntry.startedAt + lastTimeEntry.elapsedMs
+}
+
+export const getRoundsCompleted = (state) => {
+  return state.createWorkout.roundsCompleted
+}
+
+export const getTimeEntries = (state) => {
+  return state.createWorkout.timeEntries
 }

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import {
-  TIME_ENTRY_TYPE,
   getCurrTimeEntry,
-  getDoneAt,
+  getCompletedAt,
+  getRoundsCompleted,
   getStartedAt,
+  getTimeEntries,
   getTotalElapsedMs,
   hasStarted,
   init,
@@ -14,6 +15,7 @@ import {
   resetWorkout,
   start,
 } from '../reducers/create-workout'
+import { TYPE_EXERCISE_REST, TYPE_ROUND_REST } from '_api/time-entry'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import TopControls from '../components/TopControls'
@@ -39,7 +41,9 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
   const user = useSelector(getUser)
   const elapsedMs = useSelector(getTotalElapsedMs)
   const startedAt = useSelector(getStartedAt)
-  const doneAt = useSelector(getDoneAt)
+  const completedAt = useSelector(getCompletedAt)
+  const roundsCompleted = useSelector(getRoundsCompleted)
+  const timeEntries = useSelector(getTimeEntries)
 
   const handleStartupCompleted = () => {
     dispatch(init(routine))
@@ -54,10 +58,12 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
   const handleCompleteConfirmed = async () => {
     try {
       const workout = {
-        startedAt,
-        doneAt,
+        completedAt,
         elapsedMs,
+        roundsCompleted,
         routine,
+        startedAt,
+        timeEntries,
         uid: user.uid,
       }
       const action = await dispatch(createWorkout(workout))
@@ -71,9 +77,9 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
 
   const renderTimeEntry = () => {
     switch (timeEntry.type) {
-      case TIME_ENTRY_TYPE.EXERCISE_REST:
+      case TYPE_EXERCISE_REST:
         return <WorkoutExerciseRest />
-      case TIME_ENTRY_TYPE.ROUND_REST:
+      case TYPE_ROUND_REST:
         return <WorkoutRoundRest />
       default:
         return <WorkoutExercise />

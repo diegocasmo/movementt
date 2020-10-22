@@ -3,13 +3,18 @@ import { db } from '_api/config'
 import { transformYupToFormikError } from '_api/utils'
 import { timestamp } from '_utils/time-utils'
 import { ROUTINE_SCHEMA } from '_api/routine'
+import { TIME_ENTRY_SCHEMA } from '_api/time-entry'
 
 export const WORKOUT_SCHEMA = Yup.object({
   createdAt: Yup.number().positive(),
   updatedAt: Yup.number().positive(),
   startedAt: Yup.number().required().positive(),
-  doneAt: Yup.number().required().positive(),
+  completedAt: Yup.number().required().positive(),
   elapsedMs: Yup.number().required().positive(),
+  roundsCompleted: Yup.number().required().min(0),
+  timeEntries: Yup.array(Yup.object().concat(TIME_ENTRY_SCHEMA))
+    .min(1)
+    .required(),
   routine: Yup.object().concat(ROUTINE_SCHEMA),
 })
 
