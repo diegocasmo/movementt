@@ -67,7 +67,7 @@ const RoutineListScreen = ({ navigation }) => {
   }
 
   const handleCreate = () => {
-    navigation.navigate('CreateRoutine')
+    navigation.navigate('CreateRoutine', { name: query })
   }
 
   const handleQueryChange = (value) => {
@@ -105,7 +105,14 @@ const RoutineListScreen = ({ navigation }) => {
           <View>
             {noRoutines && <Text>There are no routines to show</Text>}
             {noMatches && (
-              <Text>We could not find any routines based on your criteria</Text>
+              <View>
+                <Text>
+                  We could not find any routines based on your criteria
+                </Text>
+                <Button primary block style={styles.btn} onPress={handleCreate}>
+                  <Text>+ {query}</Text>
+                </Button>
+              </View>
             )}
             {routines.map((routine) => (
               <RoutineItem
@@ -138,6 +145,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   retryBtn: {
+    marginTop: 20,
+  },
+  btn: {
     marginTop: 20,
   },
 })

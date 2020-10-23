@@ -7,11 +7,13 @@ import RoutineForm from '_components/routine-form/RoutineForm'
 import { getUser } from '_state/reducers/auth'
 import { showError } from '_utils/toast'
 import { createRoutine } from '_state/reducers/routines'
+import { DEFAULT_ROUTINE } from '_api/routine'
 
-const CreateRoutineScreen = ({ navigation }) => {
+const CreateRoutineScreen = ({ navigation, route }) => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { name = '' } = route.params
 
   const handleSubmit = async (attrs, { resetForm }) => {
     setIsSubmitting(true)
@@ -40,6 +42,7 @@ const CreateRoutineScreen = ({ navigation }) => {
       </Header>
       <RoutineForm
         autoFocus={true}
+        routine={{ ...DEFAULT_ROUTINE, name }}
         isSubmitting={isSubmitting}
         onQuit={handleQuit}
         onSubmit={handleSubmit}
@@ -52,4 +55,9 @@ export default CreateRoutineScreen
 
 CreateRoutineScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      name: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 }
