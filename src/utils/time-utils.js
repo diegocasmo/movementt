@@ -15,6 +15,10 @@ export const timestamp = (dateOrMs = now()) => {
   return moment(dateOrMs).valueOf()
 }
 
+export const fromNow = (dateOrMs = now()) => {
+  return moment(dateOrMs).fromNow()
+}
+
 // Return the number of elapsed ms from `fromDate` until `toDate`
 export const getTotalEllapsedMs = (fromDate, toDate) => {
   const duration = moment.duration(moment(fromDate) - moment(toDate))

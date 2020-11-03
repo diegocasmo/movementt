@@ -8,6 +8,8 @@ const FooterTabs = ({ state, navigation }) => {
     switch (name) {
       case 'Settings':
         return 'md-settings'
+      case 'WorkoutList':
+        return 'md-redo'
       case 'ExerciseList':
         return 'md-fitness'
       default:

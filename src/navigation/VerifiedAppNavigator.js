@@ -13,6 +13,7 @@ import ExerciseListScreen from '_features/exercise-list/screens/ExerciseListScre
 
 // Workout
 import CreateWorkoutScreen from '_features/create-workout/screens/CreateWorkoutScreen'
+import WorkoutListScreen from '_features/workout-list/screens/WorkoutListScreen'
 
 // Settings
 import SettingsScreen from '_features/settings/screens/SettingsScreen'
@@ -75,12 +76,26 @@ const ExerciseNavigator = () => {
   )
 }
 
+const WorkoutStack = createStackNavigator()
+const WorkoutNavigator = () => {
+  return (
+    <WorkoutStack.Navigator>
+      <WorkoutStack.Screen
+        name="WorkoutList"
+        component={WorkoutListScreen}
+        options={{ title: 'Workout', headerShown: false }}
+      />
+    </WorkoutStack.Navigator>
+  )
+}
+
 const HomeTabs = createBottomTabNavigator()
 const HomeTabsNavigator = () => {
   return (
     <HomeTabs.Navigator tabBar={(props) => <FooterTabs {...props} />}>
       <HomeTabs.Screen name="Home" component={HomeNavigator} />
       <HomeTabs.Screen name="ExerciseList" component={ExerciseNavigator} />
+      <HomeTabs.Screen name="WorkoutList" component={WorkoutNavigator} />
       <HomeTabs.Screen name="Settings" component={SettingsNavigator} />
     </HomeTabs.Navigator>
   )

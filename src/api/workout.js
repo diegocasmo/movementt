@@ -26,6 +26,28 @@ export const validate = async (values) => {
 
 const getWorkoutsRef = (uid) => `workouts/${uid}`
 
+export const fetchWorkouts = async (uid, cursorKey = null, pageSize = 10) => {
+  try {
+    let snapshot = db.ref(getWorkoutsRef(uid))
+    if (cursorKey === null) {
+      snapshot = await snapshot.orderByKey().limitToLast(pageSize).once('value')
+    } else {
+      snapshot = await snapshot
+        .orderByKey()
+        .endAt(cursorKey)
+        .limitToLast(pageSize)
+        .once('value')
+    }
+
+    const values = snapshot.val()
+    return values
+      ? Object.entries(values).map(([key, values]) => ({ key, ...values }))
+      : {}
+  } catch (err) {
+    throw new Error(err.message)
+  }
+}
+
 export const createWorkout = async (uid, attrs) => {
   let workout = { ...attrs, createdAt: timestamp() }
 
