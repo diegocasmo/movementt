@@ -31,7 +31,7 @@ export const createWorkout = createAsyncThunk(
 const initialState = workoutsAdapter.getInitialState({
   cursorKey: null,
   hasMore: true,
-  pageSize: 10,
+  pageSize: 12,
   status: REQUEST_STATUS.NONE,
   statusById: {},
 })
