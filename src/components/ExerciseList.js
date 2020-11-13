@@ -29,6 +29,7 @@ const ExerciseList = ({
   const user = useSelector(getUser)
   const initialState = { visible: false, exercise: DEFAULT_EXERCISE }
   const [state, setState] = useState(initialState)
+  const trimmedQuery = query.trim()
 
   const handleCreate = () => {
     setState({ ...state, visible: true })
@@ -45,7 +46,7 @@ const ExerciseList = ({
   const handlePrefillExercise = () => {
     setState({
       visible: true,
-      exercise: { ...DEFAULT_EXERCISE, name: query },
+      exercise: { ...DEFAULT_EXERCISE, name: trimmedQuery },
     })
   }
 
@@ -81,8 +82,8 @@ const ExerciseList = ({
     }
   }
 
-  const noMatches = exercises.length === 0 && query.trim() !== ''
-  const noExercises = exercises.length === 0 && query.trim() === ''
+  const noMatches = exercises.length === 0 && trimmedQuery !== ''
+  const noExercises = exercises.length === 0 && trimmedQuery === ''
 
   return (
     <Content
@@ -107,19 +108,9 @@ const ExerciseList = ({
         <View>
           {noExercises && <Text>There are no exercises to show</Text>}
           {noMatches && (
-            <View>
-              <Text>
-                We could not find any exercises based on your criteria
-              </Text>
-              <Button
-                primary
-                block
-                style={styles.btn}
-                onPress={handlePrefillExercise}
-              >
-                <Text>+ {query}</Text>
-              </Button>
-            </View>
+            <Text style={styles.noMatchesText}>
+              We could not find any exercises based on your criteria
+            </Text>
           )}
           {exercises.map((exercise) => (
             <ExerciseItem
@@ -130,6 +121,11 @@ const ExerciseList = ({
               onDestroy={handleDestroy}
             />
           ))}
+          {trimmedQuery !== '' && (
+            <Button primary block onPress={handlePrefillExercise}>
+              <Text>+ {trimmedQuery}</Text>
+            </Button>
+          )}
           {state.visible && (
             <ExerciseForm
               exercise={state.exercise}
@@ -164,7 +160,7 @@ const styles = StyleSheet.create({
   searchForm: {
     marginBottom: 20,
   },
-  btn: {
-    marginTop: 20,
+  noMatchesText: {
+    marginBottom: 20,
   },
 })
