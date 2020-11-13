@@ -31,8 +31,9 @@ const RoutineListScreen = ({ navigation }) => {
   const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
+  const trimmedQuery = query.trim()
   const [showRetry, setShowRetry] = useState(false)
-  const routines = search(useSelector(getRoutines), query)
+  const routines = search(useSelector(getRoutines), trimmedQuery)
 
   useEffect(() => {
     handleFetch()
@@ -67,15 +68,15 @@ const RoutineListScreen = ({ navigation }) => {
   }
 
   const handleCreate = () => {
-    navigation.navigate('CreateRoutine', { name: query })
+    navigation.navigate('CreateRoutine', { name: trimmedQuery })
   }
 
   const handleQueryChange = (value) => {
     setQuery(value)
   }
 
-  const noMatches = routines.length === 0 && query.trim() !== ''
-  const noRoutines = routines.length === 0 && query.trim() === ''
+  const noMatches = routines.length === 0 && trimmedQuery !== ''
+  const noRoutines = routines.length === 0 && trimmedQuery === ''
 
   return (
     <Container>
@@ -105,14 +106,7 @@ const RoutineListScreen = ({ navigation }) => {
           <View>
             {noRoutines && <Text>There are no routines to show</Text>}
             {noMatches && (
-              <View>
-                <Text>
-                  We could not find any routines based on your criteria
-                </Text>
-                <Button primary block style={styles.btn} onPress={handleCreate}>
-                  <Text>+ {query}</Text>
-                </Button>
-              </View>
+              <Text>We could not find any routines based on your criteria</Text>
             )}
             {routines.map((routine) => (
               <RoutineItem
@@ -123,6 +117,11 @@ const RoutineListScreen = ({ navigation }) => {
                 onDelete={handleDelete}
               />
             ))}
+            {trimmedQuery !== '' && (
+              <Button primary block style={styles.btn} onPress={handleCreate}>
+                <Text>+ {trimmedQuery}</Text>
+              </Button>
+            )}
           </View>
         )}
       </Content>
