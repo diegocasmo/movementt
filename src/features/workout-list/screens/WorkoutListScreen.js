@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
-import { Body, Container, Header, Title, View } from 'native-base'
+import { Body, Container, Header, Title, View, Text } from 'native-base'
 import { getUser } from '_state/reducers/auth'
 import {
   fetchWorkouts,
@@ -39,11 +39,20 @@ const WorkoutListScreen = () => {
     }
   }
 
+  const renderCount = () => {
+    const count = workouts.length
+    if (fetching && count === 0) {
+      return <Text>(0)</Text>
+    }
+
+    return <Text>({more ? `${count}+` : count})</Text>
+  }
+
   return (
     <Container>
       <Header>
         <Body>
-          <Title>Workouts</Title>
+          <Title>Workouts {renderCount()}</Title>
         </Body>
       </Header>
       <View style={styles.content}>
