@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppLoading } from 'expo'
+import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
 
