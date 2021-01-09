@@ -9,12 +9,12 @@ import {
   Button,
   ListItem,
   Text,
-  Icon,
   Left,
   Right,
   Spinner,
 } from 'native-base'
 import { signOut } from '_api/user'
+import { Icon } from '_components/Icon'
 import { showError } from '_utils/toast'
 
 const SettingsScreen = ({ navigation }) => {
@@ -45,7 +45,7 @@ const SettingsScreen = ({ navigation }) => {
         <ListItem icon onPress={handlePressOnUpdatePassword}>
           <Left>
             <Button>
-              <Icon name="md-lock" />
+              <Icon color="white" name="md-lock-closed-outline" />
             </Button>
           </Left>
           <Body>
@@ -55,7 +55,7 @@ const SettingsScreen = ({ navigation }) => {
         <ListItem icon disabled={isSigningOut} onPress={handlePressOnSignOut}>
           <Left>
             <Button>
-              <Icon name="md-log-out" />
+              <Icon color="white" name="md-log-out-outline" />
             </Button>
           </Left>
           <Body>

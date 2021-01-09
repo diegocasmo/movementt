@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
-import { ActionSheet, Button, Icon, Spinner } from 'native-base'
+import { ActionSheet, Button, Spinner } from 'native-base'
 import { isDestroying } from '_state/reducers/routines'
+import { Icon } from '_components/Icon'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
@@ -64,7 +65,7 @@ const RoutineActions = ({ routine, onUpdate, onDelete }) => {
       style={styles.actionsBtn}
       onPress={handlePressOnActions}
     >
-      <Icon style={styles.actionBtn} active name="md-more" />
+      <Icon style={styles.actionBtn} name="md-ellipsis-vertical" />
     </Button>
   )
 }

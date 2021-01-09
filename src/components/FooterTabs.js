@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Footer, FooterTab, Button, Icon } from 'native-base'
+import { Footer, FooterTab, Button } from 'native-base'
+import { Icon } from '_components/Icon'
 
 const FooterTabs = ({ state, navigation }) => {
   const getIconName = ({ name }) => {
     switch (name) {
       case 'Settings':
-        return 'md-settings'
+        return 'md-settings-sharp'
       case 'WorkoutList':
-        return 'md-redo'
+        return 'md-refresh'
       case 'ExerciseList':
-        return 'md-fitness'
+        return 'md-barbell-outline'
       default:
-        return 'md-home'
+        return 'md-home-outline'
     }
   }
 

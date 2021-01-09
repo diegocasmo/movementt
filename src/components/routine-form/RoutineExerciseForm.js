@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import { Card, CardItem, Body, Text, Button, Icon } from 'native-base'
+import { Card, CardItem, Body, Text, Button } from 'native-base'
+import { Icon } from '_components/Icon'
 import { Formik } from 'formik'
 import RepsRoutineExerciseForm from './exercise-categories/RepsRoutineExerciseForm'
 import TimeRoutineExerciseForm from './exercise-categories/TimeRoutineExerciseForm'
@@ -60,7 +61,7 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
                 {routineExercise.name}
               </Text>
               <Button transparent onPress={handleDelete}>
-                <Icon style={styles.deleteIcon} active name="md-trash" />
+                <Icon style={styles.deleteIcon} name="md-trash-outline" />
               </Button>
             </CardItem>
             <CardItem>

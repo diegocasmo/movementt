@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
-import { ActionSheet, Button, Icon, Spinner } from 'native-base'
+import { ActionSheet, Button, Spinner } from 'native-base'
 import { isDestroying } from '_state/reducers/exercises'
+import { Icon } from '_components/Icon'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
@@ -60,7 +61,7 @@ const ExerciseActions = ({ exercise, onUpdate, onDestroy }) => {
 
   return (
     <Button transparent style={styles.btn} onPress={handlePressOnActions}>
-      <Icon style={styles.icon} active name="md-more" />
+      <Icon style={styles.icon} name="md-ellipsis-vertical" />
     </Button>
   )
 }

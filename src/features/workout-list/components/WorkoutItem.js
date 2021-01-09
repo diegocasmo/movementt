@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Body, View, Card, CardItem, H1, Text, Icon } from 'native-base'
+import { Body, View, Card, CardItem, H1, Text } from 'native-base'
 import { fromNow } from '_utils/time-utils'
 import { getRoutineFormattedExercises } from '_api/routine'
 import Duration from '_components/time/Duration'
+import { Icon } from '_components/Icon'
 
 const WorkoutItem = ({ workout }) => {
   return (
@@ -26,11 +27,11 @@ const WorkoutItem = ({ workout }) => {
           </Body>
         </CardItem>
         <View style={styles.completedAtContainer}>
-          <Icon style={styles.calendarIcon} name="md-calendar" active />
+          <Icon style={styles.calendarIcon} name="md-calendar-outline" />
           <Text>{fromNow(workout.completedAt)}</Text>
         </View>
         <View style={styles.durationContainer}>
-          <Icon style={styles.durationIcon} name="md-time" active />
+          <Icon style={styles.durationIcon} name="md-time-outline" />
           <Duration style={styles.durationText} elapsedMs={workout.elapsedMs} />
         </View>
       </Card>
