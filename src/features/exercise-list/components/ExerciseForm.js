@@ -7,7 +7,11 @@ import { Formik, getIn } from 'formik'
 import Modal from '_components/Modal'
 import { TextInput, ModalPickerInput } from '_components/form'
 import { isCreating, isUpdating } from '_state/reducers/exercises'
-import { EXERCISE_SCHEMA, CATEGORY_OPTS } from '_api/exercise'
+import {
+  EXERCISE_SCHEMA,
+  MOVEMENT_TYPE_OPTS,
+  CATEGORY_OPTS,
+} from '_api/exercise'
 
 const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
   const creating = useSelector(isCreating)
@@ -33,7 +37,11 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
         const isValid = Object.keys(errors).length === 0
 
         return (
-          <Modal visible={visible} onRequestClose={onCancel}>
+          <Modal
+            visible={visible}
+            onRequestClose={onCancel}
+            childrenStyle={styles.childrenStyle}
+          >
             <H1 style={styles.h1}>
               {exercise.createdAt ? 'Update' : 'Create'} Exercise
             </H1>
@@ -48,6 +56,20 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
                   onChange={handleChange('name')}
                   touched={getIn(touched, 'name')}
                   value={values.name}
+                />
+              </Col>
+            </Grid>
+
+            <Grid>
+              <Col flexGrow={1}>
+                <ModalPickerInput
+                  label="Movement type"
+                  options={MOVEMENT_TYPE_OPTS.map((opt, idx) => ({
+                    key: idx,
+                    ...opt,
+                  }))}
+                  onValueChange={handleChange('movementType')}
+                  value={values.movementType}
                 />
               </Col>
             </Grid>
@@ -105,6 +127,9 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
     marginBottom: 20,
+  },
+  childrenStyle: {
+    height: 360,
   },
   actions: {
     marginTop: 20,

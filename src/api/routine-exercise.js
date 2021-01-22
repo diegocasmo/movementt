@@ -4,6 +4,8 @@ import {
   CATEGORY_DISTANCE,
   CATEGORY_REPS,
   CATEGORY_TIME,
+  MOVEMENT_TYPES,
+  MOVEMENT_TYPE_PUSH,
 } from '_api/exercise'
 import { transformYupToFormikError } from '_api/utils'
 
@@ -20,6 +22,7 @@ export const ROUTINE_EXERCISE_SCHEMA = Yup.object().shape({
   uid: Yup.string().required(),
   name: Yup.string().trim().required(),
   category: Yup.mixed().oneOf(CATEGORIES).required(),
+  movementType: Yup.mixed().oneOf(MOVEMENT_TYPES).required(),
   quantity: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
@@ -51,6 +54,7 @@ export const buildRoutineExercise = async (exercise) => {
       uid: `${new Date().getTime()}`,
       name: '',
       category: CATEGORY_REPS,
+      movementType: MOVEMENT_TYPE_PUSH,
       quantity: 10,
       quantityUnit: REP_UNIT,
       weight: 0,
