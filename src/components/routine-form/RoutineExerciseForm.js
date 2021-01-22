@@ -64,7 +64,7 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
                 <Icon style={styles.deleteIcon} name="md-trash-outline" />
               </Button>
             </CardItem>
-            <CardItem>
+            <CardItem style={styles.bodyContainer}>
               <Body style={styles.body}>
                 {renderRoutineExerciseForm(routineExercise.category, bag)}
               </Body>
@@ -102,6 +102,9 @@ const styles = StyleSheet.create({
   },
   deleteIcon: {
     color: 'black',
+  },
+  bodyContainer: {
+    paddingTop: 0,
   },
   body: {
     paddingBottom: 5,
