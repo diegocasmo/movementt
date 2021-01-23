@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   top: {
-    height: 255,
+    height: 245,
   },
   middle: {
     paddingBottom: 50,

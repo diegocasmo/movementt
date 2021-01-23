@@ -43,8 +43,9 @@ Input.propTypes = {
 
 const styles = StyleSheet.create({
   container: {},
-  label: {
-    marginBottom: 5,
+  label: {},
+  input: {
+    height: 12,
   },
 })
 

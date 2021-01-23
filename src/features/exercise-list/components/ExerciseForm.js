@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   childrenStyle: {
-    height: 360,
+    height: 320,
   },
   actions: {
     marginTop: 20,
