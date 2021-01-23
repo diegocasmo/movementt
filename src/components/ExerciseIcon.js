@@ -9,7 +9,7 @@ const ExerciseIcon = ({ exercise }) => {
     case CATEGORY_TIME:
       return <Icon name="md-time-outline" />
     case CATEGORY_DISTANCE:
-      return <Icon name="md-navigate" />
+      return <Icon name="md-location" />
     default:
       return <Icon name="md-repeat-sharp" />
   }

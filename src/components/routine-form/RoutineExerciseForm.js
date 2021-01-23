@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import { Card, CardItem, Body, Text, Button } from 'native-base'
+import { Card, CardItem, Body, H3, Button } from 'native-base'
 import { Icon } from '_components/Icon'
 import { Formik } from 'formik'
 import RepsRoutineExerciseForm from './exercise-categories/RepsRoutineExerciseForm'
 import TimeRoutineExerciseForm from './exercise-categories/TimeRoutineExerciseForm'
 import DistanceRoutineExerciseForm from './exercise-categories/DistanceRoutineExerciseForm'
+import MeasurementTypesForm from '_components/routine-form/MeasurementTypesForm'
 import { CATEGORY_DISTANCE, CATEGORY_TIME } from '_api/exercise'
 import { ROUTINE_EXERCISE_SCHEMA } from '_api/routine-exercise'
-import ExerciseIcon from '_components/ExerciseIcon'
 
 const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
   const renderRoutineExerciseForm = (category, bag) => {
@@ -56,10 +56,9 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
         return (
           <Card style={styles.card}>
             <CardItem style={styles.header} header>
-              <ExerciseIcon exercise={routineExercise} />
-              <Text style={styles.name} numberOfLines={1}>
+              <H3 style={styles.name} numberOfLines={1}>
                 {routineExercise.name}
-              </Text>
+              </H3>
               <Button transparent onPress={handleDelete}>
                 <Icon style={styles.deleteIcon} name="md-trash-outline" />
               </Button>
@@ -68,6 +67,12 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
               <Body style={styles.body}>
                 {renderRoutineExerciseForm(routineExercise.category, bag)}
               </Body>
+            </CardItem>
+            <CardItem style={styles.footer} footer>
+              <MeasurementTypesForm
+                routineExercise={routineExercise}
+                bag={bag}
+              />
             </CardItem>
           </Card>
         )
@@ -108,5 +113,8 @@ const styles = StyleSheet.create({
   },
   body: {
     paddingBottom: 5,
+  },
+  footer: {
+    paddingTop: 0,
   },
 })

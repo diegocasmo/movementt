@@ -7,17 +7,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native'
-import {
-  Button,
-  Col,
-  Grid,
-  H1,
-  H2,
-  Icon,
-  Spinner,
-  Text,
-  View,
-} from 'native-base'
+import { Button, Col, Grid, H1, Icon, Spinner, Text, View } from 'native-base'
 import { Formik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import TimePicker from './pickers/TimePicker'
@@ -203,7 +193,7 @@ const RoutineForm = ({
                 </Grid>
 
                 <View style={styles.exercisesSetup}>
-                  <H2 style={styles.h2}>Exercises ({exercises.length})</H2>
+                  <H1 style={styles.h1}>Exercises ({exercises.length})</H1>
 
                   <Button primary onPress={handleShowExercises}>
                     <Text>+ Add</Text>
@@ -324,7 +314,6 @@ const styles = StyleSheet.create({
   exercise: {
     marginBottom: 10,
   },
-  h2: {},
   icon: {
     fontSize: 36,
     color: 'black',

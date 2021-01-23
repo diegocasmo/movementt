@@ -119,6 +119,10 @@ export const isExerciseCategoryTime = (exercise) => {
   return exercise.category === CATEGORY_TIME
 }
 
+export const isExerciseCategoryReps = (exercise) => {
+  return exercise.category === CATEGORY_REPS
+}
+
 export const isExerciseCategoryDistance = (exercise) => {
   return exercise.category === CATEGORY_DISTANCE
 }
