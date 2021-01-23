@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
 import Countdown from '_components/time/Countdown'
 import { useInterval } from '_hooks/use-interval'
-import { getExerciseFormattedRx } from '_api/exercise'
+import { getExerciseFormattedRx } from '_api/routine-exercise'
 import { View, Button, Text, Icon } from 'native-base'
 import { now, getTotalEllapsedMs } from '_utils/time-utils'
 

@@ -10,8 +10,10 @@ import {
   CATEGORY_REPS,
   CATEGORY_TIME,
   CATEGORY_DISTANCE,
-} from '_api/exercise'
-import { REP_UNIT, TIME_UNIT, DISTANCE_UNIT } from '_api/routine-exercise'
+  REP_UNIT,
+  TIME_UNIT,
+  DISTANCE_UNIT,
+} from '_api/routine-exercise'
 
 const MeasurementTypesForm = ({ routineExercise, bag }) => {
   const handleChangeCategory = (category) => {

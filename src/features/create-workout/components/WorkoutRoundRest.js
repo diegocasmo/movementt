@@ -10,7 +10,7 @@ import {
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
-import { getExerciseFormattedRx } from '_api/exercise'
+import { getExerciseFormattedRx } from '_api/routine-exercise'
 import { secondsToMs } from '_utils/time-utils'
 
 const WorkoutRoundRest = () => {

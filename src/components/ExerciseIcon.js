@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
 import { Icon } from '_components/Icon'
-import { CATEGORY_TIME, CATEGORY_DISTANCE } from '_api/exercise'
+import { CATEGORY_TIME, CATEGORY_DISTANCE } from '_api/routine-exercise'
 
 const ExerciseIcon = ({ exercise }) => {
   switch (exercise.category) {
@@ -20,5 +19,3 @@ ExerciseIcon.propTypes = {
 }
 
 export default ExerciseIcon
-
-const styles = StyleSheet.create({})

@@ -5,7 +5,7 @@ import { View, Text } from 'native-base'
 import {
   isExerciseCategoryDistance,
   isExerciseCategoryTime,
-} from '_api/exercise'
+} from '_api/routine-exercise'
 import { getFormattedDistance } from '_utils/distance-utils'
 import { getFormattedDuration } from '_utils/time-utils'
 import ExerciseIcon from '_components/ExerciseIcon'

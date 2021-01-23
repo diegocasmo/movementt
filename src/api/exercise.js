@@ -1,7 +1,5 @@
 import * as Yup from 'yup'
 import { db } from '_api/config'
-import { getFormattedDistance } from '_utils/distance-utils'
-import { getFormattedDuration } from '_utils/time-utils'
 import { timestamp } from '_utils/time-utils'
 import { transformYupToFormikError } from '_api/utils'
 
@@ -33,28 +31,14 @@ export const MOVEMENT_TYPE_OPTS = [
   { label: 'Other', value: MOVEMENT_TYPE_OTHER },
 ]
 
-export const CATEGORY_REPS = 'reps'
-export const CATEGORY_TIME = 'time'
-export const CATEGORY_DISTANCE = 'distance'
-
-export const CATEGORIES = [CATEGORY_REPS, CATEGORY_TIME, CATEGORY_DISTANCE]
-
-export const CATEGORY_OPTS = [
-  { label: 'Reps', value: CATEGORY_REPS },
-  { label: 'Time', value: CATEGORY_TIME },
-  { label: 'Distance', value: CATEGORY_DISTANCE },
-]
-
 export const DEFAULT_EXERCISE = {
   name: '',
   movementType: MOVEMENT_TYPE_PUSH,
-  category: CATEGORY_REPS,
 }
 
 export const EXERCISE_SCHEMA = Yup.object().shape({
   name: Yup.string().trim().required(),
   movementType: Yup.mixed().oneOf(MOVEMENT_TYPES).required(),
-  category: Yup.mixed().oneOf(CATEGORIES).required(),
   createdAt: Yup.number().positive(),
   updatedAt: Yup.number().positive(),
 })
@@ -113,39 +97,4 @@ export const destroyExercise = async (uid, exercise) => {
   } catch (err) {
     throw new Error('Unable to destroy exercise')
   }
-}
-
-export const isExerciseCategoryTime = (exercise) => {
-  return exercise.category === CATEGORY_TIME
-}
-
-export const isExerciseCategoryReps = (exercise) => {
-  return exercise.category === CATEGORY_REPS
-}
-
-export const isExerciseCategoryDistance = (exercise) => {
-  return exercise.category === CATEGORY_DISTANCE
-}
-
-export const getExerciseFormattedWeight = (exercise) => {
-  if (exercise.weight === 0) return
-
-  return `${exercise.weight} ${exercise.weightUnit}`
-}
-
-export const getExerciseFormattedRx = (exercise) => {
-  const { quantity } = exercise
-
-  const formattedWeight =
-    exercise.weight === 0 ? '' : `@${getExerciseFormattedWeight(exercise)}`
-
-  if (isExerciseCategoryTime(exercise)) {
-    return `${getFormattedDuration(quantity)} ${formattedWeight}`
-  }
-
-  if (isExerciseCategoryDistance(exercise)) {
-    return `${getFormattedDistance(quantity)} ${formattedWeight}`
-  }
-
-  return `${quantity} reps ${formattedWeight}`
 }

@@ -2,10 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
-import { Button, Card, CardItem, H1, Text, View, Icon } from 'native-base'
+import { Button, Card, CardItem, H1, Text, View } from 'native-base'
 import { isDestroying } from '_state/reducers/exercises'
 import ExerciseActions from './ExerciseActions'
-import ExerciseIcon from '_components/ExerciseIcon'
 
 const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
   const destroying = useSelector((state) => isDestroying(state, exercise.key))
@@ -26,7 +25,6 @@ const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
     >
       <Card style={styles.card} onPress={handlePress}>
         <CardItem style={styles.cardItem}>
-          <ExerciseIcon exercise={exercise} />
           <Text style={styles.name} numberOfLines={2}>
             <H1>{exercise.name}</H1>
           </Text>

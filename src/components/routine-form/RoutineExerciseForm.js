@@ -8,8 +8,11 @@ import RepsRoutineExerciseForm from './exercise-categories/RepsRoutineExerciseFo
 import TimeRoutineExerciseForm from './exercise-categories/TimeRoutineExerciseForm'
 import DistanceRoutineExerciseForm from './exercise-categories/DistanceRoutineExerciseForm'
 import MeasurementTypesForm from '_components/routine-form/MeasurementTypesForm'
-import { CATEGORY_DISTANCE, CATEGORY_TIME } from '_api/exercise'
-import { ROUTINE_EXERCISE_SCHEMA } from '_api/routine-exercise'
+import {
+  CATEGORY_TIME,
+  CATEGORY_DISTANCE,
+  ROUTINE_EXERCISE_SCHEMA,
+} from '_api/routine-exercise'
 
 const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
   const renderRoutineExerciseForm = (category, bag) => {

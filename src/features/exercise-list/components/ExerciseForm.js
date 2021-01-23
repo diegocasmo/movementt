@@ -7,11 +7,7 @@ import { Formik, getIn } from 'formik'
 import Modal from '_components/Modal'
 import { TextInput, ModalPickerInput } from '_components/form'
 import { isCreating, isUpdating } from '_state/reducers/exercises'
-import {
-  EXERCISE_SCHEMA,
-  MOVEMENT_TYPE_OPTS,
-  CATEGORY_OPTS,
-} from '_api/exercise'
+import { EXERCISE_SCHEMA, MOVEMENT_TYPE_OPTS } from '_api/exercise'
 
 const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
   const creating = useSelector(isCreating)
@@ -70,20 +66,6 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
                   }))}
                   onValueChange={handleChange('movementType')}
                   value={values.movementType}
-                />
-              </Col>
-            </Grid>
-
-            <Grid>
-              <Col flexGrow={1}>
-                <ModalPickerInput
-                  label="Category"
-                  options={CATEGORY_OPTS.map((opt, idx) => ({
-                    key: idx,
-                    ...opt,
-                  }))}
-                  onValueChange={handleChange('category')}
-                  value={values.category}
                 />
               </Col>
             </Grid>

@@ -2,189 +2,162 @@
   "exercises": [
     {
       "name": "Ab roll-out on knees",
-      "category": "reps",
       "movementType": "core",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Alternating lunges",
-      "category": "reps",
       "movementType": "squat",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Assisted pistol squats",
-      "category": "reps",
       "movementType": "squat",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Bulgarian split squats",
-      "category": "reps",
       "movementType": "squat",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Burpees",
-      "category": "reps",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Chair dips",
-      "category": "reps",
       "movementType": "push",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Diamond push ups",
-      "category": "reps",
       "movementType": "push",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Dips",
-      "category": "reps",
       "movementType": "push",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Glute bridge",
-      "category": "reps",
       "movementType": "hinge",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Hand stand wall assisted hold",
-      "category": "time",
       "movementType": "push",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "High knee jumps",
-      "category": "reps",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "High knees",
-      "category": "reps",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Hindu push ups",
-      "category": "reps",
       "movementType": "push",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Hollow hold",
-      "category": "time",
       "movementType": "core",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Jumping jacks",
-      "category": "reps",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Jumping lunges",
-      "category": "reps",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Lying leg raises",
-      "category": "reps",
       "movementType": "core",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Mountain climbers",
-      "category": "reps",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Pike push ups",
-      "category": "reps",
       "movementType": "push",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Pistol squats",
-      "category": "reps",
       "movementType": "squat",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Plank",
-      "category": "time",
       "movementType": "core",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Sit-ups",
-      "category": "reps",
       "movementType": "core",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Squats",
-      "category": "reps",
       "movementType": "squat",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "V ups",
-      "category": "reps",
       "movementType": "core",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Wall walks",
-      "category": "reps",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Wide push ups",
-      "category": "reps",
       "movementType": "push",
       "createdAt": null,
       "updatedAt": null
     },
     {
       "name": "Running",
-      "category": "distance",
       "movementType": "full_body",
       "createdAt": null,
       "updatedAt": null

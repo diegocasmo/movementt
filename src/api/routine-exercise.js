@@ -1,13 +1,20 @@
 import * as Yup from 'yup'
-import {
-  CATEGORIES,
-  CATEGORY_DISTANCE,
-  CATEGORY_REPS,
-  CATEGORY_TIME,
-  MOVEMENT_TYPES,
-  MOVEMENT_TYPE_PUSH,
-} from '_api/exercise'
+import { MOVEMENT_TYPES, MOVEMENT_TYPE_PUSH } from '_api/exercise'
+import { getFormattedDistance } from '_utils/distance-utils'
+import { getFormattedDuration } from '_utils/time-utils'
 import { transformYupToFormikError } from '_api/utils'
+
+export const CATEGORY_REPS = 'reps'
+export const CATEGORY_TIME = 'time'
+export const CATEGORY_DISTANCE = 'distance'
+
+export const CATEGORIES = [CATEGORY_REPS, CATEGORY_TIME, CATEGORY_DISTANCE]
+
+export const CATEGORY_OPTS = [
+  { label: 'Reps', value: CATEGORY_REPS },
+  { label: 'Time', value: CATEGORY_TIME },
+  { label: 'Distance', value: CATEGORY_DISTANCE },
+]
 
 export const REP_UNIT = 'rep'
 export const TIME_UNIT = 'second'
@@ -82,4 +89,39 @@ export const buildRoutineExercise = async (exercise) => {
   } catch (err) {
     throw new Error('Unable to build routine exercise')
   }
+}
+
+export const isExerciseCategoryTime = (exercise) => {
+  return exercise.category === CATEGORY_TIME
+}
+
+export const isExerciseCategoryReps = (exercise) => {
+  return exercise.category === CATEGORY_REPS
+}
+
+export const isExerciseCategoryDistance = (exercise) => {
+  return exercise.category === CATEGORY_DISTANCE
+}
+
+export const getExerciseFormattedWeight = (exercise) => {
+  if (exercise.weight === 0) return
+
+  return `${exercise.weight} ${exercise.weightUnit}`
+}
+
+export const getExerciseFormattedRx = (exercise) => {
+  const { quantity } = exercise
+
+  const formattedWeight =
+    exercise.weight === 0 ? '' : `@${getExerciseFormattedWeight(exercise)}`
+
+  if (isExerciseCategoryTime(exercise)) {
+    return `${getFormattedDuration(quantity)} ${formattedWeight}`
+  }
+
+  if (isExerciseCategoryDistance(exercise)) {
+    return `${getFormattedDistance(quantity)} ${formattedWeight}`
+  }
+
+  return `${quantity} reps ${formattedWeight}`
 }
