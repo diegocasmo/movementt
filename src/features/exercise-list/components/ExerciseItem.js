@@ -67,8 +67,5 @@ const styles = StyleSheet.create({
   name: {
     flex: 1,
   },
-  actions: {
-    width: 40,
-    height: 40,
-  },
+  actions: {},
 })

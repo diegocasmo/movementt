@@ -78,18 +78,15 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   header: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 5,
     paddingBottom: 0,
   },
   name: {
     maxWidth: '90%',
   },
-  actions: {
-    position: 'absolute',
-    top: 8,
-    right: -2,
-    width: 40,
-    height: 40,
-  },
+  actions: {},
   summary: {
     marginBottom: 10,
   },

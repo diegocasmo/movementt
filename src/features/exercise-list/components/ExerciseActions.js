@@ -76,8 +76,8 @@ ExerciseActions.propTypes = {
 
 const styles = StyleSheet.create({
   btn: {
-    width: 40,
-    height: 40,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   spinner: {
     width: 40,
