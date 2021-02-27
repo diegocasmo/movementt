@@ -52,7 +52,7 @@ const App = () => {
   }
 
   // User is logged in and their email has been verified
-  if (user && user.emailVerified) return <VerifiedAppNavigator />
+  if (user && user.verified) return <VerifiedAppNavigator />
 
   // User is logged in, but their email hasn't been verified
   if (user) return <UnverifiedAppNavigator />

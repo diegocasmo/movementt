@@ -1,4 +1,6 @@
 import firebase from 'firebase'
+import { getUrl } from '_api/utils/url'
+import axios from 'axios'
 
 export const currentUser = () => {
   return firebase.auth().currentUser
@@ -37,3 +39,31 @@ export const createUserWithEmailAndPassword = async (email, password) => {
 export const updatePassword = async (user, password) => {
   return user.updatePassword(password)
 }
+
+export const getToken = async () => {
+  return firebase.auth().currentUser.getIdToken(true)
+}
+
+const User = {
+  url: `${getUrl()}/users`,
+
+  getToken: async () => {
+    return firebase.auth().currentUser.getIdToken(true)
+  },
+
+  getMe: async () => {
+    const token = await User.getToken()
+    const response = await axios.get(`${User.url}/me`, {
+      headers: { Authorization: token },
+    })
+
+    return response.data
+  },
+
+  reload: async () => {
+    await currentUser().reload()
+    return currentUser()
+  },
+}
+
+export default User

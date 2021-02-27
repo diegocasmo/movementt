@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { currentUser } from '_api/user'
+import User, { currentUser } from '_api/user'
 import { resetExercises } from '_state/reducers/exercises'
 import { resetRoutines } from '_state/reducers/routines'
 import { resetWorkouts } from '_state/reducers/workouts'
@@ -44,10 +44,10 @@ const auth = createSlice({
 
 export default auth.reducer
 
-export const handleAuthStateChanged = (user) => (dispatch) => {
-  if (user) {
-    const { uid, emailVerified } = user
-    dispatch(auth.actions.authStateChangedSignIn({ uid, emailVerified }))
+export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
+  if (authenticated) {
+    const user = await User.getMe()
+    dispatch(auth.actions.authStateChangedSignIn(user))
   } else {
     dispatch(resetExercises())
     dispatch(resetRoutines())
@@ -60,8 +60,9 @@ export const handleAuthStateChanged = (user) => (dispatch) => {
 export const reloadCurrentUser = () => async (dispatch) => {
   try {
     dispatch(auth.actions.reloadCurrentUserInit())
-    await currentUser().reload()
-    const user = currentUser()
+
+    const user = await User.reload()
+
     // Update auth state when current user is reloaded
     dispatch(handleAuthStateChanged(user))
     dispatch(auth.actions.reloadCurrentUserSuccess())
