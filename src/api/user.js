@@ -1,6 +1,6 @@
 import firebase from 'firebase'
-import { getUrl } from '_api/utils/url'
 import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const currentUser = () => {
   return firebase.auth().currentUser
@@ -40,30 +40,48 @@ export const updatePassword = async (user, password) => {
   return user.updatePassword(password)
 }
 
-export const getToken = async () => {
-  return firebase.auth().currentUser.getIdToken(true)
-}
+export default class User {
+  static URL = 'users'
 
-const User = {
-  url: `${getUrl()}/users`,
+  static TOKEN_KEY = 'movementt-user-token'
 
-  getToken: async () => {
-    return firebase.auth().currentUser.getIdToken(true)
-  },
+  static getToken = async () => {
+    try {
+      return AsyncStorage.getItem(User.TOKEN_KEY)
+    } catch (err) {
+      throw new Error('Unable to retrieve user token')
+    }
+  }
 
-  getMe: async () => {
-    const token = await User.getToken()
-    const response = await axios.get(`${User.url}/me`, {
-      headers: { Authorization: token },
-    })
+  static setToken = async () => {
+    try {
+      const token = await firebase.auth().currentUser.getIdToken(true)
+      await AsyncStorage.setItem(User.TOKEN_KEY, token)
+    } catch (err) {
+      throw new Error('Unable to set user token')
+    }
+  }
 
-    return response.data
-  },
+  static removeToken = async () => {
+    try {
+      await AsyncStorage.removeItem(User.TOKEN_KEY)
+    } catch (err) {
+      throw new Error('Unable to remove user token')
+    }
+  }
 
-  reload: async () => {
+  static getMe = async () => {
+    try {
+      const response = await axios.get(`${User.URL}/me`)
+
+      return response.data
+    } catch (err) {
+      throw new Error('Unable to fetch user')
+    }
+  }
+
+  static reload = async () => {
     await currentUser().reload()
     return currentUser()
-  },
+  }
 }
-
-export default User

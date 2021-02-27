@@ -4,22 +4,18 @@ import {
   createAsyncThunk,
   createSelector,
 } from '@reduxjs/toolkit'
-import {
-  createExercise as create,
-  destroyExercise as destroy,
-  fetchExercises as fetch,
-  updateExercise as update,
-} from '_api/exercise'
+import Exercise from '_api/exercise'
 import { REQUEST_STATUS } from '_utils/request-utils'
 
 const exercisesAdapter = createEntityAdapter({
-  selectId: (mst) => mst.key,
+  selectId: (exercise) => exercise.id,
 })
 
 export const fetchExercises = createAsyncThunk(
   'exercises/fetchExercises',
-  async (uid) => {
-    const exercises = await fetch(uid)
+  async () => {
+    const exercises = await Exercise.fetch()
+
     return { exercises }
   }
 )
@@ -27,7 +23,7 @@ export const fetchExercises = createAsyncThunk(
 export const createExercise = createAsyncThunk(
   'exercises/createExercise',
   async (attrs) => {
-    const exercise = await create(attrs.uid, attrs)
+    const exercise = await Exercise.create(attrs)
     return exercise
   }
 )
@@ -35,15 +31,16 @@ export const createExercise = createAsyncThunk(
 export const updateExercise = createAsyncThunk(
   'exercises/updateExercise',
   async (attrs) => {
-    const exercise = await update(attrs.uid, attrs)
+    const exercise = await Exercise.update(attrs)
     return exercise
   }
 )
 
 export const destroyExercise = createAsyncThunk(
   'exercises/destroyExercise',
-  async (attrs) => {
-    const exercise = await destroy(attrs.uid, attrs)
+  async (exercise) => {
+    await Exercise.destroy(exercise)
+
     return exercise
   }
 )
@@ -88,25 +85,25 @@ export const slice = createSlice({
     },
 
     [updateExercise.pending]: (state, action) => {
-      state.statusById[action.meta.arg.key] = REQUEST_STATUS.PUT
+      state.statusById[action.meta.arg.id] = REQUEST_STATUS.PUT
     },
     [updateExercise.fulfilled]: (state, action) => {
-      state.statusById[action.payload.key] = REQUEST_STATUS.NONE
+      state.statusById[action.meta.arg.id] = REQUEST_STATUS.NONE
       exercisesAdapter.upsertOne(state, action.payload)
     },
     [updateExercise.rejected]: (state, action) => {
-      state.statusById[action.meta.arg.key] = REQUEST_STATUS.NONE
+      state.statusById[action.meta.arg.id] = REQUEST_STATUS.NONE
     },
 
     [destroyExercise.pending]: (state, action) => {
-      state.statusById[action.meta.arg.key] = REQUEST_STATUS.DELETE
+      state.statusById[action.meta.arg.id] = REQUEST_STATUS.DELETE
     },
     [destroyExercise.fulfilled]: (state, action) => {
-      state.statusById[action.payload.key] = REQUEST_STATUS.NONE
-      exercisesAdapter.removeOne(state, action.payload.key)
+      state.statusById[action.payload.id] = REQUEST_STATUS.NONE
+      exercisesAdapter.removeOne(state, action.payload.id)
     },
     [destroyExercise.rejected]: (state, action) => {
-      state.statusById[action.meta.arg.key] = REQUEST_STATUS.NONE
+      state.statusById[action.payload.id] = REQUEST_STATUS.NONE
     },
   },
 })

@@ -11,7 +11,7 @@ const DESTRUCTIVE_INDEX = 1
 const CANCEL_INDEX = 2
 
 const ExerciseActions = ({ exercise, onUpdate, onDestroy }) => {
-  const destroying = useSelector((state) => isDestroying(state, exercise.key))
+  const destroying = useSelector((state) => isDestroying(state, exercise.id))
 
   const handleDelete = () => {
     Alert.alert(

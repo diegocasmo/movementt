@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Content, Spinner, Button, Text, View } from 'native-base'
-import { getUser } from '_state/reducers/auth'
 import {
   createExercise,
   destroyExercise,
@@ -14,7 +13,7 @@ import { showError } from '_utils/toast'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
-import { DEFAULT_EXERCISE } from '_api/exercise'
+import Exercise from '_api/exercise'
 
 const ExerciseList = ({
   exercises,
@@ -26,8 +25,7 @@ const ExerciseList = ({
   showRetry,
 }) => {
   const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const initialState = { visible: false, exercise: DEFAULT_EXERCISE }
+  const initialState = { visible: false, exercise: Exercise.DEFAULT }
   const [state, setState] = useState(initialState)
   const trimmedQuery = query.trim()
 
@@ -46,7 +44,7 @@ const ExerciseList = ({
   const handlePrefillExercise = () => {
     setState({
       visible: true,
-      exercise: { ...DEFAULT_EXERCISE, name: trimmedQuery },
+      exercise: { ...Exercise.DEFAULT, name: trimmedQuery },
     })
   }
 
@@ -56,9 +54,7 @@ const ExerciseList = ({
 
   const handleDestroy = async (exercise) => {
     try {
-      const action = await dispatch(
-        destroyExercise({ uid: user.uid, ...exercise })
-      )
+      const action = await dispatch(destroyExercise(exercise))
       unwrapResult(action)
     } catch (err) {
       showError(err.message)
@@ -71,9 +67,10 @@ const ExerciseList = ({
 
   const handleSubmit = async (exercise) => {
     try {
-      const attrs = { uid: user.uid, ...exercise }
       const action = await dispatch(
-        exercise.createdAt ? updateExercise(attrs) : createExercise(attrs)
+        exercise.created_at
+          ? updateExercise(exercise)
+          : createExercise(exercise)
       )
       unwrapResult(action)
       setState(initialState)
@@ -114,7 +111,7 @@ const ExerciseList = ({
           )}
           {exercises.map((exercise) => (
             <ExerciseItem
-              key={exercise.key}
+              key={exercise.id}
               exercise={exercise}
               onPress={handlePress}
               onUpdate={handleUpdate}

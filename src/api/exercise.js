@@ -1,100 +1,98 @@
 import * as Yup from 'yup'
-import { db } from '_api/config'
-import { timestamp } from '_utils/time-utils'
+import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils'
 
-export const MOVEMENT_TYPE_CORE = 'core'
-export const MOVEMENT_TYPE_FULL_BODY = 'full_body'
-export const MOVEMENT_TYPE_HINGE = 'hinge'
-export const MOVEMENT_TYPE_PULL = 'pull'
-export const MOVEMENT_TYPE_PUSH = 'push'
-export const MOVEMENT_TYPE_SQUAT = 'squat'
-export const MOVEMENT_TYPE_OTHER = 'other'
+export default class Exercise {
+  static URL = 'exercises'
 
-export const MOVEMENT_TYPES = [
-  MOVEMENT_TYPE_CORE,
-  MOVEMENT_TYPE_FULL_BODY,
-  MOVEMENT_TYPE_HINGE,
-  MOVEMENT_TYPE_PULL,
-  MOVEMENT_TYPE_PUSH,
-  MOVEMENT_TYPE_SQUAT,
-  MOVEMENT_TYPE_OTHER,
-]
+  static MOVEMENT_TYPE_CORE = 'core'
+  static MOVEMENT_TYPE_FULL_BODY = 'full_body'
+  static MOVEMENT_TYPE_HINGE = 'hinge'
+  static MOVEMENT_TYPE_PULL = 'pull'
+  static MOVEMENT_TYPE_PUSH = 'push'
+  static MOVEMENT_TYPE_SQUAT = 'squat'
+  static MOVEMENT_TYPE_OTHER = 'other'
 
-export const MOVEMENT_TYPE_OPTS = [
-  { label: 'Core', value: MOVEMENT_TYPE_CORE },
-  { label: 'Full body', value: MOVEMENT_TYPE_FULL_BODY },
-  { label: 'Hinge', value: MOVEMENT_TYPE_HINGE },
-  { label: 'Pull', value: MOVEMENT_TYPE_PULL },
-  { label: 'Push', value: MOVEMENT_TYPE_PUSH },
-  { label: 'Squat', value: MOVEMENT_TYPE_SQUAT },
-  { label: 'Other', value: MOVEMENT_TYPE_OTHER },
-]
+  static MOVEMENT_TYPES = [
+    Exercise.MOVEMENT_TYPE_CORE,
+    Exercise.MOVEMENT_TYPE_FULL_BODY,
+    Exercise.MOVEMENT_TYPE_HINGE,
+    Exercise.MOVEMENT_TYPE_PULL,
+    Exercise.MOVEMENT_TYPE_PUSH,
+    Exercise.MOVEMENT_TYPE_SQUAT,
+    Exercise.MOVEMENT_TYPE_OTHER,
+  ]
 
-export const DEFAULT_EXERCISE = {
-  name: '',
-  movementType: MOVEMENT_TYPE_PUSH,
-}
+  static MOVEMENT_TYPE_OPTS = [
+    { label: 'Core', value: Exercise.MOVEMENT_TYPE_CORE },
+    { label: 'Full body', value: Exercise.MOVEMENT_TYPE_FULL_BODY },
+    { label: 'Hinge', value: Exercise.MOVEMENT_TYPE_HINGE },
+    { label: 'Pull', value: Exercise.MOVEMENT_TYPE_PULL },
+    { label: 'Push', value: Exercise.MOVEMENT_TYPE_PUSH },
+    { label: 'Squat', value: Exercise.MOVEMENT_TYPE_SQUAT },
+    { label: 'Other', value: Exercise.MOVEMENT_TYPE_OTHER },
+  ]
 
-export const EXERCISE_SCHEMA = Yup.object().shape({
-  name: Yup.string().trim().required(),
-  movementType: Yup.mixed().oneOf(MOVEMENT_TYPES).required(),
-  createdAt: Yup.number().positive(),
-  updatedAt: Yup.number().positive(),
-})
-
-const validate = async (values) => {
-  return EXERCISE_SCHEMA.validate(values, {
-    stripUnknown: true,
-  }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
-}
-
-const getExercisesRef = (uid) => `exercises/${uid}`
-const getExerciseRef = (uid, key) => `${getExercisesRef(uid)}/${key}`
-
-export const fetchExercises = async (uid) => {
-  try {
-    const snapshot = await db.ref(getExercisesRef(uid)).once('value')
-    const values = snapshot.val()
-    return values
-      ? Object.entries(values).map(([key, values]) => ({ key, ...values }))
-      : {}
-  } catch (err) {
-    throw new Error('Unable to fetch exercises')
+  static DEFAULT = {
+    name: '',
+    movement_type: Exercise.MOVEMENT_TYPE_PUSH,
   }
-}
 
-export const createExercise = async (uid, attrs) => {
-  let exercise = { ...attrs, createdAt: timestamp() }
+  static SCHEMA = Yup.object().shape({
+    id: Yup.number(),
+    name: Yup.string().trim().required(),
+    movement_type: Yup.mixed().oneOf(Exercise.MOVEMENT_TYPES).required(),
+    created_at: Yup.string(),
+    updated_at: Yup.string(),
+  })
 
-  try {
-    exercise = await validate(exercise)
-    const ref = await db.ref(getExercisesRef(uid)).push(exercise)
-
-    return { ...exercise, key: ref.key }
-  } catch (err) {
-    throw new Error('Unable to create exercise')
+  static validate = async (attrs) => {
+    return Exercise.SCHEMA.validate(attrs, {
+      stripUnknown: true,
+    }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
   }
-}
 
-export const updateExercise = async (uid, attrs) => {
-  let exercise = { ...attrs, updatedAt: timestamp() }
+  static fetch = async () => {
+    try {
+      const response = await axios.get(Exercise.URL)
 
-  try {
-    exercise = await validate(exercise)
-    await db.ref(getExerciseRef(uid, attrs.key)).update(exercise)
-
-    return { ...exercise, key: attrs.key }
-  } catch (err) {
-    throw new Error('Unable to update exercise')
+      return response.data
+    } catch (err) {
+      throw new Error('Unable to fetch exercises')
+    }
   }
-}
 
-export const destroyExercise = async (uid, exercise) => {
-  try {
-    await db.ref(getExerciseRef(uid, exercise.key)).remove()
-    return exercise
-  } catch (err) {
-    throw new Error('Unable to destroy exercise')
+  static create = async (attrs) => {
+    try {
+      const exercise = await Exercise.validate(attrs)
+
+      const response = await axios.post(Exercise.URL, { exercise })
+
+      return response.data
+    } catch (err) {
+      throw new Error('Unable to create exercise')
+    }
+  }
+
+  static update = async (attrs) => {
+    try {
+      const exercise = await Exercise.validate(attrs)
+
+      const response = await axios.put(`${Exercise.URL}/${exercise.id}`, {
+        exercise,
+      })
+
+      return response.data
+    } catch (err) {
+      throw new Error('Unable to update exercise')
+    }
+  }
+
+  static destroy = async (exercise) => {
+    try {
+      return axios.delete(`${Exercise.URL}/${exercise.id}`)
+    } catch (err) {
+      throw new Error('Unable to destroy exercise')
+    }
   }
 }

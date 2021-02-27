@@ -1,11 +1,12 @@
 require('./api/config') // eslint-disable-line no-undef
-import React from 'react'
+import React, { useEffect } from 'react'
 import App from './App'
 import { Provider } from 'react-redux'
 import store from '_state'
 import { Root as NativeBaseRoot } from 'native-base'
 import { NavigationContainer } from '@react-navigation/native'
 import { Audio } from 'expo-av'
+import { initializeApi } from '_api'
 
 Audio.setAudioModeAsync({
   playsInSilentModeIOS: true,
@@ -18,6 +19,14 @@ Audio.setAudioModeAsync({
 })
 
 const Root = () => {
+  const configureApi = async () => {
+    await initializeApi()
+  }
+
+  useEffect(() => {
+    configureApi()
+  }, [])
+
   return (
     <NativeBaseRoot>
       <Provider store={store}>

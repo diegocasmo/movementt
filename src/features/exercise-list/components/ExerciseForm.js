@@ -7,7 +7,7 @@ import { Formik, getIn } from 'formik'
 import Modal from '_components/Modal'
 import { TextInput, ModalPickerInput } from '_components/form'
 import { isCreating, isUpdating } from '_state/reducers/exercises'
-import { EXERCISE_SCHEMA, MOVEMENT_TYPE_OPTS } from '_api/exercise'
+import Exercise from '_api/exercise'
 
 const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
   const creating = useSelector(isCreating)
@@ -17,9 +17,9 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
   return (
     <Formik
       initialValues={exercise}
-      validationSchema={EXERCISE_SCHEMA}
+      validationSchema={Exercise.SCHEMA}
       onSubmit={(attrs, opts) => {
-        onSubmit(EXERCISE_SCHEMA.cast(attrs), opts)
+        onSubmit(Exercise.SCHEMA.cast(attrs), opts)
       }}
     >
       {({
@@ -39,7 +39,7 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
             childrenStyle={styles.childrenStyle}
           >
             <H1 style={styles.h1}>
-              {exercise.createdAt ? 'Update' : 'Create'} Exercise
+              {exercise.created_at ? 'Update' : 'Create'} Exercise
             </H1>
 
             <Grid>
@@ -60,12 +60,12 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
               <Col flexGrow={1}>
                 <ModalPickerInput
                   label="Movement type"
-                  options={MOVEMENT_TYPE_OPTS.map((opt, idx) => ({
+                  options={Exercise.MOVEMENT_TYPE_OPTS.map((opt, idx) => ({
                     key: idx,
                     ...opt,
                   }))}
-                  onValueChange={handleChange('movementType')}
-                  value={values.movementType}
+                  onValueChange={handleChange('movement_type')}
+                  value={values.movement_type}
                 />
               </Col>
             </Grid>
@@ -84,7 +84,7 @@ const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
                 {submitting ? (
                   <Spinner color="white" size="small" />
                 ) : (
-                  <Text>{exercise.createdAt ? 'Update' : 'Create'}</Text>
+                  <Text>{exercise.created_at ? 'Update' : 'Create'}</Text>
                 )}
               </Button>
             </View>

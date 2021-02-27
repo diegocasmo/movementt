@@ -21,7 +21,7 @@ const App = () => {
 
   // Load application assets
   useEffect(() => {
-    async function loadAssets() {
+    const loadAssets = async () => {
       await Font.loadAsync({
         // eslint-disable-next-line no-undef
         Roboto: require('../node_modules/native-base/Fonts/Roboto.ttf'),

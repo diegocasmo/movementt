@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import User, { currentUser } from '_api/user'
+import User from '_api/user'
 import { resetExercises } from '_state/reducers/exercises'
 import { resetRoutines } from '_state/reducers/routines'
 import { resetWorkouts } from '_state/reducers/workouts'
@@ -46,9 +46,11 @@ export default auth.reducer
 
 export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
   if (authenticated) {
+    await User.setToken()
     const user = await User.getMe()
     dispatch(auth.actions.authStateChangedSignIn(user))
   } else {
+    await User.removeToken()
     dispatch(resetExercises())
     dispatch(resetRoutines())
     dispatch(resetWorkouts())
