@@ -13,7 +13,7 @@ import ExerciseIcon from '_components/ExerciseIcon'
 export const getRoutineExerciseFormattedWeight = (exercise) => {
   if (exercise.weight === 0) return
 
-  return `${exercise.weight} ${exercise.weightUnit}`
+  return `${exercise.weight} ${exercise.weight_unit}`
 }
 
 const getRoutineExerciseFormatteRx = (exercise) => {

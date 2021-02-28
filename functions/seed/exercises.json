@@ -2,165 +2,165 @@
   "exercises": [
     {
       "name": "Ab roll-out on knees",
-      "movementType": "core",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "core",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Alternating lunges",
-      "movementType": "squat",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "squat",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Assisted pistol squats",
-      "movementType": "squat",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "squat",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Bulgarian split squats",
-      "movementType": "squat",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "squat",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Burpees",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Chair dips",
-      "movementType": "push",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "push",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Diamond push ups",
-      "movementType": "push",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "push",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Dips",
-      "movementType": "push",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "push",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Glute bridge",
-      "movementType": "hinge",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "hinge",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Hand stand wall assisted hold",
-      "movementType": "push",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "push",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "High knee jumps",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "High knees",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Hindu push ups",
-      "movementType": "push",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "push",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Hollow hold",
-      "movementType": "core",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "core",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Jumping jacks",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Jumping lunges",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Lying leg raises",
-      "movementType": "core",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "core",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Mountain climbers",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Pike push ups",
-      "movementType": "push",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "push",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Pistol squats",
-      "movementType": "squat",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "squat",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Plank",
-      "movementType": "core",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "core",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Sit-ups",
-      "movementType": "core",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "core",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Squats",
-      "movementType": "squat",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "squat",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "V ups",
-      "movementType": "core",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "core",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Wall walks",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Wide push ups",
-      "movementType": "push",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "push",
+      "created_at": null,
+      "updated_at": null
     },
     {
       "name": "Running",
-      "movementType": "full_body",
-      "createdAt": null,
-      "updatedAt": null
+      "movement_type": "full_body",
+      "created_at": null,
+      "updated_at": null
     }
   ]
 }

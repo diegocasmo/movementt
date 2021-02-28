@@ -12,7 +12,7 @@ export const DEFAULT_ROUTINE = {
   name: '',
   type: TYPE_CIRCUIT,
   rounds: 4,
-  restSeconds: 0,
+  rest_seconds: 0,
   exercises: [],
 }
 
@@ -24,13 +24,13 @@ export const ROUTINE_SCHEMA = Yup.object({
     .required()
     .positive()
     .min(1),
-  restSeconds: Yup.number()
+  rest_seconds: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
     .min(0),
-  createdAt: Yup.number().positive(),
-  updatedAt: Yup.number().positive(),
+  created_at: Yup.number().positive(),
+  updated_at: Yup.number().positive(),
   exercises: Yup.array(Yup.object().concat(ROUTINE_EXERCISE_SCHEMA))
     .min(1)
     .required(),
@@ -58,7 +58,7 @@ export const fetchRoutines = async (uid) => {
 }
 
 export const createRoutine = async (uid, attrs) => {
-  let routine = { ...attrs, createdAt: timestamp() }
+  let routine = { ...attrs, created_at: timestamp() }
 
   try {
     routine = await validate(routine)
@@ -71,7 +71,7 @@ export const createRoutine = async (uid, attrs) => {
 }
 
 export const updateRoutine = async (uid, attrs) => {
-  let routine = { ...attrs, updatedAt: timestamp() }
+  let routine = { ...attrs, updated_at: timestamp() }
 
   try {
     routine = await validate(routine)

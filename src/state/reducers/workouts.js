@@ -107,7 +107,7 @@ export const getWorkouts = createSelector(
   (workouts) => {
     // Sort workouts by most recently completed first
     return [...workouts].sort((a, b) => {
-      return b.completedAt - a.completedAt
+      return b.completed_at - a.completed_at
     })
   }
 )

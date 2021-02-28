@@ -36,8 +36,8 @@ const TimeRoutineExerciseForm = ({ bag }) => {
         <Col flexGrow={1}>
           <TimePicker
             label="Rest"
-            value={`${values.restSeconds}`}
-            onChange={handleChange('restSeconds')}
+            value={`${values.rest_seconds}`}
+            onChange={handleChange('rest_seconds')}
           />
         </Col>
       </Grid>

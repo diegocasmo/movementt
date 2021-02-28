@@ -16,7 +16,7 @@ exports.addRoutinesSeed = functions.auth.user().onCreate((user) => {
   const routines = routinesSeed.routines.map((routine) => {
     return {
       ...routine,
-      createdAt: new Date().getTime(),
+      created_at: new Date().getTime(),
       exercises: routine.exercises.map((exercise) => {
         return {
           ...exercise,
@@ -39,7 +39,7 @@ exports.addExercisesSeed = functions.auth.user().onCreate((user) => {
   const exercises = exercisesSeed.exercises.map((exercise) => {
     return {
       ...exercise,
-      createdAt: new Date().getTime(),
+      created_at: new Date().getTime(),
     }
   })
 

@@ -22,17 +22,20 @@ const WorkoutItem = ({ workout }) => {
               {getRoutineFormattedExercises(workout.routine)}
             </Text>
             <Text style={styles.rounds}>
-              Rounds: {workout.roundsCompleted}/{workout.routine.rounds}
+              Rounds: {workout.rounds_completed}/{workout.routine.rounds}
             </Text>
           </Body>
         </CardItem>
-        <View style={styles.completedAtContainer}>
+        <View style={styles.completed_atContainer}>
           <Icon style={styles.calendarIcon} name="md-calendar-outline" />
-          <Text>{fromNow(workout.completedAt)}</Text>
+          <Text>{fromNow(workout.completed_at)}</Text>
         </View>
         <View style={styles.durationContainer}>
           <Icon style={styles.durationIcon} name="md-time-outline" />
-          <Duration style={styles.durationText} elapsedMs={workout.elapsedMs} />
+          <Duration
+            style={styles.durationText}
+            elapsedMs={workout.elapsed_ms}
+          />
         </View>
       </Card>
     </View>
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   rounds: {
     marginBottom: 5,
   },
-  completedAtContainer: {
+  completed_atContainer: {
     position: 'absolute',
     bottom: 10,
     left: 15,

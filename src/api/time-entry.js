@@ -11,8 +11,8 @@ export const TIME_ENTRY_TYPES = [
 ]
 
 export const TIME_ENTRY_SCHEMA = Yup.object({
-  elapsedMs: Yup.number().positive(),
-  exerciseUid: Yup.string().nullable(),
-  startedAt: Yup.number().required().positive(),
+  elapsed_ms: Yup.number().positive(),
+  exercise_uid: Yup.string().nullable(),
+  started_at: Yup.number().required().positive(),
   type: Yup.mixed().oneOf(TIME_ENTRY_TYPES).required(),
 })

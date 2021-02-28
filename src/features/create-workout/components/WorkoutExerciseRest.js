@@ -17,7 +17,7 @@ const WorkoutExerciseRest = () => {
   const dispatch = useDispatch()
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
   const exercise = useSelector(getCurrExercise)
-  const { restSeconds } = useSelector(getPrevExercise)
+  const { rest_seconds } = useSelector(getPrevExercise)
   const sound = useSelector(hasSound)
 
   const handleComplete = () => {
@@ -29,7 +29,7 @@ const WorkoutExerciseRest = () => {
       <Button transparent style={styles.btn} onPress={handleComplete}>
         <Countdown
           elapsedMs={elapsedMs}
-          targetMs={secondsToMs(restSeconds)}
+          targetMs={secondsToMs(rest_seconds)}
           hasSound={sound}
           onCompleted={handleComplete}
         />

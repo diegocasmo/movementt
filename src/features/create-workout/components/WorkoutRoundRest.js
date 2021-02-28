@@ -16,7 +16,7 @@ import { secondsToMs } from '_utils/time-utils'
 const WorkoutRoundRest = () => {
   const dispatch = useDispatch()
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
-  const { restSeconds } = useSelector(getRoutine)
+  const { rest_seconds } = useSelector(getRoutine)
   const exercise = useSelector(getCurrExercise)
   const sound = useSelector(hasSound)
 
@@ -29,7 +29,7 @@ const WorkoutRoundRest = () => {
       <Button transparent style={styles.btn} onPress={handleComplete}>
         <Countdown
           elapsedMs={elapsedMs}
-          targetMs={secondsToMs(restSeconds)}
+          targetMs={secondsToMs(rest_seconds)}
           hasSound={sound}
           onCompleted={handleComplete}
         />

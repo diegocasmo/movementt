@@ -4,49 +4,49 @@
       "type": "circuit",
       "name": "Core Foundation",
       "rounds": 3,
-      "restSeconds": 45,
-      "createdAt": null,
-      "updatedAt": null,
+      "rest_seconds": 45,
+      "created_at": null,
+      "updated_at": null,
       "exercises": [
         {
           "name": "Ab wheel roll out",
           "category": "reps",
-          "movementType": "core",
+          "movement_type": "core",
           "quantity": 8,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Side plank (R)",
           "category": "time",
-          "movementType": "core",
+          "movement_type": "core",
           "quantity": 30,
-          "quantityUnit": "second",
+          "quantity_unit": "second",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Side plank (L)",
           "category": "time",
-          "movementType": "core",
+          "movement_type": "core",
           "quantity": 30,
-          "quantityUnit": "second",
+          "quantity_unit": "second",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "V-ups",
           "category": "reps",
-          "movementType": "core",
+          "movement_type": "core",
           "quantity": 10,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         }
       ]
     },
@@ -54,49 +54,49 @@
       "type": "circuit",
       "name": "Full Body Kick",
       "rounds": 3,
-      "restSeconds": 45,
-      "createdAt": null,
-      "updatedAt": null,
+      "rest_seconds": 45,
+      "created_at": null,
+      "updated_at": null,
       "exercises": [
         {
           "name": "Running",
           "category": "distance",
-          "movementType": "full_body",
+          "movement_type": "full_body",
           "quantity": 200,
-          "quantityUnit": "m",
+          "quantity_unit": "m",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Burpees",
           "category": "reps",
-          "movementType": "full_body",
+          "movement_type": "full_body",
           "quantity": 8,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Sumo Squat",
           "category": "reps",
-          "movementType": "squat",
+          "movement_type": "squat",
           "quantity": 15,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Shoulder tabs",
           "category": "reps",
-          "movementType": "full_body",
+          "movement_type": "full_body",
           "quantity": 15,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         }
       ]
     },
@@ -104,59 +104,59 @@
       "type": "circuit",
       "name": "Quad Boost",
       "rounds": 3,
-      "restSeconds": 45,
-      "createdAt": null,
-      "updatedAt": null,
+      "rest_seconds": 45,
+      "created_at": null,
+      "updated_at": null,
       "exercises": [
         {
           "name": "Skipping",
           "category": "time",
-          "movementType": "full_body",
+          "movement_type": "full_body",
           "quantity": 60,
-          "quantityUnit": "second",
+          "quantity_unit": "second",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Alternating lunges",
           "category": "reps",
-          "movementType": "squat",
+          "movement_type": "squat",
           "quantity": 24,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Donkey kicks (R)",
           "category": "reps",
-          "movementType": "hinge",
+          "movement_type": "hinge",
           "quantity": 10,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Donkey kicks (L)",
           "category": "reps",
-          "movementType": "hinge",
+          "movement_type": "hinge",
           "quantity": 10,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Squats",
           "category": "reps",
-          "movementType": "squat",
+          "movement_type": "squat",
           "quantity": 15,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         }
       ]
     },
@@ -164,49 +164,49 @@
       "type": "circuit",
       "name": "Upper-Body Complete",
       "rounds": 3,
-      "restSeconds": 45,
-      "createdAt": null,
-      "updatedAt": null,
+      "rest_seconds": 45,
+      "created_at": null,
+      "updated_at": null,
       "exercises": [
         {
           "name": "Push ups",
           "category": "reps",
-          "movementType": "push",
+          "movement_type": "push",
           "quantity": 10,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Pull ups",
           "category": "reps",
-          "movementType": "pull",
+          "movement_type": "pull",
           "quantity": 5,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Dips",
           "category": "reps",
-          "movementType": "push",
+          "movement_type": "push",
           "quantity": 8,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         },
         {
           "name": "Superman",
           "category": "reps",
-          "movementType": "core",
+          "movement_type": "core",
           "quantity": 10,
-          "quantityUnit": "rep",
+          "quantity_unit": "rep",
           "weight": 0,
-          "weightUnit": "Kg",
-          "restSeconds": 15
+          "weight_unit": "Kg",
+          "rest_seconds": 15
         }
       ]
     }

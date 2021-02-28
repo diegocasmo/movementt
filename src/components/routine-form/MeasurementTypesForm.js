@@ -24,7 +24,7 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
             ...routineExercise,
             category,
             quantity: 30,
-            quantityUnit: TIME_UNIT,
+            quantity_unit: TIME_UNIT,
           },
           false
         )
@@ -34,7 +34,7 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
             ...routineExercise,
             category,
             quantity: 200,
-            quantityUnit: DISTANCE_UNIT,
+            quantity_unit: DISTANCE_UNIT,
           },
           false
         )
@@ -44,7 +44,7 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
             ...routineExercise,
             category,
             quantity: 10,
-            quantityUnit: REP_UNIT,
+            quantity_unit: REP_UNIT,
           },
           false
         )

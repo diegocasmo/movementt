@@ -40,10 +40,10 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
   const timeEntry = useSelector(getCurrTimeEntry)
   const user = useSelector(getUser)
   const elapsedMs = useSelector(getTotalElapsedMs)
-  const startedAt = useSelector(getStartedAt)
-  const completedAt = useSelector(getCompletedAt)
-  const roundsCompleted = useSelector(getRoundsCompleted)
-  const timeEntries = useSelector(getTimeEntries)
+  const started_at = useSelector(getStartedAt)
+  const completed_at = useSelector(getCompletedAt)
+  const rounds_completed = useSelector(getRoundsCompleted)
+  const time_entries = useSelector(getTimeEntries)
 
   const handleStartupCompleted = () => {
     dispatch(init(routine))
@@ -58,12 +58,12 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
   const handleCompleteConfirmed = async () => {
     try {
       const workout = {
-        completedAt,
+        completed_at,
         elapsedMs,
-        roundsCompleted,
+        rounds_completed,
         routine,
-        startedAt,
-        timeEntries,
+        started_at,
+        time_entries,
         uid: user.uid,
       }
       const action = await dispatch(createWorkout(workout))

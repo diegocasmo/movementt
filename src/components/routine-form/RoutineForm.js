@@ -186,8 +186,8 @@ const RoutineForm = ({
                   <Col>
                     <TimePicker
                       label="Round rest"
-                      value={`${values.restSeconds}`}
-                      onChange={handleChange('restSeconds')}
+                      value={`${values.rest_seconds}`}
+                      onChange={handleChange('rest_seconds')}
                     />
                   </Col>
                 </Grid>

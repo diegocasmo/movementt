@@ -60,7 +60,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
           <Text style={styles.routineDetail}>Name: {routine.name}</Text>
           <Text style={styles.routineDetail}>Rounds: {routine.rounds}</Text>
           <Text style={styles.routineDetail}>
-            Round rest: {getFormattedDuration(routine.restSeconds)}
+            Round rest: {getFormattedDuration(routine.rest_seconds)}
           </Text>
 
           <H2 style={styles.h2}>Exercises ({routine.exercises.length})</H2>

@@ -6,13 +6,13 @@ import { ROUTINE_SCHEMA } from '_api/routine'
 import { TIME_ENTRY_SCHEMA } from '_api/time-entry'
 
 export const WORKOUT_SCHEMA = Yup.object({
-  createdAt: Yup.number().positive(),
-  updatedAt: Yup.number().positive(),
-  startedAt: Yup.number().required().positive(),
-  completedAt: Yup.number().required().positive(),
-  elapsedMs: Yup.number().required().positive(),
-  roundsCompleted: Yup.number().required().min(0),
-  timeEntries: Yup.array(Yup.object().concat(TIME_ENTRY_SCHEMA))
+  created_at: Yup.number().positive(),
+  updated_at: Yup.number().positive(),
+  started_at: Yup.number().required().positive(),
+  completed_at: Yup.number().required().positive(),
+  elapsed_ms: Yup.number().required().positive(),
+  rounds_completed: Yup.number().required().min(0),
+  time_entries: Yup.array(Yup.object().concat(TIME_ENTRY_SCHEMA))
     .min(1)
     .required(),
   routine: Yup.object().concat(ROUTINE_SCHEMA),
@@ -49,7 +49,7 @@ export const fetchWorkouts = async (uid, cursorKey = null, pageSize = 10) => {
 }
 
 export const createWorkout = async (uid, attrs) => {
-  let workout = { ...attrs, createdAt: timestamp() }
+  let workout = { ...attrs, created_at: timestamp() }
 
   try {
     workout = await validate(workout)

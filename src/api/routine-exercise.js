@@ -29,20 +29,20 @@ export const ROUTINE_EXERCISE_SCHEMA = Yup.object().shape({
   uid: Yup.string().required(),
   name: Yup.string().trim().required(),
   category: Yup.mixed().oneOf(CATEGORIES).required(),
-  movementType: Yup.mixed().oneOf(Exercise.MOVEMENT_TYPES).required(),
+  movement_type: Yup.mixed().oneOf(Exercise.MOVEMENT_TYPES).required(),
   quantity: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
     .min(1),
-  quantityUnit: Yup.mixed().oneOf(QTY_UNITS).required(),
+  quantity_unit: Yup.mixed().oneOf(QTY_UNITS).required(),
   weight: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
     .min(0),
-  weightUnit: Yup.mixed().oneOf(WEIGHT_UNITS).required(),
-  restSeconds: Yup.number()
+  weight_unit: Yup.mixed().oneOf(WEIGHT_UNITS).required(),
+  rest_seconds: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
@@ -61,29 +61,29 @@ export const buildRoutineExercise = async (exercise) => {
       uid: `${new Date().getTime()}`,
       name: '',
       category: CATEGORY_REPS,
-      movementType: Exercise.MOVEMENT_TYPE_PUSH,
+      movement_type: Exercise.MOVEMENT_TYPE_PUSH,
       quantity: 10,
-      quantityUnit: REP_UNIT,
+      quantity_unit: REP_UNIT,
       weight: 0,
-      weightUnit: WEIGHT_KG_UNIT,
-      restSeconds: 0,
+      weight_unit: WEIGHT_KG_UNIT,
+      rest_seconds: 0,
       ...exercise,
     })
 
-    // Make sure exercise quantity/quantityUnit are correctly setup according
+    // Make sure exercise quantity/quantity_unit are correctly setup according
     // to its category
     return ((routineExercise) => {
       switch (routineExercise.category) {
         case CATEGORY_TIME:
-          return { ...routineExercise, quantity: 30, quantityUnit: TIME_UNIT }
+          return { ...routineExercise, quantity: 30, quantity_unit: TIME_UNIT }
         case CATEGORY_DISTANCE:
           return {
             ...routineExercise,
             quantity: 200,
-            quantityUnit: DISTANCE_UNIT,
+            quantity_unit: DISTANCE_UNIT,
           }
         default:
-          return { ...routineExercise, quantity: 10, quantityUnit: REP_UNIT }
+          return { ...routineExercise, quantity: 10, quantity_unit: REP_UNIT }
       }
     })(routineExercise)
   } catch (err) {
@@ -106,7 +106,7 @@ export const isExerciseCategoryDistance = (exercise) => {
 export const getExerciseFormattedWeight = (exercise) => {
   if (exercise.weight === 0) return
 
-  return `${exercise.weight} ${exercise.weightUnit}`
+  return `${exercise.weight} ${exercise.weight_unit}`
 }
 
 export const getExerciseFormattedRx = (exercise) => {
