@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
+import { showError } from '_utils/toast'
 
 import User from '_api/user'
 import { handleAuthStateChanged } from '_state/reducers/auth'
@@ -38,8 +39,12 @@ const App = () => {
 
   // Listen to authentication state changes
   useEffect(() => {
-    const unsubscribe = User.onAuthStateChanged((user) => {
-      dispatch(handleAuthStateChanged(user))
+    const unsubscribe = User.onAuthStateChanged(async (firebaseUser) => {
+      try {
+        await dispatch(handleAuthStateChanged(!!firebaseUser))
+      } catch (err) {
+        showError('There was an issue while authenticating the user')
+      }
     })
 
     return () => {

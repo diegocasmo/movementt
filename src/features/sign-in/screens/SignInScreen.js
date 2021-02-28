@@ -18,8 +18,9 @@ const SignInScreen = ({ navigation }) => {
     try {
       await User.signInWithEmailAndPassword(email, password)
     } catch (err) {
-      setIsSigningIn(false)
       showError(err.message)
+    } finally {
+      setIsSigningIn(false)
     }
   }
 

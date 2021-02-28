@@ -45,11 +45,8 @@ const auth = createSlice({
 export default auth.reducer
 
 export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
-  if (authenticated) {
-    await User.setToken()
-    const user = await User.get()
-    dispatch(auth.actions.authStateChangedSignIn(user))
-  } else {
+  const unauthenticate = () => {
+    User.signOut()
     User.removeToken()
     dispatch(resetExercises())
     dispatch(resetRoutines())
@@ -57,6 +54,14 @@ export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
     dispatch(resetWorkout())
     dispatch(auth.actions.authStateChangedSignOut())
   }
+
+  if (!authenticated) {
+    return unauthenticate()
+  }
+
+  await User.setToken()
+  const user = await User.get()
+  dispatch(auth.actions.authStateChangedSignIn(user))
 }
 
 export const verifyCurrentUser = () => async (dispatch, getState) => {

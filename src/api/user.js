@@ -19,7 +19,7 @@ export default class User {
     return firebase.auth().currentUser
   }
 
-  static onAuthStateChanged = (args) => {
+  static onAuthStateChanged = async (args) => {
     return firebase.auth().onAuthStateChanged(args)
   }
 

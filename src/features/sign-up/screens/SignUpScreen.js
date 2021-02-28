@@ -19,8 +19,9 @@ const SignUpScreen = ({ navigation }) => {
       await User.createUserWithEmailAndPassword(email, password)
       User.sendEmailVerification()
     } catch (err) {
-      setIsSigningUp(false)
       showError(err.message)
+    } finally {
+      setIsSigningUp(false)
     }
   }
 
