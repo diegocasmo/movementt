@@ -3,32 +3,6 @@ import firebase from 'firebase'
 import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils'
 
-export const onAuthStateChanged = (args) => {
-  return firebase.auth().onAuthStateChanged(args)
-}
-
-export const sendPasswordResetEmail = async (email) => {
-  return firebase.auth().sendPasswordResetEmail(email)
-}
-
-export const reauthenticate = async (user, email, password) => {
-  return user.reauthenticateWithCredential(
-    firebase.auth.EmailAuthProvider.credential(email, password)
-  )
-}
-
-export const signInWithEmailAndPassword = async (email, password) => {
-  return firebase.auth().signInWithEmailAndPassword(email, password)
-}
-
-export const createUserWithEmailAndPassword = async (email, password) => {
-  return firebase.auth().createUserWithEmailAndPassword(email, password)
-}
-
-export const updatePassword = async (user, password) => {
-  return user.updatePassword(password)
-}
-
 export default class User {
   static URL = 'users'
 
@@ -43,6 +17,36 @@ export default class User {
 
   static _firebaseUser = () => {
     return firebase.auth().currentUser
+  }
+
+  static onAuthStateChanged = (args) => {
+    return firebase.auth().onAuthStateChanged(args)
+  }
+
+  static sendPasswordResetEmail = async (email) => {
+    return firebase.auth().sendPasswordResetEmail(email)
+  }
+
+  static reauthenticate = async (
+    email,
+    password,
+    user = User._firebaseUser()
+  ) => {
+    return user.reauthenticateWithCredential(
+      firebase.auth.EmailAuthProvider.credential(email, password)
+    )
+  }
+
+  static signInWithEmailAndPassword = async (email, password) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+  }
+
+  static createUserWithEmailAndPassword = async (email, password) => {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+  }
+
+  static updatePassword = async (password, user = User._firebaseUser()) => {
+    return user.updatePassword(password)
   }
 
   static sendEmailVerification = async (user = User._firebaseUser()) => {

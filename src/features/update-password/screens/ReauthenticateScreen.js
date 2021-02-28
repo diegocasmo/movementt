@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
-import { reauthenticate, currentUser } from '_api/user'
+import User from '_api/user'
 import { showError } from '_utils/toast'
 
 const ReauthenticateScreen = ({ navigation }) => {
@@ -13,8 +13,7 @@ const ReauthenticateScreen = ({ navigation }) => {
     setIsReAuthenticating(true)
     try {
       const { email, password } = values
-      const user = currentUser()
-      await reauthenticate(user, email, password)
+      await User.reauthenticate(email, password)
       resetForm()
       navigation.navigate('UpdatePassword')
     } catch (err) {

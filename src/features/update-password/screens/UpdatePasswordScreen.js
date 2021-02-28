@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import UpdatePasswordForm from '../components/UpdatePasswordForm'
 import { showError, showSuccess } from '_utils/toast'
-import { updatePassword, currentUser } from '_api/user'
+import User from '_api/user'
 
 const UpdatePasswordScreen = ({ navigation }) => {
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false)
@@ -12,8 +12,7 @@ const UpdatePasswordScreen = ({ navigation }) => {
   const handleUpdatePassword = async ({ newPassword }) => {
     setIsUpdatingPassword(true)
     try {
-      const user = currentUser()
-      await updatePassword(user, newPassword)
+      await User.updatePassword(newPassword)
       showSuccess('Your password has been successfully updated')
       navigation.popToTop()
     } catch (err) {

@@ -12,7 +12,7 @@ import {
   Text,
 } from 'native-base'
 import { Formik, getIn } from 'formik'
-import { sendPasswordResetEmail } from '_api/user'
+import User from '_api/user'
 import { showError, showSuccess } from '_utils/toast'
 import { EmailInput } from '_components/form'
 import * as Yup from 'yup'
@@ -28,7 +28,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
     setIsSubmitting(true)
     try {
       const { email } = values
-      await sendPasswordResetEmail(email)
+      await User.sendPasswordResetEmail(email)
       resetForm()
       showSuccess('Password reset email successfully sent')
       navigation.navigate('SignIn')

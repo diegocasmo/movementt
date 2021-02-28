@@ -4,11 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
-import {
-  createUserWithEmailAndPassword,
-  currentUser,
-  sendEmailVerification,
-} from '_api/user'
+import User from '_api/user'
 
 const SignUpScreen = ({ navigation }) => {
   const [isSigningUp, setIsSigningUp] = useState(false)
@@ -20,8 +16,8 @@ const SignUpScreen = ({ navigation }) => {
   const handleSubmit = async ({ email, password }) => {
     setIsSigningUp(true)
     try {
-      await createUserWithEmailAndPassword(email, password)
-      sendEmailVerification(currentUser())
+      await User.createUserWithEmailAndPassword(email, password)
+      User.sendEmailVerification()
     } catch (err) {
       setIsSigningUp(false)
       showError(err.message)

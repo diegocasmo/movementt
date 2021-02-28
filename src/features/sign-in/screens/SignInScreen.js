@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
-import { signInWithEmailAndPassword } from '_api/user'
+import User from '_api/user'
 
 const SignInScreen = ({ navigation }) => {
   const [isSigningIn, setIsSigningIn] = useState(false)
@@ -16,7 +16,7 @@ const SignInScreen = ({ navigation }) => {
   const handleSubmit = async ({ email, password }) => {
     setIsSigningIn(true)
     try {
-      await signInWithEmailAndPassword(email, password)
+      await User.signInWithEmailAndPassword(email, password)
     } catch (err) {
       setIsSigningIn(false)
       showError(err.message)
