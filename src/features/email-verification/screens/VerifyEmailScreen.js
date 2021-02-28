@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
-import { reloadCurrentUser } from '_state/reducers/auth'
-import { currentUser, sendEmailVerification, signOut } from '_api/user'
+import { verifyCurrentUser } from '_state/reducers/auth'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
+import User from '_api/user'
 
 const VerifyEmailScreen = () => {
   const dispatch = useDispatch()
@@ -17,9 +17,9 @@ const VerifyEmailScreen = () => {
 
   const handlePressOnDone = async () => {
     try {
-      const user = await dispatch(reloadCurrentUser())
+      const user = await dispatch(verifyCurrentUser())
 
-      if (!user.emailVerified) showWarning('Please, verify your email address')
+      if (!user.verified) showWarning('Please, verify your email address')
     } catch (err) {
       showError(err.message)
     }
@@ -28,7 +28,7 @@ const VerifyEmailScreen = () => {
   const handlePressOnResendEmail = async () => {
     setIsSendingVerification(true)
     try {
-      await sendEmailVerification(currentUser())
+      await User.sendEmailVerification()
       showSuccess('Verification email sent successfully')
     } catch (err) {
       showError(err.message)
@@ -40,7 +40,7 @@ const VerifyEmailScreen = () => {
   const handlePressOnCancel = async () => {
     setSigningOut(true)
     try {
-      await signOut()
+      await User.signOut()
     } catch (err) {
       setSigningOut(false)
       showError(err.message)

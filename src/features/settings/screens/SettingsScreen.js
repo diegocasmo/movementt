@@ -13,7 +13,7 @@ import {
   Right,
   Spinner,
 } from 'native-base'
-import { signOut } from '_api/user'
+import User from '_api/user'
 import { Icon } from '_components/Icon'
 import { showError } from '_utils/toast'
 
@@ -23,7 +23,7 @@ const SettingsScreen = ({ navigation }) => {
   const handlePressOnSignOut = async () => {
     setSigningOut(true)
     try {
-      await signOut()
+      await User.signOut()
     } catch (err) {
       setSigningOut(false)
       showError(err.message)

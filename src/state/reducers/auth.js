@@ -30,13 +30,13 @@ const auth = createSlice({
     },
 
     // Reload current user
-    reloadCurrentUserInit(state) {
+    verifyCurrentUserInit(state) {
       state.isReloadingCurrentUser = true
     },
-    reloadCurrentUserSuccess(state) {
+    verifyCurrentUserSuccess(state) {
       state.isReloadingCurrentUser = false
     },
-    reloadCurrentUserFailure(state) {
+    verifyCurrentUserFailure(state) {
       state.isReloadingCurrentUser = false
     },
   },
@@ -47,10 +47,10 @@ export default auth.reducer
 export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
   if (authenticated) {
     await User.setToken()
-    const user = await User.getMe()
+    const user = await User.get()
     dispatch(auth.actions.authStateChangedSignIn(user))
   } else {
-    await User.removeToken()
+    User.removeToken()
     dispatch(resetExercises())
     dispatch(resetRoutines())
     dispatch(resetWorkouts())
@@ -59,18 +59,19 @@ export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
   }
 }
 
-export const reloadCurrentUser = () => async (dispatch) => {
+export const verifyCurrentUser = () => async (dispatch, getState) => {
   try {
-    dispatch(auth.actions.reloadCurrentUserInit())
+    dispatch(auth.actions.verifyCurrentUserInit())
 
-    const user = await User.reload()
+    const user = await User.verify(getUser(getState()))
 
-    // Update auth state when current user is reloaded
+    // Update auth state when current user is verified
     dispatch(handleAuthStateChanged(user))
-    dispatch(auth.actions.reloadCurrentUserSuccess())
+    dispatch(auth.actions.verifyCurrentUserSuccess())
+
     return user
   } catch (err) {
-    dispatch(auth.actions.reloadCurrentUserFailure(err.message))
+    dispatch(auth.actions.verifyCurrentUserFailure(err.message))
     throw err
   }
 }
