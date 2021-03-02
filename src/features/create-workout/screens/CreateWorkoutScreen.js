@@ -59,7 +59,7 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
     try {
       const workout = {
         completed_at,
-        elapsedMs,
+        elapsed_ms: elapsedMs,
         rounds_completed,
         routine,
         started_at,

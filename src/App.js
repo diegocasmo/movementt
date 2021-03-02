@@ -39,12 +39,8 @@ const App = () => {
 
   // Listen to authentication state changes
   useEffect(() => {
-    const unsubscribe = User.onAuthStateChanged(async (firebaseUser) => {
-      try {
-        await dispatch(handleAuthStateChanged(!!firebaseUser))
-      } catch (err) {
-        showError('There was an issue while authenticating the user')
-      }
+    const unsubscribe = User.onAuthStateChanged((firebaseUser) => {
+      dispatch(handleAuthStateChanged(!!firebaseUser))
     })
 
     return () => {
