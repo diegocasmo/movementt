@@ -59,9 +59,13 @@ export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
     return unauthenticate()
   }
 
-  await User.setToken()
-  const user = await User.get()
-  dispatch(auth.actions.authStateChangedSignIn(user))
+  try {
+    await User.setToken()
+    const user = await User.get()
+    dispatch(auth.actions.authStateChangedSignIn(user))
+  } catch (err) {
+    unauthenticate()
+  }
 }
 
 export const verifyCurrentUser = () => async (dispatch, getState) => {
