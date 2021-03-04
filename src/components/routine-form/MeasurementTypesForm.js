@@ -4,51 +4,20 @@ import { StyleSheet } from 'react-native'
 import { View, Button } from 'native-base'
 import { Icon } from '_components/Icon'
 import {
+  buildRoutineExercise,
   isExerciseCategoryTime,
   isExerciseCategoryReps,
   isExerciseCategoryDistance,
   CATEGORY_REPS,
   CATEGORY_TIME,
   CATEGORY_DISTANCE,
-  REP_UNIT,
-  TIME_UNIT,
-  DISTANCE_UNIT,
 } from '_api/routine-exercise'
 
 const MeasurementTypesForm = ({ routineExercise, bag }) => {
-  const handleChangeCategory = (category) => {
-    switch (category) {
-      case CATEGORY_TIME:
-        return bag.setValues(
-          {
-            ...routineExercise,
-            category,
-            quantity: 30,
-            quantity_unit: TIME_UNIT,
-          },
-          false
-        )
-      case CATEGORY_DISTANCE:
-        return bag.setValues(
-          {
-            ...routineExercise,
-            category,
-            quantity: 200,
-            quantity_unit: DISTANCE_UNIT,
-          },
-          false
-        )
-      default:
-        return bag.setValues(
-          {
-            ...routineExercise,
-            category,
-            quantity: 10,
-            quantity_unit: REP_UNIT,
-          },
-          false
-        )
-    }
+  const handleChangeCategory = async (category) => {
+    const attrs = await buildRoutineExercise({ ...routineExercise, category })
+
+    bag.setValues(attrs, false)
   }
 
   return (

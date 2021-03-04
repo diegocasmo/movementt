@@ -16,12 +16,6 @@ export const CATEGORY_OPTS = [
   { label: 'Distance', value: CATEGORY_DISTANCE },
 ]
 
-export const REP_UNIT = 'rep'
-export const TIME_UNIT = 'second'
-export const DISTANCE_UNIT = 'm'
-
-export const QTY_UNITS = [REP_UNIT, TIME_UNIT, DISTANCE_UNIT]
-
 export const WEIGHT_KG_UNIT = 'Kg'
 export const WEIGHT_UNITS = [WEIGHT_KG_UNIT]
 
@@ -35,7 +29,6 @@ export const ROUTINE_EXERCISE_SCHEMA = Yup.object().shape({
     .required()
     .positive()
     .min(1),
-  quantity_unit: Yup.mixed().oneOf(QTY_UNITS).required(),
   weight: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
@@ -63,27 +56,22 @@ export const buildRoutineExercise = async (exercise) => {
       category: CATEGORY_REPS,
       movement_type: Exercise.MOVEMENT_TYPE_PUSH,
       quantity: 10,
-      quantity_unit: REP_UNIT,
       weight: 0,
       weight_unit: WEIGHT_KG_UNIT,
       rest_seconds: 0,
       ...exercise,
     })
 
-    // Make sure exercise quantity/quantity_unit are correctly setup according
+    // Make sure exercise quantity is correctly defaulted according
     // to its category
     return ((routineExercise) => {
       switch (routineExercise.category) {
         case CATEGORY_TIME:
-          return { ...routineExercise, quantity: 30, quantity_unit: TIME_UNIT }
+          return { ...routineExercise, quantity: 30 }
         case CATEGORY_DISTANCE:
-          return {
-            ...routineExercise,
-            quantity: 200,
-            quantity_unit: DISTANCE_UNIT,
-          }
+          return { ...routineExercise, quantity: 200 }
         default:
-          return { ...routineExercise, quantity: 10, quantity_unit: REP_UNIT }
+          return { ...routineExercise, quantity: 10 }
       }
     })(routineExercise)
   } catch (err) {
