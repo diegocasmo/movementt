@@ -3,17 +3,18 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Button } from 'native-base'
 import { Icon } from '_components/Icon'
-import {
+import RoutineExercise, {
   buildRoutineExercise,
-  isExerciseCategoryTime,
-  isExerciseCategoryReps,
-  isExerciseCategoryDistance,
   CATEGORY_REPS,
   CATEGORY_TIME,
   CATEGORY_DISTANCE,
 } from '_api/routine-exercise'
 
 const MeasurementTypesForm = ({ routineExercise, bag }) => {
+  const isCategoryReps = RoutineExercise.isCategoryReps(routineExercise)
+  const isCategoryTime = RoutineExercise.isCategoryTime(routineExercise)
+  const isCategoryDistance = RoutineExercise.isCategoryDistance(routineExercise)
+
   const handleChangeCategory = async (category) => {
     const attrs = await buildRoutineExercise({ ...routineExercise, category })
 
@@ -27,20 +28,14 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
         light
         rounded
         small
-        style={[
-          styles.btn,
-          isExerciseCategoryReps(routineExercise) ? styles.btnActive : {},
-        ]}
-        active={isExerciseCategoryReps(routineExercise)}
+        style={[styles.btn, isCategoryReps ? styles.btnActive : {}]}
+        active={isCategoryReps}
         onPress={() => {
           handleChangeCategory(CATEGORY_REPS)
         }}
       >
         <Icon
-          style={[
-            styles.icon,
-            isExerciseCategoryReps(routineExercise) ? styles.iconActive : {},
-          ]}
+          style={[styles.icon, isCategoryReps ? styles.iconActive : {}]}
           name="md-repeat-sharp"
           size={18}
         />
@@ -52,18 +47,15 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
         style={[
           styles.btn,
           styles.middle,
-          isExerciseCategoryTime(routineExercise) ? styles.btnActive : {},
+          isCategoryTime ? styles.btnActive : {},
         ]}
-        active={isExerciseCategoryTime(routineExercise)}
+        active={isCategoryTime}
         onPress={() => {
           handleChangeCategory(CATEGORY_TIME)
         }}
       >
         <Icon
-          style={[
-            styles.icon,
-            isExerciseCategoryTime(routineExercise) ? styles.iconActive : {},
-          ]}
+          style={[styles.icon, isCategoryTime ? styles.iconActive : {}]}
           name="md-time-outline"
           size={18}
         />
@@ -73,22 +65,14 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
         light
         rounded
         small
-        style={[
-          styles.btn,
-          isExerciseCategoryDistance(routineExercise) ? styles.btnActive : {},
-        ]}
-        active={isExerciseCategoryDistance(routineExercise)}
+        style={[styles.btn, isCategoryDistance ? styles.btnActive : {}]}
+        active={isCategoryDistance}
         onPress={() => {
           handleChangeCategory(CATEGORY_DISTANCE)
         }}
       >
         <Icon
-          style={[
-            styles.icon,
-            isExerciseCategoryDistance(routineExercise)
-              ? styles.iconActive
-              : {},
-          ]}
+          style={[styles.icon, isCategoryDistance ? styles.iconActive : {}]}
           name="md-location"
           size={18}
         />

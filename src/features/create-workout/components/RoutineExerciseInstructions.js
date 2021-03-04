@@ -2,10 +2,7 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { View, Text } from 'native-base'
-import {
-  isExerciseCategoryDistance,
-  isExerciseCategoryTime,
-} from '_api/routine-exercise'
+import RoutineExercise from '_api/routine-exercise'
 import { getFormattedDistance } from '_utils/distance-utils'
 import { getFormattedDuration } from '_utils/time-utils'
 import ExerciseIcon from '_components/ExerciseIcon'
@@ -24,11 +21,11 @@ const getRoutineExerciseFormatteRx = (exercise) => {
       ? ''
       : `@${getRoutineExerciseFormattedWeight(exercise)}`
 
-  if (isExerciseCategoryTime(exercise)) {
+  if (RoutineExercise.isCategoryTime(exercise)) {
     return `${getFormattedDuration(quantity)} ${formattedWeight}`
   }
 
-  if (isExerciseCategoryDistance(exercise)) {
+  if (RoutineExercise.isCategoryDistance(exercise)) {
     return `${getFormattedDistance(quantity)} ${formattedWeight}`
   }
 

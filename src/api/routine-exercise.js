@@ -79,18 +79,6 @@ export const buildRoutineExercise = async (exercise) => {
   }
 }
 
-export const isExerciseCategoryTime = (exercise) => {
-  return exercise.category === CATEGORY_TIME
-}
-
-export const isExerciseCategoryReps = (exercise) => {
-  return exercise.category === CATEGORY_REPS
-}
-
-export const isExerciseCategoryDistance = (exercise) => {
-  return exercise.category === CATEGORY_DISTANCE
-}
-
 export const getExerciseFormattedWeight = (exercise) => {
   if (exercise.weight === 0) return
 
@@ -103,13 +91,27 @@ export const getExerciseFormattedRx = (exercise) => {
   const formattedWeight =
     exercise.weight === 0 ? '' : `@${getExerciseFormattedWeight(exercise)}`
 
-  if (isExerciseCategoryTime(exercise)) {
+  if (RoutineExercise.isCategoryTime(exercise)) {
     return `${getFormattedDuration(quantity)} ${formattedWeight}`
   }
 
-  if (isExerciseCategoryDistance(exercise)) {
+  if (RoutineExercise.isCategoryDistance(exercise)) {
     return `${getFormattedDistance(quantity)} ${formattedWeight}`
   }
 
   return `${quantity} reps ${formattedWeight}`
+}
+
+export default class RoutineExercise {
+  static isCategoryTime = (routineExercise) => {
+    return routineExercise.category === CATEGORY_TIME
+  }
+
+  static isCategoryReps = (routineExercise) => {
+    return routineExercise.category === CATEGORY_REPS
+  }
+
+  static isCategoryDistance = (routineExercise) => {
+    return routineExercise.category === CATEGORY_DISTANCE
+  }
 }
