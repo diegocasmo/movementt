@@ -90,3 +90,7 @@ export const getUser = (state) => {
 export const isLoadingAuth = (state) => {
   return state.auth.isLoadingAuth
 }
+
+export const isReloadingCurrentUser = (state) => {
+  return state.auth.isReloadingCurrentUser
+}

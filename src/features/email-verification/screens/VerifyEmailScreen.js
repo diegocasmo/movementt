@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
-import { verifyCurrentUser } from '_state/reducers/auth'
+import { verifyCurrentUser, isReloadingCurrentUser } from '_state/reducers/auth'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
 import User from '_api/user'
@@ -11,9 +11,9 @@ const VerifyEmailScreen = () => {
   const dispatch = useDispatch()
   const [isSigningOut, setSigningOut] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
-  const { isReloadingCurrentUser } = useSelector(({ auth }) => ({
-    isReloadingCurrentUser: auth.isReloadingCurrentUser,
-  }))
+  const reloadingCurrentUser = useSelector((state) =>
+    isReloadingCurrentUser(state)
+  )
 
   const handlePressOnDone = async () => {
     try {
@@ -59,10 +59,10 @@ const VerifyEmailScreen = () => {
         success
         block
         style={styles.button}
-        disabled={isReloadingCurrentUser}
+        disabled={reloadingCurrentUser}
         onPress={handlePressOnDone}
       >
-        {isReloadingCurrentUser ? (
+        {reloadingCurrentUser ? (
           <Spinner color="white" size="small" />
         ) : (
           <Text>Done</Text>

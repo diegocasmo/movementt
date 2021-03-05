@@ -96,7 +96,7 @@ export default class User {
       await User._firebaseUser().reload()
 
       const firebaseUser = User._firebaseUser()
-      if (!user.verified && firebaseUser.emailVerified) {
+      if (!User.verified(user) && firebaseUser.emailVerified) {
         user = await User.update({ ...user, verified: true })
       }
 
