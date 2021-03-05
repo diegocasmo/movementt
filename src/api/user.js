@@ -93,10 +93,11 @@ export default class User {
 
   static verify = async (user) => {
     try {
-      await User._firebaseUser().reload()
+      if (User.verified(user)) return user
 
+      await User._firebaseUser().reload()
       const firebaseUser = User._firebaseUser()
-      if (!User.verified(user) && firebaseUser.emailVerified) {
+      if (firebaseUser.emailVerified) {
         user = await User.update({ ...user, verified: true })
       }
 
