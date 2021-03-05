@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
-import { verifyCurrentUser, isReloadingCurrentUser } from '_state/reducers/auth'
+import { verifyUser, isLoadingUser } from '_state/reducers/auth'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
 import User from '_api/user'
@@ -11,15 +11,13 @@ const VerifyEmailScreen = () => {
   const dispatch = useDispatch()
   const [isSigningOut, setSigningOut] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
-  const reloadingCurrentUser = useSelector((state) =>
-    isReloadingCurrentUser(state)
-  )
+  const loadingUser = useSelector((state) => isLoadingUser(state))
 
   const handlePressOnDone = async () => {
     try {
-      const user = await dispatch(verifyCurrentUser())
+      const user = await dispatch(verifyUser())
 
-      if (!user.verified) showWarning('Please, verify your email address')
+      if (!User.verified(user)) showWarning('Please, verify your email address')
     } catch (err) {
       showError(err.message)
     }
@@ -59,10 +57,10 @@ const VerifyEmailScreen = () => {
         success
         block
         style={styles.button}
-        disabled={reloadingCurrentUser}
+        disabled={loadingUser}
         onPress={handlePressOnDone}
       >
-        {reloadingCurrentUser ? (
+        {loadingUser ? (
           <Spinner color="white" size="small" />
         ) : (
           <Text>Done</Text>

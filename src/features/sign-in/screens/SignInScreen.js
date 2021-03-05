@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
 import User from '_api/user'
+import { isLoadingUser } from '_state/reducers/auth'
 
 const SignInScreen = ({ navigation }) => {
   const [isSigningIn, setIsSigningIn] = useState(false)
+  const loadingUser = useSelector((state) => isLoadingUser(state))
 
   const handlePressOnSignUp = () => {
     navigation.navigate('SignUp')
@@ -35,7 +38,7 @@ const SignInScreen = ({ navigation }) => {
           style={styles.form}
           buttonText="Sign In"
           onSubmit={handleSubmit}
-          isSubmitting={isSigningIn}
+          isSubmitting={isSigningIn || loadingUser}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignUp}>
           First time here?{' '}

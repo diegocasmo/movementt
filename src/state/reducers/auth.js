@@ -7,37 +7,37 @@ import { resetWorkout } from '_features/create-workout/reducers/create-workout'
 
 const initialState = {
   user: null,
-
-  // Load authentication
   isLoadingAuth: true,
-
-  // Reload current user
-  isReloadingCurrentUser: false,
+  isLoadingUser: false,
 }
 
 const auth = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // Load authentication
-    authStateChangedSignIn(state, { payload }) {
+    authStateChangedPending(state) {
+      state.isLoadingUser = true
+    },
+    authStateChangedFulfilled(state, { payload }) {
       state.user = payload
       state.isLoadingAuth = false
+      state.isLoadingUser = false
     },
-    authStateChangedSignOut(state) {
+    authStateChangedRejected(state) {
       state.isLoadingAuth = false
+      state.isLoadingUser = false
       state.user = null
     },
 
     // Reload current user
-    verifyCurrentUserInit(state) {
-      state.isReloadingCurrentUser = true
+    verifyUserPending(state) {
+      state.isLoadingUser = true
     },
-    verifyCurrentUserSuccess(state) {
-      state.isReloadingCurrentUser = false
+    verifyUserFulfilled(state) {
+      state.isLoadingUser = false
     },
-    verifyCurrentUserFailure(state) {
-      state.isReloadingCurrentUser = false
+    verifyUserRejected(state) {
+      state.isLoadingUser = false
     },
   },
 })
@@ -45,13 +45,15 @@ const auth = createSlice({
 export default auth.reducer
 
 export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
+  dispatch(auth.actions.authStateChangedPending())
+
   const unauthenticate = () => {
     User.signOut()
     dispatch(resetExercises())
     dispatch(resetRoutines())
     dispatch(resetWorkouts())
     dispatch(resetWorkout())
-    dispatch(auth.actions.authStateChangedSignOut())
+    dispatch(auth.actions.authStateChangedRejected())
   }
 
   if (!authenticated) {
@@ -60,25 +62,25 @@ export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
 
   try {
     const user = await User.me()
-    dispatch(auth.actions.authStateChangedSignIn(user))
+    dispatch(auth.actions.authStateChangedFulfilled(user))
   } catch (err) {
     unauthenticate()
   }
 }
 
-export const verifyCurrentUser = () => async (dispatch, getState) => {
+export const verifyUser = () => async (dispatch, getState) => {
   try {
-    dispatch(auth.actions.verifyCurrentUserInit())
+    dispatch(auth.actions.verifyUserPending())
 
     const user = await User.verify(getUser(getState()))
 
     // Update auth state when current user is verified
     dispatch(handleAuthStateChanged(user))
-    dispatch(auth.actions.verifyCurrentUserSuccess())
+    dispatch(auth.actions.verifyUserFulfilled())
 
     return user
   } catch (err) {
-    dispatch(auth.actions.verifyCurrentUserFailure(err.message))
+    dispatch(auth.actions.verifyUserRejected(err.message))
     throw err
   }
 }
@@ -91,6 +93,6 @@ export const isLoadingAuth = (state) => {
   return state.auth.isLoadingAuth
 }
 
-export const isReloadingCurrentUser = (state) => {
-  return state.auth.isReloadingCurrentUser
+export const isLoadingUser = (state) => {
+  return state.auth.isLoadingUser
 }
