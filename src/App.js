@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
-import { showError } from '_utils/toast'
 
 import User from '_api/user'
-import { handleAuthStateChanged } from '_state/reducers/auth'
+import {
+  handleAuthStateChanged,
+  getUser,
+  isLoadingAuth,
+} from '_state/reducers/auth'
 
 import UnverifiedAppNavigator from '_navigation/UnverifiedAppNavigator'
 import VerifiedAppNavigator from '_navigation/VerifiedAppNavigator'
@@ -14,11 +17,9 @@ import GuestAppNavigator from '_navigation/GuestAppNavigator'
 
 const App = () => {
   const dispatch = useDispatch()
-  const { isLoadingAuth, user } = useSelector(({ auth }) => ({
-    isLoadingAuth: auth.isLoadingAuth,
-    user: auth.user,
-  }))
-  const [isLoadingFonts, setIsLoadingFonts] = useState(true)
+  const user = useSelector((state) => getUser(state))
+  const loadingAuth = useSelector((state) => isLoadingAuth(state))
+  const [loadingFonts, setLoadingFonts] = useState(true)
 
   // Load application assets
   useEffect(() => {
@@ -31,7 +32,7 @@ const App = () => {
         ...Ionicons.font,
       })
 
-      setIsLoadingFonts(false)
+      setLoadingFonts(false)
     }
 
     loadAssets()
@@ -48,12 +49,12 @@ const App = () => {
     }
   }, [dispatch])
 
-  if (isLoadingAuth || isLoadingFonts) {
+  if (loadingAuth || loadingFonts) {
     return <AppLoading />
   }
 
   // User is logged in and their email has been verified
-  if (user && user.verified) return <VerifiedAppNavigator />
+  if (User.verified(user)) return <VerifiedAppNavigator />
 
   // User is logged in, but their email hasn't been verified
   if (user) return <UnverifiedAppNavigator />

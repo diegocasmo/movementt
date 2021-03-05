@@ -54,6 +54,7 @@ export default class User {
   }
 
   static signOut = async () => {
+    axios.defaults.headers.common['Authorization'] = ''
     return firebase.auth().signOut()
   }
 
@@ -63,26 +64,16 @@ export default class User {
     }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
   }
 
-  static setToken = async (user = User._firebaseUser()) => {
+  static me = async (user = User._firebaseUser()) => {
     try {
       const token = await user.getIdToken(true)
       axios.defaults.headers.common['Authorization'] = token
-    } catch (err) {
-      throw new Error('Unable to set user token')
-    }
-  }
 
-  static removeToken = () => {
-    axios.defaults.headers.common['Authorization'] = ''
-  }
-
-  static get = async () => {
-    try {
       const response = await axios.get(`${User.URL}/me`)
 
       return response.data
     } catch (err) {
-      throw new Error('Unable to fetch user')
+      throw new Error('Unable to get current user')
     }
   }
 
@@ -113,5 +104,9 @@ export default class User {
     } catch (err) {
       throw new Error('Unable to verify user')
     }
+  }
+
+  static verified = (user) => {
+    return user && user.verified
   }
 }

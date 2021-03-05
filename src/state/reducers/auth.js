@@ -47,7 +47,6 @@ export default auth.reducer
 export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
   const unauthenticate = () => {
     User.signOut()
-    User.removeToken()
     dispatch(resetExercises())
     dispatch(resetRoutines())
     dispatch(resetWorkouts())
@@ -60,8 +59,7 @@ export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
   }
 
   try {
-    await User.setToken()
-    const user = await User.get()
+    const user = await User.me()
     dispatch(auth.actions.authStateChangedSignIn(user))
   } catch (err) {
     unauthenticate()
@@ -85,7 +83,10 @@ export const verifyCurrentUser = () => async (dispatch, getState) => {
   }
 }
 
-// Return the current user
 export const getUser = (state) => {
   return state.auth.user
+}
+
+export const isLoadingAuth = (state) => {
+  return state.auth.isLoadingAuth
 }
