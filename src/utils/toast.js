@@ -1,13 +1,17 @@
 import { Toast } from 'native-base'
 
-export const showSuccess = msg => {
-  Toast.show({ text: msg, type: 'success', duration: 5000 })
+export const showSuccess = (msg = {}) => {
+  showMessage(msg, 'success')
 }
 
-export const showWarning = msg => {
-  Toast.show({ text: msg, type: 'warning', duration: 5000 })
+export const showWarning = (msg = {}) => {
+  showMessage(msg, 'warning')
 }
 
-export const showError = msg => {
-  Toast.show({ text: msg, type: 'danger', duration: 5000 })
+export const showError = (msg = {}) => {
+  showMessage(msg)
+}
+
+const showMessage = (msg, type = 'danger') => {
+  Toast.show({ text: msg.message || msg, type, duration: 5000 })
 }

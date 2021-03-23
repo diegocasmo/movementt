@@ -1,20 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { useSelector } from 'react-redux'
 import { Button, Card, CardItem, H1, Text, View } from 'native-base'
-import { isDestroying } from '_state/reducers/exercises'
 import ExerciseActions from './ExerciseActions'
 
 const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
-  const destroying = useSelector((state) => isDestroying(state, exercise.key))
+  const [destroying, setDestroying] = useState(false)
 
   const handlePress = () => {
+    if (destroying) return
+
     onPress(exercise)
   }
 
   const handleUpdate = () => {
+    if (destroying) return
+
     onUpdate(exercise)
+  }
+
+  const handleDestroy = async () => {
+    if (destroying) return
+
+    try {
+      setDestroying(true)
+      await onDestroy(exercise)
+    } catch {
+      setDestroying(false)
+    }
   }
 
   return (
@@ -31,7 +44,8 @@ const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
           <View style={styles.actions}>
             <ExerciseActions
               exercise={exercise}
-              onDestroy={onDestroy}
+              destroying={destroying}
+              onDestroy={handleDestroy}
               onUpdate={handleUpdate}
             />
           </View>

@@ -1,8 +1,9 @@
 import * as Yup from 'yup'
 import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils'
+import { getUrl } from '_api/utils/url'
 
-export const URL = 'exercises'
+export const URL = `${getUrl()}/exercises`
 
 export const MOVEMENT_TYPE_CORE = 'core'
 export const MOVEMENT_TYPE_FULL_BODY = 'full_body'
@@ -53,9 +54,9 @@ export const validate = async (attrs) => {
 
 export const fetch = async () => {
   try {
-    const response = await axios.get(URL)
+    const res = await axios.get(URL)
 
-    return response.data
+    return res.data
   } catch (err) {
     throw new Error('Unable to fetch exercises')
   }
@@ -65,9 +66,9 @@ export const create = async (attrs) => {
   try {
     const exercise = await validate(attrs)
 
-    const response = await axios.post(URL, { exercise })
+    const res = await axios.post(URL, { exercise })
 
-    return response.data
+    return res.data
   } catch (err) {
     throw new Error('Unable to create exercise')
   }
@@ -77,11 +78,11 @@ export const update = async (attrs) => {
   try {
     const exercise = await validate(attrs)
 
-    const response = await axios.put(`${URL}/${exercise.id}`, {
+    const res = await axios.put(`${URL}/${exercise.id}`, {
       exercise,
     })
 
-    return response.data
+    return res.data
   } catch (err) {
     throw new Error('Unable to update exercise')
   }

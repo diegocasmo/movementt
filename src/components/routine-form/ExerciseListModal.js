@@ -1,43 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { Button, H1, Icon, View } from 'native-base'
-import { getUser } from '_state/reducers/auth'
-import {
-  fetchExercises,
-  getExercises,
-  isFetching,
-} from '_state/reducers/exercises'
-import { showError } from '_utils/toast'
-import { search } from '_utils/fuzzy-search'
 import Modal from '_components/Modal'
 import ExerciseList from '_components/ExerciseList'
+import { useExercises } from '_hooks/use-exercises'
 
 const ExerciseListModal = ({ onClose, onPress, visible }) => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
-  const [showRetry, setShowRetry] = useState(false)
-  const exercises = search(useSelector(getExercises), query)
-
-  useEffect(() => {
-    handleFetch()
-  }, [dispatch])
-
-  const handleFetch = async () => {
-    setShowRetry(false)
-
-    try {
-      const action = await dispatch(fetchExercises(user.uid))
-      unwrapResult(action)
-    } catch (err) {
-      setShowRetry(true)
-      showError(err.message)
-    }
-  }
+  const { exercises, loading } = useExercises(query)
 
   const handleQueryChange = (query) => {
     setQuery(query)
@@ -51,19 +22,17 @@ const ExerciseListModal = ({ onClose, onPress, visible }) => {
       onRequestClose={onClose}
     >
       <View style={styles.header}>
-        <H1 style={styles.h1}>Exercises ({fetching ? 0 : exercises.length})</H1>
+        <H1 style={styles.h1}>Exercises ({loading ? 0 : exercises.length})</H1>
         <Button style={styles.closeBtn} transparent onPress={onClose}>
           <Icon style={styles.closeIcon} active name="md-close" />
         </Button>
       </View>
       <ExerciseList
         exercises={exercises}
-        fetching={fetching}
+        fetching={loading}
         onPress={onPress}
         onQueryChange={handleQueryChange}
-        onRetry={handleFetch}
         query={query}
-        showRetry={showRetry}
       />
     </Modal>
   )

@@ -1,18 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
 import { ActionSheet, Button, Spinner } from 'native-base'
-import { isDestroying } from '_state/reducers/exercises'
 import { Icon } from '_components/Icon'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
 const CANCEL_INDEX = 2
 
-const ExerciseActions = ({ exercise, onUpdate, onDestroy }) => {
-  const destroying = useSelector((state) => isDestroying(state, exercise.id))
-
+const ExerciseActions = ({ destroying, exercise, onUpdate, onDestroy }) => {
   const handleDelete = () => {
     Alert.alert(
       'Delete Exercise',
@@ -24,11 +20,7 @@ const ExerciseActions = ({ exercise, onUpdate, onDestroy }) => {
         },
         {
           text: 'OK',
-          onPress: async () => {
-            if (destroying) return
-
-            onDestroy(exercise)
-          },
+          onPress: onDestroy,
         },
       ],
       { cancelable: false }
@@ -69,6 +61,7 @@ const ExerciseActions = ({ exercise, onUpdate, onDestroy }) => {
 export default ExerciseActions
 
 ExerciseActions.propTypes = {
+  destroying: PropTypes.bool,
   exercise: PropTypes.object.isRequired,
   onDestroy: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,

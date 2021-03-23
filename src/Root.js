@@ -1,12 +1,13 @@
 require('./api/config') // eslint-disable-line no-undef
-import React, { useEffect } from 'react'
+import React from 'react'
 import App from './App'
 import { Provider } from 'react-redux'
 import store from '_state'
 import { Root as NativeBaseRoot } from 'native-base'
 import { NavigationContainer } from '@react-navigation/native'
 import { Audio } from 'expo-av'
-import { initializeApi } from '_api'
+import { SWRConfig } from 'swr'
+import { showError } from '_utils/toast'
 
 Audio.setAudioModeAsync({
   playsInSilentModeIOS: true,
@@ -19,22 +20,25 @@ Audio.setAudioModeAsync({
 })
 
 const Root = () => {
-  const configureApi = async () => {
-    await initializeApi()
+  const config = {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    refreshWhenOffline: false,
+    refreshWhenHidden: false,
+    refreshInterval: 0,
+    onError: (e) => showError(e),
   }
 
-  useEffect(() => {
-    configureApi()
-  }, [])
-
   return (
-    <NativeBaseRoot>
-      <Provider store={store}>
-        <NavigationContainer>
-          <App />
-        </NavigationContainer>
-      </Provider>
-    </NativeBaseRoot>
+    <SWRConfig value={config}>
+      <NativeBaseRoot>
+        <Provider store={store}>
+          <NavigationContainer>
+            <App />
+          </NavigationContainer>
+        </Provider>
+      </NativeBaseRoot>
+    </SWRConfig>
   )
 }
 

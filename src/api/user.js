@@ -2,8 +2,9 @@ import * as Yup from 'yup'
 import firebase from 'firebase'
 import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils'
+import { getUrl } from '_api/utils/url'
 
-export const URL = 'users'
+export const URL = `${getUrl()}/users`
 
 export const SCHEMA = Yup.object().shape({
   id: Yup.number(),

@@ -1,40 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
+import React, { useState } from 'react'
 import { Body, Container, Header, Title } from 'native-base'
-import { getUser } from '_state/reducers/auth'
-import {
-  fetchExercises,
-  getExercises,
-  isFetching,
-} from '_state/reducers/exercises'
-import { showError } from '_utils/toast'
-import { search } from '_utils/fuzzy-search'
 import ExerciseList from '_components/ExerciseList'
+import { useExercises } from '_hooks/use-exercises'
 
 const ExerciseListScreen = () => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
-  const [showRetry, setShowRetry] = useState(false)
-  const exercises = search(useSelector(getExercises), query)
-
-  useEffect(() => {
-    handleFetch()
-  }, [dispatch])
-
-  const handleFetch = async () => {
-    setShowRetry(false)
-
-    try {
-      const action = await dispatch(fetchExercises(user.uid))
-      unwrapResult(action)
-    } catch (err) {
-      setShowRetry(true)
-      showError(err.message)
-    }
-  }
+  const { exercises, loading } = useExercises(query)
 
   const handleQueryChange = (value) => {
     setQuery(value)
@@ -44,16 +15,14 @@ const ExerciseListScreen = () => {
     <Container>
       <Header>
         <Body>
-          <Title>Exercises ({fetching ? 0 : exercises.length})</Title>
+          <Title>Exercises ({loading ? 0 : exercises.length})</Title>
         </Body>
       </Header>
       <ExerciseList
         exercises={exercises}
-        fetching={fetching}
+        fetching={loading}
         onQueryChange={handleQueryChange}
-        onRetry={handleFetch}
         query={query}
-        showRetry={showRetry}
       />
     </Container>
   )

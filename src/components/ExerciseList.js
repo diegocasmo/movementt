@@ -1,33 +1,29 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { Content, Spinner, Button, Text, View } from 'native-base'
-import {
-  createExercise,
-  destroyExercise,
-  updateExercise,
-} from '_state/reducers/exercises'
-import { showError } from '_utils/toast'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
 import { Exercise } from '_api'
+import { useExercises } from '_hooks/use-exercises'
 
 const ExerciseList = ({
   exercises,
   fetching,
   onPress,
   onQueryChange,
-  onRetry,
   query,
-  showRetry,
 }) => {
-  const dispatch = useDispatch()
   const initialState = { visible: false, exercise: Exercise.DEFAULT }
   const [state, setState] = useState(initialState)
   const trimmedQuery = query.trim()
+
+  const {
+    create: createExercise,
+    destroy: destroyExercise,
+    update: updateExercise,
+  } = useExercises()
 
   const handleCreate = () => {
     setState({ ...state, visible: true })
@@ -52,31 +48,22 @@ const ExerciseList = ({
     setState({ visible: true, exercise })
   }
 
-  const handleDestroy = async (exercise) => {
-    try {
-      const action = await dispatch(destroyExercise(exercise))
-      unwrapResult(action)
-    } catch (err) {
-      showError(err.message)
-    }
+  const handleDestroy = (exercise) => {
+    return destroyExercise(exercise)
   }
 
   const handleCancel = () => {
     setState(initialState)
   }
 
-  const handleSubmit = async (exercise) => {
-    try {
-      const action = await dispatch(
-        exercise.created_at
-          ? updateExercise(exercise)
-          : createExercise(exercise)
-      )
-      unwrapResult(action)
-      setState(initialState)
-    } catch (err) {
-      showError(err.message)
-    }
+  const handleSubmit = (exercise) => {
+    return exercise.created_at
+      ? updateExercise(exercise)
+      : createExercise(exercise)
+  }
+
+  const handleSubmitFulfilled = () => {
+    setState(initialState)
   }
 
   const noMatches = exercises.length === 0 && trimmedQuery !== ''
@@ -97,10 +84,6 @@ const ExerciseList = ({
       />
       {fetching ? (
         <Spinner color="black" />
-      ) : showRetry ? (
-        <Button primary block style={styles.btn} onPress={onRetry}>
-          <Text>Retry</Text>
-        </Button>
       ) : (
         <View>
           {noExercises && <Text>There are no exercises to show</Text>}
@@ -128,6 +111,7 @@ const ExerciseList = ({
               exercise={state.exercise}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
+              onSubmitFulfilled={handleSubmitFulfilled}
               visible={state.visible}
             />
           )}
@@ -144,9 +128,7 @@ ExerciseList.propTypes = {
   fetching: PropTypes.bool.isRequired,
   onPress: PropTypes.func,
   onQueryChange: PropTypes.func.isRequired,
-  onRetry: PropTypes.func.isRequired,
   query: PropTypes.string,
-  showRetry: PropTypes.bool.isRequired,
 }
 
 const styles = StyleSheet.create({

@@ -4,7 +4,13 @@ import { StyleSheet } from 'react-native'
 import ModalSelector from 'react-native-modal-selector'
 import TextInput from './TextInput'
 
-const ModalPickerInput = ({ options, label, onValueChange, value }) => {
+const ModalPickerInput = ({
+  options,
+  label,
+  onValueChange,
+  value,
+  ...props
+}) => {
   const [visible] = useState(false)
 
   const noop = () => {}
@@ -25,6 +31,7 @@ const ModalPickerInput = ({ options, label, onValueChange, value }) => {
       optionContainerStyle={styles.optionContainerStyle}
       cancelStyle={styles.cancelStyle}
       optionTextStyle={styles.optionTextStyle}
+      {...props}
     >
       <TextInput
         label={label}
