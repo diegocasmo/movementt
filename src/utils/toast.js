@@ -13,5 +13,10 @@ export const showError = (msg = {}) => {
 }
 
 const showMessage = (msg, type = 'danger') => {
-  Toast.show({ text: msg.message || msg, type, duration: 5000 })
+  Toast.show({
+    text: msg.message || msg,
+    type,
+    duration: 5000,
+    buttonText: 'Close',
+  })
 }
