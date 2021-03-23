@@ -4,7 +4,7 @@ import AppLoading from 'expo-app-loading'
 import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
 
-import User from '_api/user'
+import { User } from '_api'
 import {
   handleAuthStateChanged,
   getUser,

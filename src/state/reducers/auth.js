@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import User from '_api/user'
+import { User } from '_api'
 import { resetExercises } from '_state/reducers/exercises'
 import { resetRoutines } from '_state/reducers/routines'
 import { resetWorkouts } from '_state/reducers/workouts'
@@ -33,7 +33,8 @@ const auth = createSlice({
     verifyUserPending(state) {
       state.isLoadingUser = true
     },
-    verifyUserFulfilled(state) {
+    verifyUserFulfilled(state, { payload }) {
+      state.user = payload
       state.isLoadingUser = false
     },
     verifyUserRejected(state) {
@@ -74,9 +75,7 @@ export const verifyUser = () => async (dispatch, getState) => {
 
     const user = await User.verify(getUser(getState()))
 
-    // Update auth state when current user is verified
-    dispatch(handleAuthStateChanged(user))
-    dispatch(auth.actions.verifyUserFulfilled())
+    dispatch(auth.actions.verifyUserFulfilled(user))
 
     return user
   } catch (err) {

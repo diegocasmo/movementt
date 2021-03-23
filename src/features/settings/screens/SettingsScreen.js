@@ -13,7 +13,7 @@ import {
   Right,
   Spinner,
 } from 'native-base'
-import User from '_api/user'
+import { User } from '_api'
 import { Icon } from '_components/Icon'
 import { showError } from '_utils/toast'
 

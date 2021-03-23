@@ -4,7 +4,7 @@ import {
   createAsyncThunk,
   createSelector,
 } from '@reduxjs/toolkit'
-import Exercise from '_api/exercise'
+import { Exercise } from '_api'
 import { REQUEST_STATUS } from '_utils/request-utils'
 
 const exercisesAdapter = createEntityAdapter({

@@ -13,7 +13,7 @@ import { showError } from '_utils/toast'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
-import Exercise from '_api/exercise'
+import { Exercise } from '_api'
 
 const ExerciseList = ({
   exercises,

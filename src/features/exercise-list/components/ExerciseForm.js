@@ -7,7 +7,7 @@ import { Formik, getIn } from 'formik'
 import Modal from '_components/Modal'
 import { TextInput, ModalPickerInput } from '_components/form'
 import { isCreating, isUpdating } from '_state/reducers/exercises'
-import Exercise from '_api/exercise'
+import { Exercise } from '_api'
 
 const ExerciseForm = ({ exercise, onCancel, onSubmit, visible }) => {
   const creating = useSelector(isCreating)

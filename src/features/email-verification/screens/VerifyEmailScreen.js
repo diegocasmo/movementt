@@ -5,7 +5,7 @@ import { Container, H1, Button, Text, Spinner } from 'native-base'
 import { verifyUser, isLoadingUser } from '_state/reducers/auth'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
-import User from '_api/user'
+import { User } from '_api'
 
 const VerifyEmailScreen = () => {
   const dispatch = useDispatch()

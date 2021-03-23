@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import UpdatePasswordForm from '../components/UpdatePasswordForm'
 import { showError, showSuccess } from '_utils/toast'
-import User from '_api/user'
+import { User } from '_api'
 
 const UpdatePasswordScreen = ({ navigation }) => {
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false)

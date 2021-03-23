@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
-import User from '_api/user'
+import { User } from '_api'
 import { isLoadingUser } from '_state/reducers/auth'
 
 const SignUpScreen = ({ navigation }) => {

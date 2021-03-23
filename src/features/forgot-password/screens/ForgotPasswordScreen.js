@@ -12,7 +12,7 @@ import {
   Text,
 } from 'native-base'
 import { Formik, getIn } from 'formik'
-import User from '_api/user'
+import { User } from '_api'
 import { showError, showSuccess } from '_utils/toast'
 import { EmailInput } from '_components/form'
 import * as Yup from 'yup'
