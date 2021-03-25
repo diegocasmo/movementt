@@ -15,6 +15,7 @@ import ExerciseDetails from '../components/ExerciseDetails'
 import RoutineActions from '_components/RoutineActions'
 import { getFormattedDuration } from '_utils/time-utils'
 import { useRoutines } from '_hooks/use-routines'
+import { showError } from '_utils/toast'
 
 const RoutineItemScreen = ({ navigation, route }) => {
   const [destroying, setDestroying] = useState(false)
@@ -42,6 +43,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
       navigation.navigate('Home')
     } catch (err) {
       setDestroying(false)
+      showError(err)
     }
   }
 

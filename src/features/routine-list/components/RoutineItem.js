@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
 import RoutineActions from '_components/RoutineActions'
 import { Routine } from '_api'
+import { showError } from '_utils/toast'
 
 const RoutineItem = ({
   routine,
@@ -33,6 +34,7 @@ const RoutineItem = ({
       await onDestroy(routine)
     } catch (err) {
       setDestroying(false)
+      showError(err)
     }
   }
 

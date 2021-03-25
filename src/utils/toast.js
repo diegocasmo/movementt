@@ -17,6 +17,6 @@ const showMessage = (msg, type = 'danger') => {
     text: msg.message || msg,
     type,
     duration: 5000,
-    buttonText: 'Close',
+    buttonText: 'X',
   })
 }

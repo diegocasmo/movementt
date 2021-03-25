@@ -90,7 +90,7 @@ export const update = async (attrs) => {
 
 export const destroy = async (exercise) => {
   try {
-    return axios.delete(`${URL}/${exercise.id}`)
+    await axios.delete(`${URL}/${exercise.id}`)
   } catch (err) {
     throw new Error('Unable to destroy exercise')
   }

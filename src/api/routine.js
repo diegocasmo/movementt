@@ -85,7 +85,7 @@ export const update = async (routine) => {
 
 export const destroy = async (routine) => {
   try {
-    return axios.delete(`${URL}/${routine.id}`)
+    await axios.delete(`${URL}/${routine.id}`)
   } catch (err) {
     throw new Error('Unable to destroy routine')
   }

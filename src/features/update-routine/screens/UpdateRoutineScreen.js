@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Container, Header, Body, Title } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
 import { useRoutines } from '_hooks/use-routines'
+import { showError } from '_utils/toast'
 
 const UpdateRoutineScreen = ({ navigation, route }) => {
   const [updating, setIsUpdating] = useState(false)
@@ -18,6 +19,7 @@ const UpdateRoutineScreen = ({ navigation, route }) => {
       navigation.pop()
     } catch (err) {
       setIsUpdating(false)
+      showError(err)
     }
   }
 

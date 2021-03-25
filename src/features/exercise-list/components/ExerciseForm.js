@@ -12,21 +12,13 @@ const ExerciseForm = ({
   isSubmitting,
   onCancel,
   onSubmit,
-  onSubmitFulfilled = () => {},
-  onSubmitRejected = () => {},
   visible,
 }) => {
   const formik = useFormik({
     initialValues: exercise,
     validationSchema: Exercise.SCHEMA,
-    onSubmit: async (values) => {
-      try {
-        const data = await onSubmit(Exercise.SCHEMA.cast(values))
-
-        onSubmitFulfilled(data)
-      } catch (err) {
-        onSubmitRejected(err)
-      }
+    onSubmit: (values, opts) => {
+      onSubmit(Exercise.SCHEMA.cast(values), opts)
     },
   })
 

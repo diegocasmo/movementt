@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Button, Card, CardItem, H1, Text, View } from 'native-base'
 import ExerciseActions from './ExerciseActions'
+import { showError } from '_utils/toast'
 
 const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
   const [destroying, setDestroying] = useState(false)
@@ -27,6 +28,7 @@ const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
       await onDestroy(exercise)
     } catch (err) {
       setDestroying(false)
+      showError(err)
     }
   }
 

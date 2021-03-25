@@ -7,6 +7,7 @@ import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
 import { Exercise } from '_api'
 import { useExercises } from '_hooks/use-exercises'
+import { showError } from '_utils/toast'
 
 const ExerciseList = ({
   exercises,
@@ -64,13 +65,12 @@ const ExerciseList = ({
       exercise.created_at
         ? await updateExercise(exercise)
         : await createExercise(exercise)
+      setState(initialState)
+    } catch (err) {
+      showError(err)
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  const handleSubmitFulfilled = () => {
-    setState(initialState)
   }
 
   const hasQuery = trimmedQuery !== ''
@@ -119,7 +119,6 @@ const ExerciseList = ({
               exercise={state.exercise}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
-              onSubmitFulfilled={handleSubmitFulfilled}
               isSubmitting={isSubmitting}
               visible={state.visible}
             />
