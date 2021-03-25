@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Body, View, Card, CardItem, H1, Text } from 'native-base'
 import { fromNow } from '_utils/time-utils'
-import { getRoutineFormattedExercises } from '_api/routine'
+import { Routine } from '_api'
 import Duration from '_components/time/Duration'
 import { Icon } from '_components/Icon'
 
@@ -19,7 +19,7 @@ const WorkoutItem = ({ workout }) => {
         <CardItem>
           <Body>
             <Text numberOfLines={2} style={styles.summary}>
-              {getRoutineFormattedExercises(workout.routine)}
+              {Routine.getFormattedExercises(workout.routine)}
             </Text>
             <Text style={styles.rounds}>
               Rounds: {workout.rounds_completed}/{workout.routine.rounds}

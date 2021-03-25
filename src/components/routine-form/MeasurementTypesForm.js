@@ -3,20 +3,22 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Button } from 'native-base'
 import { Icon } from '_components/Icon'
-import RoutineExercise, {
-  buildRoutineExercise,
-  CATEGORY_REPS,
-  CATEGORY_TIME,
-  CATEGORY_DISTANCE,
-} from '_api/routine-exercise'
+import { RoutineExercise } from '_api'
 
-const MeasurementTypesForm = ({ routineExercise, bag }) => {
-  const isCategoryReps = RoutineExercise.isCategoryReps(routineExercise)
-  const isCategoryTime = RoutineExercise.isCategoryTime(routineExercise)
-  const isCategoryDistance = RoutineExercise.isCategoryDistance(routineExercise)
+const MeasurementTypesForm = ({ routineExercise, bag, disabled }) => {
+  const isCategoryReps = RoutineExercise.isCategoryTypeReps(routineExercise)
+  const isCategoryTime = RoutineExercise.isCategoryTypeTime(routineExercise)
+  const isCategoryDistance = RoutineExercise.isCategoryTypeDistance(
+    routineExercise
+  )
 
-  const handleChangeCategory = async (category) => {
-    const attrs = await buildRoutineExercise({ ...routineExercise, category })
+  const handleChangeCategory = async (categoryType) => {
+    if (disabled) return
+
+    const attrs = await RoutineExercise.build({
+      ...routineExercise,
+      category_type: categoryType,
+    })
 
     bag.setValues(attrs, false)
   }
@@ -30,8 +32,9 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
         small
         style={[styles.btn, isCategoryReps ? styles.btnActive : {}]}
         active={isCategoryReps}
+        disabled={disabled}
         onPress={() => {
-          handleChangeCategory(CATEGORY_REPS)
+          handleChangeCategory(RoutineExercise.CATEGORY_TYPE_REPS)
         }}
       >
         <Icon
@@ -50,8 +53,9 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
           isCategoryTime ? styles.btnActive : {},
         ]}
         active={isCategoryTime}
+        disabled={disabled}
         onPress={() => {
-          handleChangeCategory(CATEGORY_TIME)
+          handleChangeCategory(RoutineExercise.CATEGORY_TYPE_TIME)
         }}
       >
         <Icon
@@ -67,8 +71,9 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
         small
         style={[styles.btn, isCategoryDistance ? styles.btnActive : {}]}
         active={isCategoryDistance}
+        disabled={disabled}
         onPress={() => {
-          handleChangeCategory(CATEGORY_DISTANCE)
+          handleChangeCategory(RoutineExercise.CATEGORY_TYPE_DISTANCE)
         }}
       >
         <Icon
@@ -84,6 +89,7 @@ const MeasurementTypesForm = ({ routineExercise, bag }) => {
 MeasurementTypesForm.propTypes = {
   routineExercise: PropTypes.object.isRequired,
   bag: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
 }
 
 export default MeasurementTypesForm

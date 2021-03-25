@@ -5,7 +5,7 @@ import ModalSelector from 'react-native-modal-selector'
 import { TextInput } from '_components/form'
 import { TIME_OPTS } from '_utils/time-utils'
 
-const TimePicker = ({ label, onChange, value, allowNone = true }) => {
+const TimePicker = ({ label, onChange, value, allowNone = true, ...props }) => {
   const [visible] = useState(false)
 
   const handleChange = (option) => {
@@ -41,6 +41,7 @@ const TimePicker = ({ label, onChange, value, allowNone = true }) => {
       optionContainerStyle={styles.optionContainerStyle}
       cancelStyle={styles.cancelStyle}
       optionTextStyle={styles.optionTextStyle}
+      {...props}
     >
       <TextInput
         label={label}

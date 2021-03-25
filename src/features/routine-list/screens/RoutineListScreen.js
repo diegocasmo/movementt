@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import {
   Body,
@@ -16,73 +14,38 @@ import {
 } from 'native-base'
 import RoutineItem from '../components/RoutineItem'
 import SearchForm from '_components/SearchForm'
-import { getUser } from '_state/reducers/auth'
-import {
-  destroyRoutine,
-  fetchRoutines,
-  getRoutines,
-  isFetching,
-} from '_state/reducers/routines'
-import { showError } from '_utils/toast'
-import { search } from '_utils/fuzzy-search'
+import { useRoutines } from '_hooks/use-routines'
 
 const RoutineListScreen = ({ navigation }) => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const fetching = useSelector(isFetching)
   const [query, setQuery] = useState('')
   const trimmedQuery = query.trim()
-  const [showRetry, setShowRetry] = useState(false)
-  const routines = search(useSelector(getRoutines), trimmedQuery)
+  const { routines, loading, destroy: destroyRoutine } = useRoutines(query)
 
-  useEffect(() => {
-    handleFetch()
-  }, [dispatch])
-
-  const handleFetch = async () => {
-    setShowRetry(false)
-
-    try {
-      const action = await dispatch(fetchRoutines(user.uid))
-      unwrapResult(action)
-    } catch (err) {
-      setShowRetry(true)
-      showError(err.message)
-    }
+  const handleQueryChange = (value) => {
+    setQuery(value)
   }
 
   const handleUpdate = (routine) => {
-    navigation.navigate('UpdateRoutine', { routineKey: routine.key })
-  }
-
-  const handleDelete = async (routine) => {
-    try {
-      await dispatch(destroyRoutine({ uid: user.uid, ...routine }))
-    } catch (err) {
-      showError(err.message)
-    }
+    navigation.navigate('UpdateRoutine', { routineId: routine.id })
   }
 
   const handleStart = (routine) => {
-    navigation.navigate('RoutineItem', { routineKey: routine.key })
+    navigation.navigate('RoutineItem', { routineId: routine.id })
   }
 
   const handleCreate = () => {
     navigation.navigate('CreateRoutine', { name: trimmedQuery })
   }
 
-  const handleQueryChange = (value) => {
-    setQuery(value)
-  }
-
-  const noMatches = routines.length === 0 && trimmedQuery !== ''
-  const noRoutines = routines.length === 0 && trimmedQuery === ''
+  const hasQuery = trimmedQuery !== ''
+  const noMatches = routines.length === 0 && hasQuery
+  const noRoutines = routines.length === 0 && !hasQuery
 
   return (
     <Container>
       <Header>
         <Body>
-          <Title>Routines ({fetching ? 0 : routines.length})</Title>
+          <Title>Routines ({loading ? 0 : routines.length})</Title>
         </Body>
       </Header>
       <Content
@@ -96,12 +59,8 @@ const RoutineListScreen = ({ navigation }) => {
           onChangeText={handleQueryChange}
           onCreate={handleCreate}
         />
-        {fetching ? (
+        {loading ? (
           <Spinner color="black" />
-        ) : showRetry ? (
-          <Button primary block style={styles.retryBtn} onPress={handleFetch}>
-            <Text>Retry</Text>
-          </Button>
         ) : (
           <View>
             {noRoutines && <Text>There are no routines to show</Text>}
@@ -110,14 +69,14 @@ const RoutineListScreen = ({ navigation }) => {
             )}
             {routines.map((routine) => (
               <RoutineItem
-                key={routine.key}
+                key={routine.id}
                 routine={routine}
                 onStart={handleStart}
                 onUpdate={handleUpdate}
-                onDelete={handleDelete}
+                onDestroy={destroyRoutine}
               />
             ))}
-            {trimmedQuery !== '' && (
+            {hasQuery && (
               <Button primary block style={styles.btn} onPress={handleCreate}>
                 <Text>+ {trimmedQuery}</Text>
               </Button>

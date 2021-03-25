@@ -4,25 +4,39 @@ import { getFormattedDistance } from '_utils/distance-utils'
 import { getFormattedDuration } from '_utils/time-utils'
 import { transformYupToFormikError } from '_api/utils'
 
-export const CATEGORY_REPS = 'reps'
-export const CATEGORY_TIME = 'time'
-export const CATEGORY_DISTANCE = 'distance'
+export const CATEGORY_TYPE_REPS = 'reps'
+export const CATEGORY_TYPE_TIME = 'time'
+export const CATEGORY_TYPE_DISTANCE = 'distance'
 
-export const CATEGORIES = [CATEGORY_REPS, CATEGORY_TIME, CATEGORY_DISTANCE]
-
-export const CATEGORY_OPTS = [
-  { label: 'Reps', value: CATEGORY_REPS },
-  { label: 'Time', value: CATEGORY_TIME },
-  { label: 'Distance', value: CATEGORY_DISTANCE },
+export const CATEGORY_TYPES = [
+  CATEGORY_TYPE_REPS,
+  CATEGORY_TYPE_TIME,
+  CATEGORY_TYPE_DISTANCE,
 ]
 
-export const WEIGHT_KG_UNIT = 'Kg'
-export const WEIGHT_UNITS = [WEIGHT_KG_UNIT]
+export const CATEGORY_TYPE_OPTS = [
+  { label: 'Reps', value: CATEGORY_TYPE_REPS },
+  { label: 'Time', value: CATEGORY_TYPE_TIME },
+  { label: 'Distance', value: CATEGORY_TYPE_DISTANCE },
+]
 
-export const ROUTINE_EXERCISE_SCHEMA = Yup.object().shape({
-  uid: Yup.string().required(),
+export const WEIGHT_UNIT_TYPE_METRIC = 'metric'
+export const WEIGHT_UNIT_TYPE_IMPERIAL = 'imperial'
+
+export const WEIGHT_UNIT_TYPES = [
+  WEIGHT_UNIT_TYPE_METRIC,
+  WEIGHT_UNIT_TYPE_IMPERIAL,
+]
+
+export const WEIGHT_UNIT_TYPE_OPTS = [
+  { label: 'Kg', value: WEIGHT_UNIT_TYPE_METRIC },
+  { label: 'lb', value: WEIGHT_UNIT_TYPE_IMPERIAL },
+]
+
+export const SCHEMA = Yup.object().shape({
+  id: Yup.number(),
   name: Yup.string().trim().required(),
-  category: Yup.mixed().oneOf(CATEGORIES).required(),
+  category_type: Yup.mixed().oneOf(CATEGORY_TYPES).required(),
   movement_type: Yup.mixed().oneOf(Exercise.MOVEMENT_TYPES).required(),
   quantity: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
@@ -34,30 +48,31 @@ export const ROUTINE_EXERCISE_SCHEMA = Yup.object().shape({
     .required()
     .positive()
     .min(0),
-  weight_unit: Yup.mixed().oneOf(WEIGHT_UNITS).required(),
+  weight_unit_type: Yup.mixed().oneOf(WEIGHT_UNIT_TYPES).required(),
   rest_seconds: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
     .min(0),
+  created_at: Yup.string(),
+  updated_at: Yup.string(),
 })
 
 export const validate = async (values) => {
-  return ROUTINE_EXERCISE_SCHEMA.validate(values, {
+  return SCHEMA.validate(values, {
     stripUnknown: true,
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
-export const buildRoutineExercise = async (exercise) => {
+export const build = async (exercise) => {
   try {
     const routineExercise = await validate({
-      uid: `${new Date().getTime()}`,
       name: '',
-      category: CATEGORY_REPS,
+      category_type: CATEGORY_TYPE_REPS,
       movement_type: Exercise.MOVEMENT_TYPE_PUSH,
       quantity: 10,
       weight: 0,
-      weight_unit: WEIGHT_KG_UNIT,
+      weight_unit_type: WEIGHT_UNIT_TYPE_METRIC,
       rest_seconds: 0,
       ...exercise,
     })
@@ -65,10 +80,10 @@ export const buildRoutineExercise = async (exercise) => {
     // Make sure exercise quantity is correctly defaulted according
     // to its category
     return ((routineExercise) => {
-      switch (routineExercise.category) {
-        case CATEGORY_TIME:
+      switch (routineExercise.category_type) {
+        case CATEGORY_TYPE_TIME:
           return { ...routineExercise, quantity: 30 }
-        case CATEGORY_DISTANCE:
+        case CATEGORY_TYPE_DISTANCE:
           return { ...routineExercise, quantity: 200 }
         default:
           return { ...routineExercise, quantity: 10 }
@@ -79,39 +94,45 @@ export const buildRoutineExercise = async (exercise) => {
   }
 }
 
-export const getExerciseFormattedWeight = (exercise) => {
+export const getFormattedWeight = (exercise) => {
   if (exercise.weight === 0) return
 
-  return `${exercise.weight} ${exercise.weight_unit}`
+  return `${exercise.weight} ${getWeightUnitTypeLabel(exercise)}`
 }
 
-export const getExerciseFormattedRx = (exercise) => {
+export const getFormattedRx = (exercise) => {
   const { quantity } = exercise
 
   const formattedWeight =
-    exercise.weight === 0 ? '' : `@${getExerciseFormattedWeight(exercise)}`
+    exercise.weight === 0 ? '' : `@${getFormattedWeight(exercise)}`
 
-  if (RoutineExercise.isCategoryTime(exercise)) {
+  if (isCategoryTypeTime(exercise)) {
     return `${getFormattedDuration(quantity)} ${formattedWeight}`
   }
 
-  if (RoutineExercise.isCategoryDistance(exercise)) {
+  if (isCategoryTypeDistance(exercise)) {
     return `${getFormattedDistance(quantity)} ${formattedWeight}`
   }
 
   return `${quantity} reps ${formattedWeight}`
 }
 
-export default class RoutineExercise {
-  static isCategoryTime = (routineExercise) => {
-    return routineExercise.category === CATEGORY_TIME
-  }
+export const isCategoryTypeTime = (routineExercise) => {
+  return routineExercise.category_type === CATEGORY_TYPE_TIME
+}
 
-  static isCategoryReps = (routineExercise) => {
-    return routineExercise.category === CATEGORY_REPS
-  }
+export const isCategoryTypeReps = (routineExercise) => {
+  return routineExercise.category_type === CATEGORY_TYPE_REPS
+}
 
-  static isCategoryDistance = (routineExercise) => {
-    return routineExercise.category === CATEGORY_DISTANCE
-  }
+export const isCategoryTypeDistance = (routineExercise) => {
+  return routineExercise.category_type === CATEGORY_TYPE_DISTANCE
+}
+
+export const getWeightUnitTypeLabel = (routineExercise) => {
+  const weightUnitOpt = WEIGHT_UNIT_TYPE_OPTS.find(
+    (weightUnitOpt) => routineExercise.weight_unit_type === weightUnitOpt.value
+  )
+
+  return weightUnitOpt.label
 }

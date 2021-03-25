@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
 import {
   Button,
   Container,
@@ -14,32 +13,35 @@ import {
 } from 'native-base'
 import ExerciseDetails from '../components/ExerciseDetails'
 import RoutineActions from '_components/RoutineActions'
-import { getUser } from '_state/reducers/auth'
-import { getRoutine, destroyRoutine } from '_state/reducers/routines'
-import { showError } from '_utils/toast'
 import { getFormattedDuration } from '_utils/time-utils'
+import { useRoutines } from '_hooks/use-routines'
 
 const RoutineItemScreen = ({ navigation, route }) => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const routine = useSelector((state) =>
-    getRoutine(state, route.params.routineKey)
-  )
+  const [destroying, setDestroying] = useState(false)
+  const { findById, destroy: destroyRoutine } = useRoutines()
+  const routine = findById(route.params.routineId)
 
   const handleStart = () => {
-    navigation.navigate('CreateWorkout', { routineKey: routine.key })
+    if (destroying) return
+
+    navigation.navigate('CreateWorkout', { routineId: routine.id })
   }
 
   const handleUpdate = (routine) => {
-    navigation.navigate('UpdateRoutine', { routineKey: routine.key })
+    if (destroying) return
+
+    navigation.navigate('UpdateRoutine', { routineId: routine.id })
   }
 
-  const handleDelete = async (routine) => {
+  const handleDestroy = async () => {
+    if (destroying) return
+
     try {
-      dispatch(destroyRoutine({ uid: user.uid, ...routine }))
+      setDestroying(true)
+      await destroyRoutine(routine)
       navigation.navigate('Home')
     } catch (err) {
-      showError(err.message)
+      setDestroying(false)
     }
   }
 
@@ -68,8 +70,9 @@ const RoutineItemScreen = ({ navigation, route }) => {
 
         <RoutineActions
           routine={routine}
+          destroying={destroying}
           onUpdate={handleUpdate}
-          onDelete={handleDelete}
+          onDestroy={handleDestroy}
         />
       </View>
 
@@ -97,7 +100,7 @@ RoutineItemScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      routineKey: PropTypes.string.isRequired,
+      routineId: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
 }

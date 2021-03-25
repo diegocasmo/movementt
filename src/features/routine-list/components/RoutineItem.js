@@ -1,33 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { useSelector } from 'react-redux'
 import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
-import { isDestroying } from '_state/reducers/routines'
 import RoutineActions from '_components/RoutineActions'
-import { getRoutineFormattedExercises } from '_api/routine'
+import { Routine } from '_api'
 
 const RoutineItem = ({
   routine,
   onStart,
   onUpdate = () => {},
-  onDelete = () => {},
+  onDestroy = () => {},
 }) => {
-  const destroying = useSelector((state) => isDestroying(state, routine.key))
+  const [destroying, setDestroying] = useState(false)
 
-  const handlePressOnStart = () => {
+  const handlePress = () => {
     if (destroying) return
 
     onStart(routine)
   }
 
+  const handleUpdate = () => {
+    if (destroying) return
+
+    onUpdate(routine)
+  }
+
+  const handleDestroy = async () => {
+    if (destroying) return
+
+    try {
+      setDestroying(true)
+      await onDestroy(routine)
+    } catch (err) {
+      setDestroying(false)
+    }
+  }
+
   return (
-    <Button
-      transparent
-      style={[styles.container, destroying ? styles.clearContainer : {}]}
-      onPress={handlePressOnStart}
-    >
-      <Card style={styles.card}>
+    <Button transparent style={styles.container} onPress={handlePress}>
+      <Card style={[styles.card, destroying ? styles.opaque : {}]}>
         <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>
             <H1>{routine.name}</H1>
@@ -35,15 +46,16 @@ const RoutineItem = ({
           <View style={styles.actions}>
             <RoutineActions
               routine={routine}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
+              destroying={destroying}
+              onUpdate={handleUpdate}
+              onDestroy={handleDestroy}
             />
           </View>
         </CardItem>
         <CardItem>
           <Body>
             <Text numberOfLines={2} style={styles.summary}>
-              {getRoutineFormattedExercises(routine)}
+              {Routine.getFormattedExercises(routine)}
             </Text>
           </Body>
         </CardItem>
@@ -59,7 +71,7 @@ RoutineItem.propTypes = {
   routine: PropTypes.object.isRequired,
   onStart: PropTypes.func.isRequired,
   onUpdate: PropTypes.func,
-  onDelete: PropTypes.func,
+  onDestroy: PropTypes.func,
 }
 
 export default RoutineItem
@@ -74,7 +86,7 @@ const styles = StyleSheet.create({
     height: 135,
     flex: 1,
   },
-  clearContainer: {
+  opaque: {
     opacity: 0.5,
   },
   header: {

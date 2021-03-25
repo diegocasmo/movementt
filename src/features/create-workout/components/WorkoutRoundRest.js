@@ -10,7 +10,7 @@ import {
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
-import { getExerciseFormattedRx } from '_api/routine-exercise'
+import { RoutineExercise } from '_api'
 import { secondsToMs } from '_utils/time-utils'
 
 const WorkoutRoundRest = () => {
@@ -37,7 +37,7 @@ const WorkoutRoundRest = () => {
       </Button>
       <Text style={styles.text}>Rest</Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercise.name} {getExerciseFormattedRx(exercise)}
+        Next: {exercise.name} {RoutineExercise.getFormattedRx(exercise)}
       </Text>
     </View>
   )

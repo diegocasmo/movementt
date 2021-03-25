@@ -11,7 +11,7 @@ import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
 import RoutineExerciseInstructions from './RoutineExerciseInstructions'
 import { secondsToMs } from '_utils/time-utils'
-import RoutineExercise from '_api/routine-exercise'
+import { RoutineExercise } from '_api'
 
 const WorkoutExercise = () => {
   const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const WorkoutExercise = () => {
 
   return (
     <View style={styles.container}>
-      {RoutineExercise.isCategoryTime(exercise) ? (
+      {RoutineExercise.isCategoryTypeTime(exercise) ? (
         <View transparent style={styles.btn}>
           <Countdown
             elapsedMs={elapsedMs}

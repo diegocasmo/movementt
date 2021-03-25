@@ -8,21 +8,22 @@ import RepsRoutineExerciseForm from './exercise-categories/RepsRoutineExerciseFo
 import TimeRoutineExerciseForm from './exercise-categories/TimeRoutineExerciseForm'
 import DistanceRoutineExerciseForm from './exercise-categories/DistanceRoutineExerciseForm'
 import MeasurementTypesForm from '_components/routine-form/MeasurementTypesForm'
-import {
-  CATEGORY_TIME,
-  CATEGORY_DISTANCE,
-  ROUTINE_EXERCISE_SCHEMA,
-} from '_api/routine-exercise'
+import { RoutineExercise } from '_api'
 
-const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
-  const renderRoutineExerciseForm = (category, bag) => {
-    switch (category) {
-      case CATEGORY_TIME:
-        return <TimeRoutineExerciseForm bag={bag} />
-      case CATEGORY_DISTANCE:
-        return <DistanceRoutineExerciseForm bag={bag} />
+const RoutineExerciseForm = ({
+  disabled,
+  onChange,
+  onDelete,
+  routineExercise,
+}) => {
+  const renderRoutineExerciseForm = (categoryType, bag) => {
+    switch (categoryType) {
+      case RoutineExercise.CATEGORY_TYPE_TIME:
+        return <TimeRoutineExerciseForm disabled={disabled} bag={bag} />
+      case RoutineExercise.CATEGORY_TYPE_DISTANCE:
+        return <DistanceRoutineExerciseForm disabled={disabled} bag={bag} />
       default:
-        return <RepsRoutineExerciseForm bag={bag} />
+        return <RepsRoutineExerciseForm disabled={disabled} bag={bag} />
     }
   }
 
@@ -49,11 +50,11 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
   return (
     <Formik
       initialValues={routineExercise}
-      validationSchema={ROUTINE_EXERCISE_SCHEMA}
+      validationSchema={RoutineExercise.SCHEMA}
     >
       {(bag) => {
         useEffect(() => {
-          onChange(ROUTINE_EXERCISE_SCHEMA.cast(bag.values))
+          onChange(RoutineExercise.SCHEMA.cast(bag.values))
         }, [bag.values])
 
         return (
@@ -62,18 +63,19 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
               <H3 style={styles.name} numberOfLines={1}>
                 {routineExercise.name}
               </H3>
-              <Button transparent onPress={handleDelete}>
+              <Button transparent disabled={disabled} onPress={handleDelete}>
                 <Icon style={styles.deleteIcon} name="md-trash-outline" />
               </Button>
             </CardItem>
             <CardItem style={styles.bodyContainer}>
               <Body style={styles.body}>
-                {renderRoutineExerciseForm(routineExercise.category, bag)}
+                {renderRoutineExerciseForm(routineExercise.category_type, bag)}
               </Body>
             </CardItem>
             <CardItem style={styles.footer} footer>
               <MeasurementTypesForm
                 routineExercise={routineExercise}
+                disabled={disabled}
                 bag={bag}
               />
             </CardItem>
@@ -85,9 +87,10 @@ const RoutineExerciseForm = ({ routineExercise, onChange, onDelete }) => {
 }
 
 RoutineExerciseForm.propTypes = {
-  routineExercise: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  routineExercise: PropTypes.object.isRequired,
 }
 
 export default RoutineExerciseForm

@@ -9,6 +9,7 @@ import { Exercise } from '_api'
 
 const ExerciseForm = ({
   exercise,
+  isSubmitting,
   onCancel,
   onSubmit,
   onSubmitFulfilled = () => {},
@@ -50,7 +51,7 @@ const ExerciseForm = ({
             onBlur={formik.handleBlur('name')}
             onChange={formik.handleChange('name')}
             touched={getIn(formik.touched, 'name')}
-            disabled={formik.isSubmitting}
+            disabled={isSubmitting}
             value={formik.values.name}
           />
         </Col>
@@ -66,7 +67,7 @@ const ExerciseForm = ({
             }))}
             onValueChange={formik.handleChange('movement_type')}
             value={formik.values.movement_type}
-            disabled={formik.isSubmitting}
+            disabled={isSubmitting}
           />
         </Col>
       </Grid>
@@ -76,7 +77,7 @@ const ExerciseForm = ({
           light
           style={styles.btn}
           onPress={onCancel}
-          disabled={formik.isSubmitting}
+          disabled={isSubmitting}
         >
           <Text>Cancel</Text>
         </Button>
@@ -84,10 +85,10 @@ const ExerciseForm = ({
         <Button
           primary
           style={styles.btn}
-          disabled={!isValid || formik.isSubmitting}
+          disabled={!isValid || isSubmitting}
           onPress={formik.handleSubmit}
         >
-          {formik.isSubmitting ? (
+          {isSubmitting ? (
             <Spinner color="white" size="small" />
           ) : (
             <Text>{exercise.created_at ? 'Update' : 'Create'}</Text>
@@ -104,6 +105,7 @@ ExerciseForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onSubmitFulfilled: PropTypes.func,
   onSubmitRejected: PropTypes.func,
+  isSubmitting: PropTypes.bool.isRequired,
   visible: PropTypes.bool.isRequired,
 }
 
