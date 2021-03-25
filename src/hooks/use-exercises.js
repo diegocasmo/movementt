@@ -9,6 +9,8 @@ export const useExercises = (query = '') => {
     const data = await Exercise.create(attrs)
 
     mutate((exercises) => exercises.concat(data), false)
+
+    return data
   }
 
   const update = async (exercise) => {
@@ -18,6 +20,8 @@ export const useExercises = (query = '') => {
       (exercises) => exercises.filter((e) => e.id !== data.id).concat(data),
       false
     )
+
+    return data
   }
 
   const destroy = async (exercise) => {
