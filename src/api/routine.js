@@ -1,23 +1,20 @@
 import * as Yup from 'yup'
-import { db } from '_api/config'
+import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils'
-import { timestamp } from '_utils/time-utils'
-import { ROUTINE_EXERCISE_SCHEMA } from '_api/routine-exercise'
+import { getUrl } from '_api/utils/url'
+import { RoutineExercise } from '_api'
 
-const TYPE_CIRCUIT = 'circuit'
+export const URL = `${getUrl()}/routines`
 
-const TYPES = [TYPE_CIRCUIT]
-
-export const DEFAULT_ROUTINE = {
+export const DEFAULT = {
   name: '',
-  type: TYPE_CIRCUIT,
   rounds: 4,
   rest_seconds: 0,
   exercises: [],
 }
 
-export const ROUTINE_SCHEMA = Yup.object({
-  type: Yup.mixed().oneOf(TYPES).required(),
+export const SCHEMA = Yup.object({
+  id: Yup.number(),
   name: Yup.string().trim().required(),
   rounds: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
@@ -29,70 +26,72 @@ export const ROUTINE_SCHEMA = Yup.object({
     .required()
     .positive()
     .min(0),
-  created_at: Yup.number().positive(),
-  updated_at: Yup.number().positive(),
-  exercises: Yup.array(Yup.object().concat(ROUTINE_EXERCISE_SCHEMA))
+  created_at: Yup.string(),
+  updated_at: Yup.string(),
+  exercises: Yup.array(Yup.object().concat(RoutineExercise.SCHEMA))
     .min(1)
     .required(),
 })
 
 export const validate = async (values) => {
-  return ROUTINE_SCHEMA.validate(values, {
+  return SCHEMA.validate(values, {
     stripUnknown: true,
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
-const getRoutinesRef = (uid) => `routines/${uid}`
-const getRoutineRef = (uid, key) => `${getRoutinesRef(uid)}/${key}`
-
-export const fetchRoutines = async (uid) => {
+export const fetch = async () => {
   try {
-    const snapshot = await db.ref(getRoutinesRef(uid)).once('value')
-    const values = snapshot.val()
-    return values
-      ? Object.entries(values).map(([key, values]) => ({ key, ...values }))
-      : {}
+    const res = await axios.get(URL)
+
+    return res.data
   } catch (err) {
     throw new Error('Unable to fetch routines')
   }
 }
 
-export const createRoutine = async (uid, attrs) => {
-  let routine = { ...attrs, created_at: timestamp() }
-
+export const create = async (routine) => {
   try {
-    routine = await validate(routine)
-    const ref = await db.ref(getRoutinesRef(uid)).push(routine)
+    const { exercises, ...rest } = await validate(routine)
 
-    return { ...routine, key: ref.key }
+    const res = await axios.post(URL, {
+      routine: {
+        ...rest,
+        exercises_attributes: exercises,
+      },
+    })
+
+    return res.data
   } catch (err) {
     throw new Error('Unable to create routine')
   }
 }
 
-export const updateRoutine = async (uid, attrs) => {
-  let routine = { ...attrs, updated_at: timestamp() }
-
+export const update = async (routine) => {
   try {
-    routine = await validate(routine)
-    await db.ref(getRoutineRef(uid, attrs.key)).update(routine)
+    const { exercises, ...rest } = await validate(routine)
 
-    return { ...routine, key: attrs.key }
+    const res = await axios.put(`${URL}/${routine.id}`, {
+      routine: {
+        ...rest,
+        exercises_attributes: exercises,
+      },
+    })
+
+    return res.data
   } catch (err) {
     throw new Error('Unable to update routine')
   }
 }
 
-export const destroyRoutine = async (uid, routine) => {
+export const destroy = async (routine) => {
   try {
-    await db.ref(getRoutineRef(uid, routine.key)).remove()
-    return routine
+    return axios.delete(`${URL}/${routine.id}`)
   } catch (err) {
     throw new Error('Unable to destroy routine')
   }
 }
 
-export const getRoutineFormattedExercises = (routine) => {
+export const getFormattedExercises = (routine) => {
   const names = routine.exercises.map((ex) => ex.name)
   if (names.length === 1) return names
 

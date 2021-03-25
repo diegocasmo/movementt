@@ -5,9 +5,9 @@ import { View, Grid, Col } from 'native-base'
 import { getIn } from 'formik'
 import { DecimalInput } from '_components/form'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
-import { WEIGHT_KG_UNIT } from '_api/routine-exercise'
+import { RoutineExercise } from '_api'
 
-const TimeRoutineExerciseForm = ({ bag }) => {
+const TimeRoutineExerciseForm = ({ bag, disabled }) => {
   const { errors, handleBlur, handleChange, touched, values } = bag
 
   return (
@@ -17,18 +17,20 @@ const TimeRoutineExerciseForm = ({ bag }) => {
           <TimePicker
             label="Time"
             allowNone={false}
+            disabled={disabled}
             value={`${values.quantity}`}
             onChange={handleChange('quantity')}
           />
         </Col>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
-            label={`Weight (${WEIGHT_KG_UNIT})`}
+            label={`Weight (${RoutineExercise.getWeightUnitTypeLabel(values)})`}
+            value={values.weight}
+            disabled={disabled}
             error={getIn(errors, 'weight')}
             onBlur={handleBlur('weight')}
             onChange={handleChange('weight')}
             touched={getIn(touched, 'weight')}
-            value={values.weight}
           />
         </Col>
       </Grid>
@@ -37,6 +39,7 @@ const TimeRoutineExerciseForm = ({ bag }) => {
           <TimePicker
             label="Rest"
             value={`${values.rest_seconds}`}
+            disabled={disabled}
             onChange={handleChange('rest_seconds')}
           />
         </Col>
@@ -47,6 +50,7 @@ const TimeRoutineExerciseForm = ({ bag }) => {
 
 TimeRoutineExerciseForm.propTypes = {
   bag: PropTypes.object.isRequired,
+  disabled: PropTypes.bool,
 }
 
 export default TimeRoutineExerciseForm

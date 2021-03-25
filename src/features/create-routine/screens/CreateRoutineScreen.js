@@ -1,31 +1,24 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { Container, Header, Body, Title } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
-import { getUser } from '_state/reducers/auth'
-import { showError } from '_utils/toast'
-import { createRoutine } from '_state/reducers/routines'
-import { DEFAULT_ROUTINE } from '_api/routine'
+import { Routine } from '_api'
+import { useRoutines } from '_hooks/use-routines'
 
 const CreateRoutineScreen = ({ navigation, route }) => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { create: createRoutine } = useRoutines()
+  const [isCreating, setIsCreating] = useState(false)
   const { name = '' } = route.params
 
   const handleSubmit = async (attrs, { resetForm }) => {
-    setIsSubmitting(true)
+    setIsCreating(true)
+
     try {
-      const action = await dispatch(createRoutine({ uid: user.uid, ...attrs }))
-      unwrapResult(action)
+      const data = await createRoutine(attrs)
       resetForm()
-      navigation.navigate('RoutineItem', { routineKey: action.payload.key })
+      navigation.navigate('RoutineItem', { routineId: data.id })
     } catch (err) {
-      showError(err.message)
-    } finally {
-      setIsSubmitting(false)
+      setIsCreating(false)
     }
   }
 
@@ -42,8 +35,8 @@ const CreateRoutineScreen = ({ navigation, route }) => {
       </Header>
       <RoutineForm
         autoFocus={true}
-        routine={{ ...DEFAULT_ROUTINE, name }}
-        isSubmitting={isSubmitting}
+        routine={{ ...Routine.DEFAULT, name }}
+        isSubmitting={isCreating}
         onQuit={handleQuit}
         onSubmit={handleSubmit}
       />

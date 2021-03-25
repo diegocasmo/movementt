@@ -1,18 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet, Alert } from 'react-native'
 import { ActionSheet, Button, Spinner } from 'native-base'
-import { isDestroying } from '_state/reducers/routines'
 import { Icon } from '_components/Icon'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
 const CANCEL_INDEX = 2
 
-const RoutineActions = ({ routine, onUpdate, onDelete }) => {
-  const destroying = useSelector((state) => isDestroying(state, routine.key))
-
+const RoutineActions = ({ destroying, routine, onUpdate, onDestroy }) => {
   const handleDelete = () => {
     Alert.alert(
       'Delete Routine',
@@ -24,11 +20,7 @@ const RoutineActions = ({ routine, onUpdate, onDelete }) => {
         },
         {
           text: 'OK',
-          onPress: async () => {
-            if (destroying) return
-
-            onDelete(routine)
-          },
+          onPress: onDestroy,
         },
       ],
       { cancelable: false }
@@ -73,8 +65,9 @@ const RoutineActions = ({ routine, onUpdate, onDelete }) => {
 export default RoutineActions
 
 RoutineActions.propTypes = {
+  destroying: PropTypes.bool,
   routine: PropTypes.object.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDestroy: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
 }
 

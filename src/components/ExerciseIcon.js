@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Icon } from '_components/Icon'
-import { CATEGORY_TIME, CATEGORY_DISTANCE } from '_api/routine-exercise'
+import { RoutineExercise } from '_api'
 
 const ExerciseIcon = ({ exercise }) => {
-  switch (exercise.category) {
-    case CATEGORY_TIME:
+  switch (exercise.category_type) {
+    case RoutineExercise.CATEGORY_TYPE_TIME:
       return <Icon name="md-time-outline" />
-    case CATEGORY_DISTANCE:
+    case RoutineExercise.CATEGORY_TYPE_DISTANCE:
       return <Icon name="md-location" />
     default:
       return <Icon name="md-repeat-sharp" />

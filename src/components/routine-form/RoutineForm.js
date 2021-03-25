@@ -8,11 +8,10 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { Button, Col, Grid, H1, Icon, Spinner, Text, View } from 'native-base'
-import { Formik, getIn } from 'formik'
+import { useFormik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import TimePicker from './pickers/TimePicker'
-import { ROUTINE_SCHEMA, DEFAULT_ROUTINE } from '_api/routine'
-import { buildRoutineExercise } from '_api/routine-exercise'
+import { Routine, RoutineExercise } from '_api'
 import ExerciseListModal from './ExerciseListModal'
 import RoutineExerciseForm from './RoutineExerciseForm'
 import DraggableFlatList from 'react-native-draggable-flatlist'
@@ -61,7 +60,7 @@ const RoutineForm = ({
 
     try {
       handleCloseExercises()
-      const routineExercise = await buildRoutineExercise(exercise)
+      const routineExercise = await RoutineExercise.build(exercise)
 
       setValues(
         {
@@ -113,150 +112,143 @@ const RoutineForm = ({
     )
   }
 
+  const formik = useFormik({
+    initialValues: routine || Routine.DEFAULT,
+    validationSchema: Routine.SCHEMA,
+    onSubmit: (attrs, opts) => {
+      onSubmit(Routine.SCHEMA.cast(attrs), opts)
+    },
+  })
+
+  const { exercises } = formik.values
+  const isValid = Object.keys(formik.errors).length === 0
+  const hasUnsavedChanges =
+    JSON.stringify(formik.values) !== JSON.stringify(formik.initialValues)
+
   return (
-    <Formik
-      initialValues={routine || DEFAULT_ROUTINE}
-      validationSchema={ROUTINE_SCHEMA}
-      onSubmit={(attrs, opts) => {
-        onSubmit(ROUTINE_SCHEMA.cast(attrs), opts)
-      }}
-    >
-      {(bag) => {
-        const {
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          initialValues,
-          touched,
-          values,
-        } = bag
-        const { exercises } = values
-        const isValid = Object.keys(errors).length === 0
-        const hasUnsavedChanges =
-          JSON.stringify(values) !== JSON.stringify(initialValues)
-
-        return (
-          <View style={styles.content}>
-            <TouchableWithoutFeedback
-              accessible={false}
-              onPress={Keyboard.dismiss}
+    <View style={styles.content}>
+      <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
+        <View style={styles.top}>
+          <View style={styles.setup}>
+            <H1 style={styles.h1}>Setup</H1>
+            <Button
+              transparent
+              onPress={() => {
+                if (hasUnsavedChanges) {
+                  confirmQuit()
+                } else {
+                  onQuit()
+                }
+              }}
             >
-              <View style={styles.top}>
-                <View style={styles.setup}>
-                  <H1 style={styles.h1}>Setup</H1>
-                  <Button
-                    transparent
-                    onPress={() => {
-                      if (hasUnsavedChanges) {
-                        confirmQuit()
-                      } else {
-                        onQuit()
-                      }
-                    }}
-                  >
-                    <Icon style={styles.icon} active name="md-close" />
-                  </Button>
-                </View>
-
-                <Grid>
-                  <Col>
-                    <TextInput
-                      label="Name"
-                      autoFocus={autoFocus}
-                      error={getIn(errors, 'name')}
-                      onBlur={handleBlur('name')}
-                      onChange={handleChange('name')}
-                      touched={getIn(touched, 'name')}
-                      value={values.name}
-                    />
-                  </Col>
-                </Grid>
-                <Grid>
-                  <Col paddingRight={10}>
-                    <IntegerInput
-                      error={getIn(errors, 'rounds')}
-                      onBlur={handleBlur('rounds')}
-                      onChange={handleChange('rounds')}
-                      touched={getIn(touched, 'rounds')}
-                      value={values.rounds}
-                      label="Rounds"
-                    />
-                  </Col>
-                  <Col>
-                    <TimePicker
-                      label="Round rest"
-                      value={`${values.rest_seconds}`}
-                      onChange={handleChange('rest_seconds')}
-                    />
-                  </Col>
-                </Grid>
-
-                <View style={styles.exercisesSetup}>
-                  <H1 style={styles.h1}>Exercises ({exercises.length})</H1>
-
-                  <Button primary onPress={handleShowExercises}>
-                    <Text>+ Add</Text>
-                  </Button>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-
-            <ExerciseListModal
-              onClose={handleCloseExercises}
-              onPress={(exercise) => {
-                handleAddExercise(exercise, bag)
-              }}
-              visible={isVisible}
-            />
-
-            <DraggableFlatList
-              contentContainerStyle={styles.middle}
-              data={exercises}
-              renderItem={({ item, index, drag, isActive }) => {
-                return (
-                  <TouchableOpacity
-                    style={{ opacity: isActive ? 0.5 : 1 }}
-                    activeOpacity={0.5}
-                    onLongPress={drag}
-                  >
-                    <RoutineExerciseForm
-                      routineExercise={item}
-                      onChange={(item) => {
-                        handleUpdateRoutineExercise(index, item, bag)
-                      }}
-                      onDelete={() => {
-                        handleDeleteRoutineExercise(index, bag)
-                      }}
-                    />
-                  </TouchableOpacity>
-                )
-              }}
-              keyExtractor={(data) => `draggable-item-${data.uid}`}
-              onDragEnd={({ data }) => {
-                handleDragEnd(data, bag)
-              }}
-            />
-
-            <View style={styles.bottom}>
-              <Button
-                block
-                success
-                style={styles.submitBtn}
-                disabled={isSubmitting || !isValid}
-                onPress={handleSubmit}
-              >
-                {isSubmitting ? (
-                  <Spinner color="white" size="small" />
-                ) : (
-                  <Text>{submitText}</Text>
-                )}
-              </Button>
-            </View>
+              <Icon style={styles.icon} active name="md-close" />
+            </Button>
           </View>
-        )
-      }}
-    </Formik>
+
+          <Grid>
+            <Col>
+              <TextInput
+                label="Name"
+                autoFocus={autoFocus}
+                disabled={isSubmitting}
+                error={getIn(formik.errors, 'name')}
+                onBlur={formik.handleBlur('name')}
+                onChange={formik.handleChange('name')}
+                touched={getIn(formik.touched, 'name')}
+                value={formik.values.name}
+              />
+            </Col>
+          </Grid>
+          <Grid>
+            <Col paddingRight={10}>
+              <IntegerInput
+                value={formik.values.rounds}
+                label="Rounds"
+                disabled={isSubmitting}
+                error={getIn(formik.errors, 'rounds')}
+                onBlur={formik.handleBlur('rounds')}
+                onChange={formik.handleChange('rounds')}
+                touched={getIn(formik.touched, 'rounds')}
+              />
+            </Col>
+            <Col>
+              <TimePicker
+                disabled={isSubmitting}
+                label="Round rest"
+                value={`${formik.values.rest_seconds}`}
+                onChange={formik.handleChange('rest_seconds')}
+              />
+            </Col>
+          </Grid>
+
+          <View style={styles.exercisesSetup}>
+            <H1 style={styles.h1}>Exercises ({exercises.length})</H1>
+
+            <Button
+              primary
+              disabled={isSubmitting}
+              onPress={handleShowExercises}
+            >
+              <Text>+ Add</Text>
+            </Button>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+
+      <ExerciseListModal
+        onClose={handleCloseExercises}
+        onPress={(exercise) => {
+          handleAddExercise(exercise, formik)
+        }}
+        visible={isVisible}
+      />
+
+      <DraggableFlatList
+        contentContainerStyle={styles.middle}
+        data={exercises}
+        renderItem={({ item, index, drag, isActive }) => {
+          return (
+            <TouchableOpacity
+              style={{ opacity: isActive ? 0.5 : 1 }}
+              activeOpacity={0.5}
+              onLongPress={drag}
+              disabled={isSubmitting}
+            >
+              <RoutineExerciseForm
+                routineExercise={item}
+                disabled={isSubmitting}
+                onChange={(item) => {
+                  handleUpdateRoutineExercise(index, item, formik)
+                }}
+                onDelete={() => {
+                  handleDeleteRoutineExercise(index, formik)
+                }}
+              />
+            </TouchableOpacity>
+          )
+        }}
+        keyExtractor={(data) => `draggable-item-${data.id}`}
+        onDragEnd={({ data }) => {
+          handleDragEnd(data, formik)
+        }}
+      />
+
+      <View style={styles.bottom}>
+        <Button
+          block
+          success
+          style={styles.submitBtn}
+          disabled={isSubmitting || !isValid}
+          onPress={formik.handleSubmit}
+        >
+          {isSubmitting ? (
+            <Spinner color="white" size="small" />
+          ) : (
+            <Text>{submitText}</Text>
+          )}
+        </Button>
+      </View>
+    </View>
   )
 }
 

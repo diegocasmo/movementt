@@ -25,18 +25,17 @@ const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
     try {
       setDestroying(true)
       await onDestroy(exercise)
-    } catch {
+    } catch (err) {
       setDestroying(false)
     }
   }
 
   return (
-    <Button
-      transparent
-      style={[styles.container, destroying ? styles.opaque : {}]}
-      onPress={handlePress}
-    >
-      <Card style={styles.card} onPress={handlePress}>
+    <Button transparent style={styles.container} onPress={handlePress}>
+      <Card
+        style={[styles.card, destroying ? styles.opaque : {}]}
+        onPress={handlePress}
+      >
         <CardItem style={styles.cardItem}>
           <Text style={styles.name} numberOfLines={2}>
             <H1>{exercise.name}</H1>

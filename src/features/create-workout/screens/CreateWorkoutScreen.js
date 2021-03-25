@@ -25,15 +25,14 @@ import WorkoutExerciseRest from '../components/WorkoutExerciseRest'
 import WorkoutRoundRest from '../components/WorkoutRoundRest'
 import WorkoutStartup from '../components/WorkoutStartup'
 import WorkoutCompleted from '../components/WorkoutCompleted'
-import { getRoutine } from '_state/reducers/routines'
 import { getUser } from '_state/reducers/auth'
 import { createWorkout } from '_state/reducers/workouts'
 import { showError } from '_utils/toast'
+import { useRoutines } from '_hooks/use-routines'
 
 const CreateWorkoutScreen = ({ navigation, route }) => {
-  const routine = useSelector((state) =>
-    getRoutine(state, route.params.routineKey)
-  )
+  const { findById } = useRoutines()
+  const routine = findById(route.params.routineId)
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)
   const completed = useSelector(isCompleted)
@@ -131,7 +130,7 @@ CreateWorkoutScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      routineKey: PropTypes.string.isRequired,
+      routineId: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
 }

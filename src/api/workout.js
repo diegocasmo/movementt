@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { db } from '_api/config'
 import { transformYupToFormikError } from '_api/utils'
 import { timestamp } from '_utils/time-utils'
-import { ROUTINE_SCHEMA } from '_api/routine'
+import { Routine } from '_api'
 import { TIME_ENTRY_SCHEMA } from '_api/time-entry'
 
 export const WORKOUT_SCHEMA = Yup.object({
@@ -15,7 +15,7 @@ export const WORKOUT_SCHEMA = Yup.object({
   time_entries: Yup.array(Yup.object().concat(TIME_ENTRY_SCHEMA))
     .min(1)
     .required(),
-  routine: Yup.object().concat(ROUTINE_SCHEMA),
+  routine: Yup.object().concat(Routine.SCHEMA),
 })
 
 export const validate = async (values) => {

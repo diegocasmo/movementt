@@ -15,6 +15,7 @@ const ExerciseList = ({
   onQueryChange,
   query,
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const initialState = { visible: false, exercise: Exercise.DEFAULT }
   const [state, setState] = useState(initialState)
   const trimmedQuery = query.trim()
@@ -56,18 +57,25 @@ const ExerciseList = ({
     setState(initialState)
   }
 
-  const handleSubmit = (exercise) => {
-    return exercise.created_at
-      ? updateExercise(exercise)
-      : createExercise(exercise)
+  const handleSubmit = async (exercise) => {
+    setIsSubmitting(true)
+
+    try {
+      exercise.created_at
+        ? await updateExercise(exercise)
+        : await createExercise(exercise)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleSubmitFulfilled = () => {
     setState(initialState)
   }
 
-  const noMatches = exercises.length === 0 && trimmedQuery !== ''
-  const noExercises = exercises.length === 0 && trimmedQuery === ''
+  const hasQuery = trimmedQuery !== ''
+  const noMatches = exercises.length === 0 && hasQuery
+  const noExercises = exercises.length === 0 && !hasQuery
 
   return (
     <Content
@@ -101,7 +109,7 @@ const ExerciseList = ({
               onDestroy={handleDestroy}
             />
           ))}
-          {trimmedQuery !== '' && (
+          {hasQuery && (
             <Button primary block onPress={handlePrefillExercise}>
               <Text>+ {trimmedQuery}</Text>
             </Button>
@@ -112,6 +120,7 @@ const ExerciseList = ({
               onCancel={handleCancel}
               onSubmit={handleSubmit}
               onSubmitFulfilled={handleSubmitFulfilled}
+              isSubmitting={isSubmitting}
               visible={state.visible}
             />
           )}
