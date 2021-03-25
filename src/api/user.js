@@ -19,7 +19,7 @@ export const _firebaseUser = () => {
   return firebase.auth().currentUser
 }
 
-export const onAuthStateChanged = async (args) => {
+export const onAuthStateChanged = (args) => {
   return firebase.auth().onAuthStateChanged(args)
 }
 
