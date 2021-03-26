@@ -5,6 +5,7 @@ import { Body, View, Card, CardItem, H1, Text } from 'native-base'
 import { fromNow } from '_utils/time-utils'
 import { Routine } from '_api'
 import Duration from '_components/time/Duration'
+import { TimeAgo } from '_components/time/TimeAgo'
 import { Icon } from '_components/Icon'
 
 const WorkoutItem = ({ workout }) => {
@@ -28,7 +29,7 @@ const WorkoutItem = ({ workout }) => {
         </CardItem>
         <View style={styles.completed_atContainer}>
           <Icon style={styles.calendarIcon} name="md-calendar-outline" />
-          <Text>{fromNow(workout.completed_at)}</Text>
+          <TimeAgo from={workout.completed_at} />
         </View>
         <View style={styles.durationContainer}>
           <Icon style={styles.durationIcon} name="md-time-outline" />

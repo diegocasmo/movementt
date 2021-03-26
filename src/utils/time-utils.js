@@ -1,8 +1,8 @@
 import moment from 'moment'
 
-const MS_IN_A_SEC = 1000
-const SEC_IN_A_MIN = 60
-const MS_IN_A_MIN = SEC_IN_A_MIN * MS_IN_A_SEC
+export const MS_IN_A_SEC = 1000
+export const SEC_IN_A_MIN = 60
+export const MS_IN_A_MIN = SEC_IN_A_MIN * MS_IN_A_SEC
 
 // Return today's date
 export const now = () => {
@@ -15,8 +15,8 @@ export const timestamp = (dateOrMs = now()) => {
   return moment(dateOrMs).valueOf()
 }
 
-export const fromNow = (dateOrMs = now()) => {
-  return moment(dateOrMs).fromNow()
+export const fromNow = (dateOrMs = now(), to = now()) => {
+  return moment(dateOrMs).from(moment(to))
 }
 
 // Return the number of elapsed ms from `fromDate` until `toDate`
