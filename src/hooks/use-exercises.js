@@ -1,9 +1,20 @@
 import useSWR from 'swr'
 import { Exercise } from '_api'
 import { search } from '_utils/fuzzy-search'
+import { createSelector } from 'reselect'
 
 export const useExercises = (query = '') => {
   const { data: exercises, mutate } = useSWR('exercises', Exercise.fetch)
+
+  // TODO: Sort by position
+  const getExercises = createSelector(
+    [exercises, query],
+    (exercises = [], query) => {
+      return [...search(exercises, query)].sort(
+        (a, z) => (a.name || '').toLowerCase() - (z.name || '').toLowerCase()
+      )
+    }
+  )
 
   const create = async (attrs) => {
     const data = await Exercise.create(attrs)
@@ -26,7 +37,7 @@ export const useExercises = (query = '') => {
   }
 
   return {
-    exercises: search(exercises || [], query),
+    exercises: getExercises(exercises, query),
     loading: !exercises,
     create,
     update,
