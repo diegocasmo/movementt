@@ -1,10 +1,20 @@
 import useSWR from 'swr'
 import { Routine } from '_api'
 import { search } from '_utils/fuzzy-search'
+import { createSelector } from 'reselect'
 
 export const useRoutines = (query = '') => {
   const { data: routines, mutate } = useSWR('routines', Routine.fetch)
+
   const findById = (id) => routines.find((routine) => routine.id === id)
+  // TODO: Sort by position
+  const getRoutines = createSelector(
+    [routines, query],
+    (routines = [], query) => {
+    return [...search(routines, query)].sort(
+      (a, z) => (a.name || '').toLowerCase() - (z.name || '').toLowerCase()
+    )
+  })
 
   const create = async (attrs) => {
     const data = await Routine.create(attrs)
@@ -27,7 +37,7 @@ export const useRoutines = (query = '') => {
   }
 
   return {
-    routines: search(routines || [], query),
+    routines: getRoutines(routines, query),
     loading: !routines,
     create,
     update,
