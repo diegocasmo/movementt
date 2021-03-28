@@ -104,17 +104,13 @@ const RoutineForm = ({
   }
 
   const handleDragEnd = (params, bag) => {
-    const { data: routineExercises, to } = params
+    const { data: routineExercises } = params
     const { setValues, values } = bag
 
-    const exercises = routineExercises.map((exercise, idx) => {
-      if (idx !== to) return exercise
-
-      return {
-        ...exercise,
-        position: to,
-      }
-    })
+    const exercises = routineExercises.map((exercise, idx) => ({
+      ...exercise,
+      position: idx,
+    }))
 
     setValues(
       {
