@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Body, Button, Card, CardItem, H1, Text, View } from 'native-base'
+import { Body, Button, Card, CardItem, Text, View } from 'native-base'
 import RoutineActions from '_components/RoutineActions'
 import { Routine } from '_api'
 import { showError } from '_utils/toast'
@@ -43,7 +43,7 @@ const RoutineItem = ({
       <Card style={[styles.card, destroying ? styles.opaque : {}]}>
         <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>
-            <H1>{routine.name}</H1>
+            {routine.name}
           </Text>
           <View style={styles.actions}>
             <RoutineActions
@@ -54,7 +54,7 @@ const RoutineItem = ({
             />
           </View>
         </CardItem>
-        <CardItem>
+        <CardItem style={styles.bodyContainer}>
           <Body>
             <Text numberOfLines={2} style={styles.summary}>
               {Routine.getFormattedExercises(routine)}
@@ -81,11 +81,11 @@ export default RoutineItem
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    height: 135,
+    height: 115,
     marginBottom: 15,
   },
   card: {
-    height: 135,
+    height: 115,
     flex: 1,
   },
   opaque: {
@@ -94,13 +94,16 @@ const styles = StyleSheet.create({
   header: {
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 5,
+    paddingTop: 0,
     paddingBottom: 0,
   },
   name: {
     maxWidth: '90%',
   },
   actions: {},
+  bodyContainer: {
+    paddingTop: 0,
+  },
   summary: {
     marginBottom: 10,
   },

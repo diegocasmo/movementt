@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Button, Card, CardItem, H1, Text, View } from 'native-base'
+import { Button, Card, CardItem, Text, View } from 'native-base'
 import ExerciseActions from './ExerciseActions'
 import { showError } from '_utils/toast'
 
@@ -38,9 +38,9 @@ const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
         style={[styles.card, destroying ? styles.opaque : {}]}
         onPress={handlePress}
       >
-        <CardItem style={styles.cardItem}>
+        <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={2}>
-            <H1>{exercise.name}</H1>
+            {exercise.name}
           </Text>
           <View style={styles.actions}>
             <ExerciseActions
@@ -67,7 +67,7 @@ export default ExerciseItem
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 30,
+    marginBottom: 15,
   },
   card: {
     flex: 1,
@@ -75,9 +75,11 @@ const styles = StyleSheet.create({
   opaque: {
     opacity: 0.5,
   },
-  cardItem: {
-    alignItems: 'center',
+  header: {
     justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   name: {
     flex: 1,

@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Body, View, Card, CardItem, H1, Text } from 'native-base'
-import { fromNow } from '_utils/time-utils'
+import { Body, View, Card, CardItem, Text } from 'native-base'
 import { Routine } from '_api'
 import Duration from '_components/time/Duration'
 import { TimeAgo } from '_components/time/TimeAgo'
@@ -14,7 +13,7 @@ const WorkoutItem = ({ workout }) => {
       <Card style={styles.card}>
         <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>
-            <H1>{workout.routine.name}</H1>
+            {workout.routine.name}
           </Text>
         </CardItem>
         <CardItem>
