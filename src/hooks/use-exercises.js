@@ -7,7 +7,6 @@ import { sortAlphabetically } from '_utils/sort'
 export const useExercises = (query = '') => {
   const { data: exercises, mutate } = useSWR('exercises', Exercise.fetch)
 
-  // TODO: Sort by position
   const getExercises = createSelector(
     [(exercises) => exercises || [], (_, query) => query],
     (exercises, query) => {

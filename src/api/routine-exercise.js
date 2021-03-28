@@ -54,6 +54,11 @@ export const SCHEMA = Yup.object().shape({
     .required()
     .positive()
     .min(0),
+  position: Yup.number()
+    .transform((v) => (isNaN(v) ? -1 : v))
+    .required()
+    .positive()
+    .min(0),
   created_at: Yup.string(),
   updated_at: Yup.string(),
 })
@@ -74,6 +79,7 @@ export const build = async (exercise) => {
       weight: 0,
       weight_unit_type: WEIGHT_UNIT_TYPE_METRIC,
       rest_seconds: 0,
+      position: 0,
       ...exercise,
     })
 

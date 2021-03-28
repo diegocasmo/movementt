@@ -2,17 +2,29 @@ import useSWR from 'swr'
 import { Routine } from '_api'
 import { search } from '_utils/fuzzy-search'
 import { createSelector } from 'reselect'
-import { sortAlphabetically } from '_utils/sort'
+import { sortAlphabetically, sortByPosition } from '_utils/sort'
 
 export const useRoutines = (query = '') => {
   const { data: routines, mutate } = useSWR('routines', Routine.fetch)
 
-  const findById = (id) => routines.find((routine) => routine.id === id)
-  // TODO: Sort by position
+  const findById = createSelector(
+    [(routines) => routines || [], (_, routineId) => routineId],
+    (routines, routineId) => {
+      const routine = routines.find((routine) => routine.id === routineId)
+
+      return {
+        ...routine,
+        exercises: sortByPosition(routine.exercises),
+      }
+    }
+  )
+
   const getRoutines = createSelector(
     [(routines) => routines || [], (_, query) => query],
     (routines, query) => {
-      return sortAlphabetically(search(routines, query))
+      const list = sortAlphabetically(search(routines, query))
+
+      return list.map((routine) => findById(routines, routine.id))
     }
   )
 

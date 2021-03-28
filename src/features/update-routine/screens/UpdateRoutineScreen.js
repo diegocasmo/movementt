@@ -7,8 +7,8 @@ import { showError } from '_utils/toast'
 
 const UpdateRoutineScreen = ({ navigation, route }) => {
   const [updating, setIsUpdating] = useState(false)
-  const { findById, update: updateRoutine } = useRoutines()
-  const routine = findById(route.params.routineId)
+  const { findById, routines, update: updateRoutine } = useRoutines()
+  const routine = findById(routines, route.params.routineId)
 
   const handleSubmit = async (routine, { resetForm }) => {
     setIsUpdating(true)

@@ -60,7 +60,10 @@ const RoutineForm = ({
 
     try {
       handleCloseExercises()
-      const routineExercise = await RoutineExercise.build(exercise)
+      const routineExercise = await RoutineExercise.build({
+        ...exercise,
+        position: values.exercises.length,
+      })
 
       setValues(
         {
@@ -100,13 +103,23 @@ const RoutineForm = ({
     )
   }
 
-  const handleDragEnd = (routineExercises, bag) => {
+  const handleDragEnd = (params, bag) => {
+    const { data: routineExercises, to } = params
     const { setValues, values } = bag
+
+    const exercises = routineExercises.map((exercise, idx) => {
+      if (idx !== to) return exercise
+
+      return {
+        ...exercise,
+        position: to,
+      }
+    })
 
     setValues(
       {
         ...values,
-        exercises: routineExercises,
+        exercises,
       },
       true
     )
@@ -228,8 +241,8 @@ const RoutineForm = ({
           )
         }}
         keyExtractor={(data) => `draggable-item-${data.id}`}
-        onDragEnd={({ data }) => {
-          handleDragEnd(data, formik)
+        onDragEnd={(params) => {
+          handleDragEnd(params, formik)
         }}
       />
 
