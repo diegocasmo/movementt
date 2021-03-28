@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import { Card, CardItem, Body, H3, Button } from 'native-base'
+import { Card, CardItem, Body, Text, Button } from 'native-base'
 import { Icon } from '_components/Icon'
 import { Formik } from 'formik'
 import RepsRoutineExerciseForm from './exercise-categories/RepsRoutineExerciseForm'
@@ -60,9 +60,9 @@ const RoutineExerciseForm = ({
         return (
           <Card style={styles.card}>
             <CardItem style={styles.header} header>
-              <H3 style={styles.name} numberOfLines={1}>
+              <Text style={styles.name} numberOfLines={1}>
                 {routineExercise.name}
-              </H3>
+              </Text>
               <Button transparent disabled={disabled} onPress={handleDelete}>
                 <Icon style={styles.deleteIcon} name="md-trash-outline" />
               </Button>
@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   name: {
-    fontWeight: 'normal',
     flex: 1,
   },
   deleteIcon: {
