@@ -11,7 +11,7 @@ import {
   View,
   Spinner,
 } from 'native-base'
-import ExerciseDetails from '../components/ExerciseDetails'
+import RoutineExerciseItem from '../components/RoutineExerciseItem'
 import RoutineActions from '_components/RoutineActions'
 import { getFormattedDuration } from '_utils/time-utils'
 import { useRoutines } from '_hooks/use-routines'
@@ -83,7 +83,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
         showsVerticalScrollIndicator={false}
       >
         {routine.exercises.map((exercise, idx) => (
-          <ExerciseDetails key={idx} exercise={exercise} />
+          <RoutineExerciseItem key={idx} exercise={exercise} />
         ))}
       </Content>
 

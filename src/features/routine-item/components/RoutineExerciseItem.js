@@ -6,7 +6,7 @@ import { RoutineExercise } from '_api'
 import { getFormattedDuration } from '_utils/time-utils'
 import ExerciseIcon from '_components/ExerciseIcon'
 
-const ExerciseDetails = ({ exercise }) => {
+const RoutineExerciseItem = ({ exercise }) => {
   return (
     <Card style={styles.card}>
       <CardItem header style={styles.header}>
@@ -23,11 +23,11 @@ const ExerciseDetails = ({ exercise }) => {
   )
 }
 
-ExerciseDetails.propTypes = {
+RoutineExerciseItem.propTypes = {
   exercise: PropTypes.object.isRequired,
 }
 
-export default ExerciseDetails
+export default RoutineExerciseItem
 
 const styles = StyleSheet.create({
   card: {},
