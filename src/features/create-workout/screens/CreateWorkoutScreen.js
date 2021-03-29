@@ -31,8 +31,8 @@ import { showError } from '_utils/toast'
 import { useRoutines } from '_hooks/use-routines'
 
 const CreateWorkoutScreen = ({ navigation, route }) => {
-  const { findById, routines } = useRoutines()
-  const routine = findById(routines, route.params.routineId)
+  const { findById } = useRoutines()
+  const routine = findById(route.params.routineId)
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)
   const completed = useSelector(isCompleted)

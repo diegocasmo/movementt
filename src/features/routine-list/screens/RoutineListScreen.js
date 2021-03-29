@@ -19,7 +19,8 @@ import { useRoutines } from '_hooks/use-routines'
 const RoutineListScreen = ({ navigation }) => {
   const [query, setQuery] = useState('')
   const trimmedQuery = query.trim()
-  const { routines, loading, destroy: destroyRoutine } = useRoutines(query)
+  const { getRoutines, loading, destroy: destroyRoutine } = useRoutines()
+  const routines = getRoutines(query)
 
   const handleQueryChange = (value) => {
     setQuery(value)

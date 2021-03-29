@@ -21,6 +21,7 @@ import ReauthenticateScreen from '_features/update-password/screens/Reauthentica
 import UpdatePasswordScreen from '_features/update-password/screens/UpdatePasswordScreen'
 
 import FooterTabs from '_components/FooterTabs'
+import { RoutinesProvider } from '_hooks/use-routines'
 
 const SettingsStack = createStackNavigator()
 const SettingsNavigator = () => {
@@ -104,31 +105,33 @@ const HomeTabsNavigator = () => {
 const AppStack = createStackNavigator()
 const VerifiedAppNavigator = () => {
   return (
-    <AppStack.Navigator
-      mode="modal"
-      tabBar={(props) => <FooterTabs {...props} />}
-    >
-      <AppStack.Screen
-        name="Home"
-        component={HomeTabsNavigator}
-        options={{ headerShown: false }}
-      />
-      <AppStack.Screen
-        name="CreateRoutine"
-        component={CreateRoutineScreen}
-        options={{ title: 'Create Routine', headerShown: false }}
-      />
-      <AppStack.Screen
-        name="UpdateRoutine"
-        component={UpdateRoutineScreen}
-        options={{ headerShown: false, gestureEnabled: false }}
-      />
-      <AppStack.Screen
-        name="CreateWorkout"
-        component={CreateWorkoutScreen}
-        options={{ headerShown: false, gestureEnabled: false }}
-      />
-    </AppStack.Navigator>
+    <RoutinesProvider>
+      <AppStack.Navigator
+        mode="modal"
+        tabBar={(props) => <FooterTabs {...props} />}
+      >
+        <AppStack.Screen
+          name="Home"
+          component={HomeTabsNavigator}
+          options={{ headerShown: false }}
+        />
+        <AppStack.Screen
+          name="CreateRoutine"
+          component={CreateRoutineScreen}
+          options={{ title: 'Create Routine', headerShown: false }}
+        />
+        <AppStack.Screen
+          name="UpdateRoutine"
+          component={UpdateRoutineScreen}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+        <AppStack.Screen
+          name="CreateWorkout"
+          component={CreateWorkoutScreen}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+      </AppStack.Navigator>
+    </RoutinesProvider>
   )
 }
 

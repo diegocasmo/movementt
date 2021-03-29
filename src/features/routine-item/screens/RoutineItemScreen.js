@@ -19,8 +19,8 @@ import { showError } from '_utils/toast'
 
 const RoutineItemScreen = ({ navigation, route }) => {
   const [destroying, setDestroying] = useState(false)
-  const { findById, routines, destroy: destroyRoutine } = useRoutines()
-  const routine = findById(routines, route.params.routineId)
+  const { findById, destroy: destroyRoutine } = useRoutines()
+  const routine = findById(route.params.routineId)
 
   const handleStart = () => {
     if (destroying) return
