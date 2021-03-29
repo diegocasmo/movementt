@@ -6,7 +6,7 @@ import { useExercises } from '_hooks/use-exercises'
 const ExerciseListScreen = () => {
   const [query, setQuery] = useState('')
   const { getExercises, loading } = useExercises(query)
-  const exercises = getExercises()
+  const exercises = getExercises(query)
 
   const handleQueryChange = (value) => {
     setQuery(value)

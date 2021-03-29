@@ -9,7 +9,7 @@ import { useExercises } from '_hooks/use-exercises'
 const ExerciseListModal = ({ onClose, onPress, visible }) => {
   const [query, setQuery] = useState('')
   const { getExercises, loading } = useExercises(query)
-  const exercises = getExercises()
+  const exercises = getExercises(query)
 
   const handleQueryChange = (query) => {
     setQuery(query)
