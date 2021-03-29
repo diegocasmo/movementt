@@ -39,6 +39,8 @@ export const validate = async (values) => {
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
+export const isPeristed = (routine) => !!routine.created_at
+
 export const fetch = async () => {
   try {
     const res = await axios.get(URL)

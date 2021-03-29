@@ -22,10 +22,34 @@ const RoutineForm = ({
   isSubmitting,
   onQuit,
   onSubmit,
-  submitText,
   autoFocus,
 }) => {
   const [isVisible, setIsVisible] = useState(false)
+  const formik = useFormik({
+    initialValues: routine || Routine.DEFAULT,
+    validationSchema: Routine.SCHEMA,
+    onSubmit: (values, opts) => {
+      // Remove id of exercises that have been added/created
+      const routine = {
+        ...values,
+        exercises: values.exercises.map((exercise) => {
+          const { id, ...rest } = exercise
+
+          return RoutineExercise.willCreate(exercise) ? rest : { id, ...rest }
+        }),
+      }
+
+      return onSubmit(Routine.SCHEMA.cast(routine), opts)
+    },
+  })
+
+  const { exercises } = formik.values
+  const exerciseCount = exercises.filter(
+    (exercise) => !RoutineExercise.willDestroy(exercise)
+  ).length
+  const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
+  const hasUnsavedChanges =
+    JSON.stringify(formik.values) !== JSON.stringify(formik.initialValues)
 
   const confirmQuit = () => {
     Alert.alert(
@@ -63,6 +87,7 @@ const RoutineForm = ({
       const routineExercise = await RoutineExercise.build({
         ...exercise,
         position: values.exercises.length,
+        _create: true,
       })
 
       setValues(
@@ -94,13 +119,13 @@ const RoutineForm = ({
   const handleDeleteRoutineExercise = (idx, bag) => {
     const { setValues, values } = bag
 
-    setValues(
-      {
-        ...values,
-        exercises: values.exercises.filter((_, i) => i !== idx),
-      },
-      true
-    )
+    const exercises = Routine.isPeristed(routine)
+      ? values.exercises.map((exercise, i) =>
+          i === idx ? { ...exercise, _destroy: true } : exercise
+        )
+      : values.exercises.filter((_, i) => i !== idx)
+
+    setValues({ ...values, exercises }, true)
   }
 
   const handleDragEnd = (params, bag) => {
@@ -120,19 +145,6 @@ const RoutineForm = ({
       true
     )
   }
-
-  const formik = useFormik({
-    initialValues: routine || Routine.DEFAULT,
-    validationSchema: Routine.SCHEMA,
-    onSubmit: (attrs, opts) => {
-      onSubmit(Routine.SCHEMA.cast(attrs), opts)
-    },
-  })
-
-  const { exercises } = formik.values
-  const isValid = Object.keys(formik.errors).length === 0
-  const hasUnsavedChanges =
-    JSON.stringify(formik.values) !== JSON.stringify(formik.initialValues)
 
   return (
     <View style={styles.content}>
@@ -191,7 +203,7 @@ const RoutineForm = ({
           </Grid>
 
           <View style={styles.exercisesSetup}>
-            <H1 style={styles.h1}>Exercises ({exercises.length})</H1>
+            <H1 style={styles.h1}>Exercises ({exerciseCount})</H1>
 
             <Button
               primary
@@ -253,7 +265,11 @@ const RoutineForm = ({
           {isSubmitting ? (
             <Spinner color="white" size="small" />
           ) : (
-            <Text>{submitText}</Text>
+            <Text>
+              {Routine.isPeristed(routine)
+                ? 'Update Routine'
+                : 'Create Routine'}
+            </Text>
           )}
         </Button>
       </View>
@@ -263,13 +279,11 @@ const RoutineForm = ({
 
 RoutineForm.defaultProps = {
   autoFocus: false,
-  submitText: 'Create Routine',
 }
 
 RoutineForm.propTypes = {
   routine: PropTypes.object,
   autoFocus: PropTypes.bool,
-  submitText: PropTypes.string,
   onQuit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,

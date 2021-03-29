@@ -59,6 +59,8 @@ export const SCHEMA = Yup.object().shape({
     .required()
     .positive()
     .min(0),
+  _destroy: Yup.boolean(),
+  _create: Yup.boolean(),
   created_at: Yup.string(),
   updated_at: Yup.string(),
 })
@@ -142,3 +144,6 @@ export const getWeightUnitTypeLabel = (routineExercise) => {
 
   return weightUnitOpt.label
 }
+
+export const willCreate = (routineExercise) => !!routineExercise._create
+export const willDestroy = (routineExercise) => !!routineExercise._destroy

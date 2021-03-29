@@ -12,6 +12,8 @@ export const useRoutines = (query = '') => {
     (routines, routineId) => {
       const routine = routines.find((routine) => routine.id === routineId)
 
+      if (!routine) return null
+
       return {
         ...routine,
         exercises: sortByPosition(routine.exercises),

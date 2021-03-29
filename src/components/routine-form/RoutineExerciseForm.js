@@ -47,6 +47,8 @@ const RoutineExerciseForm = ({
     )
   }
 
+  if (RoutineExercise.willDestroy(routineExercise)) return null
+
   return (
     <Formik
       initialValues={routineExercise}

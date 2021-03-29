@@ -35,7 +35,6 @@ const UpdateRoutineScreen = ({ navigation, route }) => {
         </Body>
       </Header>
       <RoutineForm
-        submitText="Update Routine"
         routine={routine}
         isSubmitting={updating}
         onQuit={handleQuit}
