@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Button, Card, CardItem, Text, View } from 'native-base'
+import { ListItem, Left, Right, Text } from 'native-base'
 import ExerciseActions from './ExerciseActions'
 import { showError } from '_utils/toast'
 
@@ -33,26 +33,23 @@ const ExerciseItem = ({ exercise, onDestroy, onPress, onUpdate }) => {
   }
 
   return (
-    <Button transparent style={styles.container} onPress={handlePress}>
-      <Card
-        style={[styles.card, destroying ? styles.opaque : {}]}
-        onPress={handlePress}
-      >
-        <CardItem header style={styles.header}>
-          <Text style={styles.name} numberOfLines={2}>
-            {exercise.name}
-          </Text>
-          <View style={styles.actions}>
-            <ExerciseActions
-              exercise={exercise}
-              destroying={destroying}
-              onDestroy={handleDestroy}
-              onUpdate={handleUpdate}
-            />
-          </View>
-        </CardItem>
-      </Card>
-    </Button>
+    <ListItem
+      noIndent
+      style={[styles.listItem, destroying ? styles.opaque : {}]}
+      onPress={handlePress}
+    >
+      <Left>
+        <Text numberOfLines={1}>{exercise.name}</Text>
+      </Left>
+      <Right>
+        <ExerciseActions
+          exercise={exercise}
+          destroying={destroying}
+          onDestroy={handleDestroy}
+          onUpdate={handleUpdate}
+        />
+      </Right>
+    </ListItem>
   )
 }
 
@@ -66,23 +63,8 @@ ExerciseItem.propTypes = {
 export default ExerciseItem
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 15,
-  },
-  card: {
-    flex: 1,
-  },
+  listItem: {},
   opaque: {
     opacity: 0.5,
   },
-  header: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-  name: {
-    flex: 1,
-  },
-  actions: {},
 })

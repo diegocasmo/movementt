@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Content, Spinner, Button, Text, View } from 'native-base'
+import { Content, Spinner, Button, Text, View, List } from 'native-base'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
@@ -100,15 +100,17 @@ const ExerciseList = ({
               We could not find any exercises based on your criteria
             </Text>
           )}
-          {exercises.map((exercise) => (
-            <ExerciseItem
-              key={exercise.id}
-              exercise={exercise}
-              onPress={handlePress}
-              onUpdate={handleUpdate}
-              onDestroy={handleDestroy}
-            />
-          ))}
+          <List style={styles.list}>
+            {exercises.map((exercise) => (
+              <ExerciseItem
+                key={exercise.id}
+                exercise={exercise}
+                onPress={handlePress}
+                onUpdate={handleUpdate}
+                onDestroy={handleDestroy}
+              />
+            ))}
+          </List>
           {hasQuery && (
             <Button primary block onPress={handlePrefillExercise}>
               <Text>+ {trimmedQuery}</Text>
@@ -147,6 +149,7 @@ const styles = StyleSheet.create({
   searchForm: {
     marginBottom: 20,
   },
+  list: {},
   noMatchesText: {
     marginBottom: 20,
   },
