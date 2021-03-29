@@ -6,8 +6,6 @@ import store from '_state'
 import { Root as NativeBaseRoot } from 'native-base'
 import { NavigationContainer } from '@react-navigation/native'
 import { Audio } from 'expo-av'
-import { SWRConfig } from 'swr'
-import { showError } from '_utils/toast'
 
 Audio.setAudioModeAsync({
   playsInSilentModeIOS: true,
@@ -19,27 +17,14 @@ Audio.setAudioModeAsync({
   playThroughEarpieceAndroid: false,
 })
 
-const Root = () => {
-  const config = {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    refreshWhenOffline: false,
-    refreshWhenHidden: false,
-    refreshInterval: 0,
-    onError: (e) => showError(e),
-  }
-
-  return (
-    <SWRConfig value={config}>
-      <NativeBaseRoot>
-        <Provider store={store}>
-          <NavigationContainer>
-            <App />
-          </NavigationContainer>
-        </Provider>
-      </NativeBaseRoot>
-    </SWRConfig>
-  )
-}
+const Root = () => (
+  <NativeBaseRoot>
+    <Provider store={store}>
+      <NavigationContainer>
+        <App />
+      </NavigationContainer>
+    </Provider>
+  </NativeBaseRoot>
+)
 
 export default Root
