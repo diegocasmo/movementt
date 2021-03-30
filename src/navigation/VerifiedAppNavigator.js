@@ -125,7 +125,7 @@ const VerifiedAppNavigator = () => {
           <AppStack.Screen
             name="UpdateRoutine"
             component={UpdateRoutineScreen}
-            options={{ headerShown: false, gestureEnabled: false }}
+            options={{ title: 'Update Routine', gestureEnabled: false }}
           />
           <AppStack.Screen
             name="CreateWorkout"
