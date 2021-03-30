@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Header, Body, Title } from 'native-base'
+import { Container } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
 import { useRoutines } from '_hooks/use-routines'
 import { showError } from '_utils/toast'
@@ -23,21 +23,11 @@ const UpdateRoutineScreen = ({ navigation, route }) => {
     }
   }
 
-  const handleQuit = () => {
-    navigation.pop()
-  }
-
   return (
     <Container>
-      <Header>
-        <Body>
-          <Title>Update Routine</Title>
-        </Body>
-      </Header>
       <RoutineForm
         routine={routine}
         isSubmitting={updating}
-        onQuit={handleQuit}
         onSubmit={handleSubmit}
       />
     </Container>

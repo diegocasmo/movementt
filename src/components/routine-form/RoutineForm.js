@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Alert,
   Keyboard,
   StyleSheet,
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native'
-import { Button, Col, Grid, H1, Icon, Spinner, Text, View } from 'native-base'
+import { Button, Col, Grid, H1, Spinner, Text, View } from 'native-base'
 import { useFormik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import TimePicker from './pickers/TimePicker'
@@ -17,13 +16,7 @@ import RoutineExerciseForm from './RoutineExerciseForm'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 import { showError } from '_utils/toast'
 
-const RoutineForm = ({
-  routine,
-  isSubmitting,
-  onQuit,
-  onSubmit,
-  autoFocus,
-}) => {
+const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
   const [isVisible, setIsVisible] = useState(false)
   const formik = useFormik({
     initialValues: routine || Routine.DEFAULT,
@@ -48,28 +41,6 @@ const RoutineForm = ({
     (exercise) => !RoutineExercise.willDestroy(exercise)
   ).length
   const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
-  const hasUnsavedChanges =
-    JSON.stringify(formik.values) !== JSON.stringify(formik.initialValues)
-
-  const confirmQuit = () => {
-    Alert.alert(
-      'Leave Routine',
-      'You have unsaved changes. Are you sure you want to leave?',
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            onQuit()
-          },
-        },
-      ],
-      { cancelable: false }
-    )
-  }
 
   const handleShowExercises = () => {
     setIsVisible(true)
@@ -150,24 +121,8 @@ const RoutineForm = ({
     <View style={styles.content}>
       <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
         <View style={styles.top}>
-          <View style={styles.setup}>
-            <H1 style={styles.h1}>Setup</H1>
-            <Button
-              transparent
-              onPress={() => {
-                if (hasUnsavedChanges) {
-                  confirmQuit()
-                } else {
-                  onQuit()
-                }
-              }}
-            >
-              <Icon style={styles.icon} active name="md-close" />
-            </Button>
-          </View>
-
           <Grid>
-            <Col>
+            <Col flexGrow={1} paddingRight={10}>
               <TextInput
                 label="Name"
                 autoFocus={autoFocus}
@@ -181,7 +136,7 @@ const RoutineForm = ({
             </Col>
           </Grid>
           <Grid>
-            <Col paddingRight={10}>
+            <Col flexGrow={1} paddingRight={10}>
               <IntegerInput
                 value={formik.values.rounds}
                 label="Rounds"
@@ -192,7 +147,7 @@ const RoutineForm = ({
                 touched={getIn(formik.touched, 'rounds')}
               />
             </Col>
-            <Col>
+            <Col flexGrow={1}>
               <TimePicker
                 disabled={isSubmitting}
                 label="Round rest"
@@ -203,7 +158,7 @@ const RoutineForm = ({
           </Grid>
 
           <View style={styles.exercisesSetup}>
-            <H1 style={styles.h1}>Exercises ({exerciseCount})</H1>
+            <H1>Exercises ({exerciseCount})</H1>
 
             <Button
               primary
@@ -284,7 +239,6 @@ RoutineForm.defaultProps = {
 RoutineForm.propTypes = {
   routine: PropTypes.object,
   autoFocus: PropTypes.bool,
-  onQuit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
 }
@@ -301,7 +255,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   top: {
-    height: 245,
+    height: 210,
   },
   middle: {
     paddingBottom: 50,
@@ -312,15 +266,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  setup: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-  },
-  h1: {
-    marginBottom: 10,
-  },
   exercisesSetup: {
+    marginTop: 10,
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
