@@ -6,7 +6,11 @@ import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
 import { Exercise } from '_api'
-import { useExercises } from '_hooks/use-exercises'
+import {
+  useCreateExerciseMutation,
+  useUpdateExerciseMutation,
+  useDestroyExerciseMutation,
+} from '_state/services/exercise'
 import { showError } from '_utils/toast'
 
 const ExerciseList = ({
@@ -21,11 +25,9 @@ const ExerciseList = ({
   const [state, setState] = useState(initialState)
   const trimmedQuery = query.trim()
 
-  const {
-    create: createExercise,
-    destroy: destroyExercise,
-    update: updateExercise,
-  } = useExercises()
+  const [createExercise] = useCreateExerciseMutation()
+  const [updateExercise] = useUpdateExerciseMutation()
+  const [destroyExercise] = useDestroyExerciseMutation()
 
   const handleCreate = () => {
     setState({ ...state, visible: true })
@@ -51,7 +53,7 @@ const ExerciseList = ({
   }
 
   const handleDestroy = (exercise) => {
-    return destroyExercise(exercise)
+    return destroyExercise(exercise.id)
   }
 
   const handleCancel = () => {

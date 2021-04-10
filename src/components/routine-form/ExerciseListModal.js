@@ -4,12 +4,13 @@ import { StyleSheet } from 'react-native'
 import { Button, H1, Icon, View } from 'native-base'
 import Modal from '_components/Modal'
 import ExerciseList from '_components/ExerciseList'
-import { useExercises } from '_hooks/use-exercises'
+import { useGetExercisesQuery } from '_state/services/exercise'
+import { getExercises } from '_selectors/exercise'
 
 const ExerciseListModal = ({ onClose, onPress, visible }) => {
   const [query, setQuery] = useState('')
-  const { getExercises, loading } = useExercises(query)
-  const exercises = getExercises(query)
+  const { data, isLoading } = useGetExercisesQuery()
+  const exercises = getExercises(data, query)
 
   const handleQueryChange = (query) => {
     setQuery(query)
@@ -23,14 +24,16 @@ const ExerciseListModal = ({ onClose, onPress, visible }) => {
       onRequestClose={onClose}
     >
       <View style={styles.header}>
-        <H1 style={styles.h1}>Exercises ({loading ? 0 : exercises.length})</H1>
+        <H1 style={styles.h1}>
+          Exercises ({isLoading ? 0 : exercises.length})
+        </H1>
         <Button style={styles.closeBtn} transparent onPress={onClose}>
           <Icon style={styles.closeIcon} active name="md-close" />
         </Button>
       </View>
       <ExerciseList
         exercises={exercises}
-        fetching={loading}
+        fetching={isLoading}
         onPress={onPress}
         onQueryChange={handleQueryChange}
         query={query}

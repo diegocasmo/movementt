@@ -1,9 +1,5 @@
 import * as Yup from 'yup'
-import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils'
-import { getUrl } from '_api/utils/url'
-
-export const URL = `${getUrl()}/exercises`
 
 export const MOVEMENT_TYPE_CORE = 'core'
 export const MOVEMENT_TYPE_FULL_BODY = 'full_body'
@@ -50,48 +46,4 @@ export const validate = async (attrs) => {
   return SCHEMA.validate(attrs, {
     stripUnknown: true,
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
-}
-
-export const fetch = async () => {
-  try {
-    const res = await axios.get(URL)
-
-    return res.data
-  } catch (err) {
-    throw new Error('Unable to fetch exercises')
-  }
-}
-
-export const create = async (attrs) => {
-  try {
-    const exercise = await validate(attrs)
-
-    const res = await axios.post(URL, { exercise })
-
-    return res.data
-  } catch (err) {
-    throw new Error('Unable to create exercise')
-  }
-}
-
-export const update = async (attrs) => {
-  try {
-    const exercise = await validate(attrs)
-
-    const res = await axios.put(`${URL}/${exercise.id}`, {
-      exercise,
-    })
-
-    return res.data
-  } catch (err) {
-    throw new Error('Unable to update exercise')
-  }
-}
-
-export const destroy = async (exercise) => {
-  try {
-    await axios.delete(`${URL}/${exercise.id}`)
-  } catch (err) {
-    throw new Error('Unable to destroy exercise')
-  }
 }
