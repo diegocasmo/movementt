@@ -21,7 +21,6 @@ import ReauthenticateScreen from '_features/update-password/screens/Reauthentica
 import UpdatePasswordScreen from '_features/update-password/screens/UpdatePasswordScreen'
 
 import FooterTabs from '_components/FooterTabs'
-import { RoutinesProvider } from '_hooks/use-routines'
 import { ExercisesProvider } from '_hooks/use-exercises'
 
 const SettingsStack = createStackNavigator()
@@ -106,35 +105,33 @@ const HomeTabsNavigator = () => {
 const AppStack = createStackNavigator()
 const VerifiedAppNavigator = () => {
   return (
-    <RoutinesProvider>
-      <ExercisesProvider>
-        <AppStack.Navigator
-          mode="modal"
-          tabBar={(props) => <FooterTabs {...props} />}
-        >
-          <AppStack.Screen
-            name="Home"
-            component={HomeTabsNavigator}
-            options={{ headerShown: false }}
-          />
-          <AppStack.Screen
-            name="CreateRoutine"
-            component={CreateRoutineScreen}
-            options={{ title: 'Create Routine', gestureEnabled: false }}
-          />
-          <AppStack.Screen
-            name="UpdateRoutine"
-            component={UpdateRoutineScreen}
-            options={{ title: 'Update Routine', gestureEnabled: false }}
-          />
-          <AppStack.Screen
-            name="CreateWorkout"
-            component={CreateWorkoutScreen}
-            options={{ headerShown: false, gestureEnabled: false }}
-          />
-        </AppStack.Navigator>
-      </ExercisesProvider>
-    </RoutinesProvider>
+    <ExercisesProvider>
+      <AppStack.Navigator
+        mode="modal"
+        tabBar={(props) => <FooterTabs {...props} />}
+      >
+        <AppStack.Screen
+          name="Home"
+          component={HomeTabsNavigator}
+          options={{ headerShown: false }}
+        />
+        <AppStack.Screen
+          name="CreateRoutine"
+          component={CreateRoutineScreen}
+          options={{ title: 'Create Routine', gestureEnabled: false }}
+        />
+        <AppStack.Screen
+          name="UpdateRoutine"
+          component={UpdateRoutineScreen}
+          options={{ title: 'Update Routine', gestureEnabled: false }}
+        />
+        <AppStack.Screen
+          name="CreateWorkout"
+          component={CreateWorkoutScreen}
+          options={{ headerShown: false, gestureEnabled: false }}
+        />
+      </AppStack.Navigator>
+    </ExercisesProvider>
   )
 }
 

@@ -28,11 +28,15 @@ import WorkoutCompleted from '../components/WorkoutCompleted'
 import { getUser } from '_state/reducers/auth'
 import { createWorkout } from '_state/reducers/workouts'
 import { showError } from '_utils/toast'
-import { useRoutines } from '_hooks/use-routines'
+import { useGetRoutinesQuery } from '_state/services/routine'
+import { findRoutineById } from '_selectors/routine'
 
 const CreateWorkoutScreen = ({ navigation, route }) => {
-  const { findById } = useRoutines()
-  const routine = findById(route.params.routineId)
+  const { routine } = useGetRoutinesQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      routine: findRoutineById(data, route.params.routineId),
+    }),
+  })
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)
   const completed = useSelector(isCompleted)

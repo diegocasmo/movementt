@@ -21,11 +21,11 @@ import {
 import { getRoutines } from '_selectors/routine'
 
 const RoutineListScreen = ({ navigation }) => {
-  const { data, isLoading } = useGetRoutinesQuery()
-  const [destroyRoutine] = useDestroyRoutineMutation()
   const [query, setQuery] = useState('')
-  const routines = getRoutines(data, query)
   const trimmedQuery = query.trim()
+  const [destroyRoutine] = useDestroyRoutineMutation()
+  const { data, isLoading } = useGetRoutinesQuery()
+  const routines = getRoutines(data, query)
 
   const handleQueryChange = (value) => {
     setQuery(value)
