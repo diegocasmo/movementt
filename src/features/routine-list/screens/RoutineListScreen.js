@@ -14,13 +14,18 @@ import {
 } from 'native-base'
 import RoutineItem from '../components/RoutineItem'
 import SearchForm from '_components/SearchForm'
-import { useRoutines } from '_hooks/use-routines'
+import {
+  useDestroyRoutineMutation,
+  useGetRoutinesQuery,
+} from '_state/services/routine'
+import { getRoutines } from '_selectors/routine'
 
 const RoutineListScreen = ({ navigation }) => {
+  const { data, isLoading } = useGetRoutinesQuery()
+  const [destroyRoutine] = useDestroyRoutineMutation()
   const [query, setQuery] = useState('')
+  const routines = getRoutines(data, query)
   const trimmedQuery = query.trim()
-  const { getRoutines, loading, destroy: destroyRoutine } = useRoutines()
-  const routines = getRoutines(query)
 
   const handleQueryChange = (value) => {
     setQuery(value)
@@ -46,7 +51,7 @@ const RoutineListScreen = ({ navigation }) => {
     <Container>
       <Header>
         <Body>
-          <Title>Routines ({loading ? 0 : routines.length})</Title>
+          <Title>Routines ({isLoading ? 0 : routines.length})</Title>
         </Body>
       </Header>
       <Content
@@ -60,7 +65,7 @@ const RoutineListScreen = ({ navigation }) => {
           onChangeText={handleQueryChange}
           onCreate={handleCreate}
         />
-        {loading ? (
+        {isLoading ? (
           <Spinner color="black" />
         ) : (
           <View>
@@ -68,15 +73,16 @@ const RoutineListScreen = ({ navigation }) => {
             {noMatches && (
               <Text>We could not find any routines based on your criteria</Text>
             )}
-            {routines.map((routine) => (
-              <RoutineItem
-                key={routine.id}
-                routine={routine}
-                onStart={handleStart}
-                onUpdate={handleUpdate}
-                onDestroy={destroyRoutine}
-              />
-            ))}
+            {routines &&
+              routines.map((routine) => (
+                <RoutineItem
+                  key={routine.id}
+                  routine={routine}
+                  onStart={handleStart}
+                  onUpdate={handleUpdate}
+                  onDestroy={destroyRoutine}
+                />
+              ))}
             {hasQuery && (
               <Button primary block style={styles.btn} onPress={handleCreate}>
                 <Text>+ {trimmedQuery}</Text>

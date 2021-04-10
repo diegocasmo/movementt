@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { Container } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
 import { Routine } from '_api'
-import { useRoutines } from '_hooks/use-routines'
+import { useCreateRoutineMutation } from '_state/services/routine'
 import { showError } from '_utils/toast'
 
 const CreateRoutineScreen = ({ navigation, route }) => {
-  const { create: createRoutine } = useRoutines()
+  const [createRoutine] = useCreateRoutineMutation()
   const [isCreating, setIsCreating] = useState(false)
   const { name = '' } = route.params
 

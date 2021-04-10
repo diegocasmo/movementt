@@ -2,13 +2,21 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
-import { useRoutines } from '_hooks/use-routines'
+import {
+  useUpdateRoutineMutation,
+  useGetRoutinesQuery,
+} from '_state/services/routine'
+import { findRoutineById } from '_selectors/routine'
 import { showError } from '_utils/toast'
 
 const UpdateRoutineScreen = ({ navigation, route }) => {
+  const { routine } = useGetRoutinesQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      routine: findRoutineById(data, route.params.routineId),
+    }),
+  })
+  const [updateRoutine] = useUpdateRoutineMutation()
   const [updating, setIsUpdating] = useState(false)
-  const { findById, update: updateRoutine } = useRoutines()
-  const routine = findById(route.params.routineId)
 
   const handleSubmit = async (routine, { resetForm }) => {
     setIsUpdating(true)

@@ -31,7 +31,7 @@ const RoutineItem = ({
 
     try {
       setDestroying(true)
-      await onDestroy(routine)
+      await onDestroy(routine.id)
     } catch (err) {
       setDestroying(false)
       showError(err)

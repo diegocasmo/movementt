@@ -14,13 +14,21 @@ import {
 import RoutineExerciseItem from '../components/RoutineExerciseItem'
 import RoutineActions from '_components/RoutineActions'
 import { getFormattedDuration } from '_utils/time-utils'
-import { useRoutines } from '_hooks/use-routines'
+import {
+  useDestroyRoutineMutation,
+  useGetRoutinesQuery,
+} from '_state/services/routine'
+import { findRoutineById } from '_selectors/routine'
 import { showError } from '_utils/toast'
 
 const RoutineItemScreen = ({ navigation, route }) => {
+  const { routine } = useGetRoutinesQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      routine: findRoutineById(data, route.params.routineId),
+    }),
+  })
+  const [destroyRoutine] = useDestroyRoutineMutation()
   const [destroying, setDestroying] = useState(false)
-  const { findById, destroy: destroyRoutine } = useRoutines()
-  const routine = findById(route.params.routineId)
 
   const handleStart = () => {
     if (destroying) return
@@ -39,7 +47,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
 
     try {
       setDestroying(true)
-      await destroyRoutine(routine)
+      await destroyRoutine(routine.id)
       navigation.navigate('Home')
     } catch (err) {
       setDestroying(false)
