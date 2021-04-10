@@ -54,7 +54,6 @@ export const sendEmailVerification = async (user = _firebaseUser()) => {
 }
 
 export const signOut = async () => {
-  axios.defaults.headers.common['Authorization'] = ''
   return firebase.auth().signOut()
 }
 
@@ -64,11 +63,8 @@ export const validate = async (attrs) => {
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
-export const me = async (user = _firebaseUser()) => {
+export const me = async () => {
   try {
-    const token = await user.getIdToken(true)
-    axios.defaults.headers.common['Authorization'] = token
-
     const response = await axios.get(`${URL}/me`)
 
     return response.data

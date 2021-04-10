@@ -1,4 +1,4 @@
-require('./api/config') // eslint-disable-line no-undef
+require('./api') // eslint-disable-line no-undef
 import React from 'react'
 import App from './App'
 import { Provider } from 'react-redux'

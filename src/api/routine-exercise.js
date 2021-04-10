@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { Exercise } from '_api'
+import * as Exercise from '_api/exercise'
 import { getFormattedDistance } from '_utils/distance-utils'
 import { getFormattedDuration } from '_utils/time-utils'
 import { transformYupToFormikError } from '_api/utils'

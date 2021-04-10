@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils'
 import { getUrl } from '_api/utils/url'
-import { RoutineExercise } from '_api'
+import * as RoutineExercise from '_api/routine-exercise'
 
 export const URL = `${getUrl()}/routines`
 
