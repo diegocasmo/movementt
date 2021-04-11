@@ -1,16 +1,17 @@
-import { createApi } from '@rtk-incubator/rtk-query'
-import { baseQueryWithRetry } from '_state/services/utils/baseUrl'
+import { createApi } from '@rtk-incubator/rtk-query/react'
+import { baseQueryWithRetry } from '_state/services/utils/baseQuery'
 
+const routineType = 'Routines'
 export const routineApi = createApi({
   reducerPath: 'routineApi',
   baseQuery: baseQueryWithRetry,
-  entityTypes: ['Routines'],
+  tagTypes: [routineType],
   endpoints: (build) => ({
     getRoutines: build.query({
       query: () => ({ url: 'routines' }),
-      provides: (result) => [
-        ...result.map(({ id }) => ({ type: 'Routines', id })),
-        { type: 'Routines', id: 'LIST' },
+      providesTags: (result) => [
+        ...result.map(({ id }) => ({ type: routineType, id })),
+        { type: routineType, id: 'LIST' },
       ],
     }),
     createRoutine: build.mutation({
@@ -24,7 +25,7 @@ export const routineApi = createApi({
           body,
         }
       },
-      invalidates: [{ type: 'Routines', id: 'LIST' }],
+      invalidatesTags: [{ type: routineType, id: 'LIST' }],
     }),
     updateRoutine: build.mutation({
       query(data) {
@@ -37,14 +38,14 @@ export const routineApi = createApi({
           body,
         }
       },
-      invalidates: (_, { id }) => [{ type: 'Routines', id }],
+      invalidatesTags: (_, __, { id }) => [{ type: routineType, id }],
     }),
     destroyRoutine: build.mutation({
       query: (id) => ({
         url: `routines/${id}`,
         method: 'DELETE',
       }),
-      invalidates: (_, id) => [{ type: 'Routines', id }],
+      invalidatesTags: (_, __, id) => [{ type: routineType, id }],
     }),
   }),
 })

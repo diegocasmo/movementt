@@ -1,16 +1,17 @@
-import { createApi } from '@rtk-incubator/rtk-query'
-import { baseQueryWithRetry } from '_state/services/utils/baseUrl'
+import { createApi } from '@rtk-incubator/rtk-query/react'
+import { baseQueryWithRetry } from '_state/services/utils/baseQuery'
 
+const exerciseType = 'Exercises'
 export const exerciseApi = createApi({
   reducerPath: 'exerciseApi',
   baseQuery: baseQueryWithRetry,
-  entityTypes: ['Exercises'],
+  tagTypes: [exerciseType],
   endpoints: (build) => ({
     getExercises: build.query({
       query: () => ({ url: 'exercises' }),
-      provides: (result) => [
-        ...result.map(({ id }) => ({ type: 'Exercises', id })),
-        { type: 'Exercises', id: 'LIST' },
+      providesTags: (result) => [
+        ...result.map(({ id }) => ({ type: exerciseType, id })),
+        { type: exerciseType, id: 'LIST' },
       ],
     }),
     createExercise: build.mutation({
@@ -19,7 +20,7 @@ export const exerciseApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidates: [{ type: 'Exercises', id: 'LIST' }],
+      invalidatesTags: [{ type: exerciseType, id: 'LIST' }],
     }),
     updateExercise: build.mutation({
       query: ({ id, ...body }) => ({
@@ -27,14 +28,14 @@ export const exerciseApi = createApi({
         method: 'PUT',
         body,
       }),
-      invalidates: (_, { id }) => [{ type: 'Exercises', id }],
+      invalidatesTags: (_, __, { id }) => [{ type: exerciseType, id }],
     }),
     destroyExercise: build.mutation({
       query: (id) => ({
         url: `exercises/${id}`,
         method: 'DELETE',
       }),
-      invalidates: (_, id) => [{ type: 'Exercises', id }],
+      invalidatesTags: (_, __, id) => [{ type: exerciseType, id }],
     }),
   }),
 })

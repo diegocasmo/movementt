@@ -1,55 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 import AppLoading from 'expo-app-loading'
-import * as Font from 'expo-font'
-import { Ionicons } from '@expo/vector-icons'
 
+import { useAssets } from '_hooks/use-assets'
+import { useAuthState } from '_hooks/use-auth-state'
 import { User } from '_api'
-import {
-  handleAuthStateChanged,
-  getUser,
-  isLoadingAuth,
-} from '_state/reducers/auth'
 
 import UnverifiedAppNavigator from '_navigation/UnverifiedAppNavigator'
 import VerifiedAppNavigator from '_navigation/VerifiedAppNavigator'
 import GuestAppNavigator from '_navigation/GuestAppNavigator'
 
 const App = () => {
-  const dispatch = useDispatch()
-  const user = useSelector((state) => getUser(state))
-  const loadingAuth = useSelector((state) => isLoadingAuth(state))
-  const [loadingFonts, setLoadingFonts] = useState(true)
+  const { loading: loadingAssets } = useAssets()
+  const { loading: loadingAuth, user } = useAuthState()
 
-  // Load application assets
-  useEffect(() => {
-    const loadAssets = async () => {
-      await Font.loadAsync({
-        // eslint-disable-next-line no-undef
-        Roboto: require('../node_modules/native-base/Fonts/Roboto.ttf'),
-        // eslint-disable-next-line no-undef
-        Roboto_medium: require('../node_modules/native-base/Fonts/Roboto_medium.ttf'),
-        ...Ionicons.font,
-      })
-
-      setLoadingFonts(false)
-    }
-
-    loadAssets()
-  }, [])
-
-  // Listen to authentication state changes
-  useEffect(() => {
-    const unsubscribe = User.onAuthStateChanged((firebaseUser) => {
-      dispatch(handleAuthStateChanged(!!firebaseUser))
-    })
-
-    return () => {
-      unsubscribe()
-    }
-  }, [dispatch])
-
-  if (loadingAuth || loadingFonts) {
+  if (loadingAuth || loadingAssets) {
     return <AppLoading />
   }
 
