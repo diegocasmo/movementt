@@ -1,5 +1,5 @@
 import { createApi } from '@rtk-incubator/rtk-query'
-import { baseQueryWithRetry } from './'
+import { baseQueryWithRetry } from '_state/services/utils/baseUrl'
 
 export const exerciseApi = createApi({
   reducerPath: 'exerciseApi',
