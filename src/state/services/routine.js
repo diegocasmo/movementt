@@ -40,12 +40,10 @@ export const routineApi = createApi({
       invalidates: (_, { id }) => [{ type: 'Routines', id }],
     }),
     destroyRoutine: build.mutation({
-      query(id) {
-        return {
-          url: `routines/${id}`,
-          method: 'DELETE',
-        }
-      },
+      query: (id) => ({
+        url: `routines/${id}`,
+        method: 'DELETE',
+      }),
       invalidates: (_, id) => [{ type: 'Routines', id }],
     }),
   }),

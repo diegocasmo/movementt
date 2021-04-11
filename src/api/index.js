@@ -13,7 +13,6 @@ axios.interceptors.request.use(
 
       config.headers.common['Authorization'] = token || null
     } catch (err) {
-      User.signOut()
       console.error(err.message)
     }
 

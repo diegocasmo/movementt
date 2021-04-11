@@ -22,24 +22,18 @@ export const exerciseApi = createApi({
       invalidates: [{ type: 'Exercises', id: 'LIST' }],
     }),
     updateExercise: build.mutation({
-      query(data) {
-        const { id, ...body } = data
-
-        return {
-          url: `exercises/${id}`,
-          method: 'PUT',
-          body,
-        }
-      },
+      query: ({ id, ...body }) => ({
+        url: `exercises/${id}`,
+        method: 'PUT',
+        body,
+      }),
       invalidates: (_, { id }) => [{ type: 'Exercises', id }],
     }),
     destroyExercise: build.mutation({
-      query(id) {
-        return {
-          url: `exercises/${id}`,
-          method: 'DELETE',
-        }
-      },
+      query: (id) => ({
+        url: `exercises/${id}`,
+        method: 'DELETE',
+      }),
       invalidates: (_, id) => [{ type: 'Exercises', id }],
     }),
   }),
