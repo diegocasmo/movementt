@@ -18,7 +18,7 @@ import {
   useDestroyRoutineMutation,
   useGetRoutinesQuery,
 } from '_state/services/routine'
-import { getRoutines } from '_selectors/routine'
+import { getRoutines } from '_state/selectors/routine'
 
 const RoutineListScreen = ({ navigation }) => {
   const [query, setQuery] = useState('')

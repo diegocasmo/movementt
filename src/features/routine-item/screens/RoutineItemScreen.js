@@ -18,7 +18,7 @@ import {
   useDestroyRoutineMutation,
   useGetRoutinesQuery,
 } from '_state/services/routine'
-import { findRoutineById } from '_selectors/routine'
+import { findRoutineById } from '_state/selectors/routine'
 import { showError } from '_utils/toast'
 
 const RoutineItemScreen = ({ navigation, route }) => {

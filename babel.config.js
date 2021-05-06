@@ -19,7 +19,6 @@ module.exports = function (api) {
         {
           root: ['./'],
           alias: {
-            _selectors: './src/selectors',
             _api: './src/api',
             _components: './src/components',
             _features: './src/features',

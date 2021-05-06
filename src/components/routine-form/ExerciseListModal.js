@@ -5,7 +5,7 @@ import { Button, H1, Icon, View } from 'native-base'
 import Modal from '_components/Modal'
 import ExerciseList from '_components/ExerciseList'
 import { useGetExercisesQuery } from '_state/services/exercise'
-import { getExercises } from '_selectors/exercise'
+import { getExercises } from '_state/selectors/exercise'
 
 const ExerciseListModal = ({ onClose, onPress, visible }) => {
   const [query, setQuery] = useState('')
