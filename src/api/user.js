@@ -87,19 +87,16 @@ export const update = async (attrs) => {
   }
 }
 
-export const verify = async (user) => {
+export const didVerify = async (user = _firebaseUser()) => {
   try {
-    if (verified(user)) return user
+    if (verified(user)) return true
 
     await _firebaseUser().reload()
     const firebaseUser = _firebaseUser()
-    if (firebaseUser.emailVerified) {
-      user = await update({ ...user, verified: true })
-    }
 
-    return user
+    return firebaseUser.emailVerified
   } catch (err) {
-    throw new Error('Unable to verify user')
+    throw new Error('Unable to check if user is verified')
   }
 }
 

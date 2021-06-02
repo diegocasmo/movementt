@@ -1,11 +1,11 @@
 import { useGetCurrentUserQuery } from '_state/services/user'
 
 export const useCurrentUser = () => {
-  const { user } = useGetCurrentUserQuery(undefined, {
+  const { user, refetch } = useGetCurrentUserQuery(undefined, {
     selectFromResult: ({ data }) => ({
       user: data,
     }),
   })
 
-  return { user }
+  return { user, refetch }
 }

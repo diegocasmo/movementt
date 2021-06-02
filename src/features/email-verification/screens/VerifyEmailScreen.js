@@ -1,25 +1,28 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
-import { verifyUser, isLoadingUser } from '_state/reducers/auth'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
 import { useCurrentUser } from '_hooks/use-current-user'
+import { useUpdateUserMutation } from '_state/services/user'
 import { User } from '_api'
 
 const VerifyEmailScreen = () => {
-  const dispatch = useDispatch()
-  const { user } = useCurrentUser()
+  const { user, refetch } = useCurrentUser()
+  const [updateUser, { isLoading }] = useUpdateUserMutation()
   const [isSigningOut, setSigningOut] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
-  const loadingUser = useSelector((state) => isLoadingUser(state))
 
   const handlePressOnDone = async () => {
     try {
-      const nextUser = await dispatch(verifyUser(user))
+      const didVerify = await User.didVerify()
 
-      if (!User.verified(nextUser)) showWarning('Please, verify your email address')
+      if (didVerify) {
+        await updateUser({ ...user, verified: true })
+        refetch()
+      } else {
+        showWarning('Please, verify your email address')
+      }
     } catch (err) {
       showError(err.message)
     }
@@ -59,14 +62,10 @@ const VerifyEmailScreen = () => {
         success
         block
         style={styles.button}
-        disabled={loadingUser}
+        disabled={isLoading}
         onPress={handlePressOnDone}
       >
-        {loadingUser ? (
-          <Spinner color="white" size="small" />
-        ) : (
-          <Text>Done</Text>
-        )}
+        {isLoading ? <Spinner color="white" size="small" /> : <Text>Done</Text>}
       </Button>
       <Button
         primary

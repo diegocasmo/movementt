@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
 import { User } from '_api'
-import { isLoadingUser } from '_state/reducers/auth'
 
 const SignUpScreen = ({ navigation }) => {
   const [isSigningUp, setIsSigningUp] = useState(false)
-  const loadingUser = useSelector((state) => isLoadingUser(state))
 
   const handlePressOnSignIn = () => {
     navigation.navigate('SignIn')
@@ -35,7 +32,7 @@ const SignUpScreen = ({ navigation }) => {
           style={styles.form}
           buttonText="Create Account"
           onSubmit={handleSubmit}
-          isSubmitting={isSigningUp || loadingUser}
+          isSubmitting={isSigningUp}
           withPasswordConfirmation={true}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignIn}>
