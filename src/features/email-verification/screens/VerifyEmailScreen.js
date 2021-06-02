@@ -5,19 +5,21 @@ import { Container, H1, Button, Text, Spinner } from 'native-base'
 import { verifyUser, isLoadingUser } from '_state/reducers/auth'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
+import { useCurrentUser } from '_hooks/use-current-user'
 import { User } from '_api'
 
 const VerifyEmailScreen = () => {
   const dispatch = useDispatch()
+  const { user } = useCurrentUser()
   const [isSigningOut, setSigningOut] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
   const loadingUser = useSelector((state) => isLoadingUser(state))
 
   const handlePressOnDone = async () => {
     try {
-      const user = await dispatch(verifyUser())
+      const nextUser = await dispatch(verifyUser(user))
 
-      if (!User.verified(user)) showWarning('Please, verify your email address')
+      if (!User.verified(nextUser)) showWarning('Please, verify your email address')
     } catch (err) {
       showError(err.message)
     }

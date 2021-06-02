@@ -65,23 +65,19 @@ export const handleAuthStateChanged = (authenticated) => async (dispatch) => {
   }
 }
 
-export const verifyUser = () => async (dispatch, getState) => {
+export const verifyUser = (user) => async (dispatch) => {
   try {
     dispatch(auth.actions.verifyUserPending())
 
-    const user = await User.verify(getUser(getState()))
+    const nextUser = await User.verify(user)
 
-    dispatch(auth.actions.verifyUserFulfilled(user))
+    dispatch(auth.actions.verifyUserFulfilled(nextUser))
 
     return user
   } catch (err) {
     dispatch(auth.actions.verifyUserRejected(err.message))
     throw err
   }
-}
-
-export const getUser = (state) => {
-  return state.auth.user
 }
 
 export const isLoadingAuth = (state) => {
