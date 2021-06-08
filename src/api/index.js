@@ -22,4 +22,18 @@ axios.interceptors.request.use(
   { synchronous: false }
 )
 
+// Automatically sign user out if response status is 401
+axios.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  async (error) => {
+    if (error.response.status === 401) {
+      await User.signOut()
+    }
+
+    return Promise.reject(error)
+  }
+)
+
 export { Exercise, Routine, RoutineExercise, User }

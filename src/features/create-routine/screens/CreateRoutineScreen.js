@@ -16,8 +16,10 @@ const CreateRoutineScreen = ({ navigation, route }) => {
 
     try {
       const { data } = await createRoutine(attrs)
-      resetForm()
-      navigation.navigate('RoutineItem', { routineId: data.id })
+      if (data) {
+        resetForm()
+        navigation.navigate('RoutineItem', { routineId: data.id })
+      }
     } catch (err) {
       setIsCreating(false)
       showError(err)

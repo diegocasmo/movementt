@@ -1,10 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { baseQueryWithRetry } from '_state/services/utils/baseQuery'
+import { baseQuery } from '_state/services/utils/baseQuery'
 
 const exerciseType = 'Exercises'
 export const exerciseApi = createApi({
   reducerPath: 'exerciseApi',
-  baseQuery: baseQueryWithRetry,
+  baseQuery: baseQuery(),
   tagTypes: [exerciseType],
   endpoints: (build) => ({
     getExercises: build.query({

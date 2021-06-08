@@ -70,6 +70,7 @@ const EmailAndPasswordForm = ({
                   onChange={handleChange('password')}
                   error={getIn(errors, 'password')}
                   touched={getIn(touched, 'password')}
+                  disabled={isSubmitting}
                   value={values.password}
                 />
               </Col>
@@ -84,6 +85,7 @@ const EmailAndPasswordForm = ({
                     onChange={handleChange('passwordConfirmation')}
                     error={getIn(errors, 'passwordConfirmation')}
                     touched={getIn(touched, 'passwordConfirmation')}
+                    disabled={isSubmitting}
                     value={values.passwordConfirmation}
                   />
                 </Col>

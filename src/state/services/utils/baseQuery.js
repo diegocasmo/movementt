@@ -1,14 +1,17 @@
-import { User } from '_api'
 import { getUrl } from '_api/utils/url'
-import { retry, fetchBaseQuery } from '@reduxjs/toolkit/query'
+import axios from 'axios'
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: getUrl(),
-  prepareHeaders: async (headers) => {
-    const token = await User._firebaseUser().getIdToken()
-    headers.set('Authorization', `${token || ''}`)
-    return headers
-  },
-})
+export const baseQuery = () => async ({ url, method, body }) => {
+  try {
+    const result = await axios({
+      url: `${getUrl()}/${url}`,
+      method,
+      data: body,
+    })
 
-export const baseQueryWithRetry = retry(baseQuery, { maxRetries: 6 })
+    return { data: result.data }
+  } catch (axiosError) {
+    let err = axiosError
+    return { error: { status: err.response.status, data: err.response.data } }
+  }
+}

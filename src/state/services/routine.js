@@ -1,10 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { baseQueryWithRetry } from '_state/services/utils/baseQuery'
+import { baseQuery } from '_state/services/utils/baseQuery'
 
 const routineType = 'Routines'
 export const routineApi = createApi({
   reducerPath: 'routineApi',
-  baseQuery: baseQueryWithRetry,
+  baseQuery: baseQuery(),
   tagTypes: [routineType],
   endpoints: (build) => ({
     getRoutines: build.query({
