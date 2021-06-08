@@ -6,25 +6,20 @@ import { showError } from '_utils/toast'
 const UserContext = createContext()
 
 const actionTypes = {
-  AUTH_STATE_PENDING: 'AUTH_STATE_PENDING',
   AUTH_STATE_FULFILLED: 'AUTH_STATE_FULFILLED',
-  AUTH_STATE_REJECTED: 'AUTH_STATE_REJECTED',
+
   FETCH_PENDING: 'FETCH_PENDING',
   FETCH_FULFILLED: 'FETCH_FULFILLED',
   FETCH_REJECTED: 'FETCH_REJECTED',
+
   UPDATE: 'UPDATE',
+
   CLEAR: 'CLEAR',
 }
 
 function userReducer(state, { type, payload }) {
   switch (type) {
-    case actionTypes.AUTH_STATE_PENDING: {
-      return { ...state, isLoadingAuth: true }
-    }
     case actionTypes.AUTH_STATE_FULFILLED: {
-      return { ...state, isLoadingAuth: false }
-    }
-    case actionTypes.AUTH_STATE_REJECTED: {
       return { ...state, isLoadingAuth: false }
     }
 
