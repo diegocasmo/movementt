@@ -2,7 +2,7 @@ import React from 'react'
 import AppLoading from 'expo-app-loading'
 
 import { useAssets } from '_hooks/use-assets'
-import { useAuthState } from '_hooks/use-auth-state'
+import { useUser } from '_hooks/use-user'
 import { User } from '_api'
 
 import UnverifiedAppNavigator from '_navigation/UnverifiedAppNavigator'
@@ -11,9 +11,9 @@ import GuestAppNavigator from '_navigation/GuestAppNavigator'
 
 const App = () => {
   const { loading: loadingAssets } = useAssets()
-  const { loading: loadingAuth, user } = useAuthState()
+  const { user, isLoadingAuth } = useUser()
 
-  if (loadingAuth || loadingAssets) {
+  if (isLoadingAuth || loadingAssets) {
     return <AppLoading />
   }
 

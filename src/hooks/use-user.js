@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import { User } from '_api'
 import { showError } from '_utils/toast'
@@ -6,6 +6,9 @@ import { showError } from '_utils/toast'
 const UserContext = createContext()
 
 const actionTypes = {
+  AUTH_STATE_PENDING: 'AUTH_STATE_PENDING',
+  AUTH_STATE_FULFILLED: 'AUTH_STATE_FULFILLED',
+  AUTH_STATE_REJECTED: 'AUTH_STATE_REJECTED',
   FETCH_PENDING: 'FETCH_PENDING',
   FETCH_FULFILLED: 'FETCH_FULFILLED',
   FETCH_REJECTED: 'FETCH_REJECTED',
@@ -15,14 +18,24 @@ const actionTypes = {
 
 function userReducer(state, { type, payload }) {
   switch (type) {
+    case actionTypes.AUTH_STATE_PENDING: {
+      return { ...state, isLoadingAuth: true }
+    }
+    case actionTypes.AUTH_STATE_FULFILLED: {
+      return { ...state, isLoadingAuth: false }
+    }
+    case actionTypes.AUTH_STATE_REJECTED: {
+      return { ...state, isLoadingAuth: false }
+    }
+
     case actionTypes.FETCH_PENDING: {
-      return { ...state, isLoading: true }
+      return { ...state, isLoadingUser: true }
     }
     case actionTypes.FETCH_FULFILLED: {
-      return { ...state, data: payload, isLoading: false }
+      return { ...state, data: payload, isLoadingUser: false }
     }
     case actionTypes.FETCH_REJECTED: {
-      return { ...state, isLoading: false }
+      return { ...state, isLoadingUser: false }
     }
 
     case actionTypes.UPDATE: {
@@ -30,8 +43,9 @@ function userReducer(state, { type, payload }) {
     }
 
     case actionTypes.CLEAR: {
-      return { ...state, data: null, isLoading: false }
+      return { ...state, data: null, isLoadingUser: false }
     }
+
     default: {
       throw new Error(`Unhandled action type: ${type}`)
     }
@@ -39,15 +53,20 @@ function userReducer(state, { type, payload }) {
 }
 
 function UserProvider({ children }) {
-  const [{ data, isLoading }, dispatch] = useReducer(userReducer, {
-    data: null,
-    isLoading: false,
-  })
+  const [{ data, isLoadingUser, isLoadingAuth }, dispatch] = useReducer(
+    userReducer,
+    {
+      data: null,
+      isLoadingAuth: true,
+      isLoadingUser: false,
+    }
+  )
 
-  const handleFetch = async () => {
+  const handleSignIn = async (email, password) => {
     dispatch({ type: actionTypes.FETCH_PENDING })
 
     try {
+      await User.signInWithEmailAndPassword(email, password)
       const data = await User.me()
       dispatch({ type: actionTypes.FETCH_FULFILLED, payload: data })
     } catch (err) {
@@ -61,16 +80,40 @@ function UserProvider({ children }) {
     dispatch({ type: actionTypes.UPDATE, payload: data })
   }
 
-  const handleClear = () => {
+  const handleCreate = async (email, password) => {
+    await User.createUserWithEmailAndPassword(email, password)
+    await handleSignIn(email, password)
+    User.sendEmailVerification()
+  }
+
+  const handleSignOut = async () => {
+    await User.signOut()
     dispatch({ type: actionTypes.CLEAR })
   }
 
+  // Listen to Firebase authentication state changes
+  useEffect(() => {
+    const unsubscribe = User.onAuthStateChanged(async (firebaseUser) => {
+      dispatch({ type: actionTypes.AUTH_STATE_FULFILLED })
+
+      if (!firebaseUser) {
+        handleSignOut()
+      }
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [])
+
   const value = {
-    isLoading,
+    isLoadingUser,
+    isLoadingAuth,
     user: data,
-    fetch: handleFetch,
+    signIn: handleSignIn,
+    signOut: handleSignOut,
+    create: handleCreate,
     update: handleUpdate,
-    clear: handleClear,
   }
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>

@@ -7,7 +7,7 @@ import { useUser } from '_hooks/use-user'
 import { User } from '_api'
 
 const VerifyEmailScreen = () => {
-  const { user, update: updateUser } = useUser()
+  const { user, update: updateUser, signOut } = useUser()
   const [isSigningOut, setSigningOut] = useState(false)
   const [isVerifying, setIsVerifying] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
@@ -45,7 +45,7 @@ const VerifyEmailScreen = () => {
   const handlePressOnCancel = async () => {
     setSigningOut(true)
     try {
-      await User.signOut()
+      await signOut()
     } catch (err) {
       setSigningOut(false)
       showError(err.message)

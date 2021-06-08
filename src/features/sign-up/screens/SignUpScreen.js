@@ -4,9 +4,10 @@ import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
-import { User } from '_api'
+import { useUser } from '_hooks/use-user'
 
 const SignUpScreen = ({ navigation }) => {
+  const { create: createUser } = useUser()
   const [isSigningUp, setIsSigningUp] = useState(false)
 
   const handlePressOnSignIn = () => {
@@ -16,8 +17,7 @@ const SignUpScreen = ({ navigation }) => {
   const handleSubmit = async ({ email, password }) => {
     setIsSigningUp(true)
     try {
-      await User.createUserWithEmailAndPassword(email, password)
-      User.sendEmailVerification()
+      await createUser(email, password)
     } catch (err) {
       showError(err.message)
     } finally {
