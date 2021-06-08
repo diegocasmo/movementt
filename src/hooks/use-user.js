@@ -87,8 +87,11 @@ function UserProvider({ children }) {
   }
 
   const handleSignOut = async () => {
-    await User.signOut()
-    dispatch({ type: actionTypes.CLEAR })
+    try {
+      await User.signOut()
+    } finally {
+      dispatch({ type: actionTypes.CLEAR })
+    }
   }
 
   // Listen to Firebase authentication state changes
