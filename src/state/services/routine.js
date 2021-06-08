@@ -1,4 +1,4 @@
-import { createApi } from '@rtk-incubator/rtk-query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithRetry } from '_state/services/utils/baseQuery'
 
 const routineType = 'Routines'

@@ -1,6 +1,6 @@
 import { User } from '_api'
 import { getUrl } from '_api/utils/url'
-import { retry, fetchBaseQuery } from '@rtk-incubator/rtk-query'
+import { retry, fetchBaseQuery } from '@reduxjs/toolkit/query'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: getUrl(),
