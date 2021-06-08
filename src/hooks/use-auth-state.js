@@ -1,18 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-
 import { User } from '_api'
-import { endpoints, util } from '_state/services/user'
-import { useCurrentUser } from '_hooks/use-current-user'
+import { useUser } from '_hooks/use-user'
 
 export const useAuthState = () => {
-  const dispatch = useDispatch()
   const [loadingAuth, setLoadingAuth] = useState(true)
-  const { user } = useCurrentUser()
-  const [
-    fetchCurrentUser,
-    { isLoading },
-  ] = endpoints.getCurrentUser.useLazyQuery()
+  const { user, isLoading, fetch: fetchUser, clear: clearUser } = useUser()
 
   // Listen to Firebase authentication state changes
   useEffect(() => {
@@ -20,10 +12,10 @@ export const useAuthState = () => {
       setLoadingAuth(false)
 
       if (firebaseUser) {
-        fetchCurrentUser()
+        fetchUser()
       } else {
         User.signOut()
-        dispatch(util.resetApiState())
+        clearUser()
       }
     })
 

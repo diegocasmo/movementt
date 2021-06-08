@@ -29,10 +29,10 @@ import { createWorkout } from '_state/reducers/workouts'
 import { showError } from '_utils/toast'
 import { useGetRoutinesQuery } from '_state/services/routine'
 import { findRoutineById } from '_state/selectors/routine'
-import { useCurrentUser } from '_hooks/use-current-user'
+import { useUser } from '_hooks/use-user'
 
 const CreateWorkoutScreen = ({ navigation, route }) => {
-  const { user } = useCurrentUser()
+  const { user } = useUser()
   const { routine } = useGetRoutinesQuery(undefined, {
     selectFromResult: ({ data }) => ({
       routine: findRoutineById(data, route.params.routineId),

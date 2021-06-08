@@ -3,27 +3,29 @@ import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
-import { useCurrentUser } from '_hooks/use-current-user'
-import { useUpdateUserMutation } from '_state/services/user'
+import { useUser } from '_hooks/use-user'
 import { User } from '_api'
 
 const VerifyEmailScreen = () => {
-  const { user, refetch } = useCurrentUser()
-  const [updateUser, { isLoading }] = useUpdateUserMutation()
+  const { user, update: updateUser } = useUser()
   const [isSigningOut, setSigningOut] = useState(false)
+  const [isVerifying, setIsVerifying] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
 
   const handlePressOnDone = async () => {
+    setIsVerifying(true)
+
     try {
       const didVerify = await User.didVerify()
 
       if (didVerify) {
         await updateUser({ ...user, verified: true })
-        refetch()
       } else {
+        setIsVerifying(false)
         showWarning('Please, verify your email address')
       }
     } catch (err) {
+      setIsVerifying(false)
       showError(err.message)
     }
   }
@@ -62,10 +64,14 @@ const VerifyEmailScreen = () => {
         success
         block
         style={styles.button}
-        disabled={isLoading}
+        disabled={isVerifying}
         onPress={handlePressOnDone}
       >
-        {isLoading ? <Spinner color="white" size="small" /> : <Text>Done</Text>}
+        {isVerifying ? (
+          <Spinner color="white" size="small" />
+        ) : (
+          <Text>Done</Text>
+        )}
       </Button>
       <Button
         primary

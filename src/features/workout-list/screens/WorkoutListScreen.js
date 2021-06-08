@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import { Body, Container, Header, Title, View, Text } from 'native-base'
-import { useCurrentUser } from '_hooks/use-current-user'
+import { useUser } from '_hooks/use-user'
 import {
   fetchWorkouts,
   getWorkouts,
@@ -15,7 +15,7 @@ import WorkoutList from '../components/WorkoutList'
 
 const WorkoutListScreen = () => {
   const dispatch = useDispatch()
-  const { user } = useCurrentUser()
+  const { user } = useUser()
   const fetching = useSelector(isFetching)
   const [showRetry, setShowRetry] = useState(false)
   const workouts = useSelector(getWorkouts)
