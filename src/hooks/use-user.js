@@ -6,11 +6,11 @@ import { showError } from '_utils/toast'
 const UserContext = createContext()
 
 const actionTypes = {
-  AUTH_STATE_FULFILLED: 'AUTH_STATE_FULFILLED',
+  AUTH_STATE_CHANGED: 'AUTH_STATE_CHANGED',
 
-  FETCH_PENDING: 'FETCH_PENDING',
-  FETCH_FULFILLED: 'FETCH_FULFILLED',
-  FETCH_REJECTED: 'FETCH_REJECTED',
+  GET_PENDING: 'GET_PENDING',
+  GET_FULFILLED: 'GET_FULFILLED',
+  GET_REJECTED: 'GET_REJECTED',
 
   UPDATE: 'UPDATE',
 
@@ -19,17 +19,17 @@ const actionTypes = {
 
 function userReducer(state, { type, payload }) {
   switch (type) {
-    case actionTypes.AUTH_STATE_FULFILLED: {
+    case actionTypes.AUTH_STATE_CHANGED: {
       return { ...state, isLoadingAuth: false }
     }
 
-    case actionTypes.FETCH_PENDING: {
+    case actionTypes.GET_PENDING: {
       return { ...state, isLoadingUser: true }
     }
-    case actionTypes.FETCH_FULFILLED: {
+    case actionTypes.GET_FULFILLED: {
       return { ...state, data: payload, isLoadingUser: false }
     }
-    case actionTypes.FETCH_REJECTED: {
+    case actionTypes.GET_REJECTED: {
       return { ...state, isLoadingUser: false }
     }
 
@@ -57,16 +57,14 @@ function UserProvider({ children }) {
     }
   )
 
-  const handleSignIn = async (email, password) => {
-    dispatch({ type: actionTypes.FETCH_PENDING })
+  const handleGet = async () => {
+    dispatch({ type: actionTypes.GET_PENDING })
 
     try {
-      await User.signInWithEmailAndPassword(email, password)
       const data = await User.me()
-      dispatch({ type: actionTypes.FETCH_FULFILLED, payload: data })
+      dispatch({ type: actionTypes.GET_FULFILLED, payload: data })
     } catch (err) {
-      showError(err)
-      dispatch({ type: actionTypes.FETCH_REJECTED })
+      dispatch({ type: actionTypes.GET_REJECTED })
     }
   }
 
@@ -81,9 +79,20 @@ function UserProvider({ children }) {
     User.sendEmailVerification()
   }
 
+  const handleSignIn = async (email, password) => {
+    try {
+      await User.signInWithEmailAndPassword(email, password)
+      await handleGet()
+    } catch (err) {
+      showError(err)
+    }
+  }
+
   const handleSignOut = async () => {
     try {
       await User.signOut()
+    } catch (err) {
+      showError(err)
     } finally {
       dispatch({ type: actionTypes.CLEAR })
     }
@@ -92,11 +101,13 @@ function UserProvider({ children }) {
   // Listen to Firebase authentication state changes
   useEffect(() => {
     const unsubscribe = User.onAuthStateChanged(async (firebaseUser) => {
-      dispatch({ type: actionTypes.AUTH_STATE_FULFILLED })
-
-      if (!firebaseUser) {
-        handleSignOut()
+      if (firebaseUser) {
+        await handleGet()
+      } else {
+        await handleSignOut()
       }
+
+      dispatch({ type: actionTypes.AUTH_STATE_CHANGED })
     })
 
     return () => {
