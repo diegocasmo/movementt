@@ -3,7 +3,6 @@ import React from 'react'
 import App from './App'
 import { Provider } from 'react-redux'
 import store from '_state'
-import { UserProvider } from '_hooks/use-user'
 import { Root as NativeBaseRoot } from 'native-base'
 import { NavigationContainer } from '@react-navigation/native'
 import { Audio } from 'expo-av'
@@ -21,11 +20,9 @@ Audio.setAudioModeAsync({
 const Root = () => (
   <NativeBaseRoot>
     <Provider store={store}>
-      <UserProvider>
-        <NavigationContainer>
-          <App />
-        </NavigationContainer>
-      </UserProvider>
+      <NavigationContainer>
+        <App />
+      </NavigationContainer>
     </Provider>
   </NativeBaseRoot>
 )

@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
+import { signUp } from '_state/reducers/auth'
 import { showError } from '_utils/toast'
-import { useUser } from '_hooks/use-user'
 
 const SignUpScreen = ({ navigation }) => {
-  const { create: createUser } = useUser()
+  const dispatch = useDispatch()
   const [isSigningUp, setIsSigningUp] = useState(false)
 
   const handlePressOnSignIn = () => {
     navigation.navigate('SignIn')
   }
 
-  const handleSubmit = async ({ email, password }) => {
+  const handleSubmit = async (attrs) => {
     setIsSigningUp(true)
     try {
-      await createUser(email, password)
+      const action = await dispatch(signUp(attrs))
+      unwrapResult(action)
     } catch (err) {
       showError(err.message)
     } finally {

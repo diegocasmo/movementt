@@ -14,7 +14,7 @@ import {
   isCompleted,
   resetWorkout,
   start,
-} from '../reducers/create-workout'
+} from '_state/reducers/create-workout'
 import { TYPE_EXERCISE_REST, TYPE_ROUND_REST } from '_api/time-entry'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
@@ -29,10 +29,10 @@ import { createWorkout } from '_state/reducers/workouts'
 import { showError } from '_utils/toast'
 import { useGetRoutinesQuery } from '_state/services/routine'
 import { findRoutineById } from '_state/selectors/routine'
-import { useUser } from '_hooks/use-user'
+import { getUser } from '_state/reducers/auth'
 
 const CreateWorkoutScreen = ({ navigation, route }) => {
-  const { user } = useUser()
+  const user = useSelector(getUser)
   const { routine } = useGetRoutinesQuery(undefined, {
     selectFromResult: ({ data }) => ({
       routine: findRoutineById(data, route.params.routineId),

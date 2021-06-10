@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import { Container, H1, Button, Text, Spinner } from 'native-base'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
-import { useUser } from '_hooks/use-user'
+import {
+  confirmVerification,
+  sendVerification,
+  signOut,
+} from '_state/reducers/auth'
 import { User } from '_api'
 
 const VerifyEmailScreen = () => {
-  const { user, update: updateUser, signOut } = useUser()
+  const dispatch = useDispatch()
   const [isSigningOut, setSigningOut] = useState(false)
   const [isVerifying, setIsVerifying] = useState(false)
   const [isSendingVerification, setIsSendingVerification] = useState(false)
@@ -16,11 +22,9 @@ const VerifyEmailScreen = () => {
     setIsVerifying(true)
 
     try {
-      const didVerify = await User.didVerify()
-
-      if (didVerify) {
-        await updateUser({ ...user, verified: true })
-      } else {
+      const action = await dispatch(confirmVerification())
+      unwrapResult(action)
+      if (!User.verified(action.payload)) {
         setIsVerifying(false)
         showWarning('Please, verify your email address')
       }
@@ -30,10 +34,11 @@ const VerifyEmailScreen = () => {
     }
   }
 
-  const handlePressOnResendEmail = async () => {
+  const handlePressOnResend = async () => {
     setIsSendingVerification(true)
     try {
-      await User.sendEmailVerification()
+      const action = await dispatch(sendVerification())
+      unwrapResult(action)
       showSuccess('Verification email sent successfully')
     } catch (err) {
       showError(err.message)
@@ -45,7 +50,8 @@ const VerifyEmailScreen = () => {
   const handlePressOnCancel = async () => {
     setSigningOut(true)
     try {
-      await signOut()
+      const action = await dispatch(signOut())
+      unwrapResult(action)
     } catch (err) {
       setSigningOut(false)
       showError(err.message)
@@ -78,7 +84,7 @@ const VerifyEmailScreen = () => {
         block
         style={styles.button}
         disabled={isSendingVerification}
-        onPress={handlePressOnResendEmail}
+        onPress={handlePressOnResend}
       >
         {isSendingVerification ? (
           <Spinner color="black" size="small" />

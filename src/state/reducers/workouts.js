@@ -32,7 +32,7 @@ const initialState = workoutsAdapter.getInitialState({
   cursorKey: null,
   hasMore: true,
   pageSize: 12,
-  status: REQUEST_STATUS.NONE,
+  status: REQUEST_STATUS.IDLE,
   statusById: {},
 })
 
@@ -56,25 +56,25 @@ export const slice = createSlice({
     },
     [fetchWorkouts.fulfilled]: (state, action) => {
       const { workouts } = action.payload
-      state.status = REQUEST_STATUS.NONE
+      state.status = REQUEST_STATUS.IDLE
       state.cursorKey =
         workouts && workouts.length >= 0 ? workouts[0].key : null
       state.hasMore = workouts.length >= state.pageSize
       workoutsAdapter.upsertMany(state, workouts)
     },
     [fetchWorkouts.rejected]: (state) => {
-      state.status = REQUEST_STATUS.NONE
+      state.status = REQUEST_STATUS.IDLE
     },
 
     [createWorkout.pending]: (state) => {
       state.status = REQUEST_STATUS.POST
     },
     [createWorkout.fulfilled]: (state, action) => {
-      state.status = REQUEST_STATUS.NONE
+      state.status = REQUEST_STATUS.IDLE
       workoutsAdapter.addOne(state, action.payload)
     },
     [createWorkout.rejected]: (state) => {
-      state.status = REQUEST_STATUS.NONE
+      state.status = REQUEST_STATUS.IDLE
     },
   },
 })

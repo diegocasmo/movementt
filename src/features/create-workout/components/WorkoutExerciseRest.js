@@ -6,7 +6,7 @@ import {
   getCurrTimeEntryElapsedMs,
   completeExerciseRest,
   hasSound,
-} from '../reducers/create-workout'
+} from '_state/reducers/create-workout'
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'

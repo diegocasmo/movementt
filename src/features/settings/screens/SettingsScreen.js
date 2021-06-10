@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import PropTypes from 'prop-types'
 import {
   Container,
@@ -13,18 +15,19 @@ import {
   Right,
   Spinner,
 } from 'native-base'
-import { useUser } from '_hooks/use-user'
 import { Icon } from '_components/Icon'
 import { showError } from '_utils/toast'
+import { signOut } from '_state/reducers/auth'
 
 const SettingsScreen = ({ navigation }) => {
-  const { signOut } = useUser()
+  const dispatch = useDispatch()
   const [isSigningOut, setSigningOut] = useState(false)
 
   const handlePressOnSignOut = async () => {
     setSigningOut(true)
     try {
-      await signOut()
+      const action = await dispatch(signOut())
+      unwrapResult(action)
     } catch (err) {
       setSigningOut(false)
       showError(err.message)
