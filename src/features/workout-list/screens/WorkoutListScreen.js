@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import { Body, Container, Header, Title, View, Text } from 'native-base'
-import { useUser } from '_hooks/use-user'
 import {
   fetchWorkouts,
   getWorkouts,
@@ -12,10 +11,11 @@ import {
 } from '_state/reducers/workouts'
 import { showError } from '_utils/toast'
 import WorkoutList from '../components/WorkoutList'
+import { getUser } from '_state/reducers/auth'
 
 const WorkoutListScreen = () => {
   const dispatch = useDispatch()
-  const { user } = useUser()
+  const user = useSelector(getUser)
   const fetching = useSelector(isFetching)
   const [showRetry, setShowRetry] = useState(false)
   const workouts = useSelector(getWorkouts)
