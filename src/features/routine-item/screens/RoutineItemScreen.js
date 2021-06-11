@@ -33,7 +33,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
   const handleStart = () => {
     if (destroying) return
 
-    navigation.navigate('CreateWorkout', { routineId: routine.id })
+    navigation.navigate('SessionCreate', { routineId: routine.id })
   }
 
   const handleUpdate = (routine) => {

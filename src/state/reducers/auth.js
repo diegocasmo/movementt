@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit'
 import { User } from '_api'
 import { REQUEST_STATUS } from '_utils/request-utils'
 import { resetWorkouts } from '_state/reducers/workouts'
-import { resetWorkout } from '_state/reducers/create-workout'
+import { resetSession } from '_state/reducers/session'
 import { routineApi, exerciseApi } from '_state/services'
 
 export const signUp = createAsyncThunk(
@@ -33,8 +33,8 @@ export const signOut = createAsyncThunk('auth/signOut', async (_, thunkAPI) => {
 
   // Sign user out and reset all user-related state data
   await User.signOut()
+  dispatch(resetSession())
   dispatch(resetWorkouts())
-  dispatch(resetWorkout())
   dispatch(exerciseApi.util.resetApiState())
   dispatch(routineApi.util.resetApiState())
 
@@ -118,7 +118,7 @@ export const slice = createSlice({
 
     // Sign Out
     [signOut.pending]: (state) => {
-      state.data.status = REQUEST_STATUS.PUT
+      state.data.status = REQUEST_STATUS.DELETE
     },
     [signOut.fulfilled]: (state) => {
       state.data.user = null

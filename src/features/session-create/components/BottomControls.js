@@ -6,7 +6,7 @@ import {
   tick,
   isRunning,
   getTotalElapsedMs,
-} from '_state/reducers/create-workout'
+} from '_state/reducers/session'
 import { useInterval } from '_hooks/use-interval'
 import { StyleSheet } from 'react-native'
 import { View, Button, Icon } from 'native-base'

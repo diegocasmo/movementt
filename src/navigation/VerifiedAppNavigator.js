@@ -12,8 +12,10 @@ import UpdateRoutineScreen from '_features/update-routine/screens/UpdateRoutineS
 import ExerciseListScreen from '_features/exercise-list/screens/ExerciseListScreen'
 
 // Workout
-import CreateWorkoutScreen from '_features/create-workout/screens/CreateWorkoutScreen'
 import WorkoutListScreen from '_features/workout-list/screens/WorkoutListScreen'
+
+// Session
+import SessionCreateScreen from '_features/session-create/screens/SessionCreateScreen'
 
 // Settings
 import SettingsScreen from '_features/settings/screens/SettingsScreen'
@@ -124,8 +126,8 @@ const VerifiedAppNavigator = () => {
         options={{ title: 'Update Routine', gestureEnabled: false }}
       />
       <AppStack.Screen
-        name="CreateWorkout"
-        component={CreateWorkoutScreen}
+        name="SessionCreate"
+        component={SessionCreateScreen}
         options={{ headerShown: false, gestureEnabled: false }}
       />
     </AppStack.Navigator>

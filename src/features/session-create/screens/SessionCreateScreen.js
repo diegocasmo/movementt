@@ -12,9 +12,9 @@ import {
   hasStarted,
   init,
   isCompleted,
-  resetWorkout,
+  resetSession,
   start,
-} from '_state/reducers/create-workout'
+} from '_state/reducers/session'
 import { TYPE_EXERCISE_REST, TYPE_ROUND_REST } from '_api/time-entry'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
@@ -31,7 +31,7 @@ import { useGetRoutinesQuery } from '_state/services/routine'
 import { findRoutineById } from '_state/selectors/routine'
 import { getUser } from '_state/reducers/auth'
 
-const CreateWorkoutScreen = ({ navigation, route }) => {
+const SessionCreateScreen = ({ navigation, route }) => {
   const user = useSelector(getUser)
   const { routine } = useGetRoutinesQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -54,7 +54,7 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
   }
 
   const handleQuit = () => {
-    dispatch(resetWorkout())
+    dispatch(resetSession())
     navigation.navigate('Home')
   }
 
@@ -71,7 +71,7 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
       }
       const action = await dispatch(createWorkout(workout))
       unwrapResult(action)
-      dispatch(resetWorkout())
+      dispatch(resetSession())
       navigation.navigate('Home')
     } catch (err) {
       showError(err.message)
@@ -128,9 +128,9 @@ const CreateWorkoutScreen = ({ navigation, route }) => {
   )
 }
 
-export default CreateWorkoutScreen
+export default SessionCreateScreen
 
-CreateWorkoutScreen.propTypes = {
+SessionCreateScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
