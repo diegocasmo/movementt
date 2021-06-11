@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 import { db } from '_api/config'
-import { transformYupToFormikError } from '_api/utils'
+import { transformYupToFormikError } from '_api/utils/yup'
 import { timestamp } from '_utils/time-utils'
 import { Routine } from '_api'
 import { TIME_ENTRY_SCHEMA } from '_api/time-entry'

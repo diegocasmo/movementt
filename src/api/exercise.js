@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { transformYupToFormikError } from '_api/utils'
+import { transformYupToFormikError } from '_api/utils/yup'
 
 export const MOVEMENT_TYPE_CORE = 'core'
 export const MOVEMENT_TYPE_FULL_BODY = 'full_body'

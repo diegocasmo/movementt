@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import * as Exercise from '_api/exercise'
 import { getFormattedDistance } from '_utils/distance-utils'
 import { getFormattedDuration } from '_utils/time-utils'
-import { transformYupToFormikError } from '_api/utils'
+import { transformYupToFormikError } from '_api/utils/yup'
 
 export const CATEGORY_TYPE_REPS = 'reps'
 export const CATEGORY_TYPE_TIME = 'time'
