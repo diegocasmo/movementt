@@ -43,13 +43,8 @@ export const signOut = createAsyncThunk('auth/signOut', async (_, thunkAPI) => {
 
 export const confirmVerification = createAsyncThunk(
   'auth/confirmVerification',
-  async (_, thunkAPI) => {
-    let { user: data } = thunkAPI.getState().auth.data
-
-    const didVerify = await User.didVerify()
-    if (didVerify) {
-      data = await User.update({ ...data, verified: true })
-    }
+  async () => {
+    const data = await User.verify()
 
     return data
   }

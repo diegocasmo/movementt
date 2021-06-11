@@ -73,6 +73,19 @@ export const me = async () => {
   }
 }
 
+export const verify = async () => {
+  try {
+    // Must update user token
+    await _firebaseUser().getIdToken(true)
+
+    const response = await axios.put(`${URL}/verify`)
+
+    return response.data
+  } catch (err) {
+    throw new Error('Unable to verify user')
+  }
+}
+
 export const update = async (attrs) => {
   try {
     const user = await validate(attrs)
@@ -84,19 +97,6 @@ export const update = async (attrs) => {
     return response.data
   } catch (err) {
     throw new Error('Unable to update user')
-  }
-}
-
-export const didVerify = async (user = _firebaseUser()) => {
-  try {
-    if (verified(user)) return true
-
-    await _firebaseUser().reload()
-    const firebaseUser = _firebaseUser()
-
-    return firebaseUser.emailVerified
-  } catch (err) {
-    throw new Error('Unable to check if user is verified')
   }
 }
 
