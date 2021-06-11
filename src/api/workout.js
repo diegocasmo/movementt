@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { db } from '_api/config'
+import { db } from '_api/config/firebase'
 import { transformYupToFormikError } from '_api/utils/yup'
 import { timestamp } from '_utils/time-utils'
 import { Routine } from '_api'
