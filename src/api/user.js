@@ -23,47 +23,21 @@ export const onAuthStateChanged = (args) => {
   return firebase.auth().onAuthStateChanged(args)
 }
 
-export const sendPasswordResetEmail = async (email) => {
-  return firebase.auth().sendPasswordResetEmail(email)
+export const signUp = async ({ email = '', password = '' }) => {
+  // Notice Firebase automatically signs user in when their account is created
+  await firebase.auth().createUserWithEmailAndPassword(email, password)
+  sendlVerification()
 }
 
-export const reauthenticate = async (
-  email,
-  password,
-  user = _firebaseUser()
-) => {
-  return user.reauthenticateWithCredential(
-    firebase.auth.EmailAuthProvider.credential(email, password)
-  )
-}
+export const signIn = async ({
+  email = '',
+  password = '',
+  apiOnly = false,
+}) => {
+  if (!apiOnly) {
+    await firebase.auth().signInWithEmailAndPassword(email, password)
+  }
 
-export const signInWithEmailAndPassword = async (email, password) => {
-  return firebase.auth().signInWithEmailAndPassword(email, password)
-}
-
-export const createUserWithEmailAndPassword = async (email, password) => {
-  return firebase.auth().createUserWithEmailAndPassword(email, password)
-}
-
-export const updatePassword = async (password, user = _firebaseUser()) => {
-  return user.updatePassword(password)
-}
-
-export const sendEmailVerification = async (user = _firebaseUser()) => {
-  return user.sendEmailVerification()
-}
-
-export const signOut = async () => {
-  return firebase.auth().signOut()
-}
-
-export const validate = async (attrs) => {
-  return SCHEMA.validate(attrs, {
-    stripUnknown: true,
-  }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
-}
-
-export const me = async () => {
   try {
     const response = await axios.get(`${URL}/me`)
 
@@ -73,7 +47,36 @@ export const me = async () => {
   }
 }
 
-export const verify = async () => {
+export const signOut = async () => {
+  return firebase.auth().signOut()
+}
+
+export const sendPasswordReset = async (email) => {
+  return firebase.auth().sendPasswordResetEmail(email)
+}
+
+export const reauthenticate = async (
+  { email = '', password = '' },
+  user = _firebaseUser()
+) => {
+  return user.reauthenticateWithCredential(
+    firebase.auth.EmailAuthProvider.credential(email, password)
+  )
+}
+export const updatePassword = async (password, user = _firebaseUser()) => {
+  return user.updatePassword(password)
+}
+
+export const sendlVerification = (user = _firebaseUser()) =>
+  user.sendEmailVerification()
+
+export const validate = async (attrs) => {
+  return SCHEMA.validate(attrs, {
+    stripUnknown: true,
+  }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
+}
+
+export const confirmVerification = async () => {
   try {
     // Must update user token
     await _firebaseUser().getIdToken(true)
@@ -83,20 +86,6 @@ export const verify = async () => {
     return response.data
   } catch (err) {
     throw new Error('Unable to verify user')
-  }
-}
-
-export const update = async (attrs) => {
-  try {
-    const user = await validate(attrs)
-
-    const response = await axios.put(`${URL}/${user.id}`, {
-      user,
-    })
-
-    return response.data
-  } catch (err) {
-    throw new Error('Unable to update user')
   }
 }
 

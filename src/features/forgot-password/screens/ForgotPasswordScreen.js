@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
@@ -16,19 +18,22 @@ import { User } from '_api'
 import { showError, showSuccess } from '_utils/toast'
 import { EmailInput } from '_components/form'
 import * as Yup from 'yup'
+import { sendPasswordReset } from '_state/reducers/auth'
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required(),
 })
 
 const ForgotPasswordScreen = ({ navigation }) => {
+  const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const onSubmit = async (values, { resetForm }) => {
     setIsSubmitting(true)
     try {
       const { email } = values
-      await User.sendPasswordResetEmail(email)
+      const action = await dispatch(sendPasswordReset(email))
+      unwrapResult(action)
       resetForm()
       showSuccess('Password reset email successfully sent')
       navigation.navigate('SignIn')

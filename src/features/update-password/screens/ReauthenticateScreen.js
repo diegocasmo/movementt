@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
-import { User } from '_api'
 import { showError } from '_utils/toast'
+import { reauthenticate } from '_state/reducers/auth'
 
 const ReauthenticateScreen = ({ navigation }) => {
+  const dispatch = useDispatch()
   const [isReAuthenticating, setIsReAuthenticating] = useState(false)
 
   const handleReAuthenticate = async (values, { resetForm }) => {
     setIsReAuthenticating(true)
     try {
-      const { email, password } = values
-      await User.reauthenticate(email, password)
+      const action = await dispatch(reauthenticate(values))
+      unwrapResult(action)
       resetForm()
       navigation.navigate('UpdatePassword')
     } catch (err) {

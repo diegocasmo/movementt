@@ -5,28 +5,17 @@ import { resetWorkouts } from '_state/reducers/workouts'
 import { resetSession } from '_state/reducers/session'
 import { routineApi, exerciseApi } from '_state/services'
 
-export const signUp = createAsyncThunk(
-  'auth/signUp',
-  async ({ email = '', password = '' }) => {
-    // FB automatically signs user in when their account is created
-    await User.createUserWithEmailAndPassword(email, password)
-    User.sendEmailVerification()
+export const signUp = createAsyncThunk('auth/signUp', async (attrs) => {
+  await User.signUp(attrs)
 
-    return null
-  }
-)
+  return null
+})
 
-export const signIn = createAsyncThunk(
-  'auth/signIn',
-  async ({ email = '', password = '', apiOnly = false }) => {
-    if (!apiOnly) {
-      await User.signInWithEmailAndPassword(email, password)
-    }
+export const signIn = createAsyncThunk('auth/signIn', async (attrs) => {
+  const data = await User.signIn(attrs)
 
-    const data = await User.me()
-    return data
-  }
-)
+  return data
+})
 
 export const signOut = createAsyncThunk('auth/signOut', async (_, thunkAPI) => {
   const { dispatch } = thunkAPI
@@ -44,7 +33,7 @@ export const signOut = createAsyncThunk('auth/signOut', async (_, thunkAPI) => {
 export const confirmVerification = createAsyncThunk(
   'auth/confirmVerification',
   async () => {
-    const data = await User.verify()
+    const data = await User.confirmVerification()
 
     return data
   }
@@ -53,7 +42,25 @@ export const confirmVerification = createAsyncThunk(
 export const sendVerification = createAsyncThunk(
   'auth/sendVerification',
   async () => {
-    await User.sendEmailVerification()
+    await User.sendVerification()
+
+    return null
+  }
+)
+
+export const reauthenticate = createAsyncThunk(
+  'auth/reauthenticate',
+  async (attrs) => {
+    await User.reauthenticate(attrs)
+
+    return null
+  }
+)
+
+export const sendPasswordReset = createAsyncThunk(
+  'auth/sendPasswordReset',
+  async (email) => {
+    await User.sendPasswordReset(email)
 
     return null
   }
