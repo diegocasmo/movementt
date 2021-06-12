@@ -42,7 +42,7 @@ const ExerciseItem = ({
   return (
     <ListItem
       noIndent
-      style={[styles.listItem, destroying ? styles.opaque : {}]}
+      style={destroying ? styles.opaque : {}}
       onPress={handlePress}
     >
       <Left style={styles.left}>
@@ -76,7 +76,6 @@ ExerciseItem.propTypes = {
 export default ExerciseItem
 
 const styles = StyleSheet.create({
-  listItem: {},
   opaque: {
     opacity: 0.5,
   },

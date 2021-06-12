@@ -42,7 +42,7 @@ const ExerciseListModal = ({ selectedIds = [], onClose, onPress, visible }) => {
         />
       </View>
       <View style={styles.footer}>
-        <Button success block onPress={onClose}>
+        <Button primary block onPress={onClose}>
           <Text>Continue</Text>
         </Button>
       </View>

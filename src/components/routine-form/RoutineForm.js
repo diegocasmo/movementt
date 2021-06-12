@@ -37,6 +37,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
   })
 
   const { exercises } = formik.values
+  const selectedIds = exercises.map((x) => x.id)
   const exerciseCount = exercises.filter(RoutineExercise.willCreate).length
   const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
 
@@ -49,40 +50,29 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
   }
 
   const handleAddExercise = async (exercise, bag) => {
-    const { setValues, values } = bag
+    const {
+      setFieldValue,
+      values: { exercises },
+    } = bag
 
     try {
       const routineExercise = await RoutineExercise.build({
         ...exercise,
-        position: values.exercises.length,
+        position: exercises.length,
         _create: true,
         _destroy: false,
       })
 
-      setValues(
-        {
-          ...values,
-          exercises: [...values.exercises, routineExercise],
-        },
-        false // No need to validate
-      )
+      setFieldValue(`exercises[${exercises.length}]`, routineExercise, false)
     } catch (err) {
       showError(err.message)
     }
   }
 
   const handleUpdateRoutineExercise = (idx, routineExercise, bag) => {
-    const { setValues, values } = bag
+    const { setFieldValue } = bag
 
-    setValues(
-      {
-        ...values,
-        exercises: values.exercises.map((attr, i) =>
-          i === idx ? routineExercise : attr
-        ),
-      },
-      true
-    )
+    setFieldValue(`exercises[${idx}]`, routineExercise)
   }
 
   const handleDeleteRoutineExercise = (idx, bag) => {
@@ -175,7 +165,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
           handleAddExercise(exercise, formik)
         }}
         visible={isVisible}
-        selectedIds={exercises.map((x) => x.id)}
+        selectedIds={selectedIds}
       />
 
       <DraggableFlatList
