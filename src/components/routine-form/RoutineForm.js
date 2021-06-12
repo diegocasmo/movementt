@@ -37,9 +37,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
   })
 
   const { exercises } = formik.values
-  const exerciseCount = exercises.filter(
-    (exercise) => !RoutineExercise.willDestroy(exercise)
-  ).length
+  const exerciseCount = exercises.filter(RoutineExercise.willCreate).length
   const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
 
   const handleShowExercises = () => {
@@ -58,14 +56,15 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
         ...exercise,
         position: values.exercises.length,
         _create: true,
+        _destroy: false,
       })
 
       setValues(
         {
           ...values,
-          exercises: values.exercises.concat(routineExercise),
+          exercises: [...values.exercises, routineExercise],
         },
-        true
+        false // No need to validate
       )
     } catch (err) {
       showError(err.message)
@@ -91,7 +90,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
 
     const exercises = Routine.isPeristed(routine)
       ? values.exercises.map((exercise, i) =>
-          i === idx ? { ...exercise, _destroy: true } : exercise
+          i === idx ? { ...exercise, _create: false, _destroy: true } : exercise
         )
       : values.exercises.filter((_, i) => i !== idx)
 
@@ -176,7 +175,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
           handleAddExercise(exercise, formik)
         }}
         visible={isVisible}
-        selected={exercises}
+        selectedIds={exercises.map((x) => x.id)}
       />
 
       <DraggableFlatList
@@ -203,7 +202,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
             </TouchableOpacity>
           )
         }}
-        keyExtractor={({ id, position }) => `draggable-item-${id}-${position}`}
+        keyExtractor={({ id, position }) => `${id}-${position}`}
         onDragEnd={(params) => {
           handleDragEnd(params, formik)
         }}

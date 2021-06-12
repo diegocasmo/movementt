@@ -7,7 +7,7 @@ import ExerciseList from '_components/ExerciseList'
 import { useGetExercisesQuery } from '_state/services/exercise'
 import { getExercises } from '_state/selectors/exercise'
 
-const ExerciseListModal = ({ selected, onClose, onPress, visible }) => {
+const ExerciseListModal = ({ selectedIds = [], onClose, onPress, visible }) => {
   const [query, setQuery] = useState('')
   const { data, isLoading } = useGetExercisesQuery()
   const exercises = getExercises(data, query)
@@ -38,7 +38,7 @@ const ExerciseListModal = ({ selected, onClose, onPress, visible }) => {
           onPress={onPress}
           onQueryChange={handleQueryChange}
           query={query}
-          selected={selected}
+          selectedIds={selectedIds}
         />
       </View>
       <View style={styles.footer}>
@@ -52,12 +52,8 @@ const ExerciseListModal = ({ selected, onClose, onPress, visible }) => {
 
 export default ExerciseListModal
 
-ExerciseListModal.defaultProps = {
-  selected: [],
-}
-
 ExerciseListModal.propTypes = {
-  selected: PropTypes.array,
+  selectedIds: PropTypes.array,
   onClose: PropTypes.func.isRequired,
   onPress: PropTypes.func.isRequired,
   visible: PropTypes.bool,

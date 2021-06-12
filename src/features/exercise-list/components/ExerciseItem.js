@@ -5,9 +5,15 @@ import { ListItem, Left, Right, View, Text } from 'native-base'
 import ExerciseActions from './ExerciseActions'
 import { showError } from '_utils/toast'
 
-const ExerciseItem = ({ exercise, count, onDestroy, onPress, onUpdate }) => {
+const ExerciseItem = ({
+  exercise,
+  selectedCount = 0,
+  onDestroy,
+  onPress,
+  onUpdate,
+}) => {
   const [destroying, setDestroying] = useState(false)
-  const hasCount = count > 0
+  const hasCount = selectedCount > 0
 
   const handlePress = () => {
     if (destroying) return
@@ -44,8 +50,8 @@ const ExerciseItem = ({ exercise, count, onDestroy, onPress, onUpdate }) => {
       </Left>
       <Right style={[styles.right, hasCount ? styles.withCount : {}]}>
         {hasCount && (
-          <View style={styles.count}>
-            <Text style={styles.countText}>{count}</Text>
+          <View style={styles.selectedCount}>
+            <Text style={styles.selectedCountText}>{selectedCount}</Text>
           </View>
         )}
         <ExerciseActions
@@ -59,13 +65,9 @@ const ExerciseItem = ({ exercise, count, onDestroy, onPress, onUpdate }) => {
   )
 }
 
-ExerciseItem.defaultProps = {
-  count: 0,
-}
-
 ExerciseItem.propTypes = {
   exercise: PropTypes.object.isRequired,
-  count: PropTypes.number,
+  selectedCount: PropTypes.number,
   onDestroy: PropTypes.func.isRequired,
   onPress: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  count: {
+  selectedCount: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
   },
-  countText: {
+  selectedCountText: {
     color: 'white',
   },
 })
