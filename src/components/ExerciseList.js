@@ -19,6 +19,7 @@ const ExerciseList = ({
   onPress,
   onQueryChange,
   query,
+  selected,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const initialState = { visible: false, exercise: Exercise.DEFAULT }
@@ -110,6 +111,7 @@ const ExerciseList = ({
                 onPress={handlePress}
                 onUpdate={handleUpdate}
                 onDestroy={handleDestroy}
+                count={selected.filter(({ id }) => id === exercise.id).length}
               />
             ))}
           </List>
@@ -135,7 +137,12 @@ const ExerciseList = ({
 
 export default ExerciseList
 
+ExerciseList.defaultProps = {
+  selected: [],
+}
+
 ExerciseList.propTypes = {
+  selected: PropTypes.array,
   exercises: PropTypes.array.isRequired,
   fetching: PropTypes.bool.isRequired,
   onPress: PropTypes.func,

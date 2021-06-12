@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Button, H1, Icon, View } from 'native-base'
+import { Button, H1, Icon, View, Text } from 'native-base'
 import Modal from '_components/Modal'
 import ExerciseList from '_components/ExerciseList'
 import { useGetExercisesQuery } from '_state/services/exercise'
 import { getExercises } from '_state/selectors/exercise'
 
-const ExerciseListModal = ({ onClose, onPress, visible }) => {
+const ExerciseListModal = ({ selected, onClose, onPress, visible }) => {
   const [query, setQuery] = useState('')
   const { data, isLoading } = useGetExercisesQuery()
   const exercises = getExercises(data, query)
@@ -31,20 +31,33 @@ const ExerciseListModal = ({ onClose, onPress, visible }) => {
           <Icon style={styles.closeIcon} active name="md-close" />
         </Button>
       </View>
-      <ExerciseList
-        exercises={exercises}
-        fetching={isLoading}
-        onPress={onPress}
-        onQueryChange={handleQueryChange}
-        query={query}
-      />
+      <View style={styles.content}>
+        <ExerciseList
+          exercises={exercises}
+          fetching={isLoading}
+          onPress={onPress}
+          onQueryChange={handleQueryChange}
+          query={query}
+          selected={selected}
+        />
+      </View>
+      <View style={styles.footer}>
+        <Button success block onPress={onClose}>
+          <Text>Continue</Text>
+        </Button>
+      </View>
     </Modal>
   )
 }
 
 export default ExerciseListModal
 
+ExerciseListModal.defaultProps = {
+  selected: [],
+}
+
 ExerciseListModal.propTypes = {
+  selected: PropTypes.array,
   onClose: PropTypes.func.isRequired,
   onPress: PropTypes.func.isRequired,
   visible: PropTypes.bool,
@@ -64,6 +77,10 @@ const styles = StyleSheet.create({
   header: {
     position: 'relative',
   },
+  content: {
+    flex: 1,
+  },
+  footer: {},
   h1: {
     marginBottom: 10,
     textAlign: 'center',

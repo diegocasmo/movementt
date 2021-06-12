@@ -54,7 +54,6 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
     const { setValues, values } = bag
 
     try {
-      handleCloseExercises()
       const routineExercise = await RoutineExercise.build({
         ...exercise,
         position: values.exercises.length,
@@ -177,6 +176,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
           handleAddExercise(exercise, formik)
         }}
         visible={isVisible}
+        selected={exercises}
       />
 
       <DraggableFlatList
@@ -203,7 +203,7 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
             </TouchableOpacity>
           )
         }}
-        keyExtractor={(data) => `draggable-item-${data.id}`}
+        keyExtractor={({ id, position }) => `draggable-item-${id}-${position}`}
         onDragEnd={(params) => {
           handleDragEnd(params, formik)
         }}
