@@ -38,7 +38,8 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
 
   const { exercises } = formik.values
   const selectedIds = exercises.map((x) => x.id)
-  const exerciseCount = exercises.filter(RoutineExercise.willCreate).length
+  const exerciseCount = exercises.filter((x) => !RoutineExercise.willDestroy(x))
+    .length
   const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
 
   const handleShowExercises = () => {
