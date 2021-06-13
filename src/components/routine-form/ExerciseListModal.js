@@ -8,13 +8,13 @@ import { useGetExercisesQuery } from '_state/services/exercise'
 import { getExercises } from '_state/selectors/exercise'
 import { showError } from '_utils/toast'
 
-const ExerciseListModal = ({ selectedIds = [], onClose, visible }) => {
+const ExerciseListModal = ({ selected = [], onClose, onAdd, visible }) => {
   const [query, setQuery] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedExercises, setSelectedExercises] = useState([])
   const { data, isLoading } = useGetExercisesQuery()
   const exercises = getExercises(data, query)
-  const allSelectedIds = [...selectedIds, ...selectedExercises.map((x) => x.id)]
+  const hasSelectedExercises = selectedExercises.length > 0
 
   // Must wait until `isSubmitting` is true and only then execute
   // submission logic, otherwise spinners won't show
@@ -22,11 +22,18 @@ const ExerciseListModal = ({ selectedIds = [], onClose, visible }) => {
     handleExecuteSubmit()
   }, [isSubmitting])
 
+  // Clear search query if modal isn't visible
+  useEffect(() => {
+    if (!visible) {
+      handleQueryChange('')
+    }
+  }, [visible])
+
   const handleExecuteSubmit = async () => {
     if (!isSubmitting) return
 
     try {
-      await onClose(selectedExercises)
+      await onAdd(selectedExercises)
       setSelectedExercises([])
     } catch (err) {
       showError(err)
@@ -47,12 +54,17 @@ const ExerciseListModal = ({ selectedIds = [], onClose, visible }) => {
     setIsSubmitting(true)
   }
 
+  const handleClose = () => {
+    setSelectedExercises([])
+    onClose()
+  }
+
   return (
     <Modal
       containerStyle={styles.container}
       childrenStyle={styles.children}
       visible={visible}
-      onRequestClose={handleStartSubmit}
+      onRequestClose={handleClose}
     >
       <View style={styles.header}>
         <H1 style={styles.h1}>
@@ -62,13 +74,9 @@ const ExerciseListModal = ({ selectedIds = [], onClose, visible }) => {
           transparent
           disabled={isSubmitting}
           style={styles.closeBtn}
-          onPress={handleStartSubmit}
+          onPress={handleClose}
         >
-          {isSubmitting ? (
-            <Spinner color="black" size="small" />
-          ) : (
-            <Icon style={styles.closeIcon} active name="md-close" />
-          )}
+          <Icon style={styles.closeIcon} active name="md-close" />
         </Button>
       </View>
       <View style={styles.content}>
@@ -78,20 +86,22 @@ const ExerciseListModal = ({ selectedIds = [], onClose, visible }) => {
           onPress={handlePress}
           onQueryChange={handleQueryChange}
           query={query}
-          selectedIds={allSelectedIds}
+          selected={[...selected, ...selectedExercises]}
         />
       </View>
       <View style={styles.footer}>
         <Button
-          primary
+          success
           block
-          disabled={isSubmitting}
+          disabled={isSubmitting || !hasSelectedExercises}
           onPress={handleStartSubmit}
         >
           {isSubmitting ? (
             <Spinner color="white" size="small" />
           ) : (
-            <Text>Continue</Text>
+            <Text>
+              Add {hasSelectedExercises && `(+${selectedExercises.length})`}
+            </Text>
           )}
         </Button>
       </View>
@@ -102,8 +112,9 @@ const ExerciseListModal = ({ selectedIds = [], onClose, visible }) => {
 export default ExerciseListModal
 
 ExerciseListModal.propTypes = {
-  selectedIds: PropTypes.array,
+  selected: PropTypes.array,
   onClose: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
   visible: PropTypes.bool,
 }
 

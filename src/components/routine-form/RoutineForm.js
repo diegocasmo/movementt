@@ -37,11 +37,10 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
   })
 
   const { exercises } = formik.values
-  const willCreateExercises = exercises.filter(
+  const activeExercises = exercises.filter(
     (x) => !RoutineExercise.willDestroy(x)
   )
-  const selectedIds = willCreateExercises.map((x) => x.id)
-  const exerciseCount = willCreateExercises.length
+  const exerciseCount = activeExercises.length
   const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
 
   const handleShowExercises = () => {
@@ -173,11 +172,14 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
       </TouchableWithoutFeedback>
 
       <ExerciseListModal
-        onClose={(selectedExercises) => {
+        onClose={() => {
+          handleHideExercises()
+        }}
+        onAdd={(selectedExercises) => {
           return handleAddExercises(selectedExercises, formik)
         }}
         visible={isVisible}
-        selectedIds={selectedIds}
+        selected={activeExercises}
       />
 
       <DraggableFlatList

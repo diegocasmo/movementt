@@ -19,11 +19,11 @@ const ExerciseList = ({
   onPress,
   onQueryChange,
   query,
-  selectedIds = [],
+  selected = [],
 }) => {
-  const selected = selectedIds.reduce(
-    (memo, id) =>
-      memo[id] ? { ...memo, [id]: memo[id] + 1 } : { ...memo, [id]: 1 },
+  const selectedMap = selected.reduce(
+    (memo, { name }) =>
+      memo[name] ? { ...memo, [name]: memo[name] + 1 } : { ...memo, [name]: 1 },
     {}
   )
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -112,7 +112,7 @@ const ExerciseList = ({
                 onPress={handlePress}
                 onUpdate={handleUpdate}
                 onDestroy={handleDestroy}
-                selectedCount={selected[exercise.id]}
+                selectedCount={selectedMap[exercise.name]}
               />
             ))}
           </List>
@@ -134,7 +134,7 @@ const ExerciseList = ({
 export default ExerciseList
 
 ExerciseList.propTypes = {
-  selectedIds: PropTypes.array,
+  selected: PropTypes.array,
   exercises: PropTypes.array.isRequired,
   fetching: PropTypes.bool.isRequired,
   onPress: PropTypes.func,
