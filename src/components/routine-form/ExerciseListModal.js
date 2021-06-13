@@ -1,19 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Button, H1, Icon, View, Text } from 'native-base'
+import { Button, H1, Icon, View, Text, Spinner } from 'native-base'
 import Modal from '_components/Modal'
 import ExerciseList from '_components/ExerciseList'
 import { useGetExercisesQuery } from '_state/services/exercise'
 import { getExercises } from '_state/selectors/exercise'
+import { showError } from '_utils/toast'
 
-const ExerciseListModal = ({ selectedIds = [], onClose, onPress, visible }) => {
+const ExerciseListModal = ({ selectedIds = [], onClose, visible }) => {
   const [query, setQuery] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [selectedExercises, setSelectedExercises] = useState([])
   const { data, isLoading } = useGetExercisesQuery()
   const exercises = getExercises(data, query)
+  const allSelectedIds = [...selectedIds, ...selectedExercises.map((x) => x.id)]
+
+  // Must wait until `isSubmitting` is true and only then execute
+  // submission logic, otherwise spinners won't show
+  useEffect(() => {
+    handleExecuteSubmit()
+  }, [isSubmitting])
+
+  const handleExecuteSubmit = async () => {
+    if (!isSubmitting) return
+
+    try {
+      await onClose(selectedExercises)
+      setSelectedExercises([])
+    } catch (err) {
+      showError(err)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const handleQueryChange = (query) => {
     setQuery(query)
+  }
+
+  const handlePress = (exercise) => {
+    setSelectedExercises([...selectedExercises, exercise])
+  }
+
+  const handleStartSubmit = async () => {
+    setIsSubmitting(true)
   }
 
   return (
@@ -21,29 +52,47 @@ const ExerciseListModal = ({ selectedIds = [], onClose, onPress, visible }) => {
       containerStyle={styles.container}
       childrenStyle={styles.children}
       visible={visible}
-      onRequestClose={onClose}
+      onRequestClose={handleStartSubmit}
     >
       <View style={styles.header}>
         <H1 style={styles.h1}>
           Exercises ({isLoading ? 0 : exercises.length})
         </H1>
-        <Button style={styles.closeBtn} transparent onPress={onClose}>
-          <Icon style={styles.closeIcon} active name="md-close" />
+        <Button
+          transparent
+          disabled={isSubmitting}
+          style={styles.closeBtn}
+          onPress={handleStartSubmit}
+        >
+          {isSubmitting ? (
+            <Spinner color="black" size="small" />
+          ) : (
+            <Icon style={styles.closeIcon} active name="md-close" />
+          )}
         </Button>
       </View>
       <View style={styles.content}>
         <ExerciseList
           exercises={exercises}
           fetching={isLoading}
-          onPress={onPress}
+          onPress={handlePress}
           onQueryChange={handleQueryChange}
           query={query}
-          selectedIds={selectedIds}
+          selectedIds={allSelectedIds}
         />
       </View>
       <View style={styles.footer}>
-        <Button primary block onPress={onClose}>
-          <Text>Continue</Text>
+        <Button
+          primary
+          block
+          disabled={isSubmitting}
+          onPress={handleStartSubmit}
+        >
+          {isSubmitting ? (
+            <Spinner color="white" size="small" />
+          ) : (
+            <Text>Continue</Text>
+          )}
         </Button>
       </View>
     </Modal>
@@ -55,7 +104,6 @@ export default ExerciseListModal
 ExerciseListModal.propTypes = {
   selectedIds: PropTypes.array,
   onClose: PropTypes.func.isRequired,
-  onPress: PropTypes.func.isRequired,
   visible: PropTypes.bool,
 }
 

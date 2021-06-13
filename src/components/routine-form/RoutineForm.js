@@ -48,27 +48,37 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
     setIsVisible(true)
   }
 
-  const handleCloseExercises = () => {
+  const handleHideExercises = () => {
     setIsVisible(false)
   }
 
-  const handleAddExercise = async (exercise, bag) => {
-    const {
-      setFieldValue,
-      values: { exercises },
-    } = bag
-
+  const handleAddExercises = async (exercises = [], bag) => {
     try {
-      const routineExercise = await RoutineExercise.build({
-        ...exercise,
-        position: exercises.length,
-        _create: true,
-        _destroy: false,
-      })
+      // Early return if there are no exercises to add
+      if (exercises.length <= 0) return
 
-      setFieldValue(`exercises[${exercises.length}]`, routineExercise, false)
+      const { setValues, values } = bag
+      const buildRoutineExercises = exercises.map((exercise, idx) =>
+        RoutineExercise.build({
+          ...exercise,
+          position: values.exercises.length + idx,
+          _create: true,
+          _destroy: false,
+        })
+      )
+      const routineExercises = await Promise.all(buildRoutineExercises)
+
+      setValues(
+        {
+          ...values,
+          exercises: [...values.exercises, ...routineExercises],
+        },
+        false
+      )
     } catch (err) {
       showError(err.message)
+    } finally {
+      handleHideExercises()
     }
   }
 
@@ -163,9 +173,8 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
       </TouchableWithoutFeedback>
 
       <ExerciseListModal
-        onClose={handleCloseExercises}
-        onPress={(exercise) => {
-          handleAddExercise(exercise, formik)
+        onClose={(selectedExercises) => {
+          return handleAddExercises(selectedExercises, formik)
         }}
         visible={isVisible}
         selectedIds={selectedIds}
