@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Content, Spinner, Button, Text, View, List } from 'native-base'
+import { Content, Spinner, Text, View, List } from 'native-base'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
@@ -34,10 +34,6 @@ const ExerciseList = ({
   const [createExercise] = useCreateExerciseMutation()
   const [updateExercise] = useUpdateExerciseMutation()
   const [destroyExercise] = useDestroyExerciseMutation()
-
-  const handleCreate = () => {
-    setState({ ...state, visible: true })
-  }
 
   const handlePress = (exercise) => {
     // Delegate to parent if prop is defined
@@ -96,7 +92,7 @@ const ExerciseList = ({
         btnText="+ New"
         query={query}
         onChangeText={onQueryChange}
-        onCreate={handleCreate}
+        onCreate={handlePrefillExercise}
       />
       {fetching ? (
         <Spinner color="black" />
@@ -120,11 +116,6 @@ const ExerciseList = ({
               />
             ))}
           </List>
-          {hasQuery && (
-            <Button primary block onPress={handlePrefillExercise}>
-              <Text>+ {trimmedQuery}</Text>
-            </Button>
-          )}
           {state.visible && (
             <ExerciseForm
               exercise={state.exercise}

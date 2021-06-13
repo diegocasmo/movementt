@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import {
   Body,
-  Button,
   Container,
   Content,
   Header,
@@ -39,7 +38,7 @@ const RoutineListScreen = ({ navigation }) => {
     navigation.navigate('RoutineItem', { routineId: routine.id })
   }
 
-  const handleCreate = () => {
+  const handlePrefillRoutine = () => {
     navigation.navigate('CreateRoutine', { name: trimmedQuery })
   }
 
@@ -63,7 +62,7 @@ const RoutineListScreen = ({ navigation }) => {
           btnText="+ New"
           query={query}
           onChangeText={handleQueryChange}
-          onCreate={handleCreate}
+          onCreate={handlePrefillRoutine}
         />
         {isLoading ? (
           <Spinner color="black" />
@@ -83,11 +82,6 @@ const RoutineListScreen = ({ navigation }) => {
                   onDestroy={destroyRoutine}
                 />
               ))}
-            {hasQuery && (
-              <Button primary block style={styles.btn} onPress={handleCreate}>
-                <Text>+ {trimmedQuery}</Text>
-              </Button>
-            )}
           </View>
         )}
       </Content>
