@@ -29,7 +29,6 @@ const CreateRoutineScreen = ({ navigation, route }) => {
   return (
     <Container>
       <RoutineForm
-        autoFocus={true}
         routine={{ ...Routine.DEFAULT, name }}
         isSubmitting={isCreating}
         onSubmit={handleSubmit}

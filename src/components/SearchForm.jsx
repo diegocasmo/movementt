@@ -12,7 +12,6 @@ const SearchForm = ({ onChangeText, onCreate, query, style, btnText }) => {
     <View style={[styles.header, style]}>
       <Item regular style={styles.item}>
         <Input
-          autoFocus
           placeholder="Search"
           onChangeText={onChangeText}
           value={query}

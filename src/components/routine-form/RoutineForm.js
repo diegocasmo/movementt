@@ -16,7 +16,7 @@ import RoutineExerciseForm from './RoutineExerciseForm'
 import DraggableFlatList from 'react-native-draggable-flatlist'
 import { showError } from '_utils/toast'
 
-const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
+const RoutineForm = ({ routine, isSubmitting, onSubmit }) => {
   const [isVisible, setIsVisible] = useState(false)
   const formik = useFormik({
     initialValues: routine || Routine.DEFAULT,
@@ -125,7 +125,6 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
             <Col flexGrow={1} paddingRight={10}>
               <TextInput
                 label="Name"
-                autoFocus={autoFocus}
                 disabled={isSubmitting}
                 error={getIn(formik.errors, 'name')}
                 onBlur={formik.handleBlur('name')}
@@ -235,13 +234,8 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit, autoFocus }) => {
   )
 }
 
-RoutineForm.defaultProps = {
-  autoFocus: false,
-}
-
 RoutineForm.propTypes = {
   routine: PropTypes.object,
-  autoFocus: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
 }
