@@ -6,7 +6,7 @@ import { Container, H1, Button, Text, Spinner } from 'native-base'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
 import {
-  confirmVerification,
+  verify,
   sendVerification,
   signOut,
 } from '_state/reducers/auth'
@@ -22,7 +22,7 @@ const VerifyEmailScreen = () => {
     setIsVerifying(true)
 
     try {
-      const action = await dispatch(confirmVerification())
+      const action = await dispatch(verify())
       unwrapResult(action)
       if (!User.verified(action.payload)) {
         setIsVerifying(false)

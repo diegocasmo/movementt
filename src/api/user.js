@@ -76,7 +76,7 @@ export const validate = async (attrs) => {
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
-export const confirmVerification = async () => {
+export const verify = async () => {
   try {
     // Must update user token
     await _firebaseUser().getIdToken(true)

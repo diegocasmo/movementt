@@ -30,10 +30,10 @@ export const signOut = createAsyncThunk('auth/signOut', async (_, thunkAPI) => {
   return null
 })
 
-export const confirmVerification = createAsyncThunk(
-  'auth/confirmVerification',
+export const verify = createAsyncThunk(
+  'auth/verify',
   async () => {
-    const data = await User.confirmVerification()
+    const data = await User.verify()
 
     return data
   }
@@ -131,14 +131,14 @@ export const slice = createSlice({
     },
 
     // Confirm Verification
-    [confirmVerification.pending]: (state) => {
+    [verify.pending]: (state) => {
       state.data.status = REQUEST_STATUS.PUT
     },
-    [confirmVerification.fulfilled]: (state, { payload }) => {
+    [verify.fulfilled]: (state, { payload }) => {
       state.data.user = payload
       state.data.status = REQUEST_STATUS.IDLE
     },
-    [confirmVerification.rejected]: (state) => {
+    [verify.rejected]: (state) => {
       state.data.status = REQUEST_STATUS.IDLE
     },
   },
