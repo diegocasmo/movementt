@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Keyboard } from 'react-native'
 import { Container, Content, View, Button, Text } from 'native-base'
 import ExerciseList from '_components/ExerciseList'
 import { useGetExercisesQuery } from '_state/services/exercise'
@@ -25,6 +25,7 @@ const AddExerciseListScreen = ({
   }
 
   const handleSelectExercise = async (exercise) => {
+    Keyboard.dismiss()
     const routineExercise = await RoutineExercise.build({
       ...exercise,
       _create: true,
