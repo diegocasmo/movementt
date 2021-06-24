@@ -6,10 +6,21 @@ import { Routine } from '_api'
 import { useCreateRoutineMutation } from '_state/services/routine'
 import { showError } from '_utils/toast'
 
-const CreateRoutineScreen = ({ navigation, route }) => {
+const CreateRoutineScreen = ({
+  navigation,
+  route: {
+    params: { name = '', newlySelected = [] },
+  },
+}) => {
   const [createRoutine] = useCreateRoutineMutation()
   const [isCreating, setIsCreating] = useState(false)
-  const { name = '' } = route.params
+
+  const handleAddExercises = (selected) => {
+    navigation.navigate('AddExerciseList', {
+      prevScreenName: 'CreateRoutine',
+      prevSelected: selected,
+    })
+  }
 
   const handleSubmit = async (attrs, { resetForm }) => {
     setIsCreating(true)
@@ -29,8 +40,13 @@ const CreateRoutineScreen = ({ navigation, route }) => {
   return (
     <Container>
       <RoutineForm
-        routine={{ ...Routine.DEFAULT, name }}
+        routine={{
+          ...Routine.DEFAULT,
+          name,
+        }}
+        newlySelected={newlySelected}
         isSubmitting={isCreating}
+        onAddExercises={handleAddExercises}
         onSubmit={handleSubmit}
       />
     </Container>
@@ -44,6 +60,7 @@ CreateRoutineScreen.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
       name: PropTypes.string,
+      newlySelected: PropTypes.array,
     }).isRequired,
   }).isRequired,
 }

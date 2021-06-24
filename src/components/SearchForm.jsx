@@ -11,14 +11,12 @@ const SearchForm = ({ onChangeText, onCreate, query, style, btnText }) => {
   return (
     <View style={[styles.header, style]}>
       <Item regular style={styles.item}>
-        <Input
-          placeholder="Search"
-          onChangeText={onChangeText}
-          value={query}
-        />
-        <Button transparent onPress={handleClearQuery}>
-          <Icon style={styles.icon} active name="md-close" />
-        </Button>
+        <Input placeholder="Search" onChangeText={onChangeText} value={query} />
+        {!!query && (
+          <Button transparent onPress={handleClearQuery}>
+            <Icon style={styles.icon} active name="md-close" />
+          </Button>
+        )}
       </Item>
       <Button primary style={styles.btn} onPress={onCreate}>
         <Text>{btnText}</Text>

@@ -9,14 +9,26 @@ import {
 import { findRoutineById } from '_state/selectors/routine'
 import { showError } from '_utils/toast'
 
-const UpdateRoutineScreen = ({ navigation, route }) => {
+const UpdateRoutineScreen = ({
+  navigation,
+  route: {
+    params: { routineId = null, newlySelected = [] },
+  },
+}) => {
   const { routine } = useGetRoutinesQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      routine: findRoutineById(data, route.params.routineId),
+      routine: findRoutineById(data, routineId),
     }),
   })
   const [updateRoutine] = useUpdateRoutineMutation()
   const [updating, setIsUpdating] = useState(false)
+
+  const handleAddExercises = (selected) => {
+    navigation.navigate('AddExerciseList', {
+      prevScreenName: 'UpdateRoutine',
+      prevSelected: selected,
+    })
+  }
 
   const handleSubmit = async (routine, { resetForm }) => {
     setIsUpdating(true)
@@ -35,7 +47,9 @@ const UpdateRoutineScreen = ({ navigation, route }) => {
     <Container>
       <RoutineForm
         routine={routine}
+        newlySelected={newlySelected}
         isSubmitting={updating}
+        onAddExercises={handleAddExercises}
         onSubmit={handleSubmit}
       />
     </Container>
@@ -49,6 +63,7 @@ UpdateRoutineScreen.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
       routineId: PropTypes.number.isRequired,
+      newlySelected: PropTypes.array,
     }).isRequired,
   }).isRequired,
 }
