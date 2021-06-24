@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Keyboard } from 'react-native'
 import { View, Item, Input, Button, Text, Icon } from 'native-base'
 
 const SearchForm = ({ onChangeText, onCreate, query, style, btnText }) => {
   const handleClearQuery = () => {
+    Keyboard.dismiss()
     onChangeText('')
   }
 
