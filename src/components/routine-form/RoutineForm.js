@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Keyboard,
@@ -11,13 +11,16 @@ import { useFormik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import TimePicker from './pickers/TimePicker'
 import { Routine, RoutineExercise } from '_api'
-import ExerciseListModal from './ExerciseListModal'
 import RoutineExerciseForm from './RoutineExerciseForm'
 import DraggableFlatList from 'react-native-draggable-flatlist'
-import { showError } from '_utils/toast'
 
-const RoutineForm = ({ routine, isSubmitting, onSubmit }) => {
-  const [isVisible, setIsVisible] = useState(false)
+const RoutineForm = ({
+  onAddExercises,
+  routine,
+  newlySelected,
+  isSubmitting,
+  onSubmit,
+}) => {
   const formik = useFormik({
     initialValues: routine || Routine.DEFAULT,
     validationSchema: Routine.SCHEMA,
@@ -36,50 +39,20 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit }) => {
     },
   })
 
+  // Listen to change and append newly selected exercises
+  useEffect(() => {
+    formik.setValues({
+      ...formik.values,
+      exercises: [...formik.values.exercises, ...newlySelected],
+    })
+  }, [newlySelected])
+
   const { exercises } = formik.values
   const activeExercises = exercises.filter(
     (x) => !RoutineExercise.willDestroy(x)
   )
   const exerciseCount = activeExercises.length
   const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
-
-  const handleShowExercises = () => {
-    setIsVisible(true)
-  }
-
-  const handleHideExercises = () => {
-    setIsVisible(false)
-  }
-
-  const handleAddExercises = async (exercises = [], bag) => {
-    try {
-      // Early return if there are no exercises to add
-      if (exercises.length <= 0) return
-
-      const { setValues, values } = bag
-      const buildRoutineExercises = exercises.map((exercise, idx) =>
-        RoutineExercise.build({
-          ...exercise,
-          position: values.exercises.length + idx,
-          _create: true,
-          _destroy: false,
-        })
-      )
-      const routineExercises = await Promise.all(buildRoutineExercises)
-
-      setValues(
-        {
-          ...values,
-          exercises: [...values.exercises, ...routineExercises],
-        },
-        false
-      )
-    } catch (err) {
-      showError(err.message)
-    } finally {
-      handleHideExercises()
-    }
-  }
 
   const handleUpdateRoutineExercise = (idx, routineExercise, bag) => {
     const { setFieldValue } = bag
@@ -162,24 +135,13 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit }) => {
             <Button
               primary
               disabled={isSubmitting}
-              onPress={handleShowExercises}
+              onPress={() => onAddExercises(activeExercises)}
             >
               <Text>+ Add</Text>
             </Button>
           </View>
         </View>
       </TouchableWithoutFeedback>
-
-      <ExerciseListModal
-        onClose={() => {
-          handleHideExercises()
-        }}
-        onAdd={(selectedExercises) => {
-          return handleAddExercises(selectedExercises, formik)
-        }}
-        visible={isVisible}
-        selected={activeExercises}
-      />
 
       <DraggableFlatList
         contentContainerStyle={styles.middle}
@@ -236,7 +198,9 @@ const RoutineForm = ({ routine, isSubmitting, onSubmit }) => {
 
 RoutineForm.propTypes = {
   routine: PropTypes.object,
+  newlySelected: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onAddExercises: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
 }
 
@@ -255,7 +219,7 @@ const styles = StyleSheet.create({
     height: 210,
   },
   middle: {
-    paddingBottom: 50,
+    paddingBottom: 70,
   },
   bottom: {
     position: 'absolute',
