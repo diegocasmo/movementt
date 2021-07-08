@@ -35,8 +35,6 @@ const RepsRoutineExerciseForm = ({ bag, disabled }) => {
             touched={getIn(touched, 'weight')}
           />
         </Col>
-      </Grid>
-      <Grid>
         <Col flexGrow={1}>
           <TimePicker
             label="Rest"

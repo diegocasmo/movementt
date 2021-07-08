@@ -62,6 +62,7 @@ const RoutineExerciseForm = ({
         return (
           <Card style={styles.card}>
             <CardItem style={styles.header} header>
+              <Icon style={styles.dragIcon} name="md-reorder-three-outline" />
               <Text style={styles.name} numberOfLines={1}>
                 {routineExercise.name}
               </Text>
@@ -111,6 +112,9 @@ const styles = StyleSheet.create({
   },
   name: {
     flex: 1,
+  },
+  dragIcon: {
+    color: 'black',
   },
   deleteIcon: {
     color: 'black',
