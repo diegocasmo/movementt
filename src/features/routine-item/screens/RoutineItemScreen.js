@@ -47,7 +47,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
 
     try {
       setDestroying(true)
-      await destroyRoutine(routine.id)
+      await destroyRoutine(routine.id).unwrap()
       navigation.navigate('Home')
     } catch (err) {
       setDestroying(false)

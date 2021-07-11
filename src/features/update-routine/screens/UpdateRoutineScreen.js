@@ -34,7 +34,7 @@ const UpdateRoutineScreen = ({
     setIsUpdating(true)
 
     try {
-      await updateRoutine(routine)
+      await updateRoutine(routine).unwrap()
       resetForm()
       navigation.pop()
     } catch (err) {

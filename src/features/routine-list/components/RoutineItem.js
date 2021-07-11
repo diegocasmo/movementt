@@ -31,7 +31,7 @@ const RoutineItem = ({
 
     try {
       setDestroying(true)
-      await onDestroy(routine.id)
+      await onDestroy(routine.id).unwrap()
     } catch (err) {
       setDestroying(false)
       showError(err)

@@ -67,8 +67,8 @@ const ExerciseList = ({
 
     try {
       exercise.created_at
-        ? await updateExercise(exercise)
-        : await createExercise(exercise)
+        ? await updateExercise(exercise).unwrap()
+        : await createExercise(exercise).unwrap()
       setState(initialState)
     } catch (err) {
       showError(err)

@@ -32,7 +32,7 @@ const ExerciseItem = ({
 
     try {
       setDestroying(true)
-      await onDestroy(exercise)
+      await onDestroy(exercise).unwrap()
     } catch (err) {
       setDestroying(false)
       showError(err)

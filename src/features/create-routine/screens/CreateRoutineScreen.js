@@ -26,7 +26,7 @@ const CreateRoutineScreen = ({
     setIsCreating(true)
 
     try {
-      const { data } = await createRoutine(attrs)
+      const { data } = await createRoutine(attrs).unwrap()
       if (data) {
         resetForm()
         navigation.navigate('RoutineItem', { routineId: data.id })
