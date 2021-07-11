@@ -14,8 +14,7 @@ import {
   resetSession,
   start,
 } from '_state/reducers/session'
-import { TYPE_EXERCISE_REST, TYPE_ROUND_REST } from '_api/time-entry'
-import { build } from '_api/workout'
+import { Workout, TimeEntry } from '_api'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import TopControls from '../components/TopControls'
@@ -72,7 +71,7 @@ const SessionCreateScreen = ({ navigation, route }) => {
     }
 
     try {
-      const workout = await build(session)
+      const workout = await Workout.build(session)
       await createWorkout(workout).unwrap()
       dispatch(resetSession())
       navigation.navigate('Home')
@@ -84,9 +83,9 @@ const SessionCreateScreen = ({ navigation, route }) => {
 
   const renderTimeEntry = () => {
     switch (timeEntry.type) {
-      case TYPE_EXERCISE_REST:
+      case TimeEntry.TYPE_EXERCISE_REST:
         return <WorkoutExerciseRest />
-      case TYPE_ROUND_REST:
+      case TimeEntry.TYPE_ROUND_REST:
         return <WorkoutRoundRest />
       default:
         return <WorkoutExercise />
