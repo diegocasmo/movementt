@@ -7,15 +7,13 @@ import {
   getRoutine,
   getTotalElapsedMs,
 } from '_state/reducers/session'
-import { isCreating } from '_state/reducers/workouts'
 import { View, Text, Button, Icon, Spinner } from 'native-base'
 import Duration from '_components/time/Duration'
 
-const WorkoutCompleted = ({ onConfirm }) => {
+const WorkoutCompleted = ({ onConfirm, isLoading }) => {
   const currRound = useSelector(getCurrRound)
   const routine = useSelector(getRoutine)
   const elapsedMs = useSelector(getTotalElapsedMs)
-  const creating = useSelector(isCreating)
 
   return (
     <View style={styles.container}>
@@ -27,11 +25,11 @@ const WorkoutCompleted = ({ onConfirm }) => {
       <View style={styles.middleContainer}>
         <Button
           transparent
-          disabled={creating}
+          disabled={isLoading}
           style={styles.checkBtn}
           onPress={onConfirm}
         >
-          {creating ? (
+          {isLoading ? (
             <Spinner color="black" size="large" />
           ) : (
             <Icon style={styles.checkIcon} active name="md-checkmark" />
@@ -44,10 +42,10 @@ const WorkoutCompleted = ({ onConfirm }) => {
         <Button
           success
           style={styles.saveBtn}
-          disabled={creating}
+          disabled={isLoading}
           onPress={onConfirm}
         >
-          {creating ? (
+          {isLoading ? (
             <Spinner color="white" size="small" />
           ) : (
             <Text>Save Workout</Text>
@@ -63,6 +61,7 @@ export default WorkoutCompleted
 
 WorkoutCompleted.propTypes = {
   onConfirm: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 }
 
 const styles = StyleSheet.create({

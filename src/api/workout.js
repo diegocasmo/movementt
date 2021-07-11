@@ -1,21 +1,33 @@
 import * as Yup from 'yup'
-import { db } from '_api/config/firebase'
 import { transformYupToFormikError } from '_api/utils/yup'
-import { timestamp } from '_utils/time-utils'
-import { Routine } from '_api'
+import * as RoutineExercise from '_api/routine-exercise'
 import { TIME_ENTRY_SCHEMA } from '_api/time-entry'
 
 export const WORKOUT_SCHEMA = Yup.object({
-  created_at: Yup.number().positive(),
-  updated_at: Yup.number().positive(),
-  started_at: Yup.number().required().positive(),
-  completed_at: Yup.number().required().positive(),
+  id: Yup.number(),
+  name: Yup.string().trim().required(),
+  rounds: Yup.number()
+    .transform((v) => (isNaN(v) ? -1 : v))
+    .required()
+    .positive()
+    .min(1),
+  rest_seconds: Yup.number()
+    .transform((v) => (isNaN(v) ? -1 : v))
+    .required()
+    .positive()
+    .min(0),
   elapsed_ms: Yup.number().required().positive(),
   rounds_completed: Yup.number().required().min(0),
+  started_at: Yup.string().required(),
+  completed_at: Yup.string().required(),
   time_entries: Yup.array(Yup.object().concat(TIME_ENTRY_SCHEMA))
     .min(1)
     .required(),
-  routine: Yup.object().concat(Routine.SCHEMA),
+  exercises: Yup.array(Yup.object().concat(RoutineExercise.SCHEMA))
+    .min(1)
+    .required(),
+  created_at: Yup.string(),
+  updated_at: Yup.string(),
 })
 
 export const validate = async (values) => {
@@ -24,39 +36,33 @@ export const validate = async (values) => {
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
-const getWorkoutsRef = (uid) => `workouts/${uid}`
-
-export const fetchWorkouts = async (uid, cursorKey = null, pageSize = 10) => {
+export const build = async (session) => {
   try {
-    let snapshot = db.ref(getWorkoutsRef(uid))
-    if (cursorKey === null) {
-      snapshot = await snapshot.orderByKey().limitToLast(pageSize).once('value')
-    } else {
-      snapshot = await snapshot
-        .orderByKey()
-        .endAt(cursorKey)
-        .limitToLast(pageSize)
-        .once('value')
-    }
+    const {
+      routine,
+      roundsCompleted,
+      elapsedMs,
+      startedAt,
+      completedAt,
+      timeEntries,
+    } = session
 
-    const values = snapshot.val()
-    return values
-      ? Object.entries(values).map(([key, values]) => ({ key, ...values }))
-      : {}
+    const workout = await validate(
+      WORKOUT_SCHEMA.cast({
+        name: routine.name,
+        rounds: routine.rounds,
+        rest_seconds: routine.rest_seconds,
+        elapsed_ms: elapsedMs,
+        rounds_completed: roundsCompleted,
+        started_at: new Date(startedAt),
+        completed_at: new Date(completedAt),
+        time_entries: timeEntries,
+        exercises: routine.exercises,
+      })
+    )
+
+    return workout
   } catch (err) {
-    throw new Error(err.message)
-  }
-}
-
-export const createWorkout = async (uid, attrs) => {
-  let workout = { ...attrs, created_at: timestamp() }
-
-  try {
-    workout = await validate(workout)
-    const ref = await db.ref(getWorkoutsRef(uid)).push(workout)
-
-    return { ...workout, key: ref.key }
-  } catch (err) {
-    throw new Error('Unable to create workout')
+    throw new Error('Unable to build workout')
   }
 }

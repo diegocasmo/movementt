@@ -21,6 +21,6 @@ export const TimeAgo = ({
 
 TimeAgo.propTypes = {
   delayInMs: PropTypes.number,
-  from: PropTypes.number.isRequired,
-  to: PropTypes.number,
+  from: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  to: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }

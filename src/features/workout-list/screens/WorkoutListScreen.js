@@ -1,67 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
+import React from 'react'
 import { StyleSheet } from 'react-native'
-import { Body, Container, Header, Title, View, Text } from 'native-base'
-import {
-  fetchWorkouts,
-  getWorkouts,
-  hasMore,
-  isFetching,
-} from '_state/reducers/workouts'
-import { showError } from '_utils/toast'
+import { Body, Container, Header, Title, View } from 'native-base'
 import WorkoutList from '../components/WorkoutList'
-import { getUser } from '_state/reducers/auth'
+import { useGetWorkoutsQuery } from '_state/services/workout'
+import { getWorkouts } from '_state/selectors/workout'
 
 const WorkoutListScreen = () => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const fetching = useSelector(isFetching)
-  const [showRetry, setShowRetry] = useState(false)
-  const workouts = useSelector(getWorkouts)
-  const more = useSelector(hasMore)
-
-  useEffect(() => {
-    handleFetch()
-  }, [dispatch])
-
-  const handleFetch = async () => {
-    if (!more) return
-
-    setShowRetry(false)
-
-    try {
-      const action = await dispatch(fetchWorkouts(user.uid))
-      unwrapResult(action)
-    } catch (err) {
-      setShowRetry(true)
-      showError(err.message)
-    }
-  }
-
-  const renderCount = () => {
-    const count = workouts.length
-    if (fetching && count === 0) {
-      return <Text>(0)</Text>
-    }
-
-    return <Text>({more ? `${count}+` : count})</Text>
-  }
+  const { data, isLoading } = useGetWorkoutsQuery()
+  const workouts = getWorkouts(data)
 
   return (
     <Container>
       <Header>
         <Body>
-          <Title>Workouts {renderCount()}</Title>
+          <Title>Workouts ({isLoading ? 0 : workouts.length})</Title>
         </Body>
       </Header>
       <View style={styles.content}>
-        <WorkoutList
-          fetching={fetching}
-          onFetch={handleFetch}
-          workouts={workouts}
-          showRetry={showRetry}
-        />
+        <WorkoutList isLoading={isLoading} workouts={workouts} />
       </View>
     </Container>
   )

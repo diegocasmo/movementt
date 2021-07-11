@@ -2,22 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { FlatList } from 'react-native'
-import { View, Text, Spinner, Button } from 'native-base'
+import { View, Text, Spinner } from 'native-base'
 import WorkoutItem from './WorkoutItem'
 
-const WorkoutList = ({ fetching, onFetch, showRetry, workouts }) => {
+const WorkoutList = ({ isLoading, workouts }) => {
   const noWorkouts = workouts.length === 0
 
   const renderFooter = () => {
-    if (fetching) return <Spinner color="black" />
-
-    if (showRetry) {
-      return (
-        <Button primary block style={styles.btn} onPress={onFetch}>
-          <Text>Retry</Text>
-        </Button>
-      )
-    }
+    if (isLoading) return <Spinner color="black" />
 
     if (noWorkouts) {
       return (
@@ -35,13 +27,13 @@ const WorkoutList = ({ fetching, onFetch, showRetry, workouts }) => {
       <FlatList
         data={workouts}
         contentContainerStyle={styles.list}
-        refreshing={fetching}
+        refreshing={isLoading}
         showsVerticalScrollIndicator={false}
-        onEndReached={onFetch}
+        onEndReached={() => {}}
         onEndReachedThreshold={0.3}
-        keyExtractor={(workout) => workout.key}
+        keyExtractor={(workout) => `${workout.id}`}
         renderItem={({ item }) => {
-          return <WorkoutItem key={item.index} workout={item} />
+          return <WorkoutItem key={item.id} workout={item} />
         }}
         ListFooterComponent={renderFooter}
       />
@@ -52,9 +44,7 @@ const WorkoutList = ({ fetching, onFetch, showRetry, workouts }) => {
 export default WorkoutList
 
 WorkoutList.propTypes = {
-  fetching: PropTypes.bool.isRequired,
-  onFetch: PropTypes.func.isRequired,
-  showRetry: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   workouts: PropTypes.array.isRequired,
 }
 

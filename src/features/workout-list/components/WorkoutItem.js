@@ -13,16 +13,16 @@ const WorkoutItem = ({ workout }) => {
       <Card style={styles.card}>
         <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>
-            {workout.routine.name}
+            {workout.name}
           </Text>
         </CardItem>
         <CardItem>
           <Body>
             <Text numberOfLines={2} style={styles.summary}>
-              {Routine.getFormattedExercises(workout.routine)}
+              {Routine.getFormattedExercises(workout)}
             </Text>
             <Text style={styles.rounds}>
-              Rounds: {workout.rounds_completed}/{workout.routine.rounds}
+              Rounds: {workout.rounds_completed}/{workout.rounds}
             </Text>
           </Body>
         </CardItem>

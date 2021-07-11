@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
 import {
   getCurrTimeEntry,
   getCompletedAt,
@@ -16,6 +15,7 @@ import {
   start,
 } from '_state/reducers/session'
 import { TYPE_EXERCISE_REST, TYPE_ROUND_REST } from '_api/time-entry'
+import { build } from '_api/workout'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import TopControls from '../components/TopControls'
@@ -25,28 +25,29 @@ import WorkoutExerciseRest from '../components/WorkoutExerciseRest'
 import WorkoutRoundRest from '../components/WorkoutRoundRest'
 import WorkoutStartup from '../components/WorkoutStartup'
 import WorkoutCompleted from '../components/WorkoutCompleted'
-import { createWorkout } from '_state/reducers/workouts'
 import { showError } from '_utils/toast'
 import { useGetRoutinesQuery } from '_state/services/routine'
 import { findRoutineById } from '_state/selectors/routine'
-import { getUser } from '_state/reducers/auth'
+import { useCreateWorkoutMutation } from '_state/services/workout'
 
 const SessionCreateScreen = ({ navigation, route }) => {
-  const user = useSelector(getUser)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [createWorkout] = useCreateWorkoutMutation()
   const { routine } = useGetRoutinesQuery(undefined, {
     selectFromResult: ({ data }) => ({
       routine: findRoutineById(data, route.params.routineId),
     }),
   })
+
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)
   const completed = useSelector(isCompleted)
   const timeEntry = useSelector(getCurrTimeEntry)
   const elapsedMs = useSelector(getTotalElapsedMs)
-  const started_at = useSelector(getStartedAt)
-  const completed_at = useSelector(getCompletedAt)
-  const rounds_completed = useSelector(getRoundsCompleted)
-  const time_entries = useSelector(getTimeEntries)
+  const startedAt = useSelector(getStartedAt)
+  const completedAt = useSelector(getCompletedAt)
+  const roundsCompleted = useSelector(getRoundsCompleted)
+  const timeEntries = useSelector(getTimeEntries)
 
   const handleStartupCompleted = () => {
     dispatch(init(routine))
@@ -59,22 +60,25 @@ const SessionCreateScreen = ({ navigation, route }) => {
   }
 
   const handleCompleteConfirmed = async () => {
+    setIsSubmitting(true)
+
+    const session = {
+      completedAt,
+      elapsedMs,
+      roundsCompleted,
+      routine,
+      startedAt,
+      timeEntries,
+    }
+
     try {
-      const workout = {
-        completed_at,
-        elapsed_ms: elapsedMs,
-        rounds_completed,
-        routine,
-        started_at,
-        time_entries,
-        uid: user.uid,
-      }
-      const action = await dispatch(createWorkout(workout))
-      unwrapResult(action)
+      const workout = await build(session)
+      await createWorkout(workout).unwrap()
       dispatch(resetSession())
       navigation.navigate('Home')
     } catch (err) {
-      showError(err.message)
+      setIsSubmitting(false)
+      showError(err)
     }
   }
 
@@ -93,7 +97,10 @@ const SessionCreateScreen = ({ navigation, route }) => {
     return (
       <Container>
         <Content padder contentContainerStyle={styles.content}>
-          <WorkoutCompleted onConfirm={handleCompleteConfirmed} />
+          <WorkoutCompleted
+            onConfirm={handleCompleteConfirmed}
+            isLoading={isSubmitting}
+          />
         </Content>
       </Container>
     )
