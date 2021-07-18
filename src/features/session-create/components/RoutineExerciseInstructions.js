@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { View, Text } from 'native-base'
-import { RoutineExercise } from '_api'
 import ExerciseIcon from '_components/ExerciseIcon'
+import ExerciseRx from '_components/ExerciseRx'
 
 const RoutineExerciseInstructions = ({ exercise }) => {
   return (
@@ -11,9 +11,11 @@ const RoutineExerciseInstructions = ({ exercise }) => {
       <Text style={styles.name} numberOfLines={2}>
         {exercise.name}
       </Text>
-      <Text style={styles.instructions} numberOfLines={2}>
-        {RoutineExercise.getFormattedRx(exercise)}
-      </Text>
+      <ExerciseRx
+        style={styles.instructions}
+        numberOfLines={2}
+        exercise={exercise}
+      />
       <View style={styles.iconContainer}>
         <ExerciseIcon exercise={exercise} />
       </View>

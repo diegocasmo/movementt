@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
 import Countdown from '_components/time/Countdown'
 import { useInterval } from '_hooks/use-interval'
-import { RoutineExercise } from '_api'
 import { View, Button, Text, Icon } from 'native-base'
 import { now, getTotalEllapsedMs } from '_utils/time-utils'
+import ExerciseRx from '_components/ExerciseRx'
 
 const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
   const { name, exercises } = routine
@@ -81,7 +81,7 @@ const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
         {name}
       </Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercises[0].name} {RoutineExercise.getFormattedRx(exercises[0])}
+        Next: {exercises[0].name} <ExerciseRx exercise={exercises[0]} />
       </Text>
     </View>
   )
