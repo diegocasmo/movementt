@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Body, View, Card, CardItem, Text } from 'native-base'
-import { Routine } from '_api'
 import Duration from '_components/time/Duration'
 import { TimeAgo } from '_components/time/TimeAgo'
 import { Icon } from '_components/Icon'
+import { ExerciseNames } from '_components/ExerciseNames'
 
 const WorkoutItem = ({ workout }) => {
   return (
@@ -18,9 +18,11 @@ const WorkoutItem = ({ workout }) => {
         </CardItem>
         <CardItem>
           <Body>
-            <Text numberOfLines={2} style={styles.summary}>
-              {Routine.getFormattedExercises(workout)}
-            </Text>
+            <ExerciseNames
+              numberOfLines={2}
+              style={styles.summary}
+              exercises={workout.exercises}
+            />
             <Text style={styles.rounds}>
               Rounds: {workout.rounds_completed}/{workout.rounds}
             </Text>

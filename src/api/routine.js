@@ -36,10 +36,3 @@ export const validate = async (values) => {
 }
 
 export const isPeristed = (routine) => !!routine.created_at
-
-export const getFormattedExercises = (routine) => {
-  const names = routine.exercises.map((ex) => ex.name)
-  if (names.length === 1) return names
-
-  return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
-}
