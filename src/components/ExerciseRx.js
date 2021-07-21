@@ -11,8 +11,8 @@ const ExerciseRx = ({ exercise, ...rest }) => {
       ? ''
       : `${exercise.weight} ${RoutineExercise.getWeightUnitTypeLabel(exercise)}`
 
-  const description = ((type) => {
-    switch (type) {
+  const description = ((categoryType) => {
+    switch (categoryType) {
       case RoutineExercise.CATEGORY_TYPE_TIME:
         return getFormattedDuration(exercise.quantity)
       case RoutineExercise.CATEGORY_TYPE_DISTANCE:
@@ -20,7 +20,7 @@ const ExerciseRx = ({ exercise, ...rest }) => {
       default:
         return `${exercise.quantity} reps`
     }
-  })(exercise.type)
+  })(exercise.category_type)
 
   return (
     <Text {...rest}>
