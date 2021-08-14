@@ -37,7 +37,8 @@ const WorkoutExerciseRest = () => {
       </Button>
       <Text style={styles.text}>Rest</Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercise.name} <ExerciseRx exercise={exercise} />
+        Next: {exercise.name}{' '}
+        <ExerciseRx style={styles.exerciseRx} exercise={exercise} />
       </Text>
     </View>
   )
@@ -78,6 +79,9 @@ const styles = StyleSheet.create({
   exerciseName: {
     marginTop: 10,
     textAlign: 'center',
+    fontSize: 28,
+  },
+  exerciseRx: {
     fontSize: 28,
   },
 })

@@ -81,7 +81,8 @@ const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
         {name}
       </Text>
       <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercises[0].name} <ExerciseRx exercise={exercises[0]} />
+        Next: {exercises[0].name}{' '}
+        <ExerciseRx style={styles.exerciseRx} exercise={exercises[0]} />
       </Text>
     </View>
   )
@@ -138,6 +139,9 @@ const styles = StyleSheet.create({
   exerciseName: {
     marginTop: 10,
     textAlign: 'center',
+    fontSize: 28,
+  },
+  exerciseRx: {
     fontSize: 28,
   },
 })
