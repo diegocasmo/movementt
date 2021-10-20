@@ -1,12 +1,13 @@
 {
   "main": "AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject",
-    "prepare": "husky install"
+    "start": "NODE_ENV=development expo start",
+    "android": "NODE_ENV=development expo start --android",
+    "ios": "NODE_ENV=development expo start --ios",
+    "web": "NODE_ENV=development expo start --web",
+    "eject": "NODE_ENV=development expo eject",
+    "prepare": "NODE_ENV=development husky install",
+    "publish": "NODE_ENV=production expo publish"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
