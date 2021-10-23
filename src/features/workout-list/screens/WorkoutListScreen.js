@@ -8,18 +8,14 @@ import { MAX_PER_PAGE } from '_api/utils/pagination'
 
 const WorkoutListScreen = () => {
   const [page, setPage] = useState(1)
-  const [workoutsById, setWorkoutsById] = useState({})
+  const [workouts, setWorkouts] = useState([])
   const { data = [], isLoading, isFetching } = useGetWorkoutsQuery(page)
-  const workouts = getWorkouts(Object.values(workoutsById))
 
   useEffect(() => {
     if (data.length === 0) return
 
-    setWorkoutsById((workoutsById) => ({
-      ...workoutsById,
-      ...(data || []).reduce((memo, x) => ({ ...memo, [x.id]: x }), {}),
-    }))
-  }, [data, setWorkoutsById])
+    setWorkouts((workouts) => getWorkouts([...workouts, ...data]))
+  }, [data, setWorkouts])
 
   const handleFetchMore = () => {
     if (isLoading) return
