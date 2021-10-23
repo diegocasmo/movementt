@@ -9,7 +9,12 @@ import { MAX_PER_PAGE } from '_api/utils/pagination'
 const WorkoutListScreen = () => {
   const [page, setPage] = useState(1)
   const [workouts, setWorkouts] = useState([])
-  const { data = [], isLoading, isFetching } = useGetWorkoutsQuery(page)
+  const {
+    data = [],
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetWorkoutsQuery(page)
 
   useEffect(() => {
     if (data.length === 0) return
@@ -18,9 +23,7 @@ const WorkoutListScreen = () => {
   }, [data, setWorkouts])
 
   const handleFetchMore = () => {
-    if (isLoading) return
-    if (isFetching) return
-    if (data.length < MAX_PER_PAGE) return
+    if (isError || isLoading || isFetching || data.length < MAX_PER_PAGE) return
 
     setPage((page) => page + 1)
   }
