@@ -8,7 +8,7 @@ import { MAX_PER_PAGE } from '_api/utils/pagination'
 
 const WorkoutListScreen = () => {
   const [page, setPage] = useState(1)
-  const { data = [], isLoading } = useGetWorkoutsQuery(page)
+  const { data = [], isLoading, isFetching } = useGetWorkoutsQuery(page)
   const [workouts, setWorkouts] = useState([])
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const WorkoutListScreen = () => {
       <View style={styles.content}>
         <WorkoutList
           onEndReached={handleFetchMore}
-          isLoading={isLoading}
+          isLoading={isLoading || isFetching}
           workouts={workouts}
         />
       </View>
