@@ -8,7 +8,7 @@ export const workoutApi = createApi({
   tagTypes: [workoutType],
   endpoints: (build) => ({
     getWorkouts: build.query({
-      query: () => ({ url: 'workouts' }),
+      query: (page = 1) => ({ url: `workouts?page=${page}` }),
       providesTags: (result) => [
         ...result.map(({ id }) => ({ type: workoutType, id })),
         { type: workoutType, id: 'LIST' },

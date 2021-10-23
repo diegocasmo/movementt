@@ -5,8 +5,8 @@ import { FlatList } from 'react-native'
 import { View, Text, Spinner } from 'native-base'
 import WorkoutItem from './WorkoutItem'
 
-const WorkoutList = ({ isLoading, workouts }) => {
-  const noWorkouts = workouts.length === 0
+const WorkoutList = ({ isLoading, workouts, onEndReached }) => {
+  const noWorkouts = !isLoading && workouts.length === 0
 
   const renderFooter = () => {
     if (isLoading) return <Spinner color="black" />
@@ -29,7 +29,7 @@ const WorkoutList = ({ isLoading, workouts }) => {
         contentContainerStyle={styles.list}
         refreshing={isLoading}
         showsVerticalScrollIndicator={false}
-        onEndReached={() => {}}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0.3}
         keyExtractor={(workout) => `${workout.id}`}
         renderItem={({ item }) => {
@@ -46,6 +46,7 @@ export default WorkoutList
 WorkoutList.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   workouts: PropTypes.array.isRequired,
+  onEndReached: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
