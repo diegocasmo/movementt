@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Container, Button, Text } from 'native-base'
+import { Button, Text } from 'native-base'
+import { Layout } from '_components/ui/Layout'
 import ImageLogo from '_components/ImageLogo'
 
 const GuestWelcomeScreen = ({ navigation }) => {
@@ -14,7 +15,7 @@ const GuestWelcomeScreen = ({ navigation }) => {
   }
 
   return (
-    <Container style={styles.container}>
+    <Layout>
       <ImageLogo style={styles.image} />
       <Button primary block style={styles.button} onPress={handlePressOnSignIn}>
         <Text>Sign In</Text>
@@ -22,7 +23,7 @@ const GuestWelcomeScreen = ({ navigation }) => {
       <Button light block style={styles.button} onPress={handlePressOnSignUp}>
         <Text>Create Account</Text>
       </Button>
-    </Container>
+    </Layout>
   )
 }
 
