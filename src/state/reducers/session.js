@@ -15,16 +15,16 @@ const initialState = {
   time_entries: [],
 }
 
-const getCurrExerciseUid = (state, timeEntryType) => {
+const getCurrExerciseId = (state, timeEntryType) => {
   if (timeEntryType !== TYPE_EXERCISE) return null
 
   const currExercise = getCurrExercise({ session: state })
-  return currExercise.uid
+  return currExercise.id
 }
 
-const startTimeEntry = (type = TYPE_EXERCISE, exercise_uid = null) => ({
+const startTimeEntry = (type = TYPE_EXERCISE, exercise_id = null) => ({
   type,
-  exercise_uid,
+  exercise_id,
   started_at: timestamp(now()),
   elapsed_ms: null,
 })
@@ -72,7 +72,7 @@ const session = createSlice({
 
       const type = TYPE_EXERCISE
       state.time_entries = [
-        startTimeEntry(type, getCurrExerciseUid(state, type)),
+        startTimeEntry(type, getCurrExerciseId(state, type)),
       ]
     },
 
@@ -84,7 +84,7 @@ const session = createSlice({
           ...time_entries,
           startTimeEntry(
             lastTimeEntry.type,
-            getCurrExerciseUid(state, lastTimeEntry.type)
+            getCurrExerciseId(state, lastTimeEntry.type)
           ),
         ]
       }
@@ -125,7 +125,7 @@ const session = createSlice({
           stopTimeEntry(lastTimeEntry),
           startTimeEntry(
             nextTimeEntryType,
-            getCurrExerciseUid(state, nextTimeEntryType)
+            getCurrExerciseId(state, nextTimeEntryType)
           ),
         ]
       } else {
@@ -138,7 +138,7 @@ const session = createSlice({
           stopTimeEntry(lastTimeEntry),
           startTimeEntry(
             nextTimeEntryType,
-            getCurrExerciseUid(state, nextTimeEntryType)
+            getCurrExerciseId(state, nextTimeEntryType)
           ),
         ]
       }
@@ -154,7 +154,7 @@ const session = createSlice({
         stopTimeEntry(lastTimeEntry),
         startTimeEntry(
           nextTimeEntryType,
-          getCurrExerciseUid(state, nextTimeEntryType)
+          getCurrExerciseId(state, nextTimeEntryType)
         ),
       ]
     },
@@ -169,7 +169,7 @@ const session = createSlice({
         stopTimeEntry(lastTimeEntry),
         startTimeEntry(
           nextTimeEntryType,
-          getCurrExerciseUid(state, nextTimeEntryType)
+          getCurrExerciseId(state, nextTimeEntryType)
         ),
       ]
     },
@@ -276,7 +276,7 @@ export const getCurrTimeEntryElapsedMs = ({ session }) => {
   while (
     timeEntry &&
     timeEntry.type === currTimeEntry.type &&
-    timeEntry.exercise_uid === currTimeEntry.exercise_uid
+    timeEntry.exercise_id === currTimeEntry.exercise_id
   ) {
     prevTimeEntries.push(timeEntry)
     timeEntry = time_entries.pop()

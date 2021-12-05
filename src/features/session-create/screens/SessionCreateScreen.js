@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  getCurrTimeEntry,
+  completeExerciseRest,
+  completeRoundRest,
   getCompletedAt,
+  getCurrTimeEntry,
   getRoundsCompleted,
   getStartedAt,
   getTimeEntries,
@@ -20,8 +22,7 @@ import { Container, Content } from 'native-base'
 import TopControls from '../components/TopControls'
 import BottomControls from '../components/BottomControls'
 import WorkoutExercise from '../components/WorkoutExercise'
-import WorkoutExerciseRest from '../components/WorkoutExerciseRest'
-import WorkoutRoundRest from '../components/WorkoutRoundRest'
+import { CountdownRest } from '../components/CountdownRest'
 import WorkoutStartup from '../components/WorkoutStartup'
 import WorkoutCompleted from '../components/WorkoutCompleted'
 import { showError } from '_utils/toast'
@@ -51,6 +52,14 @@ const SessionCreateScreen = ({ navigation, route }) => {
   const handleStartupCompleted = () => {
     dispatch(init(routine))
     dispatch(start())
+  }
+
+  const handleCompleteExerciseRest = () => {
+    dispatch(completeExerciseRest())
+  }
+
+  const handleCompleteRoundRest = () => {
+    dispatch(completeRoundRest())
   }
 
   const handleQuit = () => {
@@ -84,9 +93,9 @@ const SessionCreateScreen = ({ navigation, route }) => {
   const renderTimeEntry = () => {
     switch (timeEntry.type) {
       case TimeEntry.TYPE_EXERCISE_REST:
-        return <WorkoutExerciseRest />
+        return <CountdownRest onComplete={handleCompleteExerciseRest} />
       case TimeEntry.TYPE_ROUND_REST:
-        return <WorkoutRoundRest />
+        return <CountdownRest onComplete={handleCompleteRoundRest} />
       default:
         return <WorkoutExercise />
     }

@@ -1,10 +1,12 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import {
-  getPrevExercise,
   getCurrExercise,
+  getCurrTimeEntry,
   getCurrTimeEntryElapsedMs,
-  completeExerciseRest,
+  getPrevExercise,
+  getRoutine,
   hasSound,
 } from '_state/reducers/session'
 import { StyleSheet } from 'react-native'
@@ -12,26 +14,32 @@ import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
 import { secondsToMs } from '_utils/time-utils'
 import ExerciseRx from '_components/ExerciseRx'
+import { TimeEntry } from '_api'
 
-const WorkoutExerciseRest = () => {
-  const dispatch = useDispatch()
-  const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
-  const exercise = useSelector(getCurrExercise)
-  const { rest_seconds } = useSelector(getPrevExercise)
+export const CountdownRest = ({ onComplete }) => {
   const sound = useSelector(hasSound)
+  const exercise = useSelector(getCurrExercise)
+  const timeEntry = useSelector(getCurrTimeEntry)
+  const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
 
-  const handleComplete = () => {
-    dispatch(completeExerciseRest())
-  }
+  // Rest seconds configuration based on exercise/round rest
+  const { rest_seconds: prevExerciseRestSeconds = 0 } =
+    useSelector(getPrevExercise)
+  const { rest_seconds: roundRestSeconds = 0 } = useSelector(getRoutine)
+
+  const restSeconds =
+    timeEntry.type === TimeEntry.TYPE_EXERCISE_REST
+      ? prevExerciseRestSeconds
+      : roundRestSeconds
 
   return (
     <View style={styles.container}>
-      <Button transparent style={styles.btn} onPress={handleComplete}>
+      <Button transparent style={styles.btn} onPress={onComplete}>
         <Countdown
           elapsedMs={elapsedMs}
-          targetMs={secondsToMs(rest_seconds)}
+          targetMs={secondsToMs(restSeconds)}
           hasSound={sound}
-          onCompleted={handleComplete}
+          onCompleted={onComplete}
         />
         <Text style={styles.btnText}>Tab to skip</Text>
       </Button>
@@ -44,9 +52,9 @@ const WorkoutExerciseRest = () => {
   )
 }
 
-export default WorkoutExerciseRest
-
-WorkoutExerciseRest.propTypes = {}
+CountdownRest.propTypes = {
+  onComplete: PropTypes.func.isRequired,
+}
 
 const styles = StyleSheet.create({
   container: {
