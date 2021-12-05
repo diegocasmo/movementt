@@ -26,7 +26,7 @@ export const onAuthStateChanged = (args) => {
 export const signUp = async ({ email = '', password = '' }) => {
   // Notice Firebase automatically signs user in when their account is created
   await firebase.auth().createUserWithEmailAndPassword(email, password)
-  sendlVerification()
+  sendVerification()
 }
 
 export const signIn = async ({
@@ -67,7 +67,7 @@ export const updatePassword = async (password, user = _firebaseUser()) => {
   return user.updatePassword(password)
 }
 
-export const sendlVerification = (user = _firebaseUser()) =>
+export const sendVerification = (user = _firebaseUser()) =>
   user.sendEmailVerification()
 
 export const validate = async (attrs) => {
