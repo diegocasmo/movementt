@@ -24,7 +24,6 @@ axios.interceptors.response.use(
     return response
   },
   async (error) => {
-    alert(JSON.stringify(error, Object.getOwnPropertyNames(error)))
     if (error.response.status === 401) {
       await User.signOut()
     }

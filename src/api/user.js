@@ -43,7 +43,7 @@ export const signIn = async ({
 
     return response.data
   } catch (err) {
-    throw new Error(err.message)
+    throw new Error('Unable to sign in user')
   }
 }
 
