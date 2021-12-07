@@ -43,7 +43,7 @@ export const signIn = async ({
 
     return response.data
   } catch (err) {
-    throw new Error('Unable to get current user')
+    throw new Error(err.message)
   }
 }
 
