@@ -7,11 +7,11 @@ import { Icon } from '_components/Icon'
 const FooterTabs = ({ state, navigation }) => {
   const getIconName = ({ name }) => {
     switch (name) {
-      case 'Settings':
+      case 'SettingsTab':
         return 'md-settings-sharp'
-      case 'WorkoutList':
+      case 'WorkoutListTab':
         return 'md-refresh'
-      case 'ExerciseList':
+      case 'ExerciseListTab':
         return 'md-barbell-outline'
       default:
         return 'md-home-outline'

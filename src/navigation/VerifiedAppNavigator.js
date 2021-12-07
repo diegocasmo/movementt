@@ -96,10 +96,26 @@ const HomeTabs = createBottomTabNavigator()
 const HomeTabsNavigator = () => {
   return (
     <HomeTabs.Navigator tabBar={(props) => <FooterTabs {...props} />}>
-      <HomeTabs.Screen name="Home" component={HomeNavigator} />
-      <HomeTabs.Screen name="ExerciseList" component={ExerciseNavigator} />
-      <HomeTabs.Screen name="WorkoutList" component={WorkoutNavigator} />
-      <HomeTabs.Screen name="Settings" component={SettingsNavigator} />
+      <HomeTabs.Screen
+        name="HomeTab"
+        component={HomeNavigator}
+        options={{ headerShown: false }}
+      />
+      <HomeTabs.Screen
+        name="ExerciseListTab"
+        component={ExerciseNavigator}
+        options={{ headerShown: false }}
+      />
+      <HomeTabs.Screen
+        name="WorkoutListTab"
+        component={WorkoutNavigator}
+        options={{ headerShown: false }}
+      />
+      <HomeTabs.Screen
+        name="SettingsTab"
+        component={SettingsNavigator}
+        options={{ headerShown: false }}
+      />
     </HomeTabs.Navigator>
   )
 }

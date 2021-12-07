@@ -43,6 +43,4 @@ const config = ((nodeEnv) => {
   }
 })(process.env.NODE_ENV) // eslint-disable-line no-undef
 
-const app = firebase.initializeApp(config)
-
-export const db = app.database()
+firebase.initializeApp(config)
