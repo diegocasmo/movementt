@@ -124,8 +124,8 @@ const AppStack = createStackNavigator()
 const VerifiedAppNavigator = () => {
   return (
     <AppStack.Navigator
-      mode="modal"
       tabBar={(props) => <FooterTabs {...props} />}
+      screenOptions={{ presentation: 'modal' }}
     >
       <AppStack.Screen
         name="Home"

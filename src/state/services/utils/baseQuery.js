@@ -12,8 +12,8 @@ export const baseQuery =
       })
 
       return { data: result.data }
-    } catch (axiosError) {
-      let err = axiosError
+    } catch (err) {
+      alert(JSON.stringify(err, Object.getOwnPropertyNames(err)))
       return {
         error: { status: err.response.status, message: err.response.data },
       }
