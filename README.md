@@ -10,3 +10,7 @@ Create and execute custom interval training style workouts.
   - `cp .env.example .env`
 - Add the Firebase SDK development configuration in the `.env` file
 - Run `yarn run ios` to run the project on iOS
+
+## Release
+
+- Run `yarn run publish` to release latest version
