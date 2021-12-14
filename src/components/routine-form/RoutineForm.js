@@ -218,11 +218,11 @@ const styles = StyleSheet.create({
   },
   middle: {
     flex: 1,
-    marginBottom: 65,
+    marginBottom: 85,
   },
   bottom: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 20,
     left: 0,
     right: 0,
   },
