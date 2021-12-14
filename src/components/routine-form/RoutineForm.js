@@ -143,35 +143,36 @@ const RoutineForm = ({
         </View>
       </TouchableWithoutFeedback>
 
-      <DraggableFlatList
-        contentContainerStyle={styles.middle}
-        data={exercises}
-        renderItem={({ item, index, drag, isActive }) => {
-          return (
-            <TouchableOpacity
-              style={{ opacity: isActive ? 0.5 : 1 }}
-              activeOpacity={0.5}
-              onLongPress={drag}
-              disabled={isSubmitting}
-            >
-              <RoutineExerciseForm
-                routineExercise={item}
+      <View style={styles.middle}>
+        <DraggableFlatList
+          data={exercises}
+          renderItem={({ item, index, drag, isActive }) => {
+            return (
+              <TouchableOpacity
+                style={{ opacity: isActive ? 0.5 : 1 }}
+                activeOpacity={0.5}
+                onLongPress={drag}
                 disabled={isSubmitting}
-                onChange={(item) => {
-                  handleUpdateRoutineExercise(index, item, formik)
-                }}
-                onDelete={() => {
-                  handleDeleteRoutineExercise(index, formik)
-                }}
-              />
-            </TouchableOpacity>
-          )
-        }}
-        keyExtractor={({ id, position }) => `${id}-${position}`}
-        onDragEnd={(params) => {
-          handleDragEnd(params, formik)
-        }}
-      />
+              >
+                <RoutineExerciseForm
+                  routineExercise={item}
+                  disabled={isSubmitting}
+                  onChange={(item) => {
+                    handleUpdateRoutineExercise(index, item, formik)
+                  }}
+                  onDelete={() => {
+                    handleDeleteRoutineExercise(index, formik)
+                  }}
+                />
+              </TouchableOpacity>
+            )
+          }}
+          keyExtractor={({ id, position }) => `${id}-${position}`}
+          onDragEnd={(params) => {
+            handleDragEnd(params, formik)
+          }}
+        />
+      </View>
 
       <View style={styles.bottom}>
         <Button
@@ -208,22 +209,20 @@ export default RoutineForm
 
 const styles = StyleSheet.create({
   content: {
-    position: 'relative',
     margin: 10,
+    position: 'relative',
     flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    flexDirection: 'column',
   },
   top: {
     height: 210,
   },
   middle: {
-    paddingBottom: 70,
+    flex: 1,
+    marginBottom: 65,
   },
   bottom: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 10,
     left: 0,
     right: 0,
   },
