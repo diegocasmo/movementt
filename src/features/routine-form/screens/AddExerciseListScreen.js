@@ -10,7 +10,7 @@ import { RoutineExercise } from '_api'
 const AddExerciseListScreen = ({
   navigation,
   route: {
-    params: { prevSelected, prevScreenName },
+    params: { prevSelected, prevScreenName, routineId },
   },
 }) => {
   const { data, isLoading } = useGetExercisesQuery()
@@ -39,6 +39,7 @@ const AddExerciseListScreen = ({
   const handleSubmit = () => {
     navigation.navigate(prevScreenName, {
       newlySelected: newlySelected,
+      routineId,
     })
   }
 
@@ -80,6 +81,7 @@ AddExerciseListScreen.propTypes = {
     params: PropTypes.shape({
       prevSelected: PropTypes.array,
       prevScreenName: PropTypes.string.isRequired,
+      routineId: PropTypes.number,
     }).isRequired,
   }).isRequired,
 }

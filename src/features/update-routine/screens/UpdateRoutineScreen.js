@@ -27,6 +27,7 @@ const UpdateRoutineScreen = ({
     navigation.navigate('AddExerciseList', {
       prevScreenName: 'UpdateRoutine',
       prevSelected: selected,
+      routineId,
     })
   }
 
