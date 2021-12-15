@@ -6,11 +6,31 @@ import { getUrl } from '_api/utils/url'
 
 export const URL = `${getUrl()}/users`
 
+export const SYSTEM_OF_MEASUREMENT_METRIC = 'metric'
+export const SYSTEM_OF_MEASUREMENT_IMPERIAL = 'imperial'
+
+export const SYSTEMS_OF_MEASUREMENT = [
+  SYSTEM_OF_MEASUREMENT_METRIC,
+  SYSTEM_OF_MEASUREMENT_IMPERIAL,
+]
+
+export const WEIGHT_UNIT_TYPE_OPTS = [
+  { label: 'Kg', value: SYSTEM_OF_MEASUREMENT_METRIC },
+  { label: 'lb', value: SYSTEM_OF_MEASUREMENT_IMPERIAL },
+]
+
+export const DISTANCE_UNIT_TYPE_OPTS = [
+  { label: 'Km', value: SYSTEM_OF_MEASUREMENT_METRIC },
+  { label: 'mi', value: SYSTEM_OF_MEASUREMENT_IMPERIAL },
+]
+
 export const SCHEMA = Yup.object().shape({
   id: Yup.number(),
   uid: Yup.string().required(),
   email: Yup.string().trim().required(),
   verified: Yup.bool().required(),
+  weight_unit_type: Yup.mixed().oneOf(SYSTEMS_OF_MEASUREMENT),
+  distance_unit_type: Yup.mixed().oneOf(SYSTEMS_OF_MEASUREMENT),
   created_at: Yup.string(),
   updated_at: Yup.string(),
 })
@@ -91,4 +111,20 @@ export const verify = async () => {
 
 export const verified = (user) => {
   return user && user.verified
+}
+
+export const getWeightUnitTypeLabel = (user) => {
+  const weightUnitOpt = WEIGHT_UNIT_TYPE_OPTS.find(
+    (opt) => user.weight_unit_type === opt.value
+  )
+
+  return weightUnitOpt.label
+}
+
+export const getDistanceUnitTypeLabel = (user) => {
+  const distanceUnitOpt = DISTANCE_UNIT_TYPE_OPTS.find(
+    (opt) => user.distance_unit_type === opt.value
+  )
+
+  return distanceUnitOpt.label
 }

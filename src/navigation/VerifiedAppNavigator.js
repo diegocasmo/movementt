@@ -19,7 +19,7 @@ import WorkoutListScreen from '_features/workout-list/screens/WorkoutListScreen'
 import SessionCreateScreen from '_features/session-create/screens/SessionCreateScreen'
 
 // Settings
-import SettingsScreen from '_features/settings/screens/SettingsScreen'
+import { SettingsScreen } from '_features/settings/screens/SettingsScreen'
 import ReauthenticateScreen from '_features/update-password/screens/ReauthenticateScreen'
 import UpdatePasswordScreen from '_features/update-password/screens/UpdatePasswordScreen'
 
