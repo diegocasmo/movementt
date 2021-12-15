@@ -28,7 +28,6 @@ export default Modal
 
 Modal.propTypes = {
   children: PropTypes.node,
-  childrenStyle: PropTypes.object,
   containerStyle: PropTypes.object,
   onRequestClose: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,

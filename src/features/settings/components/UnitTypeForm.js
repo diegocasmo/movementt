@@ -4,18 +4,14 @@ import { StyleSheet } from 'react-native'
 import { View, H1, Button, Text, Spinner } from 'native-base'
 import Modal from '_components/Modal'
 
-export const SystemOfMeasurementModal = ({
+export const UnitTypeForm = ({
   isSubmitting,
   onCancel,
   onSubmit,
   title,
   visible,
 }) => (
-  <Modal
-    visible={visible}
-    onRequestClose={onCancel}
-    style={styles.childrenStyle}
-  >
+  <Modal visible={visible} onRequestClose={onCancel}>
     <H1 style={styles.h1}>{title}</H1>
     <View style={styles.actions}>
       <Button
@@ -43,7 +39,7 @@ export const SystemOfMeasurementModal = ({
   </Modal>
 )
 
-SystemOfMeasurementModal.propTypes = {
+UnitTypeForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -56,9 +52,6 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
     marginBottom: 20,
-  },
-  childrenStyle: {
-    height: 320,
   },
   actions: {
     marginTop: 20,

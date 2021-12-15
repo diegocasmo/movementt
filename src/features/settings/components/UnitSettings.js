@@ -12,7 +12,7 @@ import {
   View,
 } from 'native-base'
 import { Icon } from '_components/Icon'
-import { SystemOfMeasurementModal } from './SystemOfMeasurementModal'
+import { UnitTypeForm } from './UnitTypeForm'
 import { getUser } from '_state/reducers/auth'
 import { User } from '_api'
 
@@ -77,7 +77,7 @@ export const UnitSettings = () => {
         </Right>
       </ListItem>
 
-      <SystemOfMeasurementModal
+      <UnitTypeForm
         isSubmitting={false}
         onCancel={handleHideWeightUnit}
         onSubmit={handleSubmitWeightUnit}
@@ -85,7 +85,7 @@ export const UnitSettings = () => {
         visible={isWeightUnitVisible}
       />
 
-      <SystemOfMeasurementModal
+      <UnitTypeForm
         isSubmitting={false}
         onCancel={handleHideDistanceUnit}
         onSubmit={handleSubmitDistanceUnit}

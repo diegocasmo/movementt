@@ -25,11 +25,7 @@ const ExerciseForm = ({
   const isValid = Object.keys(formik.errors).length === 0
 
   return (
-    <Modal
-      visible={visible}
-      onRequestClose={onCancel}
-      childrenStyle={styles.childrenStyle}
-    >
+    <Modal visible={visible} onRequestClose={onCancel}>
       <H1 style={styles.h1}>
         {exercise.created_at ? 'Update' : 'Create'} Exercise
       </H1>
@@ -108,9 +104,6 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     marginLeft: 'auto',
     marginBottom: 20,
-  },
-  childrenStyle: {
-    height: 320,
   },
   actions: {
     marginTop: 20,
