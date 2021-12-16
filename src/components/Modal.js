@@ -29,6 +29,7 @@ export default Modal
 Modal.propTypes = {
   children: PropTypes.node,
   containerStyle: PropTypes.object,
+  childrenStyle: PropTypes.object,
   onRequestClose: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
 }
@@ -39,7 +40,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 100,
-    marginBottom: 150,
     marginLeft: 25,
     marginRight: 25,
   },

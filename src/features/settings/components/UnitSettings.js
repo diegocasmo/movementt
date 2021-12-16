@@ -81,7 +81,9 @@ export const UnitSettings = () => {
         isSubmitting={false}
         onCancel={handleHideWeightUnit}
         onSubmit={handleSubmitWeightUnit}
+        options={User.WEIGHT_UNIT_TYPE_OPTS}
         title="Update weight unit"
+        value={user.weight_unit_type}
         visible={isWeightUnitVisible}
       />
 
@@ -89,7 +91,9 @@ export const UnitSettings = () => {
         isSubmitting={false}
         onCancel={handleHideDistanceUnit}
         onSubmit={handleSubmitDistanceUnit}
+        options={User.DISTANCE_UNIT_TYPE_OPTS}
         title="Update distance unit"
+        value={user.distance_unit_type}
         visible={isDistanceUnitVisible}
       />
     </View>
