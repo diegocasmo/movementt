@@ -30,7 +30,7 @@ export const SCHEMA = Yup.object().shape({
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
-    .min(1),
+    .moreThan(0),
   weight: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
