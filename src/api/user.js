@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils/yup'
 import { getUrl } from '_api/utils/url'
+import { buildSelectOptions } from '_utils/select-options'
 
 export const URL = `${getUrl()}/users`
 
@@ -14,15 +15,20 @@ export const SYSTEMS_OF_MEASUREMENT = [
   SYSTEM_OF_MEASUREMENT_IMPERIAL,
 ]
 
-export const WEIGHT_UNIT_TYPE_OPTS = [
-  { label: 'Kg', value: SYSTEM_OF_MEASUREMENT_METRIC },
-  { label: 'lb', value: SYSTEM_OF_MEASUREMENT_IMPERIAL },
-]
+export const WEIGHT_UNIT_TYPE_LABELS = {
+  [SYSTEM_OF_MEASUREMENT_METRIC]: 'Kg',
+  [SYSTEM_OF_MEASUREMENT_IMPERIAL]: 'lb',
+}
 
-export const DISTANCE_UNIT_TYPE_OPTS = [
-  { label: 'Km', value: SYSTEM_OF_MEASUREMENT_METRIC },
-  { label: 'mi', value: SYSTEM_OF_MEASUREMENT_IMPERIAL },
-]
+export const DISTANCE_UNIT_TYPE_LABELS = {
+  [SYSTEM_OF_MEASUREMENT_METRIC]: 'Km',
+  [SYSTEM_OF_MEASUREMENT_IMPERIAL]: 'mi',
+}
+
+export const WEIGHT_UNIT_TYPE_OPTS = buildSelectOptions(WEIGHT_UNIT_TYPE_LABELS)
+export const DISTANCE_UNIT_TYPE_OPTS = buildSelectOptions(
+  DISTANCE_UNIT_TYPE_LABELS
+)
 
 export const SCHEMA = Yup.object().shape({
   id: Yup.number(),
@@ -123,22 +129,10 @@ export const verify = async () => {
   }
 }
 
-export const verified = (user) => {
-  return user && user.verified
-}
+export const verified = (user) => user && user.verified
 
-export const getWeightUnitTypeLabel = (user) => {
-  const weightUnitOpt = WEIGHT_UNIT_TYPE_OPTS.find(
-    (opt) => user.weight_unit_type === opt.value
-  )
+export const getWeightUnitTypeLabel = (user) =>
+  WEIGHT_UNIT_TYPE_LABELS[user.weight_unit_type]
 
-  return weightUnitOpt.label
-}
-
-export const getDistanceUnitTypeLabel = (user) => {
-  const distanceUnitOpt = DISTANCE_UNIT_TYPE_OPTS.find(
-    (opt) => user.distance_unit_type === opt.value
-  )
-
-  return distanceUnitOpt.label
-}
+export const getDistanceUnitTypeLabel = (user) =>
+  DISTANCE_UNIT_TYPE_LABELS[user.distance_unit_type]
