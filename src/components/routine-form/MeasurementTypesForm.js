@@ -1,16 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { View, Button } from 'native-base'
 import { Icon } from '_components/Icon'
+import { getUser } from '_state/reducers/auth'
 import { RoutineExercise } from '_api'
 
 const MeasurementTypesForm = ({ routineExercise, bag, disabled }) => {
+  const user = useSelector(getUser)
+
   const isCategoryReps = RoutineExercise.isCategoryTypeReps(routineExercise)
   const isCategoryTime = RoutineExercise.isCategoryTypeTime(routineExercise)
-  const isCategoryDistance = RoutineExercise.isCategoryTypeDistance(
-    routineExercise
-  )
+  const isCategoryDistance =
+    RoutineExercise.isCategoryTypeDistance(routineExercise)
 
   const handleChangeCategory = async (categoryType) => {
     if (disabled) return

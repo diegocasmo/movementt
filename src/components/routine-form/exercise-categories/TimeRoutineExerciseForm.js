@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { View, Grid, Col } from 'native-base'
 import { getIn } from 'formik'
 import { DecimalInput } from '_components/form'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
-import { RoutineExercise } from '_api'
+import { getUser } from '_state/reducers/auth'
+import { User } from '_api'
 
 const TimeRoutineExerciseForm = ({ bag, disabled }) => {
+  const user = useSelector(getUser)
   const { errors, handleBlur, handleChange, touched, values } = bag
 
   return (
@@ -24,7 +27,7 @@ const TimeRoutineExerciseForm = ({ bag, disabled }) => {
         </Col>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
-            label={`Weight (${RoutineExercise.getWeightUnitTypeLabel(values)})`}
+            label={`Weight (${User.getWeightUnitTypeLabel(user)})`}
             value={values.weight}
             disabled={disabled}
             error={getIn(errors, 'weight')}

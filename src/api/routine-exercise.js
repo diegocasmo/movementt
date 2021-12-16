@@ -18,19 +18,6 @@ export const CATEGORY_TYPE_OPTS = [
   { label: 'Distance', value: CATEGORY_TYPE_DISTANCE },
 ]
 
-export const WEIGHT_UNIT_TYPE_METRIC = 'metric'
-export const WEIGHT_UNIT_TYPE_IMPERIAL = 'imperial'
-
-export const WEIGHT_UNIT_TYPES = [
-  WEIGHT_UNIT_TYPE_METRIC,
-  WEIGHT_UNIT_TYPE_IMPERIAL,
-]
-
-export const WEIGHT_UNIT_TYPE_OPTS = [
-  { label: 'Kg', value: WEIGHT_UNIT_TYPE_METRIC },
-  { label: 'lb', value: WEIGHT_UNIT_TYPE_IMPERIAL },
-]
-
 export const SCHEMA = Yup.object().shape({
   id: Yup.number(),
   name: Yup.string().trim().required(),
@@ -46,7 +33,6 @@ export const SCHEMA = Yup.object().shape({
     .required()
     .positive()
     .min(0),
-  weight_unit_type: Yup.mixed().oneOf(WEIGHT_UNIT_TYPES).required(),
   rest_seconds: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
@@ -77,7 +63,6 @@ export const build = async (exercise) => {
       movement_type: Exercise.MOVEMENT_TYPE_PUSH,
       quantity: 10,
       weight: 0,
-      weight_unit_type: WEIGHT_UNIT_TYPE_METRIC,
       rest_seconds: 0,
       position: 0,
       ...exercise,
@@ -90,7 +75,7 @@ export const build = async (exercise) => {
         case CATEGORY_TYPE_TIME:
           return { ...routineExercise, quantity: 30 }
         case CATEGORY_TYPE_DISTANCE:
-          return { ...routineExercise, quantity: 200 }
+          return { ...routineExercise, quantity: 1 }
         default:
           return { ...routineExercise, quantity: 10 }
       }
@@ -110,14 +95,6 @@ export const isCategoryTypeReps = (routineExercise) => {
 
 export const isCategoryTypeDistance = (routineExercise) => {
   return routineExercise.category_type === CATEGORY_TYPE_DISTANCE
-}
-
-export const getWeightUnitTypeLabel = (routineExercise) => {
-  const weightUnitOpt = WEIGHT_UNIT_TYPE_OPTS.find(
-    (weightUnitOpt) => routineExercise.weight_unit_type === weightUnitOpt.value
-  )
-
-  return weightUnitOpt.label
 }
 
 export const willCreate = (routineExercise) => !!routineExercise._create
