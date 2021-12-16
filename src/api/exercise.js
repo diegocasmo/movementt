@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import { transformYupToFormikError } from '_api/utils/yup'
+import { buildSelectOptions } from '_utils/select-options'
 
 export const MOVEMENT_TYPE_CORE = 'core'
 export const MOVEMENT_TYPE_FULL_BODY = 'full_body'
@@ -19,15 +20,17 @@ export const MOVEMENT_TYPES = [
   MOVEMENT_TYPE_OTHER,
 ]
 
-export const MOVEMENT_TYPE_OPTS = [
-  { label: 'Core', value: MOVEMENT_TYPE_CORE },
-  { label: 'Full body', value: MOVEMENT_TYPE_FULL_BODY },
-  { label: 'Hinge', value: MOVEMENT_TYPE_HINGE },
-  { label: 'Pull', value: MOVEMENT_TYPE_PULL },
-  { label: 'Push', value: MOVEMENT_TYPE_PUSH },
-  { label: 'Squat', value: MOVEMENT_TYPE_SQUAT },
-  { label: 'Other', value: MOVEMENT_TYPE_OTHER },
-]
+export const MOVEMENT_TYPE_LABELS = {
+  [MOVEMENT_TYPE_CORE]: 'Core',
+  [MOVEMENT_TYPE_FULL_BODY]: 'Full body',
+  [MOVEMENT_TYPE_HINGE]: 'Hinge',
+  [MOVEMENT_TYPE_PULL]: 'Pull',
+  [MOVEMENT_TYPE_PUSH]: 'Push',
+  [MOVEMENT_TYPE_SQUAT]: 'Squat',
+  [MOVEMENT_TYPE_OTHER]: 'Other',
+}
+
+export const MOVEMENT_TYPE_OPTS = buildSelectOptions(MOVEMENT_TYPE_LABELS)
 
 export const DEFAULT = {
   name: '',

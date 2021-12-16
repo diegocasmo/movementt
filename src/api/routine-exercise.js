@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 import * as Exercise from '_api/exercise'
 import { transformYupToFormikError } from '_api/utils/yup'
+import { buildSelectOptions } from '_utils/select-options'
 
 export const CATEGORY_TYPE_REPS = 'reps'
 export const CATEGORY_TYPE_TIME = 'time'
@@ -12,11 +13,13 @@ export const CATEGORY_TYPES = [
   CATEGORY_TYPE_DISTANCE,
 ]
 
-export const CATEGORY_TYPE_OPTS = [
-  { label: 'Reps', value: CATEGORY_TYPE_REPS },
-  { label: 'Time', value: CATEGORY_TYPE_TIME },
-  { label: 'Distance', value: CATEGORY_TYPE_DISTANCE },
-]
+export const CATEGORY_TYPE_LABELS = {
+  [CATEGORY_TYPE_REPS]: 'Reps',
+  [CATEGORY_TYPE_TIME]: 'Time',
+  [CATEGORY_TYPE_DISTANCE]: 'Distance',
+}
+
+export const CATEGORY_TYPE_OPTS = buildSelectOptions(CATEGORY_TYPE_LABELS)
 
 export const SCHEMA = Yup.object().shape({
   id: Yup.number(),

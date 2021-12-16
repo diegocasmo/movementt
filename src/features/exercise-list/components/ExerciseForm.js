@@ -49,10 +49,7 @@ const ExerciseForm = ({
         <Col flexGrow={1}>
           <ModalPickerInput
             label="Movement type"
-            options={Exercise.MOVEMENT_TYPE_OPTS.map((opt, idx) => ({
-              key: idx,
-              ...opt,
-            }))}
+            options={Exercise.MOVEMENT_TYPE_OPTS}
             onValueChange={formik.handleChange('movement_type')}
             value={formik.values.movement_type}
             disabled={isSubmitting}

@@ -21,7 +21,7 @@ const ModalPickerInput = ({
 
   return (
     <ModalSelector
-      data={options}
+      data={options.map((opt, index) => ({ ...opt, key: index }))}
       visible={visible}
       supportedOrientations={['portrait']}
       animationType="fade"
