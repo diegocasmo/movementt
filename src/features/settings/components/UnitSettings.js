@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import {
   Body,
@@ -13,29 +14,50 @@ import {
 } from 'native-base'
 import { Icon } from '_components/Icon'
 import { UnitTypeForm } from './UnitTypeForm'
-import { getUser } from '_state/reducers/auth'
+import { showError } from '_utils/toast'
+import { getUser, update } from '_state/reducers/auth'
 import { User } from '_api'
 
 export const UnitSettings = () => {
+  const dispatch = useDispatch()
   const user = useSelector(getUser)
+
   const [isWeightUnitVisible, setIsWeightUnitVisible] = useState(false)
   const [isDistanceUnitVisible, setIsDistanceUnitVisible] = useState(false)
+  const [isUpdatingWeightUnit, setIsUpdatingWeightUnit] = useState(false)
+  const [isUpdatingDistanceUnit, setIsUpdatingDistanceUnit] = useState(false)
 
-  const handleShowWeightUnit = () => {
-    setIsWeightUnitVisible(true)
-  }
-  const handleHideWeightUnit = () => {
-    setIsWeightUnitVisible(false)
-  }
-  const handleSubmitWeightUnit = async () => {}
+  const handleSubmitWeightUnit = async (value) => {
+    setIsUpdatingWeightUnit(true)
 
-  const handleShowDistanceUnit = () => {
-    setIsDistanceUnitVisible(true)
+    try {
+      const action = await dispatch(
+        update({ ...user, weight_unit_type: value })
+      )
+      unwrapResult(action)
+      setIsWeightUnitVisible(false)
+    } catch (err) {
+      showError(err.message)
+    } finally {
+      setIsUpdatingWeightUnit(false)
+    }
   }
-  const handleHideDistanceUnit = () => {
-    setIsDistanceUnitVisible(false)
+
+  const handleSubmitDistanceUnit = async (value) => {
+    setIsUpdatingDistanceUnit(true)
+
+    try {
+      const action = await dispatch(
+        update({ ...user, distance_unit_type: value })
+      )
+      unwrapResult(action)
+      setIsDistanceUnitVisible(false)
+    } catch (err) {
+      showError(err.message)
+    } finally {
+      setIsUpdatingDistanceUnit(false)
+    }
   }
-  const handleSubmitDistanceUnit = async () => {}
 
   return (
     <View>
@@ -43,7 +65,12 @@ export const UnitSettings = () => {
         <Text>Units</Text>
       </Separator>
 
-      <ListItem icon onPress={handleShowWeightUnit}>
+      <ListItem
+        icon
+        onPress={() => {
+          setIsWeightUnitVisible(true)
+        }}
+      >
         <Left>
           <Button>
             <Icon color="white" name="md-barbell-outline" />
@@ -60,7 +87,12 @@ export const UnitSettings = () => {
         </Right>
       </ListItem>
 
-      <ListItem icon onPress={handleShowDistanceUnit}>
+      <ListItem
+        icon
+        onPress={() => {
+          setIsDistanceUnitVisible(true)
+        }}
+      >
         <Left>
           <Button>
             <Icon color="white" name="md-location" />
@@ -78,8 +110,10 @@ export const UnitSettings = () => {
       </ListItem>
 
       <UnitTypeForm
-        isSubmitting={false}
-        onCancel={handleHideWeightUnit}
+        isSubmitting={isUpdatingWeightUnit}
+        onCancel={() => {
+          setIsWeightUnitVisible(false)
+        }}
         onSubmit={handleSubmitWeightUnit}
         options={User.WEIGHT_UNIT_TYPE_OPTS}
         title="Update weight unit"
@@ -88,8 +122,10 @@ export const UnitSettings = () => {
       />
 
       <UnitTypeForm
-        isSubmitting={false}
-        onCancel={handleHideDistanceUnit}
+        isSubmitting={isUpdatingDistanceUnit}
+        onCancel={() => {
+          setIsDistanceUnitVisible(false)
+        }}
         onSubmit={handleSubmitDistanceUnit}
         options={User.DISTANCE_UNIT_TYPE_OPTS}
         title="Update distance unit"

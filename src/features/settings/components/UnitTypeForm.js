@@ -22,6 +22,10 @@ export const UnitTypeForm = ({
     onCancel()
   }
 
+  const handleSubmit = () => {
+    onSubmit(selectedValue)
+  }
+
   return (
     <Modal
       style={styles.container}
@@ -62,7 +66,7 @@ export const UnitTypeForm = ({
           style={styles.btn}
           primary
           disabled={isSubmitting}
-          onPress={onSubmit}
+          onPress={handleSubmit}
         >
           {isSubmitting ? (
             <Spinner color="white" size="small" />

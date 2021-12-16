@@ -96,6 +96,20 @@ export const validate = async (attrs) => {
   }).catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
+export const update = async (attrs) => {
+  try {
+    const user = await validate(attrs)
+
+    const response = await axios.put(`${URL}/${user.id}`, {
+      user,
+    })
+
+    return response.data
+  } catch (err) {
+    throw new Error('Unable to update user')
+  }
+}
+
 export const verify = async () => {
   try {
     // Must update user token

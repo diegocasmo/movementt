@@ -29,6 +29,12 @@ export const signOut = createAsyncThunk('auth/signOut', async (_, thunkAPI) => {
   return null
 })
 
+export const update = createAsyncThunk('auth/update', async (attrs) => {
+  const data = await User.update(attrs)
+
+  return data
+})
+
 export const verify = createAsyncThunk('auth/verify', async () => {
   const data = await User.verify()
 
@@ -123,6 +129,18 @@ export const slice = createSlice({
       state.data.status = REQUEST_STATUS.IDLE
     },
     [signOut.rejected]: (state) => {
+      state.data.status = REQUEST_STATUS.IDLE
+    },
+
+    // Update
+    [update.pending]: (state) => {
+      state.data.status = REQUEST_STATUS.PUT
+    },
+    [update.fulfilled]: (state, { payload }) => {
+      state.data.user = payload
+      state.data.status = REQUEST_STATUS.IDLE
+    },
+    [update.rejected]: (state) => {
       state.data.status = REQUEST_STATUS.IDLE
     },
 
