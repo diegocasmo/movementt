@@ -87,14 +87,17 @@ const styles = StyleSheet.create({
     fontSize: 38,
   },
   exerciseNameContainer: {
-    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
   },
   exerciseName: {
     textAlign: 'center',
     fontSize: 28,
   },
   exerciseRx: {
+    marginTop: 5,
     fontSize: 28,
   },
 })

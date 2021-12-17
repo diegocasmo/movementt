@@ -46,7 +46,7 @@ Duration.defaultProps = {
 
 Duration.propTypes = {
   elapsedMs: PropTypes.number.isRequired,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 }
 
 const styles = StyleSheet.create({
