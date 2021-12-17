@@ -42,7 +42,7 @@ const SignInScreen = ({ navigation }) => {
           isSubmitting={isSigningIn}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignUp}>
-          First time here?{' '}
+          First time here?&nbsp;
           <Text style={styles.signUpText}>Create an account</Text>
         </Text>
         <Text

@@ -80,10 +80,13 @@ const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
       <Text style={styles.routineName} numberOfLines={2}>
         {name}
       </Text>
-      <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercises[0].name}{' '}
-        <ExerciseRx style={styles.exerciseRx} exercise={exercises[0]} />
-      </Text>
+
+      <View style={styles.exerciseNameContainer}>
+        <Text style={styles.exerciseName} numberOfLines={2}>
+          Next: {exercises[0].name}&nbsp;
+        </Text>
+        <ExerciseRx textStyle={styles.exerciseRx} exercise={exercises[0]} />
+      </View>
     </View>
   )
 }
@@ -136,8 +139,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 38,
   },
-  exerciseName: {
+  exerciseNameContainer: {
+    flexDirection: 'row',
     marginTop: 10,
+  },
+  exerciseName: {
     textAlign: 'center',
     fontSize: 28,
   },

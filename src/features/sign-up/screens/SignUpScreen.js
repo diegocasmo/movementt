@@ -39,7 +39,7 @@ const SignUpScreen = ({ navigation }) => {
           withPasswordConfirmation={true}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignIn}>
-          Not the first time here?{' '}
+          Not the first time here?&nbsp;
           <Text style={styles.signInText}>Sign in</Text>
         </Text>
       </Content>

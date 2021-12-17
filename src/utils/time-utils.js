@@ -43,45 +43,27 @@ export const secondsToMs = (seconds) => {
   return seconds ? seconds * MS_IN_A_SEC : 0
 }
 
-export const getFormattedDuration = (durationInSec) => {
-  if (!durationInSec) return 'None'
-  if (durationInSec === 0) return 'None'
-
-  const hh = Math.floor(durationInSec / MS_IN_A_MIN).toString(),
-    mm = Math.floor((durationInSec % MS_IN_A_MIN) / SEC_IN_A_MIN).toString(),
-    ss = Math.floor(durationInSec % SEC_IN_A_MIN).toString()
-
-  // If less than 1 min, return seconds only
-  if (durationInSec < SEC_IN_A_MIN) return `${ss}s`
-
-  // If duration is an exact minutes value, return just minutes
-  if (durationInSec % SEC_IN_A_MIN === 0) return `${mm} min`
-
-  // Format duration as HH:MM:SS otherwise
-  return `${hh.padStart(2, '0')}:${mm.padStart(2, '0')}:${ss.padStart(2, '0')}`
-}
-
 export const TIME_OPTS = [
   { label: 'None', valueInSeconds: 0 },
-  { label: '00:00:15s', valueInSeconds: 15 },
-  { label: '00:00:30s', valueInSeconds: 30 },
-  { label: '00:00:45s', valueInSeconds: 45 },
+  { label: '15 s', valueInSeconds: 15 },
+  { label: '30 s', valueInSeconds: 30 },
+  { label: '45 s', valueInSeconds: 45 },
   { label: '1 min', valueInSeconds: 60 },
-  { label: '00:01:15 min', valueInSeconds: 75 },
-  { label: '00:01:30 min', valueInSeconds: 90 },
-  { label: '00:01:45 min', valueInSeconds: 105 },
+  { label: '1:15 min', valueInSeconds: 75 },
+  { label: '1:30 min', valueInSeconds: 90 },
+  { label: '1:45 min', valueInSeconds: 105 },
   { label: '2 min', valueInSeconds: 120 },
-  { label: '00:02:15 min', valueInSeconds: 135 },
-  { label: '00:02:30 min', valueInSeconds: 150 },
-  { label: '00:02:45 min', valueInSeconds: 165 },
+  { label: '2:15 min', valueInSeconds: 135 },
+  { label: '2:30 min', valueInSeconds: 150 },
+  { label: '2:45 min', valueInSeconds: 165 },
   { label: '3 min', valueInSeconds: 180 },
-  { label: '00:03:15 min', valueInSeconds: 195 },
-  { label: '00:03:30 min', valueInSeconds: 210 },
-  { label: '00:03:45 min', valueInSeconds: 225 },
+  { label: '3:15 min', valueInSeconds: 195 },
+  { label: '3:30 min', valueInSeconds: 210 },
+  { label: '3:45 min', valueInSeconds: 225 },
   { label: '4 min', valueInSeconds: 240 },
-  { label: '00:04:15 min', valueInSeconds: 255 },
-  { label: '00:04:30 min', valueInSeconds: 270 },
-  { label: '00:04:45 min', valueInSeconds: 285 },
+  { label: '4:15 min', valueInSeconds: 255 },
+  { label: '4:30 min', valueInSeconds: 270 },
+  { label: '4:45 min', valueInSeconds: 285 },
   { label: '5 min', valueInSeconds: 300 },
   { label: '6 min', valueInSeconds: 360 },
   { label: '7 min', valueInSeconds: 420 },

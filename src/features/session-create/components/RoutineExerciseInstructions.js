@@ -11,7 +11,7 @@ const RoutineExerciseInstructions = ({ exercise }) => {
         {exercise.name}
       </Text>
       <ExerciseRx
-        style={styles.instructions}
+        textStyle={styles.instructions}
         numberOfLines={2}
         exercise={exercise}
       />

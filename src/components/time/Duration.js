@@ -7,16 +7,42 @@ import { getDuration } from '_utils/time-utils'
 const Duration = ({ elapsedMs, style }) => {
   const { hours, minutes, seconds } = getDuration(elapsedMs)
   const zeroPad = (x) => (x > 9 ? x : `0${x}`)
+
+  // Hours of duration
+  if (hours > 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={[styles.text, style]}>
+          {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
+        </Text>
+      </View>
+    )
+  }
+
+  // Minutes of duration
+  if (minutes > 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={[styles.text, style]}>
+          {minutes}:{zeroPad(seconds)} min
+        </Text>
+      </View>
+    )
+  }
+
+  // Seconds of duration
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, style]}>{zeroPad(hours)}:</Text>
-      <Text style={[styles.text, style]}>{zeroPad(minutes)}:</Text>
-      <Text style={[styles.text, style]}>{zeroPad(seconds)}</Text>
+      <Text style={[styles.text, style]}>{seconds} s</Text>
     </View>
   )
 }
 
 export default Duration
+
+Duration.defaultProps = {
+  style: {},
+}
 
 Duration.propTypes = {
   elapsedMs: PropTypes.number.isRequired,
@@ -24,9 +50,7 @@ Duration.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  },
+  container: {},
   text: {
     fontWeight: 'bold',
     fontSize: 52,

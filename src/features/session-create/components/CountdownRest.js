@@ -44,10 +44,12 @@ export const CountdownRest = ({ onComplete }) => {
         <Text style={styles.btnText}>Tab to skip</Text>
       </Button>
       <Text style={styles.text}>Rest</Text>
-      <Text style={styles.exerciseName} numberOfLines={2}>
-        Next: {exercise.name}{' '}
-        <ExerciseRx style={styles.exerciseRx} exercise={exercise} />
-      </Text>
+      <View style={styles.exerciseNameContainer}>
+        <Text style={styles.exerciseName} numberOfLines={2}>
+          Next: {exercise.name}&nbsp;
+        </Text>
+        <ExerciseRx textStyle={styles.exerciseRx} exercise={exercise} />
+      </View>
     </View>
   )
 }
@@ -84,8 +86,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 38,
   },
-  exerciseName: {
+  exerciseNameContainer: {
+    flexDirection: 'row',
     marginTop: 10,
+  },
+  exerciseName: {
     textAlign: 'center',
     fontSize: 28,
   },

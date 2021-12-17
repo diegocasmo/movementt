@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import { Text, Card, CardItem, Body } from 'native-base'
-import { getFormattedDuration } from '_utils/time-utils'
+import { View, Text, Card, CardItem, Body } from 'native-base'
+import Duration from '_components/time/Duration'
 import ExerciseIcon from '_components/ExerciseIcon'
 import ExerciseRx from '_components/ExerciseRx'
+import { MS_IN_A_SEC } from '_utils/time-utils'
 
 const RoutineExerciseItem = ({ exercise }) => {
   return (
@@ -16,7 +17,13 @@ const RoutineExerciseItem = ({ exercise }) => {
       <CardItem>
         <Body style={styles.body}>
           <ExerciseRx exercise={exercise} />
-          <Text>Rest: {getFormattedDuration(exercise.rest_seconds)}</Text>
+          <View style={styles.restContainer}>
+            <Text>Rest: </Text>
+            <Duration
+              style={styles.duration}
+              elapsedMs={exercise.rest_seconds * MS_IN_A_SEC}
+            />
+          </View>
         </Body>
       </CardItem>
     </Card>
@@ -39,5 +46,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  restContainer: {
+    flexDirection: 'row',
+  },
+  duration: {
+    fontWeight: 'normal',
+    fontSize: 16,
   },
 })
