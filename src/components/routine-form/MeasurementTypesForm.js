@@ -20,6 +20,8 @@ const MeasurementTypesForm = ({ routineExercise, bag, disabled }) => {
 
     const attrs = await RoutineExercise.build({
       ...routineExercise,
+      weight_unit_type: user.weight_unit_type,
+      distance_unit_type: user.distance_unit_type,
       category_type: categoryType,
     })
 

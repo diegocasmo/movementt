@@ -31,6 +31,8 @@ const AddExerciseListScreen = ({
     Keyboard.dismiss()
     const routineExercise = await RoutineExercise.build({
       ...exercise,
+      weight_unit_type: user.weight_unit_type,
+      distance_unit_type: user.distance_unit_type,
       _create: true,
       _destroy: false,
       position: selected.length + 1,

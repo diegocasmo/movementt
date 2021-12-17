@@ -16,7 +16,12 @@ import { Icon } from '_components/Icon'
 import { UnitTypeForm } from './UnitTypeForm'
 import { showError } from '_utils/toast'
 import { getUser, update } from '_state/reducers/auth'
-import { User } from '_api'
+import {
+  DISTANCE_UNIT_TYPE_OPTS,
+  WEIGHT_UNIT_TYPE_OPTS,
+  getDistanceUnitTypeLabel,
+  getWeightUnitTypeLabel,
+} from '_utils/units'
 
 export const UnitSettings = () => {
   const dispatch = useDispatch()
@@ -82,7 +87,7 @@ export const UnitSettings = () => {
         <Right>
           <Text>
             <Text style={styles.capitalize}>{user.weight_unit_type}</Text> (
-            {User.getWeightUnitTypeLabel(user)})
+            {getWeightUnitTypeLabel(user.weight_unit_type)})
           </Text>
         </Right>
       </ListItem>
@@ -104,7 +109,7 @@ export const UnitSettings = () => {
         <Right>
           <Text>
             <Text style={styles.capitalize}>{user.distance_unit_type}</Text> (
-            {User.getDistanceUnitTypeLabel(user)})
+            {getDistanceUnitTypeLabel(user.distance_unit_type)})
           </Text>
         </Right>
       </ListItem>
@@ -115,7 +120,7 @@ export const UnitSettings = () => {
           setIsWeightUnitVisible(false)
         }}
         onSubmit={handleSubmitWeightUnit}
-        options={User.WEIGHT_UNIT_TYPE_OPTS}
+        options={WEIGHT_UNIT_TYPE_OPTS}
         title="Update weight unit"
         value={user.weight_unit_type}
         visible={isWeightUnitVisible}
@@ -127,7 +132,7 @@ export const UnitSettings = () => {
           setIsDistanceUnitVisible(false)
         }}
         onSubmit={handleSubmitDistanceUnit}
-        options={User.DISTANCE_UNIT_TYPE_OPTS}
+        options={DISTANCE_UNIT_TYPE_OPTS}
         title="Update distance unit"
         value={user.distance_unit_type}
         visible={isDistanceUnitVisible}

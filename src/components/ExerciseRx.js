@@ -1,26 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { Text } from 'native-base'
 import { RoutineExercise } from '_api'
-import { getUser } from '_state/reducers/auth'
 import { getFormattedDuration } from '_utils/time-utils'
-import { User } from '_api'
+import { getDistanceUnitTypeLabel, getWeightUnitTypeLabel } from '_utils/units'
 
 const ExerciseRx = ({ exercise, ...rest }) => {
-  const user = useSelector(getUser)
-
   const formattedWeight =
     exercise.weight === 0
       ? ''
-      : `${exercise.weight} ${User.getWeightUnitTypeLabel(user)}`
+      : `${exercise.weight} ${getWeightUnitTypeLabel(
+          exercise.weight_unit_type
+        )}`
 
   const description = ((categoryType) => {
     switch (categoryType) {
       case RoutineExercise.CATEGORY_TYPE_TIME:
         return getFormattedDuration(exercise.quantity)
       case RoutineExercise.CATEGORY_TYPE_DISTANCE:
-        return `${exercise.quantity} ${User.getDistanceUnitTypeLabel(user)}`
+        return `${exercise.quantity} ${getDistanceUnitTypeLabel(
+          exercise.distance_unit_type
+        )}`
       default:
         return `${exercise.quantity} reps`
     }

@@ -3,40 +3,17 @@ import firebase from 'firebase'
 import axios from 'axios'
 import { transformYupToFormikError } from '_api/utils/yup'
 import { getUrl } from '_api/utils/url'
-import { buildSelectOptions } from '_utils/select-options'
+import { UNITS_OF_MEASUREMENT } from '_utils/units'
 
 export const URL = `${getUrl()}/users`
-
-export const SYSTEM_OF_MEASUREMENT_METRIC = 'metric'
-export const SYSTEM_OF_MEASUREMENT_IMPERIAL = 'imperial'
-
-export const SYSTEMS_OF_MEASUREMENT = [
-  SYSTEM_OF_MEASUREMENT_METRIC,
-  SYSTEM_OF_MEASUREMENT_IMPERIAL,
-]
-
-export const WEIGHT_UNIT_TYPE_LABELS = {
-  [SYSTEM_OF_MEASUREMENT_METRIC]: 'Kg',
-  [SYSTEM_OF_MEASUREMENT_IMPERIAL]: 'lb',
-}
-
-export const DISTANCE_UNIT_TYPE_LABELS = {
-  [SYSTEM_OF_MEASUREMENT_METRIC]: 'Km',
-  [SYSTEM_OF_MEASUREMENT_IMPERIAL]: 'mi',
-}
-
-export const WEIGHT_UNIT_TYPE_OPTS = buildSelectOptions(WEIGHT_UNIT_TYPE_LABELS)
-export const DISTANCE_UNIT_TYPE_OPTS = buildSelectOptions(
-  DISTANCE_UNIT_TYPE_LABELS
-)
 
 export const SCHEMA = Yup.object().shape({
   id: Yup.number(),
   uid: Yup.string().required(),
   email: Yup.string().trim().required(),
   verified: Yup.bool().required(),
-  weight_unit_type: Yup.mixed().oneOf(SYSTEMS_OF_MEASUREMENT),
-  distance_unit_type: Yup.mixed().oneOf(SYSTEMS_OF_MEASUREMENT),
+  weight_unit_type: Yup.mixed().oneOf(UNITS_OF_MEASUREMENT).required(),
+  distance_unit_type: Yup.mixed().oneOf(UNITS_OF_MEASUREMENT).required(),
   created_at: Yup.string(),
   updated_at: Yup.string(),
 })
@@ -130,9 +107,3 @@ export const verify = async () => {
 }
 
 export const verified = (user) => user && user.verified
-
-export const getWeightUnitTypeLabel = (user) =>
-  WEIGHT_UNIT_TYPE_LABELS[user.weight_unit_type]
-
-export const getDistanceUnitTypeLabel = (user) =>
-  DISTANCE_UNIT_TYPE_LABELS[user.distance_unit_type]

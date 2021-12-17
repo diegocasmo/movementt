@@ -7,7 +7,7 @@ import { getIn } from 'formik'
 import { DecimalInput } from '_components/form'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
 import { getUser } from '_state/reducers/auth'
-import { User } from '_api'
+import { getWeightUnitTypeLabel } from '_utils/units'
 
 const TimeRoutineExerciseForm = ({ bag, disabled }) => {
   const user = useSelector(getUser)
@@ -27,7 +27,7 @@ const TimeRoutineExerciseForm = ({ bag, disabled }) => {
         </Col>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
-            label={`Weight (${User.getWeightUnitTypeLabel(user)})`}
+            label={`Weight (${getWeightUnitTypeLabel(user.weight_unit_type)})`}
             value={values.weight}
             disabled={disabled}
             error={getIn(errors, 'weight')}

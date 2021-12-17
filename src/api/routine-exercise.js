@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 import * as Exercise from '_api/exercise'
 import { transformYupToFormikError } from '_api/utils/yup'
 import { buildSelectOptions } from '_utils/select-options'
+import { UNITS_OF_MEASUREMENT } from '_utils/units'
 
 export const CATEGORY_TYPE_REPS = 'reps'
 export const CATEGORY_TYPE_TIME = 'time'
@@ -36,6 +37,8 @@ export const SCHEMA = Yup.object().shape({
     .required()
     .positive()
     .min(0),
+  weight_unit_type: Yup.mixed().oneOf(UNITS_OF_MEASUREMENT).required(),
+  distance_unit_type: Yup.mixed().oneOf(UNITS_OF_MEASUREMENT).required(),
   rest_seconds: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()

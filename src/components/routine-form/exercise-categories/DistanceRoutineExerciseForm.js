@@ -1,16 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { View, Grid, Col } from 'native-base'
 import { getIn } from 'formik'
 import { DecimalInput } from '_components/form'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
-import { getUser } from '_state/reducers/auth'
-import { User } from '_api'
+import { getDistanceUnitTypeLabel, getWeightUnitTypeLabel } from '_utils/units'
 
 const DistanceRoutineExerciseForm = ({ bag, disabled }) => {
-  const user = useSelector(getUser)
   const { errors, handleBlur, handleChange, touched, values } = bag
 
   return (
@@ -18,7 +15,9 @@ const DistanceRoutineExerciseForm = ({ bag, disabled }) => {
       <Grid>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
-            label={`Distance (${User.getDistanceUnitTypeLabel(user)})`}
+            label={`Distance (${getDistanceUnitTypeLabel(
+              values.distance_unit_type
+            )})`}
             value={values.quantity}
             disabled={disabled}
             error={getIn(errors, 'quantity')}
@@ -30,7 +29,9 @@ const DistanceRoutineExerciseForm = ({ bag, disabled }) => {
 
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
-            label={`Weight (${User.getWeightUnitTypeLabel(user)})`}
+            label={`Weight (${getWeightUnitTypeLabel(
+              values.weight_unit_type
+            )})`}
             value={values.weight}
             disabled={disabled}
             error={getIn(errors, 'weight')}
