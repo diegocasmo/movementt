@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Keyboard,
@@ -23,7 +23,6 @@ const RoutineForm = ({
   isSubmitting,
   onSubmit,
 }) => {
-  const [isDragging, setIsDragging] = useState(false)
   const formik = useFormik({
     initialValues: routine || Routine.DEFAULT,
     validationSchema: Routine.SCHEMA,
@@ -151,22 +150,19 @@ const RoutineForm = ({
           data={exercises}
           keyExtractor={({ id, position }) => `${id}-${position}`}
           onDragEnd={(params) => {
-            setIsDragging(false)
             handleDragEnd(params, formik)
           }}
-          renderItem={({ item, index, drag }) => (
+          renderItem={({ item, index, drag, isActive }) => (
             <OpacityDecorator>
               <TouchableOpacity
                 onLongPress={() => {
-                  setIsDragging(true)
                   drag()
                 }}
-                disabled={isSubmitting || isDragging}
+                disabled={isSubmitting || isActive}
               >
                 <RoutineExerciseForm
-                  previewMode={isDragging}
                   routineExercise={item}
-                  disabled={isSubmitting || isDragging}
+                  disabled={isSubmitting || isActive}
                   onChange={(item) => {
                     handleUpdateRoutineExercise(index, item, formik)
                   }}
