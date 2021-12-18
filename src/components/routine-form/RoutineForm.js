@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Keyboard,
@@ -13,7 +13,7 @@ import TimePicker from './pickers/TimePicker'
 import { Routine, RoutineExercise } from '_api'
 import RoutineExerciseForm from './RoutineExerciseForm'
 import DraggableFlatList, {
-  ScaleDecorator,
+  OpacityDecorator,
 } from 'react-native-draggable-flatlist'
 
 const RoutineForm = ({
@@ -23,6 +23,7 @@ const RoutineForm = ({
   isSubmitting,
   onSubmit,
 }) => {
+  const [isDragging, setIsDragging] = useState(false)
   const formik = useFormik({
     initialValues: routine || Routine.DEFAULT,
     validationSchema: Routine.SCHEMA,
@@ -150,17 +151,22 @@ const RoutineForm = ({
           data={exercises}
           keyExtractor={({ id, position }) => `${id}-${position}`}
           onDragEnd={(params) => {
+            setIsDragging(false)
             handleDragEnd(params, formik)
           }}
-          renderItem={({ item, index, drag, isActive }) => (
-            <ScaleDecorator>
+          renderItem={({ item, index, drag }) => (
+            <OpacityDecorator>
               <TouchableOpacity
-                onLongPress={drag}
-                disabled={isSubmitting || isActive}
+                onLongPress={() => {
+                  setIsDragging(true)
+                  drag()
+                }}
+                disabled={isSubmitting || isDragging}
               >
                 <RoutineExerciseForm
+                  previewMode={isDragging}
                   routineExercise={item}
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isDragging}
                   onChange={(item) => {
                     handleUpdateRoutineExercise(index, item, formik)
                   }}
@@ -169,7 +175,7 @@ const RoutineForm = ({
                   }}
                 />
               </TouchableOpacity>
-            </ScaleDecorator>
+            </OpacityDecorator>
           )}
         />
       </View>

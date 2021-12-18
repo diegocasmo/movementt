@@ -11,6 +11,7 @@ import MeasurementTypesForm from '_components/routine-form/MeasurementTypesForm'
 import { RoutineExercise } from '_api'
 
 const RoutineExerciseForm = ({
+  previewMode,
   disabled,
   onChange,
   onDelete,
@@ -67,20 +68,29 @@ const RoutineExerciseForm = ({
                 {routineExercise.name}
               </Text>
               <Button transparent disabled={disabled} onPress={handleDelete}>
-                <Icon style={styles.deleteIcon} name="md-trash-outline" />
+                {!previewMode && (
+                  <Icon style={styles.deleteIcon} name="md-trash-outline" />
+                )}
               </Button>
             </CardItem>
             <CardItem style={styles.bodyContainer}>
-              <Body style={styles.body}>
-                {renderRoutineExerciseForm(routineExercise.category_type, bag)}
-              </Body>
+              {!previewMode && (
+                <Body style={styles.body}>
+                  {renderRoutineExerciseForm(
+                    routineExercise.category_type,
+                    bag
+                  )}
+                </Body>
+              )}
             </CardItem>
             <CardItem style={styles.footer} footer>
-              <MeasurementTypesForm
-                routineExercise={routineExercise}
-                disabled={disabled}
-                bag={bag}
-              />
+              {!previewMode && (
+                <MeasurementTypesForm
+                  routineExercise={routineExercise}
+                  disabled={disabled}
+                  bag={bag}
+                />
+              )}
             </CardItem>
           </Card>
         )
@@ -89,7 +99,12 @@ const RoutineExerciseForm = ({
   )
 }
 
+RoutineExerciseForm.defaultProps = {
+  previewMode: false,
+}
+
 RoutineExerciseForm.propTypes = {
+  previewMode: PropTypes.bool,
   disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
