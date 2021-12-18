@@ -15,6 +15,7 @@ import {
 import { Icon } from '_components/Icon'
 import { UnitTypeForm } from './UnitTypeForm'
 import { showError } from '_utils/toast'
+import { useGetRoutinesQuery } from '_state/services/routine'
 import { getUser, update } from '_state/reducers/auth'
 import {
   DISTANCE_UNIT_TYPE_OPTS,
@@ -26,6 +27,9 @@ import {
 export const UnitSettings = () => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
+  const { refetch: refetchRoutines } = useGetRoutinesQuery(
+    'useGetRoutinesQuery'
+  )
 
   const [isWeightUnitVisible, setIsWeightUnitVisible] = useState(false)
   const [isDistanceUnitVisible, setIsDistanceUnitVisible] = useState(false)
@@ -40,6 +44,7 @@ export const UnitSettings = () => {
         update({ ...user, weight_unit_type: value })
       )
       unwrapResult(action)
+      refetchRoutines()
       setIsWeightUnitVisible(false)
     } catch (err) {
       showError(err.message)
@@ -56,6 +61,7 @@ export const UnitSettings = () => {
         update({ ...user, distance_unit_type: value })
       )
       unwrapResult(action)
+      refetchRoutines()
       setIsDistanceUnitVisible(false)
     } catch (err) {
       showError(err.message)

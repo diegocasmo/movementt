@@ -23,7 +23,7 @@ import { showError } from '_utils/toast'
 import { MS_IN_A_SEC } from '_utils/time-utils'
 
 const RoutineItemScreen = ({ navigation, route }) => {
-  const { routine } = useGetRoutinesQuery(undefined, {
+  const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
     selectFromResult: ({ data }) => ({
       routine: findRoutineById(data, route.params.routineId),
     }),

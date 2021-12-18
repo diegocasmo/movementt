@@ -33,7 +33,7 @@ import { useCreateWorkoutMutation } from '_state/services/workout'
 const SessionCreateScreen = ({ navigation, route }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [createWorkout] = useCreateWorkoutMutation()
-  const { routine } = useGetRoutinesQuery(undefined, {
+  const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
     selectFromResult: ({ data }) => ({
       routine: findRoutineById(data, route.params.routineId),
     }),

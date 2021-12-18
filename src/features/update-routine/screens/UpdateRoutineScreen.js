@@ -15,7 +15,7 @@ const UpdateRoutineScreen = ({
     params: { routineId = null, newlySelected = [] },
   },
 }) => {
-  const { routine } = useGetRoutinesQuery(undefined, {
+  const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
     selectFromResult: ({ data }) => ({
       routine: findRoutineById(data, routineId),
     }),

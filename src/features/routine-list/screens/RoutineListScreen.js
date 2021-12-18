@@ -23,7 +23,7 @@ const RoutineListScreen = ({ navigation }) => {
   const [query, setQuery] = useState('')
   const trimmedQuery = query.trim()
   const [destroyRoutine] = useDestroyRoutineMutation()
-  const { data, isLoading } = useGetRoutinesQuery()
+  const { data, isLoading } = useGetRoutinesQuery('useGetRoutinesQuery')
   const routines = getRoutines(data, query)
 
   const handleQueryChange = (value) => {
