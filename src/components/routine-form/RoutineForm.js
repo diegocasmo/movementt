@@ -12,7 +12,9 @@ import { TextInput, IntegerInput } from '../form'
 import TimePicker from './pickers/TimePicker'
 import { Routine, RoutineExercise } from '_api'
 import RoutineExerciseForm from './RoutineExerciseForm'
-import DraggableFlatList from 'react-native-draggable-flatlist'
+import DraggableFlatList, {
+  ScaleDecorator,
+} from 'react-native-draggable-flatlist'
 
 const RoutineForm = ({
   onAddExercises,
@@ -146,13 +148,15 @@ const RoutineForm = ({
       <View style={styles.middle}>
         <DraggableFlatList
           data={exercises}
-          renderItem={({ item, index, drag, isActive }) => {
-            return (
+          keyExtractor={({ id, position }) => `${id}-${position}`}
+          onDragEnd={(params) => {
+            handleDragEnd(params, formik)
+          }}
+          renderItem={({ item, index, drag, isActive }) => (
+            <ScaleDecorator>
               <TouchableOpacity
-                style={{ opacity: isActive ? 0.5 : 1 }}
-                activeOpacity={0.5}
                 onLongPress={drag}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isActive}
               >
                 <RoutineExerciseForm
                   routineExercise={item}
@@ -165,12 +169,8 @@ const RoutineForm = ({
                   }}
                 />
               </TouchableOpacity>
-            )
-          }}
-          keyExtractor={({ id, position }) => `${id}-${position}`}
-          onDragEnd={(params) => {
-            handleDragEnd(params, formik)
-          }}
+            </ScaleDecorator>
+          )}
         />
       </View>
 
