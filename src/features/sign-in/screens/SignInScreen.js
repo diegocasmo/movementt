@@ -22,9 +22,8 @@ const SignInScreen = ({ navigation }) => {
       const action = await dispatch(signIn(attrs))
       unwrapResult(action)
     } catch (err) {
-      showError(err.message)
-    } finally {
       setIsSigningIn(false)
+      showError(err.message)
     }
   }
 
