@@ -1,19 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Item, Input, Button, Text, Icon } from 'native-base'
+import { useDebounce } from '_hooks/use-debounce'
 
-const SearchForm = ({ onChangeText, onCreate, query, style, btnText }) => {
-  const handleClearQuery = () => {
-    onChangeText('')
+const SearchForm = ({
+  btnText,
+  debounceThresholdMs,
+  onChangeText,
+  onCreate,
+  query,
+  style,
+}) => {
+  const [value, setValue] = useState(query)
+  const debouncedValue = useDebounce(value, debounceThresholdMs)
+
+  useEffect(() => {
+    onChangeText(debouncedValue)
+  }, [debouncedValue]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleChangeText = (nextValue) => {
+    setValue(nextValue)
+  }
+
+  const handleClearText = () => {
+    handleChangeText('')
   }
 
   return (
     <View style={[styles.header, style]}>
       <Item regular style={styles.item}>
-        <Input placeholder="Search" onChangeText={onChangeText} value={query} />
-        {!!query && (
-          <Button transparent onPress={handleClearQuery}>
+        <Input
+          placeholder="Search"
+          onChangeText={handleChangeText}
+          value={value}
+        />
+        {!!value && (
+          <Button transparent onPress={handleClearText}>
             <Icon style={styles.icon} active name="md-close" />
           </Button>
         )}
@@ -27,12 +50,17 @@ const SearchForm = ({ onChangeText, onCreate, query, style, btnText }) => {
 
 export default SearchForm
 
+SearchForm.defaultProps = {
+  debounceThresholdMs: 250,
+}
+
 SearchForm.propTypes = {
+  btnText: PropTypes.string.isRequired,
+  debounceThresholdMs: PropTypes.number,
   onChangeText: PropTypes.func.isRequired,
   onCreate: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired,
   style: PropTypes.object,
-  btnText: PropTypes.string.isRequired,
 }
 
 const styles = StyleSheet.create({
