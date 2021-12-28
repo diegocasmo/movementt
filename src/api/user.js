@@ -42,7 +42,7 @@ export const signIn = async ({
   }
 
   try {
-    const response = await axios.get(`${URL}/me`)
+    const response = await axios.post(URL)
 
     return response.data
   } catch (err) {
