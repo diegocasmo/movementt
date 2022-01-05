@@ -125,8 +125,8 @@ const RoutineForm = ({
               <TimePicker
                 disabled={isSubmitting}
                 label="Round rest"
-                value={`${formik.values.rest_seconds}`}
-                onChange={formik.handleChange('rest_seconds')}
+                value={`${formik.values.rest_ms}`}
+                onChange={formik.handleChange('rest_ms')}
               />
             </Col>
           </Grid>

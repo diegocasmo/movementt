@@ -5,7 +5,7 @@ import * as RoutineExercise from '_api/routine-exercise'
 export const DEFAULT = {
   name: '',
   rounds: 4,
-  rest_seconds: 0,
+  rest_ms: 0,
   exercises: [],
 }
 
@@ -17,7 +17,7 @@ export const SCHEMA = Yup.object({
     .required()
     .positive()
     .min(1),
-  rest_seconds: Yup.number()
+  rest_ms: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()

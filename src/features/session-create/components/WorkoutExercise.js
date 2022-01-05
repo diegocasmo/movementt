@@ -10,7 +10,6 @@ import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
 import RoutineExerciseInstructions from './RoutineExerciseInstructions'
-import { secondsToMs } from '_utils/time-utils'
 import { RoutineExercise } from '_api'
 
 const WorkoutExercise = () => {
@@ -29,7 +28,7 @@ const WorkoutExercise = () => {
         <View transparent style={styles.btn}>
           <Countdown
             elapsedMs={elapsedMs}
-            targetMs={secondsToMs(exercise.quantity)}
+            targetMs={exercise.quantity}
             hasSound={sound}
             onCompleted={handleCompleted}
           />

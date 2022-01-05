@@ -22,7 +22,7 @@ const Countdown = ({
     if (elapsedMs > targetMs) {
       onCompleted()
     }
-  }, [elapsedMs])
+  }, [elapsedMs, targetMs, onCompleted])
 
   const speakCountdown = async (seconds) => {
     if (seconds > 5 || seconds < 1) return
@@ -35,7 +35,7 @@ const Countdown = ({
       onStopped: () => {
         silentObject.replayAsync()
       },
-      onError: (err) => {},
+      onError: () => {},
     })
   }
 
@@ -43,7 +43,7 @@ const Countdown = ({
     if (!hasSound) return
 
     speakCountdown(remainingSeconds)
-  }, [remainingSeconds])
+  }, [remainingSeconds, hasSound])
 
   return <Duration elapsedMs={remainingMs} />
 }

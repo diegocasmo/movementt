@@ -43,9 +43,9 @@ const DistanceRoutineExerciseForm = ({ bag, disabled }) => {
         <Col flexGrow={1}>
           <TimePicker
             label="Rest"
-            value={`${values.rest_seconds}`}
+            value={`${values.rest_ms}`}
             disabled={disabled}
-            onChange={handleChange('rest_seconds')}
+            onChange={handleChange('rest_ms')}
           />
         </Col>
       </Grid>

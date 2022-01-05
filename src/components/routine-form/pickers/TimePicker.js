@@ -9,7 +9,7 @@ const TimePicker = ({ label, onChange, value, allowNone = true, ...props }) => {
   const [visible] = useState(false)
 
   const handleChange = (option) => {
-    onChange(`${option.valueInSeconds}`)
+    onChange(`${option.valueInMs}`)
   }
 
   const noop = () => {}
@@ -17,7 +17,7 @@ const TimePicker = ({ label, onChange, value, allowNone = true, ...props }) => {
   const findTimeOpt = (value) => {
     const valueAsInt = parseInt(value, 10)
     return value === 0 || value === '0' || value
-      ? TIME_OPTS.find((opt) => opt.valueInSeconds === valueAsInt)
+      ? TIME_OPTS.find((opt) => opt.valueInMs === valueAsInt)
       : null
   }
 
@@ -26,7 +26,7 @@ const TimePicker = ({ label, onChange, value, allowNone = true, ...props }) => {
   // Remove 'None' from available options if it's value isn't allowed
   let options = TIME_OPTS
   if (!allowNone) {
-    options = options.filter(({ valueInSeconds }) => valueInSeconds !== 0)
+    options = options.filter(({ valueInMs }) => valueInMs !== 0)
   }
 
   return (

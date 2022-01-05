@@ -116,7 +116,7 @@ const session = createSlice({
         state.time_entries = [...time_entries, stopTimeEntry(lastTimeEntry)]
       } else if (isLastExercise) {
         const nextTimeEntryType =
-          routine.rest_seconds === 0 ? TYPE_EXERCISE : TYPE_ROUND_REST
+          routine.rest_ms === 0 ? TYPE_EXERCISE : TYPE_ROUND_REST
 
         state.curr_exercise_idx = 0
         state.rounds_completed += 1
@@ -130,7 +130,7 @@ const session = createSlice({
         ]
       } else {
         const nextTimeEntryType =
-          currExercise.rest_seconds === 0 ? TYPE_EXERCISE : TYPE_EXERCISE_REST
+          currExercise.rest_ms === 0 ? TYPE_EXERCISE : TYPE_EXERCISE_REST
 
         state.curr_exercise_idx += 1
         state.time_entries = [

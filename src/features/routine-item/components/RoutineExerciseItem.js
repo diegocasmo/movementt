@@ -5,7 +5,6 @@ import { View, Text, Card, CardItem, Body } from 'native-base'
 import Duration from '_components/time/Duration'
 import ExerciseIcon from '_components/ExerciseIcon'
 import ExerciseRx from '_components/ExerciseRx'
-import { MS_IN_A_SEC } from '_utils/time-utils'
 
 const RoutineExerciseItem = ({ exercise }) => {
   return (
@@ -19,10 +18,7 @@ const RoutineExerciseItem = ({ exercise }) => {
           <ExerciseRx exercise={exercise} />
           <View style={styles.restContainer}>
             <Text>Rest: </Text>
-            <Duration
-              style={styles.duration}
-              elapsedMs={exercise.rest_seconds * MS_IN_A_SEC}
-            />
+            <Duration style={styles.duration} elapsedMs={exercise.rest_ms} />
           </View>
         </Body>
       </CardItem>

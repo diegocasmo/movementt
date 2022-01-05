@@ -20,7 +20,6 @@ import {
 } from '_state/services/routine'
 import { findRoutineById } from '_state/selectors/routine'
 import { showError } from '_utils/toast'
-import { MS_IN_A_SEC } from '_utils/time-utils'
 
 const RoutineItemScreen = ({ navigation, route }) => {
   const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
@@ -72,12 +71,9 @@ const RoutineItemScreen = ({ navigation, route }) => {
 
           <Text style={styles.routineDetail}>Name: {routine.name}</Text>
           <Text style={styles.routineDetail}>Rounds: {routine.rounds}</Text>
-          <View style={styles.restSeconds}>
+          <View style={styles.rest}>
             <Text style={styles.routineDetail}>Round rest:&nbsp;</Text>
-            <Duration
-              style={styles.duration}
-              elapsedMs={routine.rest_seconds * MS_IN_A_SEC}
-            />
+            <Duration style={styles.duration} elapsedMs={routine.rest_ms} />
           </View>
 
           <H2 style={styles.h2}>Exercises ({routine.exercises.length})</H2>
@@ -150,7 +146,7 @@ const styles = StyleSheet.create({
   h2: {
     marginBottom: 12,
   },
-  restSeconds: {
+  rest: {
     flexDirection: 'row',
   },
   duration: {

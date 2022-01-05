@@ -12,7 +12,6 @@ import {
 import { StyleSheet } from 'react-native'
 import { View, Button, Text } from 'native-base'
 import Countdown from '_components/time/Countdown'
-import { secondsToMs } from '_utils/time-utils'
 import ExerciseRx from '_components/ExerciseRx'
 import { TimeEntry } from '_api'
 
@@ -22,22 +21,21 @@ export const CountdownRest = ({ onComplete }) => {
   const timeEntry = useSelector(getCurrTimeEntry)
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
 
-  // Rest seconds configuration based on exercise/round rest
-  const { rest_seconds: prevExerciseRestSeconds = 0 } =
-    useSelector(getPrevExercise)
-  const { rest_seconds: roundRestSeconds = 0 } = useSelector(getRoutine)
+  // Rest ms configuration based on exercise/round rest
+  const { rest_ms: prevExerciseRestMs = 0 } = useSelector(getPrevExercise)
+  const { rest_ms: roundRestMs = 0 } = useSelector(getRoutine)
 
-  const restSeconds =
+  const restMs =
     timeEntry.type === TimeEntry.TYPE_EXERCISE_REST
-      ? prevExerciseRestSeconds
-      : roundRestSeconds
+      ? prevExerciseRestMs
+      : roundRestMs
 
   return (
     <View style={styles.container}>
       <Button transparent style={styles.btn} onPress={onComplete}>
         <Countdown
           elapsedMs={elapsedMs}
-          targetMs={secondsToMs(restSeconds)}
+          targetMs={restMs}
           hasSound={sound}
           onCompleted={onComplete}
         />

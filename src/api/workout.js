@@ -11,7 +11,7 @@ export const WORKOUT_SCHEMA = Yup.object({
     .required()
     .positive()
     .min(1),
-  rest_seconds: Yup.number()
+  rest_ms: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
@@ -51,7 +51,7 @@ export const build = async (session) => {
       WORKOUT_SCHEMA.cast({
         name: routine.name,
         rounds: routine.rounds,
-        rest_seconds: routine.rest_seconds,
+        rest_ms: routine.rest_ms,
         elapsed_ms: elapsedMs,
         rounds_completed: roundsCompleted,
         started_at: new Date(startedAt),

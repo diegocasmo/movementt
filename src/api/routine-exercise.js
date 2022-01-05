@@ -39,7 +39,7 @@ export const SCHEMA = Yup.object().shape({
     .min(0),
   weight_unit_type: Yup.mixed().oneOf(UNITS_OF_MEASUREMENT).required(),
   distance_unit_type: Yup.mixed().oneOf(UNITS_OF_MEASUREMENT).required(),
-  rest_seconds: Yup.number()
+  rest_ms: Yup.number()
     .transform((v) => (isNaN(v) ? -1 : v))
     .required()
     .positive()
@@ -69,7 +69,7 @@ export const build = async (exercise) => {
       movement_type: Exercise.MOVEMENT_TYPE_PUSH,
       quantity: 10,
       weight: 0,
-      rest_seconds: 0,
+      rest_ms: 0,
       position: 0,
       ...exercise,
     })
