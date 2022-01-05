@@ -5,7 +5,6 @@ import { View, Text } from 'native-base'
 import { RoutineExercise } from '_api'
 import Duration from '_components/time/Duration'
 import { getDistanceUnitTypeLabel, getWeightUnitTypeLabel } from '_utils/units'
-import { MS_IN_A_SEC } from '_utils/time-utils'
 
 const ExerciseRx = ({ exercise, textStyle, style, ...rest }) => {
   const formattedWeight =
@@ -21,7 +20,7 @@ const ExerciseRx = ({ exercise, textStyle, style, ...rest }) => {
         return (
           <Duration
             style={[styles.duration, textStyle]}
-            elapsedMs={exercise.quantity * MS_IN_A_SEC}
+            elapsedMs={exercise.quantity}
           />
         )
       case RoutineExercise.CATEGORY_TYPE_DISTANCE:

@@ -3,6 +3,7 @@ import * as Exercise from '_api/exercise'
 import { transformYupToFormikError } from '_api/utils/yup'
 import { buildSelectOptions } from '_utils/select-options'
 import { UNITS_OF_MEASUREMENT } from '_utils/units'
+import { MS_IN_A_SEC } from '_utils/time-utils'
 
 export const CATEGORY_TYPE_REPS = 'reps'
 export const CATEGORY_TYPE_TIME = 'time'
@@ -79,7 +80,7 @@ export const build = async (exercise) => {
     return ((routineExercise) => {
       switch (routineExercise.category_type) {
         case CATEGORY_TYPE_TIME:
-          return { ...routineExercise, quantity: 30 }
+          return { ...routineExercise, quantity: 30 * MS_IN_A_SEC }
         case CATEGORY_TYPE_DISTANCE:
           return { ...routineExercise, quantity: 1 }
         default:

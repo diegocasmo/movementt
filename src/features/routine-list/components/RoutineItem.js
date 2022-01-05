@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native'
 import { Body, Button, Card, CardItem, Text, View } from 'native-base'
 import RoutineActions from '_components/RoutineActions'
 import { ExerciseNames } from '_components/ExerciseNames'
-import { Routine } from '_api'
 import { showError } from '_utils/toast'
 
 const RoutineItem = ({
