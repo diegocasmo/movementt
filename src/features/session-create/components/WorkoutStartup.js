@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import Countdown from '_components/time/Countdown'
+import { CountdownButton } from '_components/time/CountdownButton'
 import { useInterval } from '_hooks/use-interval'
 import { View, Button, Text, Icon } from 'native-base'
 import { now, getTotalEllapsedMs } from '_utils/time-utils'
@@ -59,24 +59,20 @@ const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
       <Button style={styles.btnClose} transparent onPress={handleQuit}>
         <Icon style={styles.icon} active name="md-close" />
       </Button>
-      <Button
-        transparent
-        style={styles.countdownBtn}
+      <CountdownButton
+        elapsedMs={state.elapsedMs}
+        isPlaying={!!state.startAt}
+        key={state.startAt}
+        onCompleted={onStartupCompleted}
         onPress={handleToggleStartAt}
+        targetMs={10000}
       >
-        {state.startAt && (
-          <Countdown
-            elapsedMs={state.elapsedMs}
-            targetMs={10000}
-            onCompleted={onStartupCompleted}
-          />
-        )}
         {state.startAt ? (
           <Text style={styles.countdownText}>Tab to pause</Text>
         ) : (
           <Text style={styles.countdownText}>Tab to resume</Text>
         )}
-      </Button>
+      </CountdownButton>
       <Text style={styles.routineName} numberOfLines={2}>
         {name}
       </Text>
@@ -116,18 +112,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: 'black',
     fontWeight: 'bold',
-  },
-  countdownBtn: {
-    width: 300,
-    height: 300,
-    borderRadius: 300,
-    borderColor: 'black',
-    borderWidth: 3,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   countdownText: {
     color: 'black',

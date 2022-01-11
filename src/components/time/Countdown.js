@@ -10,10 +10,10 @@ silentObject.loadAsync(require('../../../assets/1-second-of-silence.mp3'))
 
 const Countdown = ({
   elapsedMs,
-  targetMs,
-  onCompleted,
-  thresholdMs = 500,
   hasSound = true,
+  onCompleted,
+  targetMs,
+  thresholdMs = 500,
 }) => {
   const remainingMs = targetMs - elapsedMs + thresholdMs
   const remainingSeconds = parseInt(msToSeconds(remainingMs))
@@ -52,8 +52,8 @@ export default Countdown
 
 Countdown.propTypes = {
   elapsedMs: PropTypes.number.isRequired,
-  targetMs: PropTypes.number.isRequired,
-  onCompleted: PropTypes.func.isRequired,
-  thresholdMs: PropTypes.number,
   hasSound: PropTypes.bool,
+  onCompleted: PropTypes.func.isRequired,
+  targetMs: PropTypes.number.isRequired,
+  thresholdMs: PropTypes.number,
 }
