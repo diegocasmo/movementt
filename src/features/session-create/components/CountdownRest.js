@@ -10,8 +10,8 @@ import {
   hasSound,
 } from '_state/reducers/session'
 import { StyleSheet } from 'react-native'
-import { View, Button, Text } from 'native-base'
-import Countdown from '_components/time/Countdown'
+import { View, Text } from 'native-base'
+import { CountdownButton } from '_components/time/CountdownButton'
 import ExerciseRx from '_components/ExerciseRx'
 import { TimeEntry } from '_api'
 
@@ -32,15 +32,15 @@ export const CountdownRest = ({ onComplete }) => {
 
   return (
     <View style={styles.container}>
-      <Button transparent style={styles.btn} onPress={onComplete}>
-        <Countdown
-          elapsedMs={elapsedMs}
-          targetMs={restMs}
-          hasSound={sound}
-          onCompleted={onComplete}
-        />
+      <CountdownButton
+        elapsedMs={elapsedMs}
+        onCompleted={onComplete}
+        onPress={onComplete}
+        targetMs={restMs}
+        hasSound={sound}
+      >
         <Text style={styles.btnText}>Tab to skip</Text>
-      </Button>
+      </CountdownButton>
       <Text style={styles.text}>Rest</Text>
       <View style={styles.exerciseNameContainer}>
         <Text style={styles.exerciseName} numberOfLines={2}>
@@ -61,18 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  btn: {
-    width: 300,
-    height: 300,
-    borderRadius: 300,
-    borderColor: 'black',
-    borderWidth: 3,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   btnText: {
     color: 'black',
