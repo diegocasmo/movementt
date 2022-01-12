@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   getCurrExercise,
   getCurrTimeEntryElapsedMs,
+  isRunning,
   completeExercise,
   hasSound,
 } from '_state/reducers/session'
@@ -16,6 +17,7 @@ const WorkoutExercise = () => {
   const dispatch = useDispatch()
   const exercise = useSelector(getCurrExercise)
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
+  const running = useSelector(isRunning)
   const sound = useSelector(hasSound)
 
   const handleCompleted = () => {
@@ -28,6 +30,7 @@ const WorkoutExercise = () => {
         <CountdownButton
           elapsedMs={elapsedMs}
           hasSound={sound}
+          isPlaying={running}
           onCompleted={handleCompleted}
           targetMs={exercise.quantity}
         />

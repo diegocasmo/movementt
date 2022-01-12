@@ -8,6 +8,7 @@ import {
   getPrevExercise,
   getRoutine,
   hasSound,
+  isRunning,
 } from '_state/reducers/session'
 import { StyleSheet } from 'react-native'
 import { View, Text } from 'native-base'
@@ -20,6 +21,7 @@ export const CountdownRest = ({ onComplete }) => {
   const exercise = useSelector(getCurrExercise)
   const timeEntry = useSelector(getCurrTimeEntry)
   const elapsedMs = useSelector(getCurrTimeEntryElapsedMs)
+  const running = useSelector(isRunning)
 
   // Rest ms configuration based on exercise/round rest
   const { rest_ms: prevExerciseRestMs = 0 } = useSelector(getPrevExercise)
@@ -33,11 +35,12 @@ export const CountdownRest = ({ onComplete }) => {
   return (
     <View style={styles.container}>
       <CountdownButton
+        isPlaying={running}
         elapsedMs={elapsedMs}
+        hasSound={sound}
         onCompleted={onComplete}
         onPress={onComplete}
         targetMs={restMs}
-        hasSound={sound}
       >
         <Text style={styles.btnText}>Tab to skip</Text>
       </CountdownButton>

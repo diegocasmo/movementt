@@ -62,6 +62,7 @@ const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
       <CountdownButton
         elapsedMs={state.elapsedMs}
         isPlaying={!!state.startAt}
+        showCountdown={!!state.startAt}
         key={state.startAt}
         onCompleted={onStartupCompleted}
         onPress={handleToggleStartAt}

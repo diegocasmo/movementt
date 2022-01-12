@@ -14,6 +14,7 @@ export const CountdownButton = ({
   key,
   onCompleted,
   onPress = () => {},
+  showCountdown = true,
   size = 300,
   targetMs,
   thresholdMs = 500,
@@ -33,7 +34,7 @@ export const CountdownButton = ({
       >
         {() => (
           <View style={styles.children}>
-            {isPlaying && (
+            {showCountdown && (
               <Countdown
                 elapsedMs={elapsedMs}
                 hasSound={hasSound}
@@ -58,6 +59,7 @@ CountdownButton.propTypes = {
   key: PropTypes.number,
   onCompleted: PropTypes.func.isRequired,
   onPress: PropTypes.func,
+  showCountdown: PropTypes.bool,
   size: PropTypes.number,
   targetMs: PropTypes.number.isRequired,
   thresholdMs: PropTypes.number,
