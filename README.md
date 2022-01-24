@@ -4,6 +4,8 @@ Create and execute custom interval training style workouts.
 
 ## Installation
 
+- Install [asdf](https://github.com/asdf-vm/asdf)
+- Run `asdf install`
 - Install the Expo CLI `yarn global add expo-cli`
 - Run `yarn install` to install dependencies
 - Copy the `.env.example` file and rename it to the `.env`
