@@ -24,7 +24,7 @@
     "expo-speech": "~10.0.3",
     "firebase": "8.2.3",
     "formik": "^2.2.9",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "native-base": "^2.15.2",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
