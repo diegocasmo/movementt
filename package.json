@@ -22,6 +22,7 @@
     "expo-av": "~10.2.0",
     "expo-font": "~10.0.4",
     "expo-speech": "~10.1.0",
+    "expo-updates": "~0.11.6",
     "firebase": "8.2.3",
     "formik": "^2.2.9",
     "moment": "^2.29.2",

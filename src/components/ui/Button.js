@@ -12,22 +12,19 @@ export const Button = ({
   onPress,
   style,
   variant,
-}) => {
-  const iconOnly = icon && !children
-
-  return (
-    <NativeBaseButton
-      {...transformPropToBoolean(colorScheme)}
-      {...transformPropToBoolean(variant)}
-      style={style}
-      onPress={onPress}
-      disabled={isLoading}
-    >
-      {isLoading && <Spinner color="white" size="small" />}
-      {iconOnly ? icon : <Text>{children}</Text>}
-    </NativeBaseButton>
-  )
-}
+}) => (
+  <NativeBaseButton
+    {...transformPropToBoolean(colorScheme)}
+    {...transformPropToBoolean(variant)}
+    style={style}
+    onPress={onPress}
+    disabled={isLoading}
+  >
+    {isLoading && <Spinner color="white" size="small" />}
+    {icon}
+    {children && <Text>{children}</Text>}
+  </NativeBaseButton>
+)
 
 Button.defaultProps = {
   colorScheme: 'primary',
