@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { View, H1, Button, Text, Spinner, Grid, Col } from 'native-base'
+import { View, H1, Grid, Col } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { useFormik, getIn } from 'formik'
 import Modal from '_components/Modal'
 import { TextInput, ModalPickerInput } from '_components/form'
@@ -58,26 +59,17 @@ const ExerciseForm = ({
       </Grid>
 
       <View style={styles.actions}>
-        <Button
-          light
-          style={styles.btn}
-          onPress={onCancel}
-          disabled={isSubmitting}
-        >
-          <Text>Cancel</Text>
+        <Button colorScheme="light" style={styles.btn} onPress={onCancel}>
+          Cancel
         </Button>
 
         <Button
-          primary
           style={styles.btn}
-          disabled={!isValid || isSubmitting}
+          isDisabled={!isValid}
+          isLoading={isSubmitting}
           onPress={formik.handleSubmit}
         >
-          {isSubmitting ? (
-            <Spinner color="white" size="small" />
-          ) : (
-            <Text>{exercise.created_at ? 'Update' : 'Create'}</Text>
-          )}
+          {exercise.created_at ? 'Update' : 'Create'}
         </Button>
       </View>
     </Modal>

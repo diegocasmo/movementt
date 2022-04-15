@@ -17,11 +17,16 @@ const GuestWelcomeScreen = ({ navigation }) => {
   return (
     <Layout>
       <ImageLogo style={styles.image} />
-      <Button style={styles.button} onPress={handlePressOnSignIn}>
+      <Button
+        variant="block"
+        style={styles.button}
+        onPress={handlePressOnSignIn}
+      >
         Sign In
       </Button>
       <Button
         colorScheme="light"
+        variant="block"
         style={styles.button}
         onPress={handlePressOnSignUp}
       >

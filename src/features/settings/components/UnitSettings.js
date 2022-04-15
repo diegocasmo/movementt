@@ -2,17 +2,9 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
-import {
-  Body,
-  Button,
-  Left,
-  ListItem,
-  Right,
-  Separator,
-  Text,
-  View,
-} from 'native-base'
+import { Body, Left, ListItem, Right, Separator, Text, View } from 'native-base'
 import { Icon } from '_components/Icon'
+import { Button } from '_components/ui/Button'
 import { UnitTypeForm } from './UnitTypeForm'
 import { showError } from '_utils/toast'
 import { useGetRoutinesQuery } from '_state/services/routine'
@@ -83,9 +75,7 @@ export const UnitSettings = () => {
         }}
       >
         <Left>
-          <Button>
-            <Icon color="white" name="md-barbell-outline" />
-          </Button>
+          <Button icon={<Icon color="white" name="md-barbell-outline" />} />
         </Left>
         <Body>
           <Text>Weight unit</Text>
@@ -105,9 +95,7 @@ export const UnitSettings = () => {
         }}
       >
         <Left>
-          <Button>
-            <Icon color="white" name="md-location" />
-          </Button>
+          <Button icon={<Icon color="white" name="md-location" />} />
         </Left>
         <Body>
           <Text>Distance unit</Text>

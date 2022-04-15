@@ -1,16 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import {
-  Button,
-  Container,
-  Content,
-  H1,
-  H2,
-  Text,
-  View,
-  Spinner,
-} from 'native-base'
+import { Container, Content, H1, H2, Text, View, Spinner } from 'native-base'
 import Duration from '_components/time/Duration'
 import RoutineExerciseItem from '../components/RoutineExerciseItem'
 import RoutineActions from '_components/RoutineActions'
@@ -20,6 +11,7 @@ import {
 } from '_state/services/routine'
 import { findRoutineById } from '_state/selectors/routine'
 import { showError } from '_utils/toast'
+import { Button } from '_components/ui/Button'
 
 const RoutineItemScreen = ({ navigation, route }) => {
   const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
@@ -97,8 +89,8 @@ const RoutineItemScreen = ({ navigation, route }) => {
       </Content>
 
       <View style={[styles.content, styles.bottom]}>
-        <Button block onPress={handleStart}>
-          <Text>Start Routine</Text>
+        <Button variant="block" onPress={handleStart}>
+          Start Routine
         </Button>
       </View>
     </Container>

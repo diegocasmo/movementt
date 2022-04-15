@@ -94,6 +94,7 @@ const EmailAndPasswordForm = ({
             )}
 
             <Button
+              variant="block"
               style={styles.button}
               isLoading={isSubmitting}
               onPress={handleSubmit}

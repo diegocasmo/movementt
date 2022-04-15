@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { StyleSheet } from 'react-native'
 import { Button as NativeBaseButton, Text, Spinner } from 'native-base'
 
-const transformPropToBoolean = (k) => ({ [k]: true })
+const transformPropToBoolean = (k) => (k ? { [k]: true } : {})
 
 export const Button = ({
   children,
   colorScheme,
   icon,
+  isDisabled,
   isLoading,
   onPress,
   style,
@@ -18,9 +20,9 @@ export const Button = ({
     {...transformPropToBoolean(variant)}
     style={style}
     onPress={onPress}
-    disabled={isLoading}
+    disabled={isLoading || isDisabled}
   >
-    {isLoading && <Spinner color="white" size="small" />}
+    {isLoading && <Spinner style={styles.spinner} color="white" size="small" />}
     {icon}
     {children && <Text>{children}</Text>}
   </NativeBaseButton>
@@ -28,16 +30,23 @@ export const Button = ({
 
 Button.defaultProps = {
   colorScheme: 'primary',
+  isDisabled: false,
   isLoading: false,
-  variant: 'block',
 }
 
 Button.propTypes = {
   children: PropTypes.node,
-  colorScheme: PropTypes.oneOf(['primary', 'transparent']),
+  colorScheme: PropTypes.oneOf(['primary', 'transparent', 'danger', 'light']),
   icon: PropTypes.node,
+  isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   onPress: PropTypes.func,
   style: PropTypes.object,
   variant: PropTypes.oneOf(['block']),
 }
+
+const styles = StyleSheet.create({
+  spinner: {
+    marginRight: -10,
+  },
+})

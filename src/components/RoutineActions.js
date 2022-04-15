@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import { ActionSheet, Button, Spinner } from 'native-base'
+import { ActionSheet, Spinner } from 'native-base'
 import { Icon } from '_components/Icon'
+import { Button } from '_components/ui/Button'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1
@@ -53,12 +54,11 @@ const RoutineActions = ({ destroying, routine, onUpdate, onDestroy }) => {
 
   return (
     <Button
-      transparent
+      colorScheme="transparent"
       style={styles.actionsBtn}
       onPress={handlePressOnActions}
-    >
-      <Icon style={styles.actionBtn} name="md-ellipsis-vertical" />
-    </Button>
+      icon={<Icon style={styles.actionBtn} name="md-ellipsis-vertical" />}
+    />
   )
 }
 

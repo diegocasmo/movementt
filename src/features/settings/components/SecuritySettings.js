@@ -4,7 +4,6 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import PropTypes from 'prop-types'
 import {
   Body,
-  Button,
   Left,
   ListItem,
   Right,
@@ -14,6 +13,7 @@ import {
   View,
 } from 'native-base'
 import { Icon } from '_components/Icon'
+import { Button } from '_components/ui/Button'
 import { showError } from '_utils/toast'
 import { signOut } from '_state/reducers/auth'
 
@@ -43,9 +43,10 @@ export const SecuritySettings = ({ navigation }) => {
       </Separator>
       <ListItem icon onPress={handlePressOnUpdatePassword}>
         <Left>
-          <Button>
-            <Icon color="white" name="md-lock-closed-outline" />
-          </Button>
+          <Button
+            colorScheme="primary"
+            icon={<Icon color="white" name="md-lock-closed-outline" />}
+          />
         </Left>
         <Body>
           <Text>Update password</Text>
@@ -53,9 +54,10 @@ export const SecuritySettings = ({ navigation }) => {
       </ListItem>
       <ListItem icon disabled={isSigningOut} onPress={handlePressOnSignOut}>
         <Left>
-          <Button danger>
-            <Icon color="white" name="md-log-out-outline" />
-          </Button>
+          <Button
+            colorScheme="danger"
+            icon={<Icon color="white" name="md-log-out-outline" />}
+          />
         </Left>
         <Body>
           <Text>Sign out</Text>
