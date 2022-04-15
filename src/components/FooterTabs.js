@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Footer, FooterTab, Button } from 'native-base'
+import { Footer, FooterTab } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { Icon } from '_components/Icon'
 
 const FooterTabs = ({ state, navigation }) => {
@@ -34,13 +35,17 @@ const FooterTabs = ({ state, navigation }) => {
       }
 
       return (
-        <Button vertical onPress={onPress} key={index}>
-          <Icon
-            active
-            style={isFocused ? styles.activeIcon : {}}
-            name={getIconName(route)}
-          />
-        </Button>
+        <Button
+          colorScheme="transparent"
+          onPress={onPress}
+          key={index}
+          icon={
+            <Icon
+              style={[styles.icon, isFocused ? styles.activeIcon : {}]}
+              name={getIconName(route)}
+            />
+          }
+        />
       )
     })
   }
@@ -58,7 +63,11 @@ FooterTabs.propTypes = {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    opacity: 0.5,
+  },
   activeIcon: {
+    opacity: 1,
     color: 'black',
   },
 })

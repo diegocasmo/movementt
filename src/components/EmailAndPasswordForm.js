@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Form, Grid, Col, Button, Text, Spinner } from 'native-base'
+import { Form, Grid, Col } from 'native-base'
+import { Button } from '_components/ui/Button'
 import * as Yup from 'yup'
 import { Formik, getIn } from 'formik'
 import ImageLogo from './ImageLogo'
@@ -93,17 +94,11 @@ const EmailAndPasswordForm = ({
             )}
 
             <Button
-              block
-              primary
               style={styles.button}
-              disabled={isSubmitting}
+              isLoading={isSubmitting}
               onPress={handleSubmit}
             >
-              {isSubmitting ? (
-                <Spinner color="white" size="small" />
-              ) : (
-                <Text>{buttonText}</Text>
-              )}
+              {buttonText}
             </Button>
           </Form>
         )

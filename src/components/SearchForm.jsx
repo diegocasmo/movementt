@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { View, Item, Input, Button, Text, Icon } from 'native-base'
+import { View, Item, Input, Icon } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { useDebounce } from '_hooks/use-debounce'
 
 const SearchForm = ({
@@ -36,13 +37,15 @@ const SearchForm = ({
           value={value}
         />
         {!!value && (
-          <Button transparent onPress={handleClearText}>
-            <Icon style={styles.icon} active name="md-close" />
-          </Button>
+          <Button
+            colorScheme="transparent"
+            onPress={handleClearText}
+            icon={<Icon style={styles.icon} name="md-close" />}
+          />
         )}
       </Item>
-      <Button primary style={styles.btn} onPress={onCreate}>
-        <Text>{btnText}</Text>
+      <Button style={styles.btn} onPress={onCreate}>
+        {btnText}
       </Button>
     </View>
   )
