@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
-import { View, Button } from 'native-base'
+import { View } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { Icon } from '_components/Icon'
 import { getUser } from '_state/reducers/auth'
 import { RoutineExercise } from '_api'
@@ -31,62 +32,57 @@ const MeasurementTypesForm = ({ routineExercise, bag, disabled }) => {
   return (
     <View style={styles.container}>
       <Button
-        first
-        light
-        rounded
-        small
+        colorScheme="light"
+        size="small"
         style={[styles.btn, isCategoryReps ? styles.btnActive : {}]}
-        active={isCategoryReps}
-        disabled={disabled}
+        isDisabled={disabled}
+        icon={
+          <Icon
+            style={[styles.icon, isCategoryReps ? styles.iconActive : {}]}
+            name="md-repeat-sharp"
+            size={18}
+          />
+        }
         onPress={() => {
           handleChangeCategory(RoutineExercise.CATEGORY_TYPE_REPS)
         }}
-      >
-        <Icon
-          style={[styles.icon, isCategoryReps ? styles.iconActive : {}]}
-          name="md-repeat-sharp"
-          size={18}
-        />
-      </Button>
+      />
       <Button
-        light
-        rounded
-        small
+        colorScheme="light"
+        size="small"
         style={[
           styles.btn,
           styles.middle,
           isCategoryTime ? styles.btnActive : {},
         ]}
-        active={isCategoryTime}
-        disabled={disabled}
+        isDisabled={disabled}
+        icon={
+          <Icon
+            style={[styles.icon, isCategoryTime ? styles.iconActive : {}]}
+            name="md-time-outline"
+            size={18}
+          />
+        }
         onPress={() => {
           handleChangeCategory(RoutineExercise.CATEGORY_TYPE_TIME)
         }}
-      >
-        <Icon
-          style={[styles.icon, isCategoryTime ? styles.iconActive : {}]}
-          name="md-time-outline"
-          size={18}
-        />
-      </Button>
+      />
       <Button
-        last
-        light
-        rounded
-        small
+        colorScheme="light"
+        size="small"
         style={[styles.btn, isCategoryDistance ? styles.btnActive : {}]}
-        active={isCategoryDistance}
-        disabled={disabled}
+        isDisabled={disabled}
+        icon={
+          <Icon
+            style={[styles.icon, isCategoryDistance ? styles.iconActive : {}]}
+            name="md-location"
+            size={18}
+          />
+        }
         onPress={() => {
           handleChangeCategory(RoutineExercise.CATEGORY_TYPE_DISTANCE)
         }}
-      >
-        <Icon
-          style={[styles.icon, isCategoryDistance ? styles.iconActive : {}]}
-          name="md-location"
-          size={18}
-        />
-      </Button>
+      />
     </View>
   )
 }

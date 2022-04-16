@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import { Card, CardItem, Body, Text, Button } from 'native-base'
+import { Card, CardItem, Body, Text } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { Icon } from '_components/Icon'
 import { Formik } from 'formik'
 import RepsRoutineExerciseForm from './exercise-categories/RepsRoutineExerciseForm'
@@ -66,9 +67,14 @@ const RoutineExerciseForm = ({
               <Text style={styles.name} numberOfLines={1}>
                 {routineExercise.name}
               </Text>
-              <Button transparent disabled={disabled} onPress={handleDelete}>
-                <Icon style={styles.deleteIcon} name="md-trash-outline" />
-              </Button>
+              <Button
+                colorScheme="transparent"
+                isDisabled={disabled}
+                icon={
+                  <Icon style={styles.deleteIcon} name="md-trash-outline" />
+                }
+                onPress={handleDelete}
+              />
             </CardItem>
             <CardItem style={styles.bodyContainer}>
               <Body style={styles.body}>

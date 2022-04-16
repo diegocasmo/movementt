@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { View, Button } from 'native-base'
+import { View } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { msToSeconds } from '_utils/time-utils'
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import Countdown from '_components/time/Countdown'
@@ -11,7 +12,6 @@ export const CountdownButton = ({
   elapsedMs,
   hasSound,
   isPlaying = true,
-  key,
   onCompleted,
   onPress = () => {},
   showCountdown = true,
@@ -21,15 +21,14 @@ export const CountdownButton = ({
 }) => {
   return (
     <Button
+      colorScheme="transparent"
       style={[styles.btn, { width: size, height: size }]}
-      transparent
       onPress={onPress}
     >
       <CountdownCircleTimer
         colors={['#000']}
         duration={msToSeconds(targetMs + thresholdMs)}
         isPlaying={isPlaying}
-        key={key}
         size={size}
       >
         {() => (
@@ -56,7 +55,6 @@ CountdownButton.propTypes = {
   elapsedMs: PropTypes.number.isRequired,
   hasSound: PropTypes.bool,
   isPlaying: PropTypes.bool,
-  key: PropTypes.number,
   onCompleted: PropTypes.func.isRequired,
   onPress: PropTypes.func,
   showCountdown: PropTypes.bool,

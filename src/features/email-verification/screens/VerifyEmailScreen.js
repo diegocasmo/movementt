@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
-import { Container, H1, Button, Text, Spinner } from 'native-base'
+import { Container, H1, Text } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
-import {
-  verify,
-  sendVerification,
-  signOut,
-} from '_state/reducers/auth'
+import { verify, sendVerification, signOut } from '_state/reducers/auth'
 import { User } from '_api'
 
 const VerifyEmailScreen = () => {
@@ -67,43 +64,31 @@ const VerifyEmailScreen = () => {
         address. Click on the link in the email to get started with Movementt.
       </Text>
       <Button
-        success
-        block
+        colorScheme="success"
+        variant="block"
         style={styles.button}
-        disabled={isVerifying}
+        isLoading={isVerifying}
         onPress={handlePressOnDone}
       >
-        {isVerifying ? (
-          <Spinner color="white" size="small" />
-        ) : (
-          <Text>Done</Text>
-        )}
+        Done
       </Button>
       <Button
-        primary
-        block
+        colorScheme="primary"
+        variant="block"
         style={styles.button}
-        disabled={isSendingVerification}
+        isLoading={isSendingVerification}
         onPress={handlePressOnResend}
       >
-        {isSendingVerification ? (
-          <Spinner color="black" size="small" />
-        ) : (
-          <Text>Resend Email</Text>
-        )}
+        Resend Email
       </Button>
       <Button
-        light
-        block
+        colorScheme="light"
+        variant="block"
         style={styles.button}
-        disabled={isSigningOut}
+        isLoading={isSigningOut}
         onPress={handlePressOnCancel}
       >
-        {isSigningOut ? (
-          <Spinner color="black" size="small" />
-        ) : (
-          <Text>Cancel</Text>
-        )}
+        Cancel
       </Button>
     </Container>
   )

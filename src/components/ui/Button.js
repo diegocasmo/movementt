@@ -12,21 +12,27 @@ export const Button = ({
   isDisabled,
   isLoading,
   onPress,
+  size,
   style,
   variant,
-}) => (
-  <NativeBaseButton
-    {...transformPropToBoolean(colorScheme)}
-    {...transformPropToBoolean(variant)}
-    style={style}
-    onPress={onPress}
-    disabled={isLoading || isDisabled}
-  >
-    {isLoading && <Spinner style={styles.spinner} color="white" size="small" />}
-    {icon}
-    {children && <Text>{children}</Text>}
-  </NativeBaseButton>
-)
+}) => {
+  return (
+    <NativeBaseButton
+      {...transformPropToBoolean(size)}
+      {...transformPropToBoolean(colorScheme)}
+      {...transformPropToBoolean(variant)}
+      disabled={isLoading || isDisabled}
+      onPress={onPress}
+      style={style}
+    >
+      {isLoading && (
+        <Spinner style={styles.spinner} color="white" size="small" />
+      )}
+      {icon}
+      {children && <Text>{children}</Text>}
+    </NativeBaseButton>
+  )
+}
 
 Button.defaultProps = {
   colorScheme: 'primary',
@@ -36,12 +42,19 @@ Button.defaultProps = {
 
 Button.propTypes = {
   children: PropTypes.node,
-  colorScheme: PropTypes.oneOf(['primary', 'transparent', 'danger', 'light']),
+  colorScheme: PropTypes.oneOf([
+    'danger',
+    'light',
+    'primary',
+    'success',
+    'transparent',
+  ]),
   icon: PropTypes.node,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   onPress: PropTypes.func,
-  style: PropTypes.object,
+  size: PropTypes.oneOf(['small']),
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   variant: PropTypes.oneOf(['block']),
 }
 

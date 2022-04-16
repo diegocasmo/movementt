@@ -6,7 +6,8 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native'
-import { Button, Col, Grid, H1, Spinner, Text, View } from 'native-base'
+import { Col, Grid, H1, View } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { useFormik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import TimePicker from './pickers/TimePicker'
@@ -135,11 +136,10 @@ const RoutineForm = ({
             <H1>Exercises ({exerciseCount})</H1>
 
             <Button
-              primary
-              disabled={isSubmitting}
+              isDisabled={isSubmitting}
               onPress={() => onAddExercises(activeExercises)}
             >
-              <Text>+ Add</Text>
+              + Add
             </Button>
           </View>
         </View>
@@ -178,21 +178,13 @@ const RoutineForm = ({
 
       <View style={styles.bottom}>
         <Button
-          block
-          success
-          style={styles.submitBtn}
-          disabled={isSubmitting || !isValid}
+          colorScheme="success"
+          variant="block"
+          isDisabled={!isValid}
+          isLoading={isSubmitting}
           onPress={formik.handleSubmit}
         >
-          {isSubmitting ? (
-            <Spinner color="white" size="small" />
-          ) : (
-            <Text>
-              {Routine.isPeristed(routine)
-                ? 'Update Routine'
-                : 'Create Routine'}
-            </Text>
-          )}
+          {Routine.isPeristed(routine) ? 'Update Routine' : 'Create Routine'}
         </Button>
       </View>
     </View>
@@ -243,5 +235,4 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
-  submitBtn: {},
 })
