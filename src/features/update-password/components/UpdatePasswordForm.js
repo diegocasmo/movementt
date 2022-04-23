@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Form, Grid, Col, Button, Text, Spinner } from 'native-base'
+import { Form, Grid, Col } from 'native-base'
+import { Button } from '_components/ui/Button'
 import * as Yup from 'yup'
 import { PasswordInput } from '_components/form'
 import { Formik, getIn } from 'formik'
@@ -62,17 +63,12 @@ const EmailAndPasswordForm = ({ style, isSubmitting, onSubmit }) => {
             </Grid>
 
             <Button
-              block
-              primary
+              variant="block"
               style={styles.button}
-              disabled={isSubmitting}
+              isLoading={isSubmitting}
               onPress={handleSubmit}
             >
-              {isSubmitting ? (
-                <Spinner color="white" size="small" />
-              ) : (
-                <Text>Update Password</Text>
-              )}
+              Update Password
             </Button>
           </Form>
         )

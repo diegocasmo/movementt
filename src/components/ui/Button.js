@@ -11,9 +11,12 @@ export const Button = ({
   icon,
   isDisabled,
   isLoading,
+  isText,
   onPress,
   size,
   style,
+  styleSpinner,
+  styleText,
   variant,
 }) => {
   return (
@@ -26,10 +29,14 @@ export const Button = ({
       style={style}
     >
       {isLoading && (
-        <Spinner style={styles.spinner} color="white" size="small" />
+        <Spinner
+          style={[styles.spinner, styleSpinner]}
+          color="white"
+          size="small"
+        />
       )}
       {icon}
-      {children && <Text>{children}</Text>}
+      {isText ? <Text style={styleText}>{children}</Text> : children}
     </NativeBaseButton>
   )
 }
@@ -38,6 +45,7 @@ Button.defaultProps = {
   colorScheme: 'primary',
   isDisabled: false,
   isLoading: false,
+  isText: true,
 }
 
 Button.propTypes = {
@@ -52,9 +60,12 @@ Button.propTypes = {
   icon: PropTypes.node,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
+  isText: PropTypes.bool,
   onPress: PropTypes.func,
   size: PropTypes.oneOf(['small']),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  styleSpinner: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  styleText: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   variant: PropTypes.oneOf(['block']),
 }
 

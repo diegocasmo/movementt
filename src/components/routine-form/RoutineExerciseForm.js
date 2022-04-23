@@ -69,6 +69,7 @@ const RoutineExerciseForm = ({
               </Text>
               <Button
                 colorScheme="transparent"
+                style={styles.deleteBtn}
                 isDisabled={disabled}
                 icon={
                   <Icon style={styles.deleteIcon} name="md-trash-outline" />
@@ -119,8 +120,13 @@ const styles = StyleSheet.create({
   dragIcon: {
     color: 'black',
   },
-  deleteIcon: {
+  deleteBtn: {
+    position: 'relative',
     color: 'black',
+  },
+  deleteIcon: {
+    position: 'absolute',
+    right: 0,
   },
   bodyContainer: {
     paddingTop: 0,

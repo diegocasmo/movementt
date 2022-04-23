@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
 import { CountdownButton } from '_components/time/CountdownButton'
 import { useInterval } from '_hooks/use-interval'
-import { View, Button, Text, Icon } from 'native-base'
+import { View, Text, Icon } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { now, getTotalEllapsedMs } from '_utils/time-utils'
 import ExerciseRx from '_components/ExerciseRx'
 
@@ -56,7 +57,11 @@ const WorkoutStartup = ({ routine, onStartupCompleted, onQuit }) => {
 
   return (
     <View style={styles.container}>
-      <Button style={styles.btnClose} transparent onPress={handleQuit}>
+      <Button
+        colorScheme="transparent"
+        style={styles.btnClose}
+        onPress={handleQuit}
+      >
         <Icon style={styles.icon} active name="md-close" />
       </Button>
       <CountdownButton

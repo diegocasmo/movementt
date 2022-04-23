@@ -55,9 +55,9 @@ const RoutineActions = ({ destroying, routine, onUpdate, onDestroy }) => {
   return (
     <Button
       colorScheme="transparent"
-      style={styles.actionsBtn}
+      style={styles.btn}
       onPress={handlePressOnActions}
-      icon={<Icon style={styles.actionBtn} name="md-ellipsis-vertical" />}
+      icon={<Icon style={styles.icon} name="md-ellipsis-vertical" />}
     />
   )
 }
@@ -72,19 +72,12 @@ RoutineActions.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  actionsBtn: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  spinner: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  actionBtn: {
+  btn: {
     color: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'relative',
+  },
+  icon: {
+    position: 'absolute',
+    right: 0,
   },
 })

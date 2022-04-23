@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Body, Button, Card, CardItem, Text, View } from 'native-base'
+import { Body, Card, CardItem, Text, View } from 'native-base'
+import { Button } from '_components/ui/Button'
 import RoutineActions from '_components/RoutineActions'
 import { ExerciseNames } from '_components/ExerciseNames'
 import { showError } from '_utils/toast'
@@ -39,7 +40,12 @@ const RoutineItem = ({
   }
 
   return (
-    <Button transparent style={styles.container} onPress={handlePress}>
+    <Button
+      colorScheme="transparent"
+      style={styles.container}
+      isText={false}
+      onPress={handlePress}
+    >
       <Card style={[styles.card, destroying ? styles.opaque : {}]}>
         <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>

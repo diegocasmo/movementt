@@ -8,7 +8,8 @@ import {
   hasSound,
 } from '_state/reducers/session'
 import { StyleSheet } from 'react-native'
-import { View, Button, Text } from 'native-base'
+import { View, Text } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { CountdownButton } from '_components/time/CountdownButton'
 import RoutineExerciseInstructions from './RoutineExerciseInstructions'
 import { RoutineExercise } from '_api'
@@ -35,8 +36,13 @@ const WorkoutExercise = () => {
           targetMs={exercise.quantity}
         />
       ) : (
-        <Button transparent style={styles.btn} onPress={handleCompleted}>
-          <Text style={styles.btnText}>Done</Text>
+        <Button
+          colorScheme="transparent"
+          style={styles.btn}
+          styleText={styles.text}
+          onPress={handleCompleted}
+        >
+          Done
         </Button>
       )}
       <RoutineExerciseInstructions exercise={exercise} />
@@ -66,7 +72,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  btnText: {
+  text: {
     color: 'black',
     fontWeight: 'bold',
     fontSize: 52,

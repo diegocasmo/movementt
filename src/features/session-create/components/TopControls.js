@@ -10,7 +10,9 @@ import {
   hasSound,
 } from '_state/reducers/session'
 import { StyleSheet, Alert } from 'react-native'
-import { View, Button, Icon, Text } from 'native-base'
+import { View, Text } from 'native-base'
+import { Button } from '_components/ui/Button'
+import { Icon } from '_components/Icon'
 
 const TopControls = ({ onQuit }) => {
   const dispatch = useDispatch()
@@ -49,19 +51,27 @@ const TopControls = ({ onQuit }) => {
 
   return (
     <View style={styles.container}>
-      <Button style={styles.btnSound} transparent onPress={handleToggleSound}>
-        {sound ? (
-          <Icon style={styles.icon} active name="md-volume-high" />
-        ) : (
-          <Icon style={styles.icon} active name="md-volume-off" />
-        )}
-      </Button>
+      <Button
+        colorScheme="transparent"
+        style={styles.btnSound}
+        onPress={handleToggleSound}
+        icon={
+          sound ? (
+            <Icon style={styles.icon} name="md-volume-high" />
+          ) : (
+            <Icon style={styles.icon} name="md-volume-off" />
+          )
+        }
+      />
       <Text style={styles.text}>
         Round: {currRound}/{routine.rounds}
       </Text>
-      <Button style={styles.btnClose} transparent onPress={handleQuit}>
-        <Icon style={styles.icon} active name="md-close" />
-      </Button>
+      <Button
+        colorScheme="transparent"
+        style={styles.btnClose}
+        onPress={handleQuit}
+        icon={<Icon style={styles.icon} name="md-close" />}
+      />
     </View>
   )
 }

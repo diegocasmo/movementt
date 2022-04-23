@@ -7,7 +7,9 @@ import {
   getRoutine,
   getTotalElapsedMs,
 } from '_state/reducers/session'
-import { View, Text, Button, Icon, Spinner } from 'native-base'
+import { View, Text } from 'native-base'
+import { Button } from '_components/ui/Button'
+import { Icon } from '_components/Icon'
 import Duration from '_components/time/Duration'
 
 const WorkoutCompleted = ({ onConfirm, isLoading }) => {
@@ -24,32 +26,23 @@ const WorkoutCompleted = ({ onConfirm, isLoading }) => {
       </View>
       <View style={styles.middleContainer}>
         <Button
-          transparent
-          disabled={isLoading}
+          colorScheme="transparent"
           style={styles.checkBtn}
           onPress={onConfirm}
-        >
-          {isLoading ? (
-            <Spinner color="black" size="large" />
-          ) : (
-            <Icon style={styles.checkIcon} active name="md-checkmark" />
-          )}
-        </Button>
+          isDisabled={isLoading}
+          icon={<Icon style={styles.checkIcon} active name="md-checkmark" />}
+        />
         <Text style={styles.routineName} numberOfLines={2}>
           {routine.name}
         </Text>
         <Duration style={styles.duration} elapsedMs={elapsedMs} />
         <Button
-          success
+          colorScheme="success"
           style={styles.saveBtn}
-          disabled={isLoading}
           onPress={onConfirm}
+          isLoading={isLoading}
         >
-          {isLoading ? (
-            <Spinner color="white" size="small" />
-          ) : (
-            <Text>Save Workout</Text>
-          )}
+          Save Workout
         </Button>
       </View>
       <View style={styles.middleContainer}></View>
