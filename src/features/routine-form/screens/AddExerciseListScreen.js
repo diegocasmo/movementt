@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { StyleSheet, Keyboard } from 'react-native'
-import { Container, Content, View, Button, Text } from 'native-base'
+import { Container, Content, View } from 'native-base'
+import { Button } from '_components/ui/Button'
 import ExerciseList from '_components/ExerciseList'
 import { useGetExercisesQuery } from '_state/services/exercise'
 import { getExercises } from '_state/selectors/exercise'
@@ -66,12 +67,12 @@ const AddExerciseListScreen = ({
         </View>
         <View style={styles.bottom}>
           <Button
-            success
-            block
-            disabled={!hasNewlySelected}
+            colorScheme="success"
+            variant="block"
+            isDisabled={!hasNewlySelected}
             onPress={handleSubmit}
           >
-            <Text>Add {hasNewlySelected && `(+${newlySelected.length})`}</Text>
+            Add {hasNewlySelected && `(+${newlySelected.length})`}
           </Button>
         </View>
       </Content>

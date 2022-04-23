@@ -36,7 +36,8 @@ export const Button = ({
         />
       )}
       {icon}
-      {isText ? <Text style={styleText}>{children}</Text> : children}
+      {children &&
+        (isText ? <Text style={styleText}>{children}</Text> : children)}
     </NativeBaseButton>
   )
 }

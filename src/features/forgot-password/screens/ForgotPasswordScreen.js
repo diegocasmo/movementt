@@ -3,18 +3,9 @@ import { useDispatch } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import {
-  Button,
-  Col,
-  Container,
-  Content,
-  Form,
-  Grid,
-  Spinner,
-  Text,
-} from 'native-base'
+import { Col, Container, Content, Form, Grid, Text } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { Formik, getIn } from 'formik'
-import { User } from '_api'
 import { showError, showSuccess } from '_utils/toast'
 import { EmailInput } from '_components/form'
 import * as Yup from 'yup'
@@ -86,26 +77,21 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 </Grid>
 
                 <Button
-                  block
-                  primary
+                  variant="block"
                   style={styles.button}
-                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   onPress={handleSubmit}
                 >
-                  {isSubmitting ? (
-                    <Spinner color="white" size="small" />
-                  ) : (
-                    <Text>Send Email</Text>
-                  )}
+                  Send Email
                 </Button>
 
                 <Button
-                  block
-                  light
+                  colorScheme="light"
+                  variant="block"
                   style={styles.button}
                   onPress={handlePressOnSignIn}
                 >
-                  <Text>Go to Sign In</Text>
+                  Go to Sign In
                 </Button>
               </Form>
             )

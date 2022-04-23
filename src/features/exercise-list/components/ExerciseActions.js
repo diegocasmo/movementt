@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
-import { ActionSheet, Button, Spinner } from 'native-base'
+import { ActionSheet, Spinner } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { Icon } from '_components/Icon'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
@@ -52,9 +53,12 @@ const ExerciseActions = ({ destroying, exercise, onUpdate, onDestroy }) => {
   }
 
   return (
-    <Button transparent style={styles.btn} onPress={handlePressOnActions}>
-      <Icon style={styles.icon} name="md-ellipsis-vertical" />
-    </Button>
+    <Button
+      colorScheme="transparent"
+      style={styles.btn}
+      onPress={handlePressOnActions}
+      icon={<Icon style={styles.icon} name="md-ellipsis-vertical" />}
+    />
   )
 }
 
@@ -71,6 +75,8 @@ const styles = StyleSheet.create({
   btn: {
     justifyContent: 'flex-end',
     alignItems: 'center',
+    color: 'black',
+    position: 'relative',
   },
   spinner: {
     width: 40,
@@ -79,8 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    color: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'absolute',
+    right: 0,
   },
 })

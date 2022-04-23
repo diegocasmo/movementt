@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { View, H1, Button, Text, Spinner } from 'native-base'
+import { View, H1 } from 'native-base'
+import { Button } from '_components/ui/Button'
 import { Picker } from '@react-native-picker/picker'
 import Modal from '_components/Modal'
 
@@ -54,25 +55,20 @@ export const UnitTypeForm = ({
 
       <View style={styles.bottom}>
         <Button
+          colorScheme="light"
           style={styles.btn}
-          light
+          isDisabled={isSubmitting}
           onPress={handleCancel}
-          disabled={isSubmitting}
         >
-          <Text>Cancel</Text>
+          Cancel
         </Button>
 
         <Button
           style={styles.btn}
-          primary
-          disabled={isSubmitting}
+          isLoading={isSubmitting}
           onPress={handleSubmit}
         >
-          {isSubmitting ? (
-            <Spinner color="white" size="small" />
-          ) : (
-            <Text>Save</Text>
-          )}
+          Save
         </Button>
       </View>
     </Modal>

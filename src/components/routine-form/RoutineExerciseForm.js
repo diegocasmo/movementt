@@ -71,9 +71,7 @@ const RoutineExerciseForm = ({
                 colorScheme="transparent"
                 style={styles.deleteBtn}
                 isDisabled={disabled}
-                icon={
-                  <Icon style={styles.deleteIcon} name="md-trash-outline" />
-                }
+                icon={<Icon name="md-trash-outline" />}
                 onPress={handleDelete}
               />
             </CardItem>
@@ -121,12 +119,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   deleteBtn: {
-    position: 'relative',
     color: 'black',
-  },
-  deleteIcon: {
-    position: 'absolute',
-    right: 0,
   },
   bodyContainer: {
     paddingTop: 0,
