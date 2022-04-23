@@ -72,6 +72,12 @@ RoutineActions.propTypes = {
 }
 
 const styles = StyleSheet.create({
+  spinner: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   btn: {
     color: 'black',
   },
