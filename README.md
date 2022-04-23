@@ -5,6 +5,8 @@ Create and execute custom interval training style workouts.
 ## Installation
 
 - Install [asdf](https://github.com/asdf-vm/asdf)
+- Add `asdf` plugins
+  - Run `asdf plugin add nodejs`
 - Run `asdf install`
 - Install the Expo CLI `yarn global add expo-cli`
 - Run `yarn install` to install dependencies
