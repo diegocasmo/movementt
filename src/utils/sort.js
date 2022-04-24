@@ -7,6 +7,10 @@ export const sortAlphabetically = (list, attr = 'name') => {
   })
 }
 
-export const sortByPosition = (list, attr = 'position') => {
+export const sortByAscPosition = (list, attr = 'position') => {
   return [...list].sort((a, z) => a[attr] - z[attr])
+}
+
+export const sortByDescPosition = (list, attr = 'position') => {
+  return [...list].sort((a, z) => z[attr] - a[attr])
 }

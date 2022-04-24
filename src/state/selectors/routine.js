@@ -1,10 +1,10 @@
 import { search } from '_utils/fuzzy-search'
-import { sortAlphabetically, sortByPosition } from '_utils/sort'
+import { sortAlphabetically, sortByAscPosition } from '_utils/sort'
 
 export const getRoutines = (routines = [], query = '') =>
   sortAlphabetically(search(routines, query)).map((routine) => ({
     ...routine,
-    exercises: sortByPosition(routine.exercises),
+    exercises: sortByAscPosition(routine.exercises),
   }))
 
 export const findRoutineById = (routines = [], id = null) => {
@@ -13,6 +13,6 @@ export const findRoutineById = (routines = [], id = null) => {
 
   return {
     ...routine,
-    exercises: sortByPosition(routine.exercises),
+    exercises: sortByAscPosition(routine.exercises),
   }
 }

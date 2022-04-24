@@ -1,2 +1,3 @@
-export const getWorkouts = (workouts) =>
-  [...workouts].sort((a, z) => z.id - a.id)
+import { sortByDescPosition } from '_utils/sort'
+
+export const getWorkouts = (workouts = []) => sortByDescPosition(workouts, 'id')
