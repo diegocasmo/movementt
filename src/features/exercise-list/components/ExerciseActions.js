@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Alert } from 'react-native'
 import { ActionSheet, Spinner } from 'native-base'
-import { Button } from '_components/ui/Button'
-import { Icon } from '_components/Icon'
+import { Button, Icon } from '_components/ui'
 
 const BUTTONS = [{ text: 'Edit' }, { text: 'Delete' }, { text: 'Cancel' }]
 const DESTRUCTIVE_INDEX = 1

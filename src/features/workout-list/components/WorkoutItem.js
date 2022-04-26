@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Body, View, Card, CardItem, Text } from 'native-base'
 import Duration from '_components/time/Duration'
 import { TimeAgo } from '_components/time/TimeAgo'
-import { Icon } from '_components/Icon'
+import { Icon } from '_components/ui'
 import { ExerciseNames } from '_components/ExerciseNames'
 
 const WorkoutItem = ({ workout }) => {

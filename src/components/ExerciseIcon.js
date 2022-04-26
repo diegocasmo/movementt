@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Icon } from '_components/Icon'
+import { Icon } from '_components/ui'
 import { RoutineExercise } from '_api'
 
 const ExerciseIcon = ({ exercise }) => {

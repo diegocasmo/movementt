@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { View, Item, Input, Icon } from 'native-base'
-import { Button } from '_components/ui/Button'
+import { View, Item, Input } from 'native-base'
+import { Button, Icon } from '_components/ui'
 import { useDebounce } from '_hooks/use-debounce'
 
 const SearchForm = ({

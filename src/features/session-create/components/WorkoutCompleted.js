@@ -8,8 +8,7 @@ import {
   getTotalElapsedMs,
 } from '_state/reducers/session'
 import { View, Text } from 'native-base'
-import { Button } from '_components/ui/Button'
-import { Icon } from '_components/Icon'
+import { Button, Icon } from '_components/ui'
 import Duration from '_components/time/Duration'
 
 const WorkoutCompleted = ({ onConfirm, isLoading }) => {

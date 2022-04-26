@@ -11,8 +11,7 @@ import {
 } from '_state/reducers/session'
 import { StyleSheet, Alert } from 'react-native'
 import { View, Text } from 'native-base'
-import { Button } from '_components/ui/Button'
-import { Icon } from '_components/Icon'
+import { Button, Icon } from '_components/ui'
 
 const TopControls = ({ onQuit }) => {
   const dispatch = useDispatch()

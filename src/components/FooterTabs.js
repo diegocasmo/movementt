@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Footer, FooterTab } from 'native-base'
-import { Button } from '_components/ui/Button'
-import { Icon } from '_components/Icon'
+import { Button, Icon } from '_components/ui'
 
 const FooterTabs = ({ state, navigation }) => {
   const getIconName = ({ name }) => {

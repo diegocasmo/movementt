@@ -12,8 +12,7 @@ import {
   Text,
   View,
 } from 'native-base'
-import { Icon } from '_components/Icon'
-import { Button } from '_components/ui/Button'
+import { Button, Icon } from '_components/ui'
 import { showError } from '_utils/toast'
 import { signOut } from '_state/reducers/auth'
 

@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
-import { Layout } from '_components/ui/Layout'
-import { Button } from '_components/ui/Button'
+import { Layout, Button } from '_components/ui'
 import ImageLogo from '_components/ImageLogo'
 
 const GuestWelcomeScreen = ({ navigation }) => {

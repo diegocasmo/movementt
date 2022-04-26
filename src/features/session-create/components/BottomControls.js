@@ -9,8 +9,8 @@ import {
 } from '_state/reducers/session'
 import { useInterval } from '_hooks/use-interval'
 import { StyleSheet } from 'react-native'
-import { View, Icon } from 'native-base'
-import { Button } from '_components/ui/Button'
+import { View } from 'native-base'
+import { Button, Icon } from '_components/ui'
 import Duration from '_components/time/Duration'
 
 const BottomControls = () => {
@@ -38,14 +38,14 @@ const BottomControls = () => {
           colorScheme="transparent"
           style={styles.button}
           onPress={handleStop}
-          icon={<Icon style={styles.icon} active name="md-pause" />}
+          icon={<Icon style={styles.icon} name="md-pause" />}
         />
       ) : (
         <Button
           colorScheme="transparent"
           style={styles.button}
           onPress={handlePlay}
-          icon={<Icon style={styles.icon} active name="md-play" />}
+          icon={<Icon style={styles.icon} name="md-play" />}
         />
       )}
     </View>

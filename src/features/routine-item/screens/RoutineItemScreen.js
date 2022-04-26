@@ -11,7 +11,7 @@ import {
 } from '_state/services/routine'
 import { findRoutineById } from '_state/selectors/routine'
 import { showError } from '_utils/toast'
-import { Button } from '_components/ui/Button'
+import { Button } from '_components/ui'
 
 const RoutineItemScreen = ({ navigation, route }) => {
   const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {

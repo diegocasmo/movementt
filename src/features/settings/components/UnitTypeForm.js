@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, H1 } from 'native-base'
-import { Button } from '_components/ui/Button'
+import { Button } from '_components/ui'
 import { Picker } from '@react-native-picker/picker'
 import Modal from '_components/Modal'
 

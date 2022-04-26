@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { Col, Grid, H1, View } from 'native-base'
-import { Button } from '_components/ui/Button'
+import { Button } from '_components/ui'
 import { useFormik, getIn } from 'formik'
 import { TextInput, IntegerInput } from '../form'
 import TimePicker from './pickers/TimePicker'
