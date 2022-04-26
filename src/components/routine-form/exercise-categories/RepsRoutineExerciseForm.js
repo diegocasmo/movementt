@@ -17,7 +17,7 @@ const RepsRoutineExerciseForm = ({ bag, disabled }) => {
     <View style={styles.container}>
       <Grid>
         <Col flexGrow={1} paddingRight={10}>
-          <IntegerField label="Reps" name="reps" />
+          <IntegerField label="Reps" name="quantity" />
         </Col>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput
