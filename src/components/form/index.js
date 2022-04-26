@@ -1,15 +1,9 @@
 import DecimalInput from './DecimalInput'
-import EmailInput from './EmailInput'
-import IntegerInput from './IntegerInput'
 import ModalPickerInput from './ModalPickerInput'
-import PasswordInput from './PasswordInput'
 import TextInput from './TextInput'
+export { EmailField } from './EmailField'
+export { IntegerField } from './IntegerField'
+export { PasswordField } from './PasswordField'
+export { TextField } from './TextField'
 
-export {
-  DecimalInput,
-  EmailInput,
-  IntegerInput,
-  ModalPickerInput,
-  PasswordInput,
-  TextInput,
-}
+export { DecimalInput, ModalPickerInput, TextInput }

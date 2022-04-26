@@ -4,9 +4,9 @@ import { StyleSheet } from 'react-native'
 import { Form, Grid, Col } from 'native-base'
 import { Button } from '_components/ui'
 import * as Yup from 'yup'
-import { Formik, getIn } from 'formik'
+import { Formik } from 'formik'
 import ImageLogo from './ImageLogo'
-import { PasswordInput, EmailInput } from './form'
+import { PasswordField, EmailField } from './form'
 
 const buildValidationSchema = (withPasswordConfirmation) =>
   Yup.object({
@@ -37,57 +37,29 @@ const EmailAndPasswordForm = ({
       validationSchema={buildValidationSchema(withPasswordConfirmation)}
       onSubmit={onSubmit}
     >
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        touched,
-        errors,
-      }) => {
+      {({ handleSubmit }) => {
         return (
           <Form style={style}>
             <ImageLogo style={styles.image} />
 
             <Grid>
               <Col>
-                <EmailInput
-                  autoFocus
-                  label="Email"
-                  onBlur={handleBlur('email')}
-                  onChange={handleChange('email')}
-                  error={getIn(errors, 'email')}
-                  touched={getIn(touched, 'email')}
-                  value={values.email}
-                />
+                <EmailField label="Email" name="email" autoFocus={true} />
               </Col>
             </Grid>
 
             <Grid>
               <Col>
-                <PasswordInput
-                  label="Password"
-                  onBlur={handleBlur('password')}
-                  onChange={handleChange('password')}
-                  error={getIn(errors, 'password')}
-                  touched={getIn(touched, 'password')}
-                  disabled={isSubmitting}
-                  value={values.password}
-                />
+                <PasswordField label="Password" name="password" />
               </Col>
             </Grid>
 
             {withPasswordConfirmation && (
               <Grid>
                 <Col>
-                  <PasswordInput
+                  <PasswordField
                     label="Password Confirmation"
-                    onBlur={handleBlur('passwordConfirmation')}
-                    onChange={handleChange('passwordConfirmation')}
-                    error={getIn(errors, 'passwordConfirmation')}
-                    touched={getIn(touched, 'passwordConfirmation')}
-                    disabled={isSubmitting}
-                    value={values.passwordConfirmation}
+                    name="passwordConfirmation"
                   />
                 </Col>
               </Grid>

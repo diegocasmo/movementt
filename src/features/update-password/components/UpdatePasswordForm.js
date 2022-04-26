@@ -4,8 +4,8 @@ import { StyleSheet } from 'react-native'
 import { Form, Grid, Col } from 'native-base'
 import { Button } from '_components/ui'
 import * as Yup from 'yup'
-import { PasswordInput } from '_components/form'
-import { Formik, getIn } from 'formik'
+import { PasswordField } from '_components/form'
+import { Formik } from 'formik'
 
 const validationSchema = Yup.object({
   newPassword: Yup.string().required().min(6),
@@ -24,40 +24,25 @@ const EmailAndPasswordForm = ({ style, isSubmitting, onSubmit }) => {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        touched,
-        errors,
-      }) => {
+      {({ handleSubmit }) => {
         return (
           <Form style={style}>
             <Grid>
               <Col>
-                <PasswordInput
-                  style={styles.input}
+                <PasswordField
                   label="New Password"
-                  onBlur={handleBlur('newPassword')}
-                  onChange={handleChange('newPassword')}
-                  error={getIn(errors, 'newPassword')}
-                  touched={getIn(touched, 'newPassword')}
-                  value={values.newPassword}
+                  name="newPassword"
+                  style={styles.input}
                 />
               </Col>
             </Grid>
 
             <Grid>
               <Col>
-                <PasswordInput
-                  style={styles.input}
+                <PasswordField
                   label="Confirm New Password"
-                  onBlur={handleBlur('newPasswordConfirm')}
-                  onChange={handleChange('newPasswordConfirm')}
-                  error={getIn(errors, 'newPasswordConfirm')}
-                  touched={getIn(touched, 'newPasswordConfirm')}
-                  value={values.newPasswordConfirm}
+                  name="newPasswordConfirm"
+                  style={styles.input}
                 />
               </Col>
             </Grid>

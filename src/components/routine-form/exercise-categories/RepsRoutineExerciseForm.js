@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { View, Grid, Col } from 'native-base'
 import { getIn } from 'formik'
-import { IntegerInput, DecimalInput } from '_components/form'
+import { IntegerField, DecimalInput } from '_components/form'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
 import { getUser } from '_state/reducers/auth'
 import { getWeightUnitTypeLabel } from '_utils/units'
@@ -17,15 +17,7 @@ const RepsRoutineExerciseForm = ({ bag, disabled }) => {
     <View style={styles.container}>
       <Grid>
         <Col flexGrow={1} paddingRight={10}>
-          <IntegerInput
-            label="Reps"
-            value={values.quantity}
-            disabled={disabled}
-            error={getIn(errors, 'quantity')}
-            onBlur={handleBlur('quantity')}
-            onChange={handleChange('quantity')}
-            touched={getIn(touched, 'quantity')}
-          />
+          <IntegerField label="Reps" name="reps" />
         </Col>
         <Col flexGrow={1} paddingRight={10}>
           <DecimalInput

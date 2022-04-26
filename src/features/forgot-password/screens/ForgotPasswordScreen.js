@@ -7,7 +7,7 @@ import { Col, Container, Content, Form, Grid, Text } from 'native-base'
 import { Button } from '_components/ui'
 import { Formik, getIn } from 'formik'
 import { showError, showSuccess } from '_utils/toast'
-import { EmailInput } from '_components/form'
+import { EmailField } from '_components/form'
 import * as Yup from 'yup'
 import { sendPasswordReset } from '_state/reducers/auth'
 
@@ -51,27 +51,16 @@ const ForgotPasswordScreen = ({ navigation }) => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            touched,
-            errors,
-          }) => {
+          {({ handleSubmit }) => {
             return (
               <Form style={styles.form}>
                 <Grid>
                   <Col>
-                    <EmailInput
-                      autoFocus
-                      style={styles.input}
+                    <EmailField
                       label="Email"
-                      onBlur={handleBlur('email')}
-                      onChange={handleChange('email')}
-                      error={getIn(errors, 'email')}
-                      touched={getIn(touched, 'email')}
-                      value={values.email}
+                      name="email"
+                      autoFocus={true}
+                      style={styles.input}
                     />
                   </Col>
                 </Grid>

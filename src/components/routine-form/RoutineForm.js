@@ -8,8 +8,8 @@ import {
 } from 'react-native'
 import { Col, Grid, H1, View } from 'native-base'
 import { Button } from '_components/ui'
-import { useFormik, getIn } from 'formik'
-import { TextInput, IntegerInput } from '../form'
+import { Formik } from 'formik'
+import { TextField, IntegerField } from '../form'
 import TimePicker from './pickers/TimePicker'
 import { Routine, RoutineExercise } from '_api'
 import RoutineExerciseForm from './RoutineExerciseForm'
@@ -24,170 +24,166 @@ const RoutineForm = ({
   isSubmitting,
   onSubmit,
 }) => {
-  const formik = useFormik({
-    initialValues: routine || Routine.DEFAULT,
-    validationSchema: Routine.SCHEMA,
-    onSubmit: (values, opts) => {
-      // Remove id of exercises that have been added/created
-      const routine = {
-        ...values,
-        exercises: values.exercises.map((exercise) => {
-          const { id, ...rest } = exercise
-
-          return RoutineExercise.willCreate(exercise) ? rest : { id, ...rest }
-        }),
-      }
-
-      return onSubmit(Routine.SCHEMA.cast(routine), opts)
-    },
-  })
-
-  // Listen to change and append newly selected exercises
-  useEffect(() => {
-    formik.setValues({
-      ...formik.values,
-      exercises: [...formik.values.exercises, ...newlySelected],
-    })
-  }, [newlySelected])
-
-  const { exercises } = formik.values
-  const activeExercises = exercises.filter(
-    (x) => !RoutineExercise.willDestroy(x)
-  )
-  const exerciseCount = activeExercises.length
-  const isValid = Object.keys(formik.errors).length === 0 && exerciseCount > 0
-
-  const handleUpdateRoutineExercise = (idx, routineExercise, bag) => {
-    const { setFieldValue } = bag
-
-    setFieldValue(`exercises[${idx}]`, routineExercise)
-  }
-
-  const handleDeleteRoutineExercise = (idx, bag) => {
-    const { setValues, values } = bag
-
-    const exercises = Routine.isPeristed(routine)
-      ? values.exercises.map((exercise, i) =>
-          i === idx ? { ...exercise, _create: false, _destroy: true } : exercise
-        )
-      : values.exercises.filter((_, i) => i !== idx)
-
-    setValues({ ...values, exercises }, true)
-  }
-
-  const handleDragEnd = (params, bag) => {
-    const { data: routineExercises } = params
-    const { setValues, values } = bag
-
-    const exercises = routineExercises.map((exercise, idx) => ({
-      ...exercise,
-      position: idx,
-    }))
-
-    setValues(
-      {
-        ...values,
-        exercises,
-      },
-      true
-    )
-  }
-
   return (
-    <View style={styles.content}>
-      <TouchableWithoutFeedback accessible={false} onPress={Keyboard.dismiss}>
-        <View style={styles.top}>
-          <Grid>
-            <Col flexGrow={1} paddingRight={10}>
-              <TextInput
-                label="Name"
-                disabled={isSubmitting}
-                error={getIn(formik.errors, 'name')}
-                onBlur={formik.handleBlur('name')}
-                onChange={formik.handleChange('name')}
-                touched={getIn(formik.touched, 'name')}
-                value={formik.values.name}
-              />
-            </Col>
-          </Grid>
-          <Grid>
-            <Col flexGrow={1} paddingRight={10}>
-              <IntegerInput
-                value={formik.values.rounds}
-                label="Rounds"
-                disabled={isSubmitting}
-                error={getIn(formik.errors, 'rounds')}
-                onBlur={formik.handleBlur('rounds')}
-                onChange={formik.handleChange('rounds')}
-                touched={getIn(formik.touched, 'rounds')}
-              />
-            </Col>
-            <Col flexGrow={1}>
-              <TimePicker
-                disabled={isSubmitting}
-                label="Round rest"
-                value={`${formik.values.rest_ms}`}
-                onChange={formik.handleChange('rest_ms')}
-              />
-            </Col>
-          </Grid>
+    <Formik
+      initialValues={routine || Routine.DEFAULT}
+      validationSchema={Routine.SCHEMA}
+      onSubmit={(values, opts) => {
+        // Remove id of exercises that have been added/created
+        const routine = {
+          ...values,
+          exercises: values.exercises.map((exercise) => {
+            const { id, ...rest } = exercise
 
-          <View style={styles.exercisesSetup}>
-            <H1>Exercises ({exerciseCount})</H1>
+            return RoutineExercise.willCreate(exercise) ? rest : { id, ...rest }
+          }),
+        }
 
-            <Button
-              isDisabled={isSubmitting}
-              onPress={() => onAddExercises(activeExercises)}
+        return onSubmit(Routine.SCHEMA.cast(routine), opts)
+      }}
+    >
+      {(formik) => {
+        // Listen to change and append newly selected exercises
+        useEffect(() => {
+          formik.setValues({
+            ...formik.values,
+            exercises: [...formik.values.exercises, ...newlySelected],
+          })
+        }, [newlySelected])
+
+        const { exercises } = formik.values
+        const activeExercises = exercises.filter(
+          (x) => !RoutineExercise.willDestroy(x)
+        )
+        const exerciseCount = activeExercises.length
+        const isValid =
+          Object.keys(formik.errors).length === 0 && exerciseCount > 0
+
+        const handleUpdateRoutineExercise = (idx, routineExercise, bag) => {
+          const { setFieldValue } = bag
+
+          setFieldValue(`exercises[${idx}]`, routineExercise)
+        }
+
+        const handleDeleteRoutineExercise = (idx, bag) => {
+          const { setValues, values } = bag
+
+          const exercises = Routine.isPeristed(routine)
+            ? values.exercises.map((exercise, i) =>
+                i === idx
+                  ? { ...exercise, _create: false, _destroy: true }
+                  : exercise
+              )
+            : values.exercises.filter((_, i) => i !== idx)
+
+          setValues({ ...values, exercises }, true)
+        }
+
+        const handleDragEnd = (params, bag) => {
+          const { data: routineExercises } = params
+          const { setValues, values } = bag
+
+          const exercises = routineExercises.map((exercise, idx) => ({
+            ...exercise,
+            position: idx,
+          }))
+
+          setValues(
+            {
+              ...values,
+              exercises,
+            },
+            true
+          )
+        }
+
+        return (
+          <View style={styles.content}>
+            <TouchableWithoutFeedback
+              accessible={false}
+              onPress={Keyboard.dismiss}
             >
-              + Add
-            </Button>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
+              <View style={styles.top}>
+                <Grid>
+                  <Col flexGrow={1} paddingRight={10}>
+                    <TextField label="Name" name="name" />
+                  </Col>
+                </Grid>
+                <Grid>
+                  <Col flexGrow={1} paddingRight={10}>
+                    <IntegerField label="Rounds" name="rounds" />
+                  </Col>
+                  <Col flexGrow={1}>
+                    <TimePicker
+                      disabled={isSubmitting}
+                      label="Round rest"
+                      value={`${formik.values.rest_ms}`}
+                      onChange={formik.handleChange('rest_ms')}
+                    />
+                  </Col>
+                </Grid>
 
-      <View style={styles.middle}>
-        <DraggableFlatList
-          data={exercises}
-          keyExtractor={({ id, position }) => `${id}-${position}`}
-          onDragEnd={(params) => {
-            handleDragEnd(params, formik)
-          }}
-          renderItem={({ item, index, drag, isActive }) => (
-            <OpacityDecorator>
-              <TouchableOpacity
-                onLongPress={() => {
-                  drag()
+                <View style={styles.exercisesSetup}>
+                  <H1>Exercises ({exerciseCount})</H1>
+
+                  <Button
+                    isDisabled={isSubmitting}
+                    onPress={() => onAddExercises(activeExercises)}
+                  >
+                    + Add
+                  </Button>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+
+            <View style={styles.middle}>
+              <DraggableFlatList
+                data={exercises}
+                keyExtractor={({ id, position }) => `${id}-${position}`}
+                onDragEnd={(params) => {
+                  handleDragEnd(params, formik)
                 }}
-                disabled={isSubmitting || isActive}
-              >
-                <RoutineExerciseForm
-                  routineExercise={item}
-                  disabled={isSubmitting || isActive}
-                  onChange={(item) => {
-                    handleUpdateRoutineExercise(index, item, formik)
-                  }}
-                  onDelete={() => {
-                    handleDeleteRoutineExercise(index, formik)
-                  }}
-                />
-              </TouchableOpacity>
-            </OpacityDecorator>
-          )}
-        />
-      </View>
+                renderItem={({ item, index, drag, isActive }) => (
+                  <OpacityDecorator>
+                    <TouchableOpacity
+                      onLongPress={() => {
+                        drag()
+                      }}
+                      disabled={isSubmitting || isActive}
+                    >
+                      <RoutineExerciseForm
+                        routineExercise={item}
+                        disabled={isSubmitting || isActive}
+                        onChange={(item) => {
+                          handleUpdateRoutineExercise(index, item, formik)
+                        }}
+                        onDelete={() => {
+                          handleDeleteRoutineExercise(index, formik)
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </OpacityDecorator>
+                )}
+              />
+            </View>
 
-      <View style={styles.bottom}>
-        <Button
-          colorScheme="success"
-          variant="block"
-          isDisabled={!isValid}
-          isLoading={isSubmitting}
-          onPress={formik.handleSubmit}
-        >
-          {Routine.isPeristed(routine) ? 'Update Routine' : 'Create Routine'}
-        </Button>
-      </View>
-    </View>
+            <View style={styles.bottom}>
+              <Button
+                colorScheme="success"
+                variant="block"
+                isDisabled={!isValid}
+                isLoading={isSubmitting}
+                onPress={formik.handleSubmit}
+              >
+                {Routine.isPeristed(routine)
+                  ? 'Update Routine'
+                  : 'Create Routine'}
+              </Button>
+            </View>
+          </View>
+        )
+      }}
+    </Formik>
   )
 }
 
