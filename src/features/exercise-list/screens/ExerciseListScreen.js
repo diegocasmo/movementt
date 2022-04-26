@@ -17,7 +17,9 @@ const ExerciseListScreen = () => {
     <Container>
       <Header>
         <Body>
-          <Title>Exercises ({isLoading ? 0 : exercises.length})</Title>
+          <Title>
+            Exercises {Boolean(exercises.length) && `(${exercises.length})`}
+          </Title>
         </Body>
       </Header>
       <ExerciseList

@@ -50,7 +50,9 @@ const RoutineListScreen = ({ navigation }) => {
     <Container>
       <Header>
         <Body>
-          <Title>Routines ({isLoading ? 0 : routines.length})</Title>
+          <Title>
+            Routines {Boolean(routines.length) && `(${routines.length})`}
+          </Title>
         </Body>
       </Header>
       <Content

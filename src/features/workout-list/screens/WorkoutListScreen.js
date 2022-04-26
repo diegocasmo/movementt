@@ -33,8 +33,9 @@ const WorkoutListScreen = () => {
       <Header>
         <Body>
           <Title>
-            Workouts ({data.length >= MAX_PER_PAGE ? '+' : ''}
-            {isLoading ? 0 : workouts.length})
+            Workouts{' '}
+            {Boolean(workouts.length) &&
+              `(${data.length >= MAX_PER_PAGE ? '+' : ''}${workouts.length})`}
           </Title>
         </Body>
       </Header>
