@@ -5,13 +5,13 @@ import firebase from 'firebase'
 axios.interceptors.request.use(
   async (config) => {
     try {
-      let token
+      let token = null
       const currentUser = firebase.auth().currentUser
       if (currentUser) {
         token = await currentUser.getIdToken()
       }
 
-      config.headers.common['Authorization'] = token || null
+      config.headers.common['Authorization'] = token
     } catch (err) {
       console.error(err.message)
     }
