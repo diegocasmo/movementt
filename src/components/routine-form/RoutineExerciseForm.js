@@ -8,7 +8,7 @@ import RepsRoutineExerciseForm from './exercise-categories/RepsRoutineExerciseFo
 import TimeRoutineExerciseForm from './exercise-categories/TimeRoutineExerciseForm'
 import DistanceRoutineExerciseForm from './exercise-categories/DistanceRoutineExerciseForm'
 import MeasurementTypesForm from '_components/routine-form/MeasurementTypesForm'
-import { RoutineExercise } from '_api'
+import { RoutineExercise } from '_models'
 
 const RoutineExerciseForm = ({
   disabled,

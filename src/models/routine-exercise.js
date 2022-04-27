@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
-import * as Exercise from '_api/exercise'
-import { transformYupToFormikError } from '_api/utils/yup'
+import * as Exercise from '_models/exercise'
+import { transformYupToFormikError } from '_models/utils/yup'
 import { buildSelectOptions } from '_utils/select-options'
 import { UNITS_OF_MEASUREMENT } from '_utils/units'
 import { MS_IN_A_SEC } from '_utils/time-utils'

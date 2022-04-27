@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
-import { transformYupToFormikError } from '_api/utils/yup'
-import * as RoutineExercise from '_api/routine-exercise'
+import { transformYupToFormikError } from '_models/utils/yup'
+import * as RoutineExercise from '_models/routine-exercise'
 
 export const DEFAULT = {
   name: '',

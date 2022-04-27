@@ -6,7 +6,7 @@ import { Button } from '_components/ui'
 import { Formik } from 'formik'
 import Modal from '_components/Modal'
 import { TextField, ModalPickerInput } from '_components/form'
-import { Exercise } from '_api'
+import { Exercise } from '_models'
 
 const ExerciseForm = ({
   exercise,

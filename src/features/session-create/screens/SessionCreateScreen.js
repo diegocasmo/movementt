@@ -16,7 +16,7 @@ import {
   resetSession,
   start,
 } from '_state/reducers/session'
-import { Workout, TimeEntry } from '_api'
+import { Workout, TimeEntry } from '_models'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import TopControls from '../components/TopControls'

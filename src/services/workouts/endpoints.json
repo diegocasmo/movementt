@@ -1,0 +1,8 @@
+{
+  "GET": {
+    "/api/v1/workouts": {}
+  },
+  "POST": {
+    "/api/v1/workouts": {}
+  }
+}

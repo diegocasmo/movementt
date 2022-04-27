@@ -11,7 +11,7 @@ import { Button } from '_components/ui'
 import { Formik } from 'formik'
 import { TextField, IntegerField } from '../form'
 import TimePicker from './pickers/TimePicker'
-import { Routine, RoutineExercise } from '_api'
+import { Routine, RoutineExercise } from '_models'
 import RoutineExerciseForm from './RoutineExerciseForm'
 import DraggableFlatList, {
   OpacityDecorator,

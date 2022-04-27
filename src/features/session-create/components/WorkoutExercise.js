@@ -12,7 +12,7 @@ import { View } from 'native-base'
 import { Button } from '_components/ui'
 import { CountdownButton } from '_components/time/CountdownButton'
 import RoutineExerciseInstructions from './RoutineExerciseInstructions'
-import { RoutineExercise } from '_api'
+import { RoutineExercise } from '_models'
 
 const WorkoutExercise = () => {
   const dispatch = useDispatch()

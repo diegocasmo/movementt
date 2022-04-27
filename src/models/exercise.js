@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { transformYupToFormikError } from '_api/utils/yup'
+import { transformYupToFormikError } from '_models/utils/yup'
 import { buildSelectOptions } from '_utils/select-options'
 
 export const MOVEMENT_TYPE_CORE = 'core'

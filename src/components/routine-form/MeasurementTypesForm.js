@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native'
 import { View } from 'native-base'
 import { Button, Icon } from '_components/ui'
 import { getUser } from '_state/reducers/auth'
-import { RoutineExercise } from '_api'
+import { RoutineExercise } from '_models'
 
 const MeasurementTypesForm = ({ routineExercise, bag, disabled }) => {
   const user = useSelector(getUser)

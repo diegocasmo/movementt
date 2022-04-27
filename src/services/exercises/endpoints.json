@@ -1,0 +1,14 @@
+{
+  "GET": {
+    "/api/v1/exercises": {}
+  },
+  "POST": {
+    "/api/v1/exercises": {}
+  },
+  "PUT": {
+    "/api/v1/exercises/:id": {}
+  },
+  "DELETE": {
+    "/api/v1/exercises/:id": {}
+  }
+}

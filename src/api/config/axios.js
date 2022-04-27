@@ -1,11 +1,15 @@
 import axios from 'axios'
-import * as User from '_api/user'
+import firebase from 'firebase'
 
 // Make sure each request uses the most up-to-date Firebase auth token
 axios.interceptors.request.use(
   async (config) => {
     try {
-      const token = await User._firebaseUser().getIdToken()
+      let token
+      const currentUser = firebase.auth().currentUser
+      if (currentUser) {
+        token = await currentUser.getIdToken()
+      }
 
       config.headers.common['Authorization'] = token || null
     } catch (err) {
@@ -25,7 +29,7 @@ axios.interceptors.response.use(
   },
   async (error) => {
     if (error.response.status === 401) {
-      await User.signOut()
+      await firebase.auth().signOut()
     }
 
     return Promise.reject(error)

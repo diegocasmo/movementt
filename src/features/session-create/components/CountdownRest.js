@@ -14,7 +14,7 @@ import { StyleSheet } from 'react-native'
 import { View, Text } from 'native-base'
 import { CountdownButton } from '_components/time/CountdownButton'
 import ExerciseRx from '_components/ExerciseRx'
-import { TimeEntry } from '_api'
+import { TimeEntry } from '_models'
 
 export const CountdownRest = ({ onComplete }) => {
   const sound = useSelector(hasSound)

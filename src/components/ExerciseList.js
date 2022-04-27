@@ -5,7 +5,7 @@ import { Content, Spinner, Text, View, List } from 'native-base'
 import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
-import { Exercise } from '_api'
+import { Exercise } from '_models'
 import {
   useCreateExerciseMutation,
   useUpdateExerciseMutation,

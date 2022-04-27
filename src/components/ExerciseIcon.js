@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Icon } from '_components/ui'
-import { RoutineExercise } from '_api'
+import { RoutineExercise } from '_models'
 
 const ExerciseIcon = ({ exercise }) => {
   switch (exercise.category_type) {

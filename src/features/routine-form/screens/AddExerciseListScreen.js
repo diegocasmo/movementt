@@ -8,7 +8,7 @@ import ExerciseList from '_components/ExerciseList'
 import { useGetExercisesQuery } from '_state/services/exercise'
 import { getExercises } from '_state/selectors/exercise'
 import { getUser } from '_state/reducers/auth'
-import { RoutineExercise } from '_api'
+import { RoutineExercise } from '_models'
 
 const AddExerciseListScreen = ({
   navigation,

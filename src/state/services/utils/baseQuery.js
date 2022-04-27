@@ -1,4 +1,4 @@
-import { getUrl } from '_api/utils/url'
+import { getUrl } from '_models/utils/url'
 import axios from 'axios'
 
 export const baseQuery =

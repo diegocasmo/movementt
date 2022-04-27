@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
-import { transformYupToFormikError } from '_api/utils/yup'
-import * as RoutineExercise from '_api/routine-exercise'
-import { TIME_ENTRY_SCHEMA } from '_api/time-entry'
+import { transformYupToFormikError } from '_models/utils/yup'
+import * as RoutineExercise from '_models/routine-exercise'
+import { TIME_ENTRY_SCHEMA } from '_models/time-entry'
 
 export const WORKOUT_SCHEMA = Yup.object({
   id: Yup.number(),

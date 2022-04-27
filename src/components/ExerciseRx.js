@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { View, Text } from 'native-base'
-import { RoutineExercise } from '_api'
+import { RoutineExercise } from '_models'
 import Duration from '_components/time/Duration'
 import { getDistanceUnitTypeLabel, getWeightUnitTypeLabel } from '_utils/units'
 

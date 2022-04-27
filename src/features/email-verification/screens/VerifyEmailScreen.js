@@ -7,7 +7,7 @@ import { Button } from '_components/ui'
 import { showSuccess, showWarning, showError } from '_utils/toast'
 import ImageLogo from '_components/ImageLogo'
 import { verify, sendVerification, signOut } from '_state/reducers/auth'
-import { User } from '_api'
+import { User } from '_models'
 
 const VerifyEmailScreen = () => {
   const dispatch = useDispatch()

@@ -1,8 +1,8 @@
 import * as Yup from 'yup'
 import firebase from 'firebase'
 import axios from 'axios'
-import { transformYupToFormikError } from '_api/utils/yup'
-import { getUrl } from '_api/utils/url'
+import { transformYupToFormikError } from '_models/utils/yup'
+import { getUrl } from '_models/utils/url'
 import { UNITS_OF_MEASUREMENT } from '_utils/units'
 
 export const URL = `${getUrl()}/users`

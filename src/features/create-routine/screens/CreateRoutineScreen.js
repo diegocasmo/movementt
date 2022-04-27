@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
-import { Routine } from '_api'
+import { Routine } from '_models'
 import { useCreateRoutineMutation } from '_state/services/routine'
 import { showError } from '_utils/toast'
 

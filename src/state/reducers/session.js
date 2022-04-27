@@ -4,7 +4,7 @@ import {
   TYPE_EXERCISE,
   TYPE_EXERCISE_REST,
   TYPE_ROUND_REST,
-} from '_api/time-entry'
+} from '_models/time-entry'
 
 const initialState = {
   tick: null,

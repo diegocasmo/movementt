@@ -4,7 +4,7 @@ import { Body, Container, Header, Title, View } from 'native-base'
 import WorkoutList from '../components/WorkoutList'
 import { useGetWorkoutsQuery } from '_state/services/workout'
 import { getWorkouts } from '_state/selectors/workout'
-import { MAX_PER_PAGE } from '_api/utils/pagination'
+import { MAX_PER_PAGE } from '_models/utils/pagination'
 
 const WorkoutListScreen = () => {
   const [page, setPage] = useState(1)

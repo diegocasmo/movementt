@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit'
-import { User } from '_api'
+import { User } from '_models'
 import { REQUEST_STATUS } from '_utils/request-utils'
 import { resetSession } from '_state/reducers/session'
 import { workoutApi, routineApi, exerciseApi } from '_state/services'

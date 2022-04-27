@@ -10,7 +10,7 @@ import {
   signIn,
   signOut,
 } from '_state/reducers/auth'
-import { User } from '_api'
+import { User } from '_models'
 
 import UnverifiedAppNavigator from '_navigation/UnverifiedAppNavigator'
 import VerifiedAppNavigator from '_navigation/VerifiedAppNavigator'
