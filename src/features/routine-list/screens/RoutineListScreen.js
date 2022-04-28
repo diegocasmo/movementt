@@ -13,17 +13,13 @@ import {
 } from 'native-base'
 import RoutineItem from '../components/RoutineItem'
 import SearchForm from '_components/SearchForm'
-import {
-  useDestroyRoutineMutation,
-  useGetRoutinesQuery,
-} from '_state/services/routine'
 import { getRoutines } from '_state/selectors/routine'
+import { useRoutines } from '_services/routines/useRoutines'
 
 const RoutineListScreen = ({ navigation }) => {
   const [query, setQuery] = useState('')
   const trimmedQuery = query.trim()
-  const [destroyRoutine] = useDestroyRoutineMutation()
-  const { data, isLoading } = useGetRoutinesQuery('useGetRoutinesQuery')
+  const { data, isLoading } = useRoutines()
   const routines = getRoutines(data, query)
 
   const handleQueryChange = (value) => {
@@ -81,7 +77,6 @@ const RoutineListScreen = ({ navigation }) => {
                   routine={routine}
                   onStart={handleStart}
                   onUpdate={handleUpdate}
-                  onDestroy={destroyRoutine}
                 />
               ))}
           </View>

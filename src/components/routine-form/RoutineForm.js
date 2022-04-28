@@ -32,10 +32,11 @@ const RoutineForm = ({
         // Remove id of exercises that have been added/created
         const routine = {
           ...values,
-          exercises: values.exercises.map((exercise) => {
+          exercises_attributes: values.exercises.map((exercise) => {
+            // eslint-disable-next-line no-unused-vars
             const { id, ...rest } = exercise
 
-            return RoutineExercise.willCreate(exercise) ? rest : { id, ...rest }
+            return RoutineExercise.willCreate(exercise) ? rest : exercise
           }),
         }
 

@@ -1,40 +1,35 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { ListItem, Left, Right, View, Text } from 'native-base'
 import ExerciseActions from './ExerciseActions'
+import { useDeleteExercise } from '_services/exercises/useDeleteExercise'
 import { showError } from '_utils/toast'
 
-const ExerciseItem = ({
-  exercise,
-  selectedCount = 0,
-  onDestroy,
-  onPress,
-  onUpdate,
-}) => {
-  const [destroying, setDestroying] = useState(false)
+const ExerciseItem = ({ exercise, selectedCount = 0, onPress, onUpdate }) => {
+  const deleteExercise = useDeleteExercise()
   const hasCount = selectedCount > 0
 
   const handlePress = () => {
-    if (destroying) return
+    if (deleteExercise.isLoading) return
 
     onPress(exercise)
   }
 
   const handleUpdate = () => {
-    if (destroying) return
+    if (deleteExercise.isLoading) return
 
     onUpdate(exercise)
   }
 
   const handleDestroy = async () => {
-    if (destroying) return
+    if (deleteExercise.isLoading) return
 
     try {
-      setDestroying(true)
-      await onDestroy(exercise).unwrap()
+      await deleteExercise.mutateAsync({
+        pathParams: { id: exercise.id },
+      })
     } catch (err) {
-      setDestroying(false)
       showError(err)
     }
   }
@@ -42,7 +37,7 @@ const ExerciseItem = ({
   return (
     <ListItem
       noIndent
-      style={destroying ? styles.opaque : {}}
+      style={deleteExercise.isLoading ? styles.opaque : {}}
       onPress={handlePress}
     >
       <Left style={styles.left}>
@@ -56,7 +51,7 @@ const ExerciseItem = ({
         )}
         <ExerciseActions
           exercise={exercise}
-          destroying={destroying}
+          destroying={deleteExercise.isLoading}
           onDestroy={handleDestroy}
           onUpdate={handleUpdate}
         />
@@ -68,7 +63,6 @@ const ExerciseItem = ({
 ExerciseItem.propTypes = {
   exercise: PropTypes.object.isRequired,
   selectedCount: PropTypes.number,
-  onDestroy: PropTypes.func.isRequired,
   onPress: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
 }

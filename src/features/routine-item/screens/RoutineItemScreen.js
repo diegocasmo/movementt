@@ -1,48 +1,38 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content, H1, H2, Text, View, Spinner } from 'native-base'
 import Duration from '_components/time/Duration'
 import RoutineExerciseItem from '../components/RoutineExerciseItem'
 import RoutineActions from '_components/RoutineActions'
-import {
-  useDestroyRoutineMutation,
-  useGetRoutinesQuery,
-} from '_state/services/routine'
-import { findRoutineById } from '_state/selectors/routine'
 import { showError } from '_utils/toast'
 import { Button } from '_components/ui'
+import { useRoutine } from '_services/routines/useRoutine'
+import { useDeleteRoutine } from '_services/routines/useDeleteRoutine'
 
 const RoutineItemScreen = ({ navigation, route }) => {
-  const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
-    selectFromResult: ({ data }) => ({
-      routine: findRoutineById(data, route.params.routineId),
-    }),
-  })
-  const [destroyRoutine] = useDestroyRoutineMutation()
-  const [destroying, setDestroying] = useState(false)
+  const { data: routine } = useRoutine(route.params.routineId)
+  const deleteRoutine = useDeleteRoutine()
 
   const handleStart = () => {
-    if (destroying) return
+    if (deleteRoutine.isLoading) return
 
     navigation.navigate('SessionCreate', { routineId: routine.id })
   }
 
   const handleUpdate = (routine) => {
-    if (destroying) return
+    if (deleteRoutine.isL) return
 
     navigation.navigate('UpdateRoutine', { routineId: routine.id })
   }
 
   const handleDestroy = async () => {
-    if (destroying) return
+    if (deleteRoutine.isLoading) return
 
     try {
-      setDestroying(true)
-      await destroyRoutine(routine.id).unwrap()
+      await deleteRoutine.mutateAsync({ pathParams: { id: routine.id } })
       navigation.navigate('Home')
     } catch (err) {
-      setDestroying(false)
       showError(err)
     }
   }
@@ -73,7 +63,7 @@ const RoutineItemScreen = ({ navigation, route }) => {
 
         <RoutineActions
           routine={routine}
-          destroying={destroying}
+          destroying={deleteRoutine.isLoading}
           onUpdate={handleUpdate}
           onDestroy={handleDestroy}
         />

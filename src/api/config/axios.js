@@ -1,6 +1,7 @@
 import axios from 'axios'
 import firebase from 'firebase'
 
+// TODO: Remove file once only one ApiClient is used
 // Make sure each request uses the most up-to-date Firebase auth token
 axios.interceptors.request.use(
   async (config) => {
