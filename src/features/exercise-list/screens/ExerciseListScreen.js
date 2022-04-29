@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Body, Container, Header, Title } from 'native-base'
 import ExerciseList from '_components/ExerciseList'
-import { useGetExercisesQuery } from '_state/services/exercise'
 import { getExercises } from '_state/selectors/exercise'
+import { useExercises } from '_services/exercises/useExercises'
 
 const ExerciseListScreen = () => {
   const [query, setQuery] = useState('')
-  const { data, isLoading } = useGetExercisesQuery()
+  const { data = [], isLoading } = useExercises()
   const exercises = getExercises(data, query)
 
   const handleQueryChange = (value) => {

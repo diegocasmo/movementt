@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
-import {
-  useUpdateRoutineMutation,
-  useGetRoutinesQuery,
-} from '_state/services/routine'
-import { findRoutineById } from '_state/selectors/routine'
+import { useRoutine } from '_services/routines/useRoutine'
+import { useUpdateRoutine } from '_services/routines/useUpdateRoutine'
 import { showError } from '_utils/toast'
 
 const UpdateRoutineScreen = ({
@@ -15,13 +12,8 @@ const UpdateRoutineScreen = ({
     params: { routineId = null, newlySelected = [] },
   },
 }) => {
-  const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
-    selectFromResult: ({ data }) => ({
-      routine: findRoutineById(data, routineId),
-    }),
-  })
-  const [updateRoutine] = useUpdateRoutineMutation()
-  const [updating, setIsUpdating] = useState(false)
+  const updateRoutine = useUpdateRoutine()
+  const { data: routine } = useRoutine(routineId)
 
   const handleAddExercises = (selected) => {
     navigation.navigate('AddExerciseList', {
@@ -32,14 +24,14 @@ const UpdateRoutineScreen = ({
   }
 
   const handleSubmit = async (routine, { resetForm }) => {
-    setIsUpdating(true)
-
     try {
-      await updateRoutine(routine).unwrap()
+      await updateRoutine.mutateAsync({
+        pathParams: { id: routine.id },
+        bodyParams: routine,
+      })
       resetForm()
       navigation.pop()
     } catch (err) {
-      setIsUpdating(false)
       showError(err)
     }
   }
@@ -49,7 +41,7 @@ const UpdateRoutineScreen = ({
       <RoutineForm
         routine={routine}
         newlySelected={newlySelected}
-        isSubmitting={updating}
+        isSubmitting={updateRoutine.isLoading}
         onAddExercises={handleAddExercises}
         onSubmit={handleSubmit}
       />

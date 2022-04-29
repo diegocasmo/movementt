@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Body, Card, CardItem, Text, View } from 'native-base'
@@ -6,35 +6,29 @@ import { Button } from '_components/ui'
 import RoutineActions from '_components/RoutineActions'
 import { ExerciseNames } from '_components/ExerciseNames'
 import { showError } from '_utils/toast'
+import { useDeleteRoutine } from '_services/routines/useDeleteRoutine'
 
-const RoutineItem = ({
-  routine,
-  onStart,
-  onUpdate = () => {},
-  onDestroy = () => {},
-}) => {
-  const [destroying, setDestroying] = useState(false)
+const RoutineItem = ({ routine, onStart, onUpdate = () => {} }) => {
+  const deleteRoutine = useDeleteRoutine()
 
   const handlePress = () => {
-    if (destroying) return
+    if (deleteRoutine.isLoading) return
 
     onStart(routine)
   }
 
   const handleUpdate = () => {
-    if (destroying) return
+    if (deleteRoutine.isLoading) return
 
     onUpdate(routine)
   }
 
   const handleDestroy = async () => {
-    if (destroying) return
+    if (deleteRoutine.isLoading) return
 
     try {
-      setDestroying(true)
-      await onDestroy(routine.id).unwrap()
+      await deleteRoutine.mutateAsync({ pathParams: { id: routine.id } })
     } catch (err) {
-      setDestroying(false)
       showError(err)
     }
   }
@@ -46,7 +40,7 @@ const RoutineItem = ({
       isText={false}
       onPress={handlePress}
     >
-      <Card style={[styles.card, destroying ? styles.opaque : {}]}>
+      <Card style={[styles.card, deleteRoutine.isLoading ? styles.opaque : {}]}>
         <CardItem header style={styles.header}>
           <Text style={styles.name} numberOfLines={1}>
             {routine.name}
@@ -54,7 +48,7 @@ const RoutineItem = ({
           <View style={styles.actions}>
             <RoutineActions
               routine={routine}
-              destroying={destroying}
+              destroying={deleteRoutine.isLoading}
               onUpdate={handleUpdate}
               onDestroy={handleDestroy}
             />
@@ -81,7 +75,6 @@ RoutineItem.propTypes = {
   routine: PropTypes.object.isRequired,
   onStart: PropTypes.func.isRequired,
   onUpdate: PropTypes.func,
-  onDestroy: PropTypes.func,
 }
 
 export default RoutineItem

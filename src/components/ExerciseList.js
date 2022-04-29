@@ -6,11 +6,8 @@ import SearchForm from '_components/SearchForm'
 import ExerciseItem from '_features/exercise-list/components/ExerciseItem'
 import ExerciseForm from '_features/exercise-list/components/ExerciseForm'
 import { Exercise } from '_models'
-import {
-  useCreateExerciseMutation,
-  useUpdateExerciseMutation,
-  useDestroyExerciseMutation,
-} from '_state/services/exercise'
+import { useCreateExercise } from '_services/exercises/useCreateExercise'
+import { useUpdateExercise } from '_services/exercises/useUpdateExercise'
 import { showError } from '_utils/toast'
 
 const ExerciseList = ({
@@ -26,15 +23,12 @@ const ExerciseList = ({
       memo[name] ? { ...memo, [name]: memo[name] + 1 } : { ...memo, [name]: 1 },
     {}
   )
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const initialState = { visible: false, exercise: Exercise.DEFAULT }
   const [state, setState] = useState(initialState)
   const trimmedQuery = query.trim()
 
-  const [createExercise] = useCreateExerciseMutation()
-  const [updateExercise] = useUpdateExerciseMutation()
-  const [destroyExercise] = useDestroyExerciseMutation()
-
+  const createExercise = useCreateExercise()
+  const updateExercise = useUpdateExercise()
   const handlePress = (exercise) => {
     // Delegate to parent if prop is defined
     if (onPress) return onPress(exercise)
@@ -54,26 +48,21 @@ const ExerciseList = ({
     setState({ visible: true, exercise })
   }
 
-  const handleDestroy = (exercise) => {
-    return destroyExercise(exercise.id)
-  }
-
   const handleCancel = () => {
     setState(initialState)
   }
 
   const handleSubmit = async (exercise) => {
-    setIsSubmitting(true)
-
     try {
       exercise.created_at
-        ? await updateExercise(exercise).unwrap()
-        : await createExercise(exercise).unwrap()
+        ? await updateExercise.mutateAsync({
+            pathParams: { id: exercise.id },
+            bodyParams: exercise,
+          })
+        : await createExercise.mutateAsync({ bodyParams: exercise })
       setState(initialState)
     } catch (err) {
       showError(err)
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -111,7 +100,6 @@ const ExerciseList = ({
                 exercise={exercise}
                 onPress={handlePress}
                 onUpdate={handleUpdate}
-                onDestroy={handleDestroy}
                 selectedCount={selectedMap[exercise.name]}
               />
             ))}
@@ -121,7 +109,9 @@ const ExerciseList = ({
               exercise={state.exercise}
               onCancel={handleCancel}
               onSubmit={handleSubmit}
-              isSubmitting={isSubmitting}
+              isSubmitting={
+                createExercise.isLoading || updateExercise.isLoading
+              }
               visible={state.visible}
             />
           )}

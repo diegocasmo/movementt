@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Container } from 'native-base'
 import RoutineForm from '_components/routine-form/RoutineForm'
 import { Routine } from '_models'
-import { useCreateRoutineMutation } from '_state/services/routine'
 import { showError } from '_utils/toast'
+import { useCreateRoutine } from '_services/routines/useCreateRoutine'
 
 const CreateRoutineScreen = ({
   navigation,
@@ -12,8 +12,7 @@ const CreateRoutineScreen = ({
     params: { name = '', newlySelected = [] },
   },
 }) => {
-  const [createRoutine] = useCreateRoutineMutation()
-  const [isCreating, setIsCreating] = useState(false)
+  const createRoutine = useCreateRoutine()
 
   const handleAddExercises = (selected) => {
     navigation.navigate('AddExerciseList', {
@@ -23,14 +22,11 @@ const CreateRoutineScreen = ({
   }
 
   const handleSubmit = async (attrs, { resetForm }) => {
-    setIsCreating(true)
-
     try {
-      const data = await createRoutine(attrs).unwrap()
+      const data = await createRoutine.mutateAsync({ bodyParams: attrs })
       resetForm()
       navigation.navigate('RoutineItem', { routineId: data.id })
     } catch (err) {
-      setIsCreating(false)
       showError(err)
     }
   }
@@ -43,7 +39,7 @@ const CreateRoutineScreen = ({
           name,
         }}
         newlySelected={newlySelected}
-        isSubmitting={isCreating}
+        isSubmitting={createRoutine.isLoading}
         onAddExercises={handleAddExercises}
         onSubmit={handleSubmit}
       />

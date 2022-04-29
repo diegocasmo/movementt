@@ -5,7 +5,7 @@ import { StyleSheet, Keyboard } from 'react-native'
 import { Container, Content, View } from 'native-base'
 import { Button } from '_components/ui'
 import ExerciseList from '_components/ExerciseList'
-import { useGetExercisesQuery } from '_state/services/exercise'
+import { useExercises } from '_services/exercises/useExercises'
 import { getExercises } from '_state/selectors/exercise'
 import { getUser } from '_state/reducers/auth'
 import { RoutineExercise } from '_models'
@@ -17,7 +17,7 @@ const AddExerciseListScreen = ({
   },
 }) => {
   const user = useSelector(getUser)
-  const { data, isLoading } = useGetExercisesQuery()
+  const { data = [], isLoading } = useExercises()
   const [query, setQuery] = useState('')
   const [newlySelected, setNewlySelected] = useState([])
   const hasNewlySelected = newlySelected.length > 0

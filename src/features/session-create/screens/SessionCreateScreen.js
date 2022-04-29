@@ -26,18 +26,13 @@ import { CountdownRest } from '../components/CountdownRest'
 import WorkoutStartup from '../components/WorkoutStartup'
 import WorkoutCompleted from '../components/WorkoutCompleted'
 import { showError } from '_utils/toast'
-import { useGetRoutinesQuery } from '_state/services/routine'
-import { findRoutineById } from '_state/selectors/routine'
+import { useRoutine } from '_services/routines/useRoutine'
 import { useCreateWorkoutMutation } from '_state/services/workout'
 
 const SessionCreateScreen = ({ navigation, route }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [createWorkout] = useCreateWorkoutMutation()
-  const { routine } = useGetRoutinesQuery('useGetRoutinesQuery', {
-    selectFromResult: ({ data }) => ({
-      routine: findRoutineById(data, route.params.routineId),
-    }),
-  })
+  const { data: routine } = useRoutine(route.params.routineId)
 
   const dispatch = useDispatch()
   const started = useSelector(hasStarted)

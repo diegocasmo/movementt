@@ -6,6 +6,8 @@ import store from '_state'
 import { Root as NativeBaseRoot } from 'native-base'
 import { NavigationContainer } from '@react-navigation/native'
 import { Audio } from 'expo-av'
+import { QueryClientProvider } from 'react-query'
+import { queryClient } from '_services/config/queryClient'
 
 Audio.setAudioModeAsync({
   playsInSilentModeIOS: true,
@@ -20,9 +22,11 @@ Audio.setAudioModeAsync({
 const Root = () => (
   <NativeBaseRoot>
     <Provider store={store}>
-      <NavigationContainer>
-        <App />
-      </NavigationContainer>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <App />
+        </NavigationContainer>
+      </QueryClientProvider>
     </Provider>
   </NativeBaseRoot>
 )

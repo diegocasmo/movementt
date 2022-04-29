@@ -1,9 +1,0 @@
-{
-  "POST": {
-    "/api/v1/users": {}
-  },
-  "PUT": {
-    "/api/v1/users/verify": {},
-    "/api/v1/users": {}
-  }
-}
