@@ -17,7 +17,7 @@ export const useCreateRoutine = () => {
       await queryClient.cancelQueries(ROUTINES_QUERY_KEY)
 
       // Snapshot the previous value
-      const previousRoutiness = queryClient.getQueryData(ROUTINES_QUERY_KEY)
+      const previousRoutines = queryClient.getQueryData(ROUTINES_QUERY_KEY)
 
       // Optimistically update to the new value
       queryClient.setQueryData(ROUTINES_QUERY_KEY, (old = []) => [
@@ -27,11 +27,11 @@ export const useCreateRoutine = () => {
       ])
 
       // Return a context object with the snapshotted value
-      return { previousRoutiness }
+      return { previousRoutines }
     },
     onError: (_, __, context) => {
       // Use context returned from onMutate to roll back
-      queryClient.setQueryData(ROUTINES_QUERY_KEY, context.previousRoutiness)
+      queryClient.setQueryData(ROUTINES_QUERY_KEY, context.previousRoutines)
     },
     onSettled: () => {
       // Always refetch after error or success

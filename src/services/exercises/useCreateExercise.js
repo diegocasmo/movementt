@@ -17,7 +17,7 @@ export const useCreateExercise = () => {
       await queryClient.cancelQueries(EXERCISES_QUERY_KEY)
 
       // Snapshot the previous value
-      const previousExercisess = queryClient.getQueryData(EXERCISES_QUERY_KEY)
+      const previousExercises = queryClient.getQueryData(EXERCISES_QUERY_KEY)
 
       // Optimistically update to the new value
       queryClient.setQueryData(EXERCISES_QUERY_KEY, (old = []) => [
@@ -27,11 +27,11 @@ export const useCreateExercise = () => {
       ])
 
       // Return a context object with the snapshotted value
-      return { previousExercisess }
+      return { previousExercises }
     },
     onError: (_, __, context) => {
       // Use context returned from onMutate to roll back
-      queryClient.setQueryData(EXERCISES_QUERY_KEY, context.previousExercisess)
+      queryClient.setQueryData(EXERCISES_QUERY_KEY, context.previousExercises)
     },
     onSettled: () => {
       // Always refetch after error or success

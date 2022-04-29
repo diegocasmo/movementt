@@ -17,7 +17,7 @@ export const useCreateWorkout = () => {
       await queryClient.cancelQueries(WORKOUTS_QUERY_KEY)
 
       // Snapshot the previous value
-      const previousWorkoutss = queryClient.getQueryData(WORKOUTS_QUERY_KEY)
+      const previousWorkouts = queryClient.getQueryData(WORKOUTS_QUERY_KEY)
 
       // Optimistically update to the new value
       queryClient.setQueryData(WORKOUTS_QUERY_KEY, (old = []) => [
@@ -27,11 +27,11 @@ export const useCreateWorkout = () => {
       ])
 
       // Return a context object with the snapshotted value
-      return { previousWorkoutss }
+      return { previousWorkouts }
     },
     onError: (_, __, context) => {
       // Use context returned from onMutate to roll back
-      queryClient.setQueryData(WORKOUTS_QUERY_KEY, context.previousWorkoutss)
+      queryClient.setQueryData(WORKOUTS_QUERY_KEY, context.previousWorkouts)
     },
     onSettled: () => {
       // Always refetch after error or success
