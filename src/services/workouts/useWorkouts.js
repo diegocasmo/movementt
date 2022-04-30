@@ -1,6 +1,7 @@
-import { useQuery } from 'react-query'
+import { useInfiniteQuery } from 'react-query'
 
 import { makeApiService } from '_api/client'
+import { MAX_PER_PAGE } from '_services/config/pagination'
 
 const getWorkouts = makeApiService({
   path: 'workouts',
@@ -8,4 +9,12 @@ const getWorkouts = makeApiService({
 
 export const WORKOUTS_QUERY_KEY = ['workouts']
 
-export const useWorkouts = () => useQuery(WORKOUTS_QUERY_KEY, getWorkouts)
+export const useWorkouts = () =>
+  useInfiniteQuery(
+    WORKOUTS_QUERY_KEY,
+    ({ pageParam = 1 }) => getWorkouts({ queryParams: { page: pageParam } }),
+    {
+      getNextPageParam: (lastPage = [], allPages) =>
+        lastPage.length < MAX_PER_PAGE ? undefined : allPages.length + 1,
+    }
+  )

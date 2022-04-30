@@ -1,31 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Body, Container, Header, Title, View } from 'native-base'
 import WorkoutList from '../components/WorkoutList'
-import { useGetWorkoutsQuery } from '_state/services/workout'
-import { getWorkouts } from '_state/selectors/workout'
-import { MAX_PER_PAGE } from '_models/utils/pagination'
+import { useWorkouts } from '_services/workouts/useWorkouts'
 
 const WorkoutListScreen = () => {
-  const [page, setPage] = useState(1)
-  const [workouts, setWorkouts] = useState([])
   const {
-    data = [],
-    isLoading,
+    data: { pages = [] } = {},
     isFetching,
-    isError,
-  } = useGetWorkoutsQuery(page)
-
-  useEffect(() => {
-    if (data.length === 0) return
-
-    setWorkouts((workouts) => getWorkouts([...workouts, ...data]))
-  }, [data, setWorkouts])
+    fetchNextPage,
+    hasNextPage,
+  } = useWorkouts()
+  const workouts = pages.reduce((memo, workout) => memo.concat(workout), [])
 
   const handleFetchMore = () => {
-    if (isError || isLoading || isFetching || data.length < MAX_PER_PAGE) return
-
-    setPage((page) => page + 1)
+    fetchNextPage()
   }
 
   return (
@@ -35,14 +24,14 @@ const WorkoutListScreen = () => {
           <Title>
             Workouts{' '}
             {Boolean(workouts.length) &&
-              `(${data.length >= MAX_PER_PAGE ? '+' : ''}${workouts.length})`}
+              `(${hasNextPage ? '+' : ''}${workouts.length})`}
           </Title>
         </Body>
       </Header>
       <View style={styles.content}>
         <WorkoutList
           onEndReached={handleFetchMore}
-          isLoading={isLoading || isFetching}
+          isLoading={isFetching}
           workouts={workouts}
         />
       </View>

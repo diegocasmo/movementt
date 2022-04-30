@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -27,11 +27,10 @@ import WorkoutStartup from '../components/WorkoutStartup'
 import WorkoutCompleted from '../components/WorkoutCompleted'
 import { showError } from '_utils/toast'
 import { useRoutine } from '_services/routines/useRoutine'
-import { useCreateWorkoutMutation } from '_state/services/workout'
+import { useCreateWorkout } from '_services/workouts/useCreateWorkout'
 
 const SessionCreateScreen = ({ navigation, route }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [createWorkout] = useCreateWorkoutMutation()
+  const createWorkout = useCreateWorkout()
   const { data: routine } = useRoutine(route.params.routineId)
 
   const dispatch = useDispatch()
@@ -63,8 +62,6 @@ const SessionCreateScreen = ({ navigation, route }) => {
   }
 
   const handleCompleteConfirmed = async () => {
-    setIsSubmitting(true)
-
     const session = {
       completedAt,
       elapsedMs,
@@ -76,11 +73,10 @@ const SessionCreateScreen = ({ navigation, route }) => {
 
     try {
       const workout = await Workout.build(session)
-      await createWorkout(workout).unwrap()
+      await createWorkout.mutateAsync({ bodyParams: workout })
       dispatch(resetSession())
       navigation.navigate('Home')
     } catch (err) {
-      setIsSubmitting(false)
       showError(err)
     }
   }
@@ -102,7 +98,7 @@ const SessionCreateScreen = ({ navigation, route }) => {
         <Content padder contentContainerStyle={styles.content}>
           <WorkoutCompleted
             onConfirm={handleCompleteConfirmed}
-            isLoading={isSubmitting}
+            isLoading={createWorkout.isLoading}
           />
         </Content>
       </Container>

@@ -47,7 +47,7 @@ export const build = async (session) => {
       timeEntries,
     } = session
 
-    const workout = await validate(
+    const { exercises, ...rest } = await validate(
       WORKOUT_SCHEMA.cast({
         name: routine.name,
         rounds: routine.rounds,
@@ -61,7 +61,7 @@ export const build = async (session) => {
       })
     )
 
-    return workout
+    return { ...rest, exercises_attributes: exercises }
   } catch (err) {
     throw new Error('Unable to build workout')
   }

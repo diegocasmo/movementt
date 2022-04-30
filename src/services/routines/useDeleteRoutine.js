@@ -29,7 +29,9 @@ export const useDeleteRoutine = () => {
     },
     onError: (_, __, context) => {
       // If the mutation fails, use the context we returned above
-      queryClient.setQueryData(ROUTINES_QUERY_KEY, context.previousRoutines)
+      if (context) {
+        queryClient.setQueryData(ROUTINES_QUERY_KEY, context.previousRoutines)
+      }
     },
     onSettled: () => {
       // Always refetch after error or success

@@ -29,7 +29,9 @@ export const useUpdateExercise = () => {
     },
     onError: (_, __, context) => {
       // If the mutation fails, use the context we returned above
-      queryClient.setQueryData(EXERCISES_QUERY_KEY, context.previousExercises)
+      if (context) {
+        queryClient.setQueryData(EXERCISES_QUERY_KEY, context.previousExercises)
+      }
     },
     onSettled: () => {
       // Always refetch after error or success

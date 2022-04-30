@@ -31,7 +31,9 @@ export const useCreateExercise = () => {
     },
     onError: (_, __, context) => {
       // Use context returned from onMutate to roll back
-      queryClient.setQueryData(EXERCISES_QUERY_KEY, context.previousExercises)
+      if (context) {
+        queryClient.setQueryData(EXERCISES_QUERY_KEY, context.previousExercises)
+      }
     },
     onSettled: () => {
       // Always refetch after error or success

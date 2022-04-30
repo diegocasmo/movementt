@@ -31,7 +31,9 @@ export const useCreateRoutine = () => {
     },
     onError: (_, __, context) => {
       // Use context returned from onMutate to roll back
-      queryClient.setQueryData(ROUTINES_QUERY_KEY, context.previousRoutines)
+      if (context) {
+        queryClient.setQueryData(ROUTINES_QUERY_KEY, context.previousRoutines)
+      }
     },
     onSettled: () => {
       // Always refetch after error or success

@@ -53,13 +53,14 @@ export function makeApiService(serviceConfiguration) {
   } = serviceConfiguration
 
   return async (requestConfig) => {
-    const { bodyParams, pathParams } = requestConfig
+    const { bodyParams, pathParams, queryParams } = requestConfig
 
     const url = path.replace(/\[(.*?)\]/g, (_, $1) => pathParams[$1])
 
     const axiosRequestConfig = {
       url: `${APIVersion}/${url}`,
       method,
+      ...(queryParams ? { params: queryParams } : {}),
       ...(bodyParams ? { data: bodyParams } : {}),
       ...(transformRequest ? { transformRequest } : {}),
     }
