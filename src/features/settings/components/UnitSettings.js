@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useQueryClient } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
@@ -7,7 +6,7 @@ import { Body, Left, ListItem, Right, Separator, Text, View } from 'native-base'
 import { Button, Icon } from '_components/ui'
 import { UnitTypeForm } from './UnitTypeForm'
 import { showError } from '_utils/toast'
-import { invalidateRoutines } from '_services/routines/useRoutines'
+import { useInvalidateRoutines } from '_services/routines/useRoutines'
 import { getUser, update } from '_state/reducers/auth'
 import {
   DISTANCE_UNIT_TYPE_OPTS,
@@ -19,7 +18,7 @@ import {
 export const UnitSettings = () => {
   const dispatch = useDispatch()
   const user = useSelector(getUser)
-  const queryClient = useQueryClient()
+  const { invalidateRoutines } = useInvalidateRoutines()
 
   const [isWeightUnitVisible, setIsWeightUnitVisible] = useState(false)
   const [isDistanceUnitVisible, setIsDistanceUnitVisible] = useState(false)
@@ -34,7 +33,7 @@ export const UnitSettings = () => {
         update({ ...user, weight_unit_type: value })
       )
       unwrapResult(action)
-      await invalidateRoutines(queryClient)
+      await invalidateRoutines()
       setIsWeightUnitVisible(false)
     } catch (err) {
       showError(err.message)
@@ -51,7 +50,7 @@ export const UnitSettings = () => {
         update({ ...user, distance_unit_type: value })
       )
       unwrapResult(action)
-      await invalidateRoutines(queryClient)
+      await invalidateRoutines()
       setIsDistanceUnitVisible(false)
     } catch (err) {
       showError(err.message)
