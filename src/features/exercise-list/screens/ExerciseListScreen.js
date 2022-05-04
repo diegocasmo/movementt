@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Body, Container, Header, Title } from 'native-base'
 import ExerciseList from '_components/ExerciseList'
-import { getExercises } from '_state/selectors/exercise'
 import { useExercises } from '_services/exercises/useExercises'
+import { getExercises } from '_features/exercise-list/utils/getExercises'
 
 const ExerciseListScreen = () => {
   const [query, setQuery] = useState('')

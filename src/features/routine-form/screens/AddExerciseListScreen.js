@@ -6,7 +6,7 @@ import { Container, Content, View } from 'native-base'
 import { Button } from '_components/ui'
 import ExerciseList from '_components/ExerciseList'
 import { useExercises } from '_services/exercises/useExercises'
-import { getExercises } from '_state/selectors/exercise'
+import { getExercises } from '_features/exercise-list/utils/getExercises'
 import { getUser } from '_state/reducers/auth'
 import { RoutineExercise } from '_models'
 

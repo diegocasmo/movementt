@@ -13,8 +13,8 @@ import {
 } from 'native-base'
 import RoutineItem from '../components/RoutineItem'
 import SearchForm from '_components/SearchForm'
-import { getRoutines } from '_state/selectors/routine'
 import { useRoutines } from '_services/routines/useRoutines'
+import { getRoutines } from '_features/routine-list/utils/getRoutines'
 
 const RoutineListScreen = ({ navigation }) => {
   const [query, setQuery] = useState('')

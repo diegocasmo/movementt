@@ -6,13 +6,3 @@ export const getRoutines = (routines = [], query = '') =>
     ...routine,
     exercises: sortByAscPosition(routine.exercises),
   }))
-
-export const findRoutineById = (routines = [], id = null) => {
-  const routine = routines.find((routine) => routine.id === id)
-  if (!routine) return null
-
-  return {
-    ...routine,
-    exercises: sortByAscPosition(routine.exercises),
-  }
-}
