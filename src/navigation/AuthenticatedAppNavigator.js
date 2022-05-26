@@ -121,7 +121,7 @@ const HomeTabsNavigator = () => {
 }
 
 const AppStack = createStackNavigator()
-const VerifiedAppNavigator = () => {
+const AuthenticatedAppNavigator = () => {
   return (
     <AppStack.Navigator
       tabBar={(props) => <FooterTabs {...props} />}
@@ -160,4 +160,4 @@ const VerifiedAppNavigator = () => {
   )
 }
 
-export default VerifiedAppNavigator
+export default AuthenticatedAppNavigator

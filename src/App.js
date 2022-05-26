@@ -12,8 +12,7 @@ import {
 } from '_state/reducers/auth'
 import { User } from '_models'
 
-import UnverifiedAppNavigator from '_navigation/UnverifiedAppNavigator'
-import VerifiedAppNavigator from '_navigation/VerifiedAppNavigator'
+import AuthenticatedAppNavigator from '_navigation/AuthenticatedAppNavigator'
 import GuestAppNavigator from '_navigation/GuestAppNavigator'
 
 const App = () => {
@@ -43,11 +42,7 @@ const App = () => {
     return <AppLoading />
   }
 
-  // User is logged in and their email has been verified
-  if (User.verified(user)) return <VerifiedAppNavigator />
-
-  // User is logged in, but their email hasn't been verified
-  if (user) return <UnverifiedAppNavigator />
+  if (user) return <AuthenticatedAppNavigator />
 
   // User is not logged in
   return <GuestAppNavigator />

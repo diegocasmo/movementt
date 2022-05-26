@@ -31,21 +31,6 @@ export const update = createAsyncThunk('auth/update', async (attrs) => {
   return data
 })
 
-export const verify = createAsyncThunk('auth/verify', async () => {
-  const data = await User.verify()
-
-  return data
-})
-
-export const sendVerification = createAsyncThunk(
-  'auth/sendVerification',
-  async () => {
-    await User.sendVerification()
-
-    return null
-  }
-)
-
 export const reauthenticate = createAsyncThunk(
   'auth/reauthenticate',
   async (attrs) => {
@@ -137,18 +122,6 @@ export const slice = createSlice({
       state.data.status = REQUEST_STATUS.IDLE
     },
     [update.rejected]: (state) => {
-      state.data.status = REQUEST_STATUS.IDLE
-    },
-
-    // Confirm Verification
-    [verify.pending]: (state) => {
-      state.data.status = REQUEST_STATUS.PUT
-    },
-    [verify.fulfilled]: (state, { payload }) => {
-      state.data.user = payload
-      state.data.status = REQUEST_STATUS.IDLE
-    },
-    [verify.rejected]: (state) => {
       state.data.status = REQUEST_STATUS.IDLE
     },
   },
