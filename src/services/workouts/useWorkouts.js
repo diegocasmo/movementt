@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQueryClient } from 'react-query'
+import { useInfiniteQuery } from 'react-query'
 
 import { makeApiService } from '_api/client'
 import { MAX_PER_PAGE } from '_services/config/pagination'
@@ -8,15 +8,6 @@ const getWorkouts = makeApiService({
 })
 
 export const WORKOUTS_QUERY_KEY = ['workouts']
-
-export const useInvalidateWorkouts = () => {
-  const queryClient = useQueryClient()
-
-  return {
-    invalidateWorkouts: async () =>
-      queryClient.invalidateQueries(WORKOUTS_QUERY_KEY),
-  }
-}
 
 export const useWorkouts = () =>
   useInfiniteQuery(
