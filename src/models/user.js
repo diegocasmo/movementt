@@ -22,10 +22,6 @@ export const _firebaseUser = () => firebase.auth().currentUser
 export const onAuthStateChanged = (args) =>
   firebase.auth().onAuthStateChanged(args)
 
-// Notice Firebase automatically signs user in when their account is created
-export const signUp = async ({ email = '', password = '' }) =>
-  firebase.auth().createUserWithEmailAndPassword(email, password)
-
 export const signIn = async ({
   email = '',
   password = '',

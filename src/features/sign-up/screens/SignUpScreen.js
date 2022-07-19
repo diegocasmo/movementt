@@ -1,31 +1,24 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
-import { signUp } from '_state/reducers/auth'
+import { useSignUp } from '_services/users/useSignUp'
 import { showError } from '_utils/toast'
 
 const SignUpScreen = ({ navigation }) => {
-  const dispatch = useDispatch()
-  const [isSigningUp, setIsSigningUp] = useState(false)
+  const signUpMutation = useSignUp({
+    onError: (err) => {
+      showError(err.message)
+    },
+  })
 
   const handlePressOnSignIn = () => {
     navigation.navigate('SignIn')
   }
 
-  const handleSubmit = async (attrs) => {
-    setIsSigningUp(true)
-    try {
-      const action = await dispatch(signUp(attrs))
-      unwrapResult(action)
-    } catch (err) {
-      showError(err.message)
-    } finally {
-      setIsSigningUp(false)
-    }
+  const handleSubmit = (attrs) => {
+    signUpMutation.mutate(attrs)
   }
 
   return (
@@ -35,7 +28,7 @@ const SignUpScreen = ({ navigation }) => {
           style={styles.form}
           buttonText="Create Account"
           onSubmit={handleSubmit}
-          isSubmitting={isSigningUp}
+          isSubmitting={signUpMutation.isLoading}
           withPasswordConfirmation={true}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignIn}>

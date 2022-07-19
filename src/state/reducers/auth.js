@@ -3,12 +3,6 @@ import { User } from '_models'
 import { REQUEST_STATUS } from '_utils/request-utils'
 import { resetSession } from '_state/reducers/session'
 
-export const signUp = createAsyncThunk('auth/signUp', async (attrs) => {
-  await User.signUp(attrs)
-
-  return null
-})
-
 export const signIn = createAsyncThunk('auth/signIn', async (attrs) => {
   const data = await User.signIn(attrs)
 
@@ -78,17 +72,6 @@ export const slice = createSlice({
     },
   },
   extraReducers: {
-    // Sign Up
-    [signUp.pending]: (state) => {
-      state.data.status = REQUEST_STATUS.GET
-    },
-    [signUp.fulfilled]: (state) => {
-      state.data.status = REQUEST_STATUS.IDLE
-    },
-    [signUp.rejected]: (state) => {
-      state.data.status = REQUEST_STATUS.IDLE
-    },
-
     // Sign In
     [signIn.pending]: (state) => {
       state.data.status = REQUEST_STATUS.GET
