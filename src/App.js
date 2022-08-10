@@ -1,44 +1,37 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import AppLoading from 'expo-app-loading'
+import firebase from 'firebase'
 
 import { useAssets } from '_hooks/use-assets'
-import {
-  authStateChanged,
-  getUser,
-  isLoadingAuth,
-  signIn,
-  signOut,
-} from '_state/reducers/auth'
-import { User } from '_models'
+import { useAuth } from '_context/AuthContext'
 
 import AuthenticatedAppNavigator from '_navigation/AuthenticatedAppNavigator'
 import GuestAppNavigator from '_navigation/GuestAppNavigator'
 
 const App = () => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const loadingAuth = useSelector(isLoadingAuth)
-  const { loading: loadingAssets } = useAssets()
+  const { user, setIsLoading, isLoading, signIn, signOut } = useAuth()
+  const { isLoading: isLoadingAssets } = useAssets()
 
   // Listen to Firebase authentication state changes
   useEffect(() => {
-    const unsubscribe = User.onAuthStateChanged(async (firebaseUser) => {
-      if (firebaseUser) {
-        await dispatch(signIn({ apiOnly: true }))
-      } else {
-        await dispatch(signOut())
-      }
+    const unsubscribe = firebase
+      .auth()
+      .onAuthStateChanged(async (firebaseUser) => {
+        if (firebaseUser) {
+          await signIn.mutateAsync({ bodyParams: { apiOnly: true } })
+        } else {
+          await signOut.mutateAsync()
+        }
 
-      dispatch(authStateChanged())
-    })
+        setIsLoading(false)
+      })
 
     return () => {
       unsubscribe()
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (loadingAuth || loadingAssets) {
+  if (isLoading || isLoadingAssets) {
     return <AppLoading />
   }
 

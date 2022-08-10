@@ -3,7 +3,7 @@ import * as Font from 'expo-font'
 import { Ionicons } from '@expo/vector-icons'
 
 export const useAssets = () => {
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   // Load application assets
   useEffect(() => {
@@ -16,11 +16,11 @@ export const useAssets = () => {
         ...Ionicons.font,
       })
 
-      setLoading(false)
+      setIsLoading(false)
     }
 
     loadAssets()
   }, [])
 
-  return { loading }
+  return { isLoading }
 }
