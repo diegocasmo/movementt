@@ -1,29 +1,23 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
 import { showError } from '_utils/toast'
-import { signIn } from '_state/reducers/auth'
+import { useAuth } from '_context/AuthContext'
 
 const SignInScreen = ({ navigation }) => {
-  const dispatch = useDispatch()
-  const [isSigningIn, setIsSigningIn] = useState(false)
+  const { signIn } = useAuth()
 
   const handlePressOnSignUp = () => {
     navigation.navigate('SignUp')
   }
 
   const handleSubmit = async (attrs) => {
-    setIsSigningIn(true)
     try {
-      const action = await dispatch(signIn(attrs))
-      unwrapResult(action)
+      await signIn.mutateAsync({ bodyParams: attrs })
     } catch (err) {
-      setIsSigningIn(false)
-      showError(err.message)
+      showError(err)
     }
   }
 
@@ -38,7 +32,7 @@ const SignInScreen = ({ navigation }) => {
           style={styles.form}
           buttonText="Sign In"
           onSubmit={handleSubmit}
-          isSubmitting={isSigningIn}
+          isSubmitting={signIn.isLoading}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignUp}>
           First time here?&nbsp;

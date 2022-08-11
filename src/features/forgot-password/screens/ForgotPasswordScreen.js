@@ -1,37 +1,29 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Col, Container, Content, Form, Grid, Text } from 'native-base'
 import { Button } from '_components/ui'
-import { Formik, getIn } from 'formik'
+import { Formik } from 'formik'
 import { showError, showSuccess } from '_utils/toast'
 import { EmailField } from '_components/form'
 import * as Yup from 'yup'
-import { sendPasswordReset } from '_state/reducers/auth'
+import { useAuth } from '_context/AuthContext'
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required(),
 })
 
 const ForgotPasswordScreen = ({ navigation }) => {
-  const dispatch = useDispatch()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { sendPasswordReset } = useAuth()
 
   const onSubmit = async (values, { resetForm }) => {
-    setIsSubmitting(true)
     try {
-      const { email } = values
-      const action = await dispatch(sendPasswordReset(email))
-      unwrapResult(action)
+      await sendPasswordReset.mutateAsync({ bodyParams: values })
       resetForm()
       showSuccess('Password reset email successfully sent')
       navigation.navigate('SignIn')
     } catch (err) {
-      showError(err.message)
-    } finally {
-      setIsSubmitting(false)
+      showError(err)
     }
   }
 
@@ -68,7 +60,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 <Button
                   variant="block"
                   style={styles.button}
-                  isLoading={isSubmitting}
+                  isLoading={sendPasswordReset.isLoading}
                   onPress={handleSubmit}
                 >
                   Send Email

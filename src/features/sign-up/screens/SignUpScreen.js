@@ -3,22 +3,22 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content, Text } from 'native-base'
 import EmailAndPasswordForm from '_components/EmailAndPasswordForm'
-import { useSignUp } from '_services/users/useSignUp'
+import { useAuth } from '_context/AuthContext'
 import { showError } from '_utils/toast'
 
 const SignUpScreen = ({ navigation }) => {
-  const signUpMutation = useSignUp({
-    onError: (err) => {
-      showError(err.message)
-    },
-  })
+  const { signUp } = useAuth()
 
   const handlePressOnSignIn = () => {
     navigation.navigate('SignIn')
   }
 
-  const handleSubmit = (attrs) => {
-    signUpMutation.mutate(attrs)
+  const handleSubmit = async (attrs) => {
+    try {
+      await signUp.mutateAsync({ bodyParams: attrs })
+    } catch (err) {
+      showError(err)
+    }
   }
 
   return (
@@ -28,7 +28,7 @@ const SignUpScreen = ({ navigation }) => {
           style={styles.form}
           buttonText="Create Account"
           onSubmit={handleSubmit}
-          isSubmitting={signUpMutation.isLoading}
+          isSubmitting={signUp.isLoading}
           withPasswordConfirmation={true}
         />
         <Text style={styles.captionText} onPress={handlePressOnSignIn}>

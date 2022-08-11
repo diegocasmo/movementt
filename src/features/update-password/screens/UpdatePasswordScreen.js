@@ -1,28 +1,23 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import UpdatePasswordForm from '../components/UpdatePasswordForm'
 import { showError, showSuccess } from '_utils/toast'
-import { updatePassword } from '_state/reducers/auth'
+import { useAuth } from '_context/AuthContext'
 
 const UpdatePasswordScreen = ({ navigation }) => {
-  const dispatch = useDispatch()
-  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false)
+  const { updatePassword } = useAuth()
 
   const handleUpdatePassword = async ({ newPassword }) => {
-    setIsUpdatingPassword(true)
     try {
-      const action = await dispatch(updatePassword(newPassword))
-      unwrapResult(action)
+      await updatePassword.mutateAsync({
+        bodyParams: { password: newPassword },
+      })
       showSuccess('Your password has been successfully updated')
       navigation.popToTop()
     } catch (err) {
-      showError(err.message)
-    } finally {
-      setIsUpdatingPassword(false)
+      showError(err)
     }
   }
 
@@ -32,7 +27,7 @@ const UpdatePasswordScreen = ({ navigation }) => {
         <UpdatePasswordForm
           style={styles.form}
           onSubmit={handleUpdatePassword}
-          isSubmitting={isUpdatingPassword}
+          isSubmitting={updatePassword.isLoading}
         />
       </Content>
     </Container>

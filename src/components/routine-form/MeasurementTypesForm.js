@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { View } from 'native-base'
 import { Button, Icon } from '_components/ui'
-import { getUser } from '_state/reducers/auth'
 import { RoutineExercise } from '_models'
+import { useAuth } from '_context/AuthContext'
 
 const MeasurementTypesForm = ({ routineExercise, bag, disabled }) => {
-  const user = useSelector(getUser)
+  const { user } = useAuth()
 
   const isCategoryReps = RoutineExercise.isCategoryTypeReps(routineExercise)
   const isCategoryTime = RoutineExercise.isCategoryTypeTime(routineExercise)

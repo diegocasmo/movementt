@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import { View, Grid, Col } from 'native-base'
 import { getIn } from 'formik'
 import { IntegerField, DecimalInput } from '_components/form'
 import TimePicker from '_components/routine-form/pickers/TimePicker'
-import { getUser } from '_state/reducers/auth'
 import { getWeightUnitTypeLabel } from '_utils/units'
+import { useAuth } from '_context/AuthContext'
 
 const RepsRoutineExerciseForm = ({ bag, disabled }) => {
-  const user = useSelector(getUser)
+  const { user } = useAuth()
   const { errors, handleBlur, handleChange, touched, values } = bag
 
   return (

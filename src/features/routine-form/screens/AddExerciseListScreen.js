@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
 import { StyleSheet, Keyboard } from 'react-native'
 import { Container, Content, View } from 'native-base'
 import { Button } from '_components/ui'
 import ExerciseList from '_components/ExerciseList'
 import { useExercises } from '_services/exercises/useExercises'
 import { getExercises } from '_features/exercise-list/utils/getExercises'
-import { getUser } from '_state/reducers/auth'
+import { useAuth } from '_context/AuthContext'
 import { RoutineExercise } from '_models'
 
 const AddExerciseListScreen = ({
@@ -16,7 +15,7 @@ const AddExerciseListScreen = ({
     params: { prevSelected, prevScreenName, routineId },
   },
 }) => {
-  const user = useSelector(getUser)
+  const { user } = useAuth()
   const { data = [], isLoading } = useExercises()
   const [query, setQuery] = useState('')
   const [newlySelected, setNewlySelected] = useState([])

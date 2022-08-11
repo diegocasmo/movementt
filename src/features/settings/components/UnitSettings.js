@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
-import { useQueryClient } from 'react-query'
-import { useDispatch, useSelector } from 'react-redux'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { StyleSheet } from 'react-native'
 import { Body, Left, ListItem, Right, Separator, Text, View } from 'native-base'
 import { Button, Icon } from '_components/ui'
 import { UnitTypeForm } from './UnitTypeForm'
 import { showError } from '_utils/toast'
-import { ROUTINES_QUERY_KEY } from '_services/routines/useRoutines'
-import { getUser, update } from '_state/reducers/auth'
+import { useAuth } from '_context/AuthContext'
 import {
   DISTANCE_UNIT_TYPE_OPTS,
   WEIGHT_UNIT_TYPE_OPTS,
@@ -17,9 +13,7 @@ import {
 } from '_utils/units'
 
 export const UnitSettings = () => {
-  const dispatch = useDispatch()
-  const user = useSelector(getUser)
-  const queryClient = useQueryClient()
+  const { user, update } = useAuth()
 
   const [isWeightUnitVisible, setIsWeightUnitVisible] = useState(false)
   const [isDistanceUnitVisible, setIsDistanceUnitVisible] = useState(false)
@@ -30,14 +24,13 @@ export const UnitSettings = () => {
     setIsUpdatingWeightUnit(true)
 
     try {
-      const action = await dispatch(
-        update({ ...user, weight_unit_type: value })
-      )
-      unwrapResult(action)
-      await queryClient.invalidateQueries(ROUTINES_QUERY_KEY)
+      await update.mutateAsync({
+        pathParams: { id: user.id },
+        bodyParams: { ...user, weight_unit_type: value },
+      })
       setIsWeightUnitVisible(false)
     } catch (err) {
-      showError(err.message)
+      showError(err)
     } finally {
       setIsUpdatingWeightUnit(false)
     }
@@ -47,14 +40,13 @@ export const UnitSettings = () => {
     setIsUpdatingDistanceUnit(true)
 
     try {
-      const action = await dispatch(
-        update({ ...user, distance_unit_type: value })
-      )
-      unwrapResult(action)
-      await invalidateRoutines()
+      await update.mutateAsync({
+        pathParams: { id: user.id },
+        bodyParams: { ...user, distance_unit_type: value },
+      })
       setIsDistanceUnitVisible(false)
     } catch (err) {
-      showError(err.message)
+      showError(err)
     } finally {
       setIsUpdatingDistanceUnit(false)
     }

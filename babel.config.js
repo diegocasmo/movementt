@@ -28,6 +28,7 @@ module.exports = function (api) {
             _navigation: './src/navigation',
             _state: './src/state',
             _utils: './src/utils',
+            _context: './src/context',
           },
         },
       ],

@@ -52,7 +52,7 @@ export function makeApiService(serviceConfiguration) {
     transformRequest,
   } = serviceConfiguration
 
-  return async (requestConfig) => {
+  return async (requestConfig = {}) => {
     const { bodyParams, pathParams, queryParams } = requestConfig
 
     const url = path.replace(/\[(.*?)\]/g, (_, $1) => pathParams[$1])
