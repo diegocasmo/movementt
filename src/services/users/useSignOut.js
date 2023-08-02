@@ -1,7 +1,5 @@
-import firebase from 'firebase'
+import { getAuth, signOut } from 'firebase/auth'
 import { useMutation } from 'react-query'
 
 export const useSignOut = (options = {}) =>
-  useMutation(async () => {
-    return firebase.auth().signOut()
-  }, options)
+  useMutation(() => signOut(getAuth()), options)

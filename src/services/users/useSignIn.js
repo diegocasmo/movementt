@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useMutation } from 'react-query'
 
 import { makeApiService } from '_api/client'
@@ -13,7 +13,7 @@ export const useSignIn = (options = {}) =>
     const { email = '', password = '', apiOnly = false } = bodyParams
 
     if (!apiOnly) {
-      await firebase.auth().signInWithEmailAndPassword(email, password)
+      await signInWithEmailAndPassword(getAuth(), email, password)
     }
 
     return signIn()

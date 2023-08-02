@@ -1,13 +1,13 @@
-import firebase from 'firebase'
+import {
+  getAuth,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from 'firebase/auth'
 import { useMutation } from 'react-query'
 
 export const useReauthenticate = (options = {}) =>
   useMutation(({ bodyParams } = {}) => {
     const { email = '', password = '' } = bodyParams
-
-    return firebase
-      .auth()
-      .currentUser.reauthenticateWithCredential(
-        firebase.auth.EmailAuthProvider.credential(email, password)
-      )
+    const credential = EmailAuthProvider.credential(email, password)
+    return reauthenticateWithCredential(getAuth().currentUser, credential)
   }, options)

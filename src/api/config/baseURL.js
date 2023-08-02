@@ -4,7 +4,7 @@ const NODE_ENV = process.env.NODE_ENV
 export const baseURL = ((nodeEnv) => {
   switch (nodeEnv) {
     case 'production':
-      return 'https://movementt-api-dev.herokuapp.com'
+      return ''
 
     case 'development':
     default:

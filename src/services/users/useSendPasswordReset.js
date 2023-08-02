@@ -1,9 +1,9 @@
-import firebase from 'firebase'
+import { getAuth } from 'firebase/auth'
 import { useMutation } from 'react-query'
 
 export const useSendPasswordReset = (options = {}) =>
   useMutation(({ bodyParams } = {}) => {
     const { email = '' } = bodyParams
 
-    return firebase.auth().sendPasswordResetEmail(email)
+    return getAuth().sendPasswordResetEmail(email)
   }, options)

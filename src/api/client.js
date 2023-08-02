@@ -1,5 +1,5 @@
 import axios from 'axios'
-import firebase from 'firebase'
+import { getAuth } from 'firebase/auth'
 import { baseURL } from './config'
 
 const ApiClient = axios.create({
@@ -14,7 +14,7 @@ ApiClient.interceptors.request.use(
   async (config) => {
     try {
       let token = null
-      const currentUser = firebase.auth().currentUser
+      const currentUser = getAuth().currentUser
       if (currentUser) {
         token = await currentUser.getIdToken()
       }
@@ -37,7 +37,7 @@ ApiClient.interceptors.response.use(
   },
   async (error) => {
     if (error.response.status === 401) {
-      await firebase.auth().signOut()
+      await getAuth().signOut()
     }
 
     return Promise.reject(error)

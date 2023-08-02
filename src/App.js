@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import AppLoading from 'expo-app-loading'
-import firebase from 'firebase'
+import { getAuth } from 'firebase/auth'
 
 import { useAssets } from '_hooks/use-assets'
 import { useAuth } from '_context/AuthContext'
@@ -14,17 +14,15 @@ const App = () => {
 
   // Listen to Firebase authentication state changes
   useEffect(() => {
-    const unsubscribe = firebase
-      .auth()
-      .onAuthStateChanged(async (firebaseUser) => {
-        if (firebaseUser) {
-          await signIn.mutateAsync({ bodyParams: { apiOnly: true } })
-        } else {
-          await signOut.mutateAsync()
-        }
+    const unsubscribe = getAuth().onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser) {
+        await signIn.mutateAsync({ bodyParams: { apiOnly: true } })
+      } else {
+        await signOut.mutateAsync()
+      }
 
-        setIsLoading(false)
-      })
+      setIsLoading(false)
+    })
 
     return () => {
       unsubscribe()

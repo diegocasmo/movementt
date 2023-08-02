@@ -23,7 +23,7 @@
     "expo-font": "~10.0.4",
     "expo-speech": "~10.1.0",
     "expo-updates": "~0.11.7",
-    "firebase": "8.2.3",
+    "firebase": "10.1.0",
     "formik": "^2.2.9",
     "moment": "^2.29.4",
     "native-base": "^2.15.2",
