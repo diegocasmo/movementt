@@ -7,7 +7,7 @@ import { showError } from '_utils/toast'
 import { useAuth } from '_context/AuthContext'
 
 const ReauthenticateScreen = ({ navigation }) => {
-  const { reauthenticate } = useAuth()
+  const { reauthenticate, user } = useAuth()
 
   const handleReAuthenticate = async (values, { resetForm }) => {
     try {
@@ -23,6 +23,7 @@ const ReauthenticateScreen = ({ navigation }) => {
     <Container>
       <Content padder>
         <EmailAndPasswordForm
+          email={user.email}
           style={styles.form}
           buttonText="Sign In"
           onSubmit={handleReAuthenticate}

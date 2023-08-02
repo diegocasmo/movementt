@@ -33,6 +33,7 @@ const EmailAndPasswordForm = ({ style, isSubmitting, onSubmit }) => {
                   label="New Password"
                   name="newPassword"
                   style={styles.input}
+                  autoFocus={true}
                 />
               </Col>
             </Grid>

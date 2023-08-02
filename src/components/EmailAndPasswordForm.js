@@ -21,6 +21,7 @@ const buildValidationSchema = (withPasswordConfirmation) =>
   })
 
 const EmailAndPasswordForm = ({
+  email,
   style,
   buttonText,
   isSubmitting,
@@ -30,8 +31,8 @@ const EmailAndPasswordForm = ({
   return (
     <Formik
       initialValues={{
-        email: '',
         password: '',
+        email,
         ...(withPasswordConfirmation && { passwordConfirmation: '' }),
       }}
       validationSchema={buildValidationSchema(withPasswordConfirmation)}
@@ -44,13 +45,22 @@ const EmailAndPasswordForm = ({
 
             <Grid>
               <Col>
-                <EmailField label="Email" name="email" autoFocus={true} />
+                <EmailField
+                  label="Email"
+                  name="email"
+                  autoFocus={!email}
+                  disable={!!email}
+                />
               </Col>
             </Grid>
 
             <Grid>
               <Col>
-                <PasswordField label="Password" name="password" />
+                <PasswordField
+                  label="Password"
+                  name="password"
+                  autoFocus={!!email}
+                />
               </Col>
             </Grid>
 
@@ -82,13 +92,15 @@ const EmailAndPasswordForm = ({
 
 EmailAndPasswordForm.defaultProps = {
   withPasswordConfirmation: false,
+  email: '',
 }
 
 EmailAndPasswordForm.propTypes = {
-  style: PropTypes.object,
   buttonText: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  email: PropTypes.string,
   isSubmitting: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  style: PropTypes.object,
   withPasswordConfirmation: PropTypes.bool,
 }
 
